@@ -1,6 +1,7 @@
 package model.TileSubsystem.Tiles;
 
 import model.TileSubsystem.Terrains.Sea;
+import model.TileSubsystem.Visitor.TileVisitor;
 
 /**
  * Created by hankerins on 3/26/17.
@@ -8,5 +9,10 @@ import model.TileSubsystem.Terrains.Sea;
 public class SeaTile extends Tile {
     public SeaTile(Sea sea){
         this.terrain = sea;
+    }
+
+    @Override
+    protected void accept(TileVisitor v) {
+        v.visitSeaTile(this);
     }
 }

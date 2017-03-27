@@ -3,6 +3,7 @@ package model.TileSubsystem.Tiles;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.Terrain;
+import model.TileSubsystem.Visitor.TileVisitor;
 
 import javax.smartcardio.Card;
 import java.util.ArrayList;
@@ -14,6 +15,5 @@ public abstract class Tile {
     protected CardinalDirection[] halfEdges = CardinalDirection.values();
     protected Terrain terrain;
     protected ArrayList<Sector> sectors;
-
-
+    protected abstract void accept(TileVisitor v);
 }
