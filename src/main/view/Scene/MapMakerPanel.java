@@ -1,5 +1,6 @@
 package view.Scene;
 
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
 import view.Panel;
@@ -12,17 +13,23 @@ import view.assets.AssetManager;
 import java.awt.*;
 
 public class MapMakerPanel extends Panel {
+
+    private static final int BOARD_SIZE = 21;
+    private Point screenDimension = new Point(0,0);
+    private Group root;
+
+
     private BottomPanel bottomPanel;
     private FilePanel filePanel;
     private MapPanel mapPanel;
 
-    public MapMakerPanel(Game game, AssetManager assets, ViewEnum gameMode){
+    public MapMakerPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root){
         super(game, assets, gameMode);
-
+        filePanel = new FilePanel(game, assets,gameMode,root);
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){
-        
+        filePanel.draw(gc, screenDimension);
     }
 
     public void hideGUIElements(){
@@ -30,6 +37,6 @@ public class MapMakerPanel extends Panel {
     }
 
     public void showGUIElements(){
-
+        filePanel.showGUIElements();
     }
 }
