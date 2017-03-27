@@ -12,7 +12,7 @@ public class LandTile extends Tile {
     }
 
     @Override
-    protected void accept(TileVisitor v) {
+    public void accept(TileVisitor v) {
         v.visitLandTile(this);
     }
 }

@@ -11,7 +11,7 @@ public class Woods extends Terrain {
     private Woods(){}
 
     @Override
-    protected void accept(TileVisitor v) {
+    public void accept(TileVisitor v) {
         v.visitWoods(this);
     }
 }

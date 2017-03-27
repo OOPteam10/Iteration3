@@ -11,7 +11,7 @@ public class Desert extends Terrain {
     private Desert(){}
 
     @Override
-    protected void accept(TileVisitor v) {
+    public void accept(TileVisitor v) {
         v.visitDesert(this);
     }
 }

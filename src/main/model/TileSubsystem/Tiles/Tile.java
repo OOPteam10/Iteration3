@@ -15,5 +15,6 @@ public abstract class Tile {
     protected CardinalDirection[] halfEdges = CardinalDirection.values();
     protected Terrain terrain;
     protected ArrayList<Sector> sectors;
-    protected abstract void accept(TileVisitor v);
+    public abstract void accept(TileVisitor v);
+    public Terrain getTerrain(){return terrain;}
 }
