@@ -13,18 +13,27 @@ import model.TileSubsystem.Tiles.Tile;
 /**
  * Created by rishabh on 26/03/17.
  */
-public class MapMakerControl {
+public class MapMakerControl implements ControlHandler{
 
+    //represents state of MapMakerControl
     private MMCState mmcState;
+
     private Terrain currentTerrain;
     private Tile tile;
     private Map map;
     private Location location;
 
+
+
+    private static MapMakerControl instance = new MapMakerControl();
+    public static MapMakerControl getInstance(){return instance;}
+
+
     public Tile getTile() {return tile;}
     public void setTile(Tile tile) {this.tile = tile;}
 
-    public MapMakerControl(Map map){
+    //constructor
+    private MapMakerControl(Map map){
         mmcState = TerrainMMCState.getInstance();
         this.map = map;
         location = new Location(0, 0, 0);
@@ -41,8 +50,8 @@ public class MapMakerControl {
     public void right(){
         mmcState.right();
     }
-    public void select(){
-        mmcState.select(this);
+    public void select(Controller controller){
+        controller.getControlHandler().getMmcState().select(this);
     }
     public void moveNW(){
         location.addZ(1);
