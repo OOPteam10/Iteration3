@@ -9,25 +9,30 @@ import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Terrains.Desert;
 import model.TileSubsystem.Terrains.Terrain;
 import model.TileSubsystem.Tiles.Tile;
+import utilities.TileEditor;
 
 /**
  * Created by rishabh on 26/03/17.
  */
-public class MapMakerControl {
+public class MapMakerControl implements ControlHandler{
 
+    //represents state of MapMakerControl
     private MMCState mmcState;
+
     private Terrain currentTerrain;
-    private Tile tile;
-    private Map map;
+    //private Tile tile;
+    //private Map map;
     private Location location;
 
-    public Tile getTile() {return tile;}
-    public void setTile(Tile tile) {this.tile = tile;}
+    //public Tile getTile() {return tile;}
+    //public void setTile(Tile tile) {this.tile = tile;}
 
+    //constructor
     public MapMakerControl(Map map){
         mmcState = TerrainMMCState.getInstance();
-        this.map = map;
+        //this.map = map;
         location = new Location(0, 0, 0);
+        TileEditor.getInstance().setLocation(location);
     }
 
     public MMCState getMmcState() {return mmcState;}
@@ -41,6 +46,10 @@ public class MapMakerControl {
     public void right(){
         mmcState.right();
     }
+    public void select(Controller controller){
+        controller.getControlHandler().getMmcState().select(this);
+    }
+
     public void select(){
         mmcState.select(this);
     }
@@ -63,8 +72,15 @@ public class MapMakerControl {
         location.addZ(-1);
     }
 
-    //TODO: actually have checks to see if Tile can go on map
-    public void addTileToMap(){
-        map.addTile(tile, location);
+    //TESTING ONLY
+    public void printState(){
+        System.out.println("Location: " + location.toString() +
+                "State: " + mmcState.toString() + "Substate: ");
+        mmcState.printSubState();
+
     }
+    //public void addTileToMap(){
+        //map.addTile(tile, location);
+    //}
+
 }

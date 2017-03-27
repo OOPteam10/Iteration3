@@ -24,4 +24,8 @@ public class WoodsState implements TerrainMMCSubState{
         context.setCurrentTerrain(Woods.getInstance());
         context.setMmcState(RiverMMCState.getInstance());
     }
+    //for testing
+    public String toString(){
+        return "woods";
+    }
 }

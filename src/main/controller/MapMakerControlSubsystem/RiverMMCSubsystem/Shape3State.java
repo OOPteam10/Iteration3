@@ -28,5 +28,9 @@ public class Shape3State implements RiverMMCSubState {
         context.setMmcState(OrientationMMCState.getInstance(
                 new NormalRiver(CardinalDirection.NNE, CardinalDirection.SSW)));
     }
+    //for testing
+    public String toString(){
+        return "shape 3";
+    }
 
 }
