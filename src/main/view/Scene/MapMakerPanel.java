@@ -26,10 +26,12 @@ public class MapMakerPanel extends Panel {
     public MapMakerPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root){
         super(game, assets, gameMode);
         filePanel = new FilePanel(game, assets,gameMode,root);
+        mapPanel = new MapPanel(game, assets,gameMode, root);
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){
         filePanel.draw(gc, screenDimension);
+        mapPanel.draw(gc, screenDimension);
     }
 
     public void hideGUIElements(){
