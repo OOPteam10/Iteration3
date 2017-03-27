@@ -45,16 +45,43 @@ public class MapPanel extends Panel{
 
         Map map = new Map();
         map.addTile(mountainTile, l1);
+        map.addTile(mountainTile, l2);
+        map.addTile(mountainTile, l3);
+        map.addTile(mountainTile, l4);
+        map.addTile(mountainTile, l5);
 
         return map.getMap();
     }
 
 
     public void draw(GraphicsContext gc, Point screenDimension){
+        int i = 0;
         for(Object o:gameMap.keySet()){
             Location l = (Location)o;
-            drawTile(gc, new Point(l.getX()*115, l.getZ()*100),2);
+            drawTile(gc, new Point(l.getX(), l.getZ()), i%4);
+            i++;
         }
+    }
+
+    //TODO: integrate the offsets to a Camera class
+    //TODO: Change the size of the new/save/load icons, do somehting on the ui design
+    //TODO: Background picture should be a hexagon grid
+
+    public Point offset(Point p) {
+        Point offsetTile = new Point();
+        Point offset = new Point(1024/2-85,768/2-100);
+        offsetTile.x = getPixelLocation(p).x + offset.x;
+        offsetTile.y = getPixelLocation(p).y + offset.y;
+        return offsetTile;
+    }
+
+    public Point getPixelLocation(Point tile) {
+        Point pixelLocation = new Point();
+        int HEX_W = 115;
+        int HEX_H = 100;
+        pixelLocation.x = (int)(0.75f * HEX_W * tile.x);
+        pixelLocation.y = (int)(HEX_H * (tile.x * 0.5f + tile.y));
+        return pixelLocation;
     }
 
     public void drawTile(GraphicsContext gc, Point p, int type){
@@ -62,19 +89,19 @@ public class MapPanel extends Panel{
         switch(type){
             case 0:
                 image = assets.getImage("GRASS_TILE");
-                gc.drawImage(image, p.x, p.y);
+                gc.drawImage(image, offset(p).x, offset(p).y);
                 break;
             case 1:
                 image = assets.getImage("SEA_TILE");
-                gc.drawImage(image, p.x, p.y);
+                gc.drawImage(image, offset(p).x, offset(p).y);
                 break;
             case 2:
                 image = assets.getImage("MOUNTAIN_TILE");
-                gc.drawImage(image, p.x, p.y);
+                gc.drawImage(image, offset(p).x, offset(p).y);
                 break;
             case 3:
                 image = assets.getImage("ROCK_TILE");
-                gc.drawImage(image, p.x, p.y);
+                gc.drawImage(image, offset(p).x, offset(p).y);
                 break;
             default:
                 break;
