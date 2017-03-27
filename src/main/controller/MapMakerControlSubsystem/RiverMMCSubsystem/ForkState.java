@@ -32,4 +32,9 @@ public class ForkState implements RiverMMCSubState {
                 new ForkedRiver(CardinalDirection.NNE, CardinalDirection.SE, CardinalDirection.WSW)));
     }
 
+    //for testing
+    public String toString(){
+        return "fork";
+    }
+
 }

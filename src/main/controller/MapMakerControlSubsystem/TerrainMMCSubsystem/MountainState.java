@@ -25,4 +25,8 @@ public class MountainState implements TerrainMMCSubState{
         context.setCurrentTerrain(Mountains.getInstance());
         context.setMmcState(RiverMMCState.getInstance());
     }
+    //for testing
+    public String toString(){
+        return "mountain";
+    }
 }

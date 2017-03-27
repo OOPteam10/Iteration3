@@ -30,5 +30,9 @@ public class SourceState implements RiverMMCSubState {
         context.setMmcState(OrientationMMCState.getInstance(
                 new SourceRiver(CardinalDirection.NNE)));
     }
+    //for testing
+    public String toString(){
+        return "source";
+    }
 
 }

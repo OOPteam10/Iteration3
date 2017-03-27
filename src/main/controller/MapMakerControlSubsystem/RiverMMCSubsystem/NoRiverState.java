@@ -31,5 +31,9 @@ public class NoRiverState implements RiverMMCSubState {
         context.addTileToMap();
         context.setMmcState(TerrainMMCState.getInstance());
     }
+    //for testing
+    public String toString(){
+        return "no river";
+    }
 
 }

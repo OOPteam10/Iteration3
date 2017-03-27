@@ -34,4 +34,13 @@ public class RiverMMCState implements MMCState {
         riverMMCSubState.select(context);
         riverMMCSubState = Shape1State.getInstance();
     }
+
+    //For testing
+    public void printSubState(){
+        System.out.println("River " + riverMMCSubState.toString() + "\n");
+    }
+    //for testing
+    public String toString(){
+        return "river state";
+    }
 }
