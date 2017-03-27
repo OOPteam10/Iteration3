@@ -8,6 +8,7 @@ import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
+import utilities.TileEditor;
 
 /**
  * Created by hankerins on 3/27/17.
@@ -27,8 +28,10 @@ public class NoRiverState implements RiverMMCSubState {
         subContext.setSubState(Shape1State.getInstance());
     }
     public void select(MapMakerControl context){
-        context.setTile(new LandTile(context.getCurrentTerrain()));
-        context.addTileToMap();
+        //context.setTile(new LandTile(context.getCurrentTerrain()));
+        //context.addTileToMap();
+        TileEditor.getInstance().createLandTile(context.getCurrentTerrain());
+        TileEditor.getInstance().commit();
         context.setMmcState(TerrainMMCState.getInstance());
     }
     //for testing

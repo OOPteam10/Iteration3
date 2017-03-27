@@ -50,9 +50,9 @@ public class TileEditor implements Editor{
         tile = new LandTile(terrain);
     }
 
-    public void createRiverTile(Terrain terrain, River river){
+    public void createRiverTile(River river){
         prevTile = tile;
-        tile = new RiverTile(terrain, river);
+        tile = new RiverTile(tile.getTerrain(), river);
     }
 
     public void createSeaTile(){
@@ -89,6 +89,7 @@ public class TileEditor implements Editor{
         return false;
     }
 
+    //TODO
     @Override
     public void discard() {
         tile = prevTile;
