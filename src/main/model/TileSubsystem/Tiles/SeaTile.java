@@ -6,7 +6,7 @@ import model.TileSubsystem.Terrains.Sea;
  * Created by hankerins on 3/26/17.
  */
 public class SeaTile extends Tile {
-    SeaTile(Sea sea){
+    public SeaTile(Sea sea){
         this.terrain = sea;
     }
 }

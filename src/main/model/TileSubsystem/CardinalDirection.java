@@ -22,4 +22,16 @@ public enum CardinalDirection {
     CardinalDirection(int degree){
         this.degree = degree;
     }
+
+    public CardinalDirection next(){
+        int i = this.ordinal() + 1;
+        i %= values().length;
+        return values()[i];
+    }
+    public CardinalDirection previous(){
+        int i = this.ordinal() - 1;
+        i += values().length;
+        i %= values().length;
+        return values()[i];
+    }
 }

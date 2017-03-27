@@ -10,7 +10,8 @@ public class RiverTile extends LandTile {
 
     River river;
 
-    RiverTile(Terrain terrain){
+    public RiverTile(Terrain terrain, River river){
         super(terrain);
+        this.river = river;
     }
 }
