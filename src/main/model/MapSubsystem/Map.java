@@ -36,4 +36,8 @@ public class Map {
         }
         return adjacentTiles;
     }
+
+    public HashMap<Location, Tile> getMap(){
+        return tiles;
+    }
 }

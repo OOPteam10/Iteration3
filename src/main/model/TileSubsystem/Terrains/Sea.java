@@ -11,7 +11,7 @@ public class Sea extends Terrain {
     private Sea(){}
 
     @Override
-    protected void accept(TileVisitor v) {
+    public void accept(TileVisitor v) {
         v.visitSea(this);
     }
 }

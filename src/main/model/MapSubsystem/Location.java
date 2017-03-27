@@ -29,6 +29,10 @@ public class Location {
         z += i;
     }
 
+    public int getX(){return this.x;}
+    public int getY(){return this.y;}
+    public int getZ(){return this.z;}
+
     public boolean equals(Object o)
     {
         if(!(o instanceof Location))

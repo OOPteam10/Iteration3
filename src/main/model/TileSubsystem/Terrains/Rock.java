@@ -11,7 +11,7 @@ public class Rock extends Terrain {
     private Rock(){}
 
     @Override
-    protected void accept(TileVisitor v) {
+    public void accept(TileVisitor v) {
         v.visitRock(this);
     }
 }

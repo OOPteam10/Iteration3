@@ -17,7 +17,7 @@ public class RiverTile extends LandTile {
     }
 
     @Override
-    protected void accept(TileVisitor v) {
+    public void accept(TileVisitor v) {
         v.visitRiverTile(this);
     }
 }
