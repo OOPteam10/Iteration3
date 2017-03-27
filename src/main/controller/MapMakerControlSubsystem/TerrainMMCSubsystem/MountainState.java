@@ -5,6 +5,7 @@ import controller.MapMakerControlSubsystem.RiverMMCState;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
 import model.TileSubsystem.Terrains.Mountains;
 import model.TileSubsystem.Terrains.Pasture;
+import utilities.TileEditor;
 
 /**
  * Created by rishabh on 26/03/17.
@@ -22,6 +23,7 @@ public class MountainState implements TerrainMMCSubState{
         subContext.setSubState(PastureState.getInstance());
     }
     public void select(MapMakerControl context){
+        TileEditor.getInstance().createLandTile(Mountains.getInstance());
         context.setCurrentTerrain(Mountains.getInstance());
         context.setMmcState(RiverMMCState.getInstance());
     }

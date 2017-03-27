@@ -11,7 +11,7 @@ public class CommandLineControl {
     public static void main(String args[]){
 
         Map map = new Map();
-        MapMakerControl mmc = new MapMakerControl(map);
+        MapMakerControl mmc = new MapMakerControl();
 
         while(true){
             debugMenu(mmc);

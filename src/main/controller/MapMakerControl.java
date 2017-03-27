@@ -28,7 +28,7 @@ public class MapMakerControl implements ControlHandler{
     //public void setTile(Tile tile) {this.tile = tile;}
 
     //constructor
-    public MapMakerControl(Map map){
+    public MapMakerControl(){
         mmcState = TerrainMMCState.getInstance();
         //this.map = map;
         location = new Location(0, 0, 0);
