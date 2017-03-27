@@ -8,8 +8,10 @@ import java.util.ArrayList;
 public class Sector {
     ArrayList<CardinalDirection> halfEdges;
     Sector(CardinalDirection start, CardinalDirection finish){
-        for(int i = start.ordinal(); i <= finish.ordinal(); i++){
-            halfEdges.add(CardinalDirection.values()[i]);
+        halfEdges.add(start);
+        while (start != finish){
+            start = start.next();
+            halfEdges.add(start);
         }
     }
 }
