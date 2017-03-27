@@ -16,8 +16,11 @@ public class Controller extends KeyAdapter{
     private Vector<Integer> activeKeys;
     private Map map;
 
-    public Controller(){
+    public Controller(Map map){
         //init with the MapMakerControl state
+        
+        activeKeys = new Vector<Integer>();
+        this.map = map;
         controlHandler = new MapMakerControl(map);
     }
 
