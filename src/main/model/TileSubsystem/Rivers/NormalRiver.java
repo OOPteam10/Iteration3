@@ -10,8 +10,8 @@ import javax.smartcardio.Card;
  */
 public class NormalRiver extends River {
     public NormalRiver(CardinalDirection edge1, CardinalDirection edge2){
-        edges.add(edge1);
-        edges.add(edge2);
+        addEdge(edge1);
+        addEdge(edge2);
     }
 
     @Override

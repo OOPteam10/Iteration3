@@ -8,7 +8,7 @@ import model.TileSubsystem.Visitor.TileVisitor;
  */
 public class SourceRiver extends River {
     public SourceRiver(CardinalDirection edge1){
-        edges.add(edge1);
+        addEdge(edge1);
     }
 
     @Override

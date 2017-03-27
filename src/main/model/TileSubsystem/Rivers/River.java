@@ -10,13 +10,21 @@ import java.util.ArrayList;
  *
  */
 public abstract class River {
-    protected ArrayList<CardinalDirection> edges;
+    private ArrayList<CardinalDirection> edges = new ArrayList<CardinalDirection>();
 
     public void rotate(int offset){
         for(CardinalDirection cd: edges){
             cd = cd.next();
             cd = cd.next();
         }
+    }
+
+    public ArrayList<CardinalDirection> getEdges() {
+        return edges;
+    }
+
+    public void addEdge(CardinalDirection edge) {
+        edges.add(edge);
     }
 
     abstract protected void accept(TileVisitor v);
