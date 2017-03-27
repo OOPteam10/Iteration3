@@ -10,6 +10,10 @@ import java.util.HashMap;
 public class Map {
     HashMap<Location, Tile> tiles;
 
+    public Map(){
+        tiles = new HashMap<Location, Tile>();
+    }
+
     public boolean addTile(Tile tile, Location location){
         if(tiles.containsKey(location))
             return false;
