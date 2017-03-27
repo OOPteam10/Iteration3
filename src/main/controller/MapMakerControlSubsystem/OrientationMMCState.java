@@ -27,16 +27,12 @@ public class OrientationMMCState implements MMCState {
     }
 
     public void left(){
-        offset--;
-        offset += 6;
-        offset %= 6;
+        currentRiver.rotate(-1);
     }
     public void right(){
-        offset++;
-        offset %= 6;
+        currentRiver.rotate(1);
     }
     public void select(MapMakerControl context){
-        currentRiver.rotate(offset);
         context.setTile(new RiverTile(context.getCurrentTerrain(), currentRiver));
         context.addTileToMap();
         context.setMmcState(TerrainMMCState.getInstance());
