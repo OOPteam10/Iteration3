@@ -27,6 +27,10 @@ public class Assets {
         loadItem("MOUNTAIN_TILE", "Assets/MountainTile.png");
         loadItem("ROCK_TILE", "Assets/RockTile.png");
         loadItem("SEA_TILE", "Assets/SeaTile.png");
+        loadItem("NEW_MAP_BUTTON", "Assets/NewFileButton.png");
+        loadItem("FILE_SAVE_BUTTON", "Assets/SaveFileButton.png");
+        loadItem("FILE_LOAD_BUTTON", "Assets/LoadFileButton.png");
+        loadItem("START_GAME_BUTTON", "Assets/StartGameButton.png");
     }
 
     public void loadItem(String name, String path){

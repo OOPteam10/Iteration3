@@ -27,7 +27,7 @@ public class GameEngine extends Application {
 
         game = new Game();
         controller = new Controller();
-        view = new View();
+        view = new View(game, scene, root);
 
         new AnimationTimer() {
             @Override
@@ -35,7 +35,7 @@ public class GameEngine extends Application {
                 frameCounter++;
                 if (frameCounter == 2) { //Limit FPS to 30
                     frameCounter = 0;
-
+                    view.renderGame();
                 }
 
             }
