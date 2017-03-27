@@ -1,6 +1,7 @@
 package model.TileSubsystem.Rivers;
 
 import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.Visitor.TileVisitor;
 
 import javax.smartcardio.Card;
 
@@ -11,5 +12,10 @@ public class NormalRiver extends River {
     public NormalRiver(CardinalDirection edge1, CardinalDirection edge2){
         edges.add(edge1);
         edges.add(edge2);
+    }
+
+    @Override
+    protected void accept(TileVisitor v) {
+        v.visitNormalRiver(this);
     }
 }

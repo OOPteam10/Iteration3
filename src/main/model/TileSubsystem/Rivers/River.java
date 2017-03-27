@@ -1,6 +1,7 @@
 package model.TileSubsystem.Rivers;
 
 import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.Visitor.TileVisitor;
 
 import java.util.ArrayList;
 
@@ -10,10 +11,13 @@ import java.util.ArrayList;
  */
 public abstract class River {
     protected ArrayList<CardinalDirection> edges;
+
     public void rotate(int offset){
         for(CardinalDirection cd: edges){
             cd = cd.next();
             cd = cd.next();
         }
     }
+
+    abstract protected void accept(TileVisitor v);
 }
