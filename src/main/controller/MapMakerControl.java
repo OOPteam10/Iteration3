@@ -25,15 +25,13 @@ public class MapMakerControl implements ControlHandler{
 
 
 
-    private static MapMakerControl instance = new MapMakerControl();
-    public static MapMakerControl getInstance(){return instance;}
 
 
     public Tile getTile() {return tile;}
     public void setTile(Tile tile) {this.tile = tile;}
 
     //constructor
-    private MapMakerControl(Map map){
+    public MapMakerControl(Map map){
         mmcState = TerrainMMCState.getInstance();
         this.map = map;
         location = new Location(0, 0, 0);

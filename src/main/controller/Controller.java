@@ -18,7 +18,7 @@ public class Controller extends KeyAdapter{
 
     public Controller(){
         //init with the MapMakerControl state
-        controlHandler = MapMakerControl.getInstance();
+        controlHandler = new MapMakerControl(map);
     }
 
 
