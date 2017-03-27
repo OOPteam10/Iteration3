@@ -4,6 +4,7 @@ import controller.MapMakerControl;
 import controller.MapMakerControlSubsystem.RiverMMCState;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
 import model.TileSubsystem.Terrains.Rock;
+import utilities.TileEditor;
 
 /**
  * Created by rishabh on 26/03/17.
@@ -20,6 +21,7 @@ public class RockState implements TerrainMMCSubState{
         subContext.setSubState(SeaState.getInstance());
     }
     public void select(MapMakerControl context){
+        TileEditor.getInstance().createLandTile(Rock.getInstance());
         context.setCurrentTerrain(Rock.getInstance());
         context.setMmcState(RiverMMCState.getInstance());
     }

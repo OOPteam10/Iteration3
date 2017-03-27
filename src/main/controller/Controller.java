@@ -14,11 +14,13 @@ public class Controller extends KeyAdapter{
     private ControlHandler controlHandler;
 
     private Vector<Integer> activeKeys;
-    private Map map;
 
     public Controller(){
         //init with the MapMakerControl state
-        controlHandler = new MapMakerControl(map);
+        
+        activeKeys = new Vector<Integer>();
+
+        controlHandler = new MapMakerControl();
     }
 
 
