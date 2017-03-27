@@ -1,5 +1,7 @@
 package model.TileSubsystem.Tiles;
 
+import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.Terrain;
 import model.TileSubsystem.Visitor.TileVisitor;
 
@@ -8,11 +10,18 @@ import model.TileSubsystem.Visitor.TileVisitor;
  */
 public class LandTile extends Tile {
     public LandTile(Terrain terrain){
-        this.terrain = terrain;
+        setTerrain(terrain);
+        setSectors();
     }
 
     @Override
     public void accept(TileVisitor v) {
         v.visitLandTile(this);
+    }
+
+    @Override
+    public void setSectors() {
+        Sector sector = new Sector(CardinalDirection.NNE, CardinalDirection.NNW);
+        addSector(sector);
     }
 }
