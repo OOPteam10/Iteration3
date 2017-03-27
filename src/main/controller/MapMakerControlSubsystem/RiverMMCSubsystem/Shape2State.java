@@ -25,8 +25,12 @@ public class Shape2State implements RiverMMCSubState {
         subContext.setSubState(Shape3State.getInstance());
     }
     public void select(MapMakerControl context){
-            context.setMmcState(OrientationMMCState.getInstance(
-                    new NormalRiver(CardinalDirection.NNE, CardinalDirection.SE)));
-        }
+        context.setMmcState(OrientationMMCState.getInstance(
+                new NormalRiver(CardinalDirection.NNE, CardinalDirection.SE)));
+    }
+    //for testing
+    public String toString(){
+        return "shape 2";
+    }
 
 }

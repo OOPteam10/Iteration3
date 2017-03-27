@@ -1,7 +1,6 @@
 package controller.MapMakerControlSubsystem;
 
 import controller.MapMakerControl;
-import controller.MapMakerControlSubsystem.OrientationMMCSubsystem.OrientationMMCSubState;
 import controller.MapMakerControlSubsystem.TerrainMMCSubsystem.DesertState;
 import controller.MapMakerControlSubsystem.TerrainMMCSubsystem.TerrainMMCSubState;
 import model.TileSubsystem.CardinalDirection;
@@ -41,5 +40,14 @@ public class OrientationMMCState implements MMCState {
         context.setTile(new RiverTile(context.getCurrentTerrain(), currentRiver));
         context.addTileToMap();
         context.setMmcState(TerrainMMCState.getInstance());
+    }
+
+    //For testing
+    public void printSubState(){
+        System.out.println("offset " + offset + "\n");
+    };
+    //for testing
+    public String toString(){
+        return "orientation";
     }
 }

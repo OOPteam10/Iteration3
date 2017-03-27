@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 public abstract class River {
-    protected ArrayList<CardinalDirection> edges;
+    protected ArrayList<CardinalDirection> edges = new ArrayList<CardinalDirection>();
     public void rotate(int offset){
         for(CardinalDirection cd: edges){
             cd = cd.next();

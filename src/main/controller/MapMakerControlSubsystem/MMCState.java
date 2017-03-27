@@ -10,4 +10,9 @@ public interface MMCState {
     public void right();
     public void select(MapMakerControl context);
 
+    //For testing
+    public void printSubState();
+    public String toString();
+
+
 }

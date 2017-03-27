@@ -54,4 +54,9 @@ public class Location {
         adjacents.add(new Location(x, y, z-1));
     return adjacents;
     }
+
+    //For debugging only
+    public String toString(){
+        return "(" + x + ", " + y + ", " + z + ")";
+    }
 }

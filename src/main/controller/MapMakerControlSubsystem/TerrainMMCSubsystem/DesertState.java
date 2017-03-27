@@ -25,4 +25,8 @@ public class DesertState implements TerrainMMCSubState {
         context.setCurrentTerrain(Desert.getInstance());
         context.setMmcState(RiverMMCState.getInstance());
     }
+    //for testing
+    public String toString(){
+        return "desert";
+    }
 }

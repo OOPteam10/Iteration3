@@ -31,4 +31,13 @@ public class TerrainMMCState implements MMCState {
         terrainMMCSubState.select(context);
         terrainMMCSubState = DesertState.getInstance();
     }
+
+    //For testing
+    public void printSubState(){
+        System.out.println("Terrain " + terrainMMCSubState.toString() + "\n");
+    }
+    //for testing
+    public String toString(){
+        return "terrain";
+    }
 }
