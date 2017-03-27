@@ -25,4 +25,8 @@ public class SeaState implements TerrainMMCSubState{
         context.setTile(new SeaTile(Sea.getInstance()));
         context.addTileToMap();
     }
+    //for testing
+    public String toString(){
+        return "sea";
+    }
 }

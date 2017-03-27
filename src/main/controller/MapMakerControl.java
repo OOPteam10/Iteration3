@@ -51,6 +51,10 @@ public class MapMakerControl implements ControlHandler{
     public void select(Controller controller){
         controller.getControlHandler().getMmcState().select(this);
     }
+
+    public void select(){
+        mmcState.select(this);
+    }
     public void moveNW(){
         location.addZ(1);
     }
@@ -73,5 +77,14 @@ public class MapMakerControl implements ControlHandler{
     //TODO: actually have checks to see if Tile can go on map
     public void addTileToMap(){
         map.addTile(tile, location);
+    }
+
+
+    //TESTING ONLY
+    public void printState(){
+        System.out.println("Location: " + location.toString() +
+                "State: " + mmcState.toString() + "Substate: ");
+        mmcState.printSubState();
+
     }
 }

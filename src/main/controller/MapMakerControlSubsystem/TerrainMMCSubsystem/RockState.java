@@ -23,4 +23,8 @@ public class RockState implements TerrainMMCSubState{
         context.setCurrentTerrain(Rock.getInstance());
         context.setMmcState(RiverMMCState.getInstance());
     }
+    //for testing
+    public String toString(){
+        return "rock";
+    }
 }

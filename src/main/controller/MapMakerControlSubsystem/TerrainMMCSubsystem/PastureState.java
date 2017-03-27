@@ -23,4 +23,8 @@ public class PastureState implements TerrainMMCSubState{
         context.setCurrentTerrain(Pasture.getInstance());
         context.setMmcState(RiverMMCState.getInstance());
     }
+    //for testing
+    public String toString(){
+        return "pasture";
+    }
 }
