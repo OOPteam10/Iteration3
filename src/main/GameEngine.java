@@ -47,7 +47,7 @@ public class GameEngine extends Application {
             @Override
             public void handle(KeyEvent event) {
 
-                System.out.println(event.getCode());
+               
                 //functionality on keypresses
                InputHandler.keyPress(event);
 
