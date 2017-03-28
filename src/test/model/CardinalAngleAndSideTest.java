@@ -1,11 +1,8 @@
 package model;
 
-import controller.MapMakerControlSubsystem.RiverMMCSubsystem.NoRiverState;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Rivers.NormalRiver;
-import model.TileSubsystem.Rivers.River;
-import model.TileSubsystem.Terrains.Pasture;
-import model.TileSubsystem.Tiles.RiverTile;
+
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -27,9 +24,9 @@ public class CardinalAngleAndSideTest {
         assertEquals(r1.getHexagonSide(), 0);
         assertEquals(r2.getHexagonSide(), 1);
         assertEquals(r3.getHexagonSide(), 5);
-        assertEquals(r1.getAngle(), 60);
-        assertEquals(r2.getAngle(), 120);
-        assertEquals(r3.getAngle(), 180);
+        assertEquals(r1.calculateAngle(), 60);
+        assertEquals(r2.calculateAngle(), 120);
+        assertEquals(r3.calculateAngle(), 180);
 
 
     }

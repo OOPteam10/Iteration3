@@ -35,7 +35,7 @@ public enum CardinalDirection {
         return values()[i];
     }
 
-    public int angle(CardinalDirection comparison){
+    public int calculateAngle(CardinalDirection comparison){
         int angle = comparison.degree - this.degree;
         if(angle < 0){
             angle += 360;
