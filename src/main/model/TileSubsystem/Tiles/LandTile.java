@@ -11,7 +11,7 @@ import model.TileSubsystem.Visitor.TileVisitor;
 public class LandTile extends Tile {
     public LandTile(Terrain terrain){
         setTerrain(terrain);
-        setSectors();
+        configureSectors();
     }
 
     @Override
@@ -20,7 +20,7 @@ public class LandTile extends Tile {
     }
 
     @Override
-    public void setSectors() {
+    protected void configureSectors() {
         Sector sector = new Sector(CardinalDirection.NNE, CardinalDirection.NNW);
         addSector(sector);
     }

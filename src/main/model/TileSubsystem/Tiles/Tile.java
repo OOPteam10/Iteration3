@@ -15,11 +15,16 @@ public abstract class Tile {
     private CardinalDirection[] halfEdges = CardinalDirection.values();
     private Terrain terrain;
     private ArrayList<Sector> sectors = new ArrayList<Sector>();
+
+    protected abstract void configureSectors();
     public abstract void accept(TileVisitor v);
-    public abstract void setSectors();
 
     public void addSector(Sector sector) {
         sectors.add(sector);
+    }
+
+    public ArrayList<Sector> getSectors() {
+        return sectors;
     }
 
     public Terrain getTerrain(){

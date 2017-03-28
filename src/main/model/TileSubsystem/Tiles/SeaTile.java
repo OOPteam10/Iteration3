@@ -11,7 +11,7 @@ import model.TileSubsystem.Visitor.TileVisitor;
 public class SeaTile extends Tile {
     public SeaTile(Sea sea){
         setTerrain(sea);
-        setSectors();
+        configureSectors();
     }
 
     @Override
@@ -20,7 +20,7 @@ public class SeaTile extends Tile {
     }
 
     @Override
-    public void setSectors() {
+    protected void configureSectors() {
         Sector sector = new Sector(CardinalDirection.NNE, CardinalDirection.NNW);
         addSector(sector);
     }
