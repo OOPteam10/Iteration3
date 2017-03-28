@@ -15,7 +15,7 @@ public class ForkedRiver extends River {
     }
 
     @Override
-    protected void accept(TileVisitor v) {
+    public void accept(TileVisitor v) {
         v.visitForkedRiver(this);
     }
 }

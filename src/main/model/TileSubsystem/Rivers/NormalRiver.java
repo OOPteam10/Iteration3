@@ -21,7 +21,7 @@ public class NormalRiver extends River {
     }
 
     @Override
-    protected void accept(TileVisitor v) {
+    public void accept(TileVisitor v) {
         v.visitNormalRiver(this);
     }
 

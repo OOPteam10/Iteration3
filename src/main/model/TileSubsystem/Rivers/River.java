@@ -33,7 +33,7 @@ public abstract class River {
         return edges.get(0).ordinal();
     }
 
-    abstract protected void accept(TileVisitor v);
+    abstract public void accept(TileVisitor v);
 
     public static boolean validateRiverConnection(River source, River target, Location relativeLoc){
         return true;
