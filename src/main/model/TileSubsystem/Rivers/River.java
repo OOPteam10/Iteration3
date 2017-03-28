@@ -36,7 +36,6 @@ public abstract class River {
     abstract public void accept(TileVisitor v);
 
     public static boolean validateRiverConnection(River source, River target, HexSide adjacency){
-
         return true;
     }
 }

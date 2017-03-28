@@ -58,6 +58,7 @@ public class MapPanel extends Panel{
         ForkedRiver riverF = new ForkedRiver(HexSide.SE , HexSide.N, HexSide.SW);
 
         SourceRiver riverS = new SourceRiver(HexSide.NW);
+
         RiverTile riverTile = new RiverTile(Mountains.getInstance(), river);
         RiverTile riverTile2 = new RiverTile(Rock.getInstance(), riverF);
         RiverTile riverTile3 = new RiverTile(Pasture.getInstance(), riverS);
