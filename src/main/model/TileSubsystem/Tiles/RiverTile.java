@@ -18,8 +18,7 @@ public class RiverTile extends LandTile {
     public RiverTile(Terrain terrain, River river){
         super(terrain);
         this.river = river;
-        setSectors();
-        // how to set up sectors for river tile?
+        configureSectors();
     }
 
     @Override
@@ -28,7 +27,7 @@ public class RiverTile extends LandTile {
     }
 
     @Override
-    public void setSectors() {
+    protected void configureSectors() {
         if (river != null) {
             ArrayList<CardinalDirection> riverEdges = river.getEdges();
             for (int i = 0; i < riverEdges.size(); i++) {

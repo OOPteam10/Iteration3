@@ -13,6 +13,10 @@ public class Sector {
             start = start.next();
             halfEdges.add(start);
         }
-        System.out.println(halfEdges);
+
+    }
+
+    public ArrayList<CardinalDirection> getHalfEdges() {
+        return halfEdges;
     }
 }
