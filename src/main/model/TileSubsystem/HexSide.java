@@ -48,4 +48,10 @@ public enum HexSide {
         i %= values().length;
         return values()[i];
     }
+
+    public HexSide getOppositeSide(){
+        //rotate a HexSide 3 times
+        HexSide opposite = this.next().next().next();
+        return opposite;
+    }
 }
