@@ -4,6 +4,7 @@ import controller.MapMakerControl;
 import controller.MapMakerControlSubsystem.OrientationMMCState;
 import controller.MapMakerControlSubsystem.RiverMMCState;
 import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Tiles.RiverTile;
@@ -26,7 +27,7 @@ public class Shape3State implements RiverMMCSubState {
     }
     public void select(MapMakerControl context){
         context.setMmcState(OrientationMMCState.getInstance(
-                new NormalRiver(CardinalDirection.NNE, CardinalDirection.SSW)));
+                new NormalRiver(HexSide.N, HexSide.S)));
     }
     //for testing
     public String toString(){

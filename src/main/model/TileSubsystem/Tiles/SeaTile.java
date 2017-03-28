@@ -8,7 +8,7 @@ import model.TileSubsystem.Visitor.TileVisitor;
  */
 public class SeaTile extends Tile {
     public SeaTile(Sea sea){
-        this.terrain = sea;
+        setTerrain(sea);
     }
 
     @Override

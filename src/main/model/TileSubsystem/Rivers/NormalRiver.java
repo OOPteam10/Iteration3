@@ -1,13 +1,14 @@
 package model.TileSubsystem.Rivers;
 
 import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Visitor.TileVisitor;
 
 /**
  * Created by hankerins on 3/26/17.
  */
 public class NormalRiver extends River {
-    public NormalRiver(CardinalDirection edge1, CardinalDirection edge2){
+    public NormalRiver(HexSide edge1, HexSide edge2){
         //adds edges such that the angle is always <= 180
         if(edge1.calculateAngle(edge2) > 180){
             addEdge(edge2);

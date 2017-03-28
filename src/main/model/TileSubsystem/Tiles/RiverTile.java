@@ -9,7 +9,7 @@ import model.TileSubsystem.Visitor.TileVisitor;
  */
 public class RiverTile extends LandTile {
 
-    River river;
+    private River river;
 
     public RiverTile(Terrain terrain, River river){
         super(terrain);

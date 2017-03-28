@@ -8,7 +8,7 @@ import model.TileSubsystem.Visitor.TileVisitor;
  */
 public class LandTile extends Tile {
     public LandTile(Terrain terrain){
-        this.terrain = terrain;
+        setTerrain(terrain);
     }
 
     @Override
