@@ -76,13 +76,15 @@ public class MapPanel extends Panel{
         map.addTile(riverTile, l1);
         map.addTile(riverTile2, l2);
         map.addTile(riverTile3, l3);
+        map.addTile(seaTile,l4);
+        map.addTile(mountainTile,l5);
 
         return map.getMap();
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){
         int i = 0;
-        drawbackground(gc);
+        drawBackground(gc);
         for(Location loc:gameMap.keySet()){
             Point p = new Point();
             p.x = loc.getX();
@@ -93,7 +95,7 @@ public class MapPanel extends Panel{
         }
     }
 
-    public void drawbackground(GraphicsContext gc){
+    public void drawBackground(GraphicsContext gc){
         for (int i=0;i<21;i++){
             for(int j=0;j<21;j++){
                 Point p = new Point(i-10,j-10);
