@@ -8,8 +8,15 @@ import model.TileSubsystem.Visitor.TileVisitor;
  */
 public class NormalRiver extends River {
     public NormalRiver(CardinalDirection edge1, CardinalDirection edge2){
-        addEdge(edge1);
-        addEdge(edge2);
+        //adds edges such that the angle is always <= 180
+        if(edge1.calculateAngle(edge2) > 180){
+            addEdge(edge2);
+            addEdge(edge1);
+        }
+        else{
+            addEdge(edge1);
+            addEdge(edge2);
+        }
     }
 
     @Override

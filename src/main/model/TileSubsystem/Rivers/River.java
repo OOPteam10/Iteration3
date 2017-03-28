@@ -34,4 +34,8 @@ public abstract class River {
     }
 
     abstract protected void accept(TileVisitor v);
+
+    public static boolean validateRiverConnection(River r1, River r2, Location relativeLoc){
+        return true;
+    }
 }
