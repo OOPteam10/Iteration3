@@ -12,9 +12,26 @@ import java.util.ArrayList;
  * Created by hankerins on 3/26/17.
  */
 public abstract class Tile {
-    protected CardinalDirection[] halfEdges = CardinalDirection.values();
-    protected Terrain terrain;
-    protected ArrayList<Sector> sectors;
+    private CardinalDirection[] halfEdges = CardinalDirection.values();
+    private Terrain terrain;
+    private ArrayList<Sector> sectors = new ArrayList<Sector>();
+
+    protected abstract void configureSectors();
     public abstract void accept(TileVisitor v);
-    public Terrain getTerrain(){return terrain;}
+
+    public void addSector(Sector sector) {
+        sectors.add(sector);
+    }
+
+    public ArrayList<Sector> getSectors() {
+        return sectors;
+    }
+
+    public Terrain getTerrain(){
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
 }

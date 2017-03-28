@@ -11,15 +11,7 @@ import java.util.ArrayList;
  *
  */
 public abstract class River {
-
     private ArrayList<CardinalDirection> edges = new ArrayList<CardinalDirection>();
-
-    protected ArrayList<CardinalDirection> getEdges(){
-        return edges;
-    }
-    protected void addEdge(CardinalDirection edge){
-        edges.add(edge);
-    }
 
     public void rotate(int offset){
         for(CardinalDirection cd: edges){
@@ -28,9 +20,16 @@ public abstract class River {
         }
     }
 
-
-    public int getHexagonSide(){
+    public int getHexagonSide() {
         return edges.get(0).getHexagonSide();
+    }
+
+    public ArrayList<CardinalDirection> getEdges() {
+        return edges;
+    }
+
+    public void addEdge(CardinalDirection edge) {
+        edges.add(edge);
     }
 
     abstract protected void accept(TileVisitor v);

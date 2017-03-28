@@ -17,6 +17,8 @@ public class NormalRiver extends River {
             addEdge(edge1);
             addEdge(edge2);
         }
+        addEdge(edge1);
+        addEdge(edge2);
     }
 
     @Override
