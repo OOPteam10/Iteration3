@@ -3,6 +3,8 @@ package view.Scene.mapMakerPanel;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Rotate;
 import model.Game;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
@@ -11,7 +13,9 @@ import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Rivers.River;
+import model.TileSubsystem.Rivers.SourceRiver;
 import model.TileSubsystem.Terrains.Mountains;
+import model.TileSubsystem.Terrains.Pasture;
 import model.TileSubsystem.Terrains.Rock;
 import model.TileSubsystem.Terrains.Sea;
 import model.TileSubsystem.Tiles.LandTile;
@@ -24,6 +28,7 @@ import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
+import javax.xml.transform.Source;
 import java.awt.*;
 import java.util.HashMap;
 
@@ -48,21 +53,26 @@ public class MapPanel extends Panel{
         LandTile mountainTile = new LandTile(Mountains.getInstance());
         LandTile rockTile = new LandTile(Rock.getInstance());
         LandTile seaTile = new LandTile(Sea.getInstance());
+
         NormalRiver river = new NormalRiver(HexSide.N ,HexSide.NE);
-        ForkedRiver riverF = new ForkedRiver(HexSide.NE, HexSide.S, HexSide.NW);
-        RiverTile riverTile = new RiverTile(Mountains.getInstance(), riverF);
+        ForkedRiver riverF = new ForkedRiver(HexSide.SE , HexSide.N, HexSide.SW);
+
+        SourceRiver riverS = new SourceRiver(HexSide.NW);
+        RiverTile riverTile = new RiverTile(Mountains.getInstance(), river);
+        RiverTile riverTile2 = new RiverTile(Rock.getInstance(), riverF);
+        RiverTile riverTile3 = new RiverTile(Pasture.getInstance(), riverS);
+
         Location l1 = new Location(0, 0, 0);
-        Location l2 = new Location(0, 1, -1);
-        Location l3 = new Location(1, -1, 0);
+        Location l2 = new Location(1, -1, 0);
+        Location l3 = new Location(2, -1, -1);
         Location l4 = new Location(-1, 0, 1);
         Location l5 = new Location(0, -1, 1);
 
         Map map = new Map();
-        map.addTile(mountainTile, l1);
-        map.addTile(rockTile, l2);
-        map.addTile(seaTile, l3);
-        map.addTile(mountainTile, l4);
-        map.addTile(riverTile, l5);
+        //map.addTile(mountainTile, l1);
+        map.addTile(riverTile, l1);
+        map.addTile(riverTile2, l2);
+        map.addTile(riverTile3, l3);
 
         return map.getMap();
     }
@@ -74,32 +84,11 @@ public class MapPanel extends Panel{
             Point p = new Point();
             p.x = loc.getX();
             p.y = loc.getY();
-            TileDrawingVisitor tileDrawingVisitor = new TileDrawingVisitor(assets, gc,offset(p));
+            TileDrawingVisitor tileDrawingVisitor = new TileDrawingVisitor(assets, gc,p);
             gameMap.get(loc).accept(tileDrawingVisitor);
             i++;
         }
 
-    }
-
-    //TODO: integrate the offsets to a Camera class
-    //TODO: Change the size of the new/save/load icons, do somehting on the ui design
-    //TODO: Background picture should be a hexagon grid
-
-    public Point offset(Point p) {
-        Point offsetTile = new Point();
-        Point offset = new Point(1024/2-115,768/2-100);
-        offsetTile.x = getPixelLocation(p).x + offset.x;
-        offsetTile.y = getPixelLocation(p).y + offset.y;
-        return offsetTile;
-    }
-
-    public Point getPixelLocation(Point tile) {
-        Point pixelLocation = new Point();
-        int HEX_W = 115;
-        int HEX_H = 100;
-        pixelLocation.x = (int)(0.75f * HEX_W * tile.x);
-        pixelLocation.y = (int)(HEX_H * (tile.x * 0.5f + tile.y));
-        return pixelLocation;
     }
 
     public void showGUIElements(){}

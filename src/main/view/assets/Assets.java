@@ -34,7 +34,7 @@ public class Assets {
         loadItem("NORMAL_RIVER_180", "Assets/NormalRiver180.png");
         loadItem("NORMAL_RIVER_60", "Assets/NormalRiver60.png");
         loadItem("NORMAL_RIVER_120", "Assets/NormalRiver120.png");
-        loadItem("SOURCE _RIVER", "Assets/SourceRiver.png");
+        loadItem("SOURCE_RIVER", "Assets/SourceRiver.png");
         loadItem("FORKED_RIVER", "Assets/ForkedRiver.png");
     }
 

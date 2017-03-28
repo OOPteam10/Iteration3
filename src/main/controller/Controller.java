@@ -50,7 +50,6 @@ public class Controller extends JComponent implements KeyListener{
 
         //functionality on keypresses
         keyPressDispatch();
-
     }
 
     @Override

@@ -21,7 +21,7 @@ public class GameEngine extends Application {
 
     @Override
     public void start(Stage primaryStage){
-        primaryStage.setTitle("MapMapkerV0.2");
+        primaryStage.setTitle("MapMakerV0.2");
         Group root = new Group();
         Scene scene = new Scene(root, Color.WHITE);
 
@@ -37,7 +37,6 @@ public class GameEngine extends Application {
                     frameCounter = 0;
                     view.renderGame();
                 }
-
             }
         }.start();
 
