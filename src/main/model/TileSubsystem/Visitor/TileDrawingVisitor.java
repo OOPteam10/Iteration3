@@ -40,28 +40,32 @@ public class TileDrawingVisitor implements TileVisitor {
     public void visitSeaTile(SeaTile tile) {
         // start basic tile graphic (don't know terrain truly yet)
          tile.getTerrain().accept(this);
+
     }
 
     @Override
     public void visitRiverTile(RiverTile tile) {
         // start basic tile graphic (don't know terrain yet)
-        // tile.getTerrain.accept(this)
-        // tile.getRiver.accept(this)
+         tile.getTerrain().accept(this);
+         tile.getRiver().accept(this);
     }
 
     @Override
     public void visitNormalRiver(NormalRiver river) {
-
+        Image img = assets.getImage("NORMAL_RIVER_180");
+        gc.drawImage(img, p.x, p.y);
     }
 
     @Override
     public void visitSourceRiver(SourceRiver river) {
-
+        Image img = assets.getImage("SOURCE_RIVER");
+        gc.drawImage(img, p.x, p.y);
     }
 
     @Override
     public void visitForkedRiver(ForkedRiver river) {
-
+        Image img = assets.getImage("FORKED_RIVER");
+        gc.drawImage(img, p.x, p.y);
     }
 
     @Override
