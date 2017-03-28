@@ -19,5 +19,9 @@ public abstract class River {
         }
     }
 
+    public int getHexagonSide(){
+        return edges.get(0).getHexagonSide();
+    }
+
     abstract protected void accept(TileVisitor v);
 }

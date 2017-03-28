@@ -18,4 +18,10 @@ public class NormalRiver extends River {
     protected void accept(TileVisitor v) {
         v.visitNormalRiver(this);
     }
+
+    public int getAngle(){
+        return edges.get(0).angle(edges.get(1));
+    }
+
+
 }
