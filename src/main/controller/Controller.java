@@ -1,5 +1,6 @@
 package controller;
 
+import java.applet.Applet;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,23 +12,17 @@ import javax.swing.*;
 /**
  * Created by cduica on 3/22/17.
  */
-public class Controller extends JComponent implements KeyListener{
+public class Controller {
 
     //represents the top level state of Controller
     private ControlHandler controlHandler;
 
 
-    private Vector<Integer> activeKeys;
-
-
 
     public Controller(){
-        //init with the MapMakerControl state
-        addKeyListener(this);
-        setFocusable(true);
-        controlHandler = MapMakerControl.getInstance();
-        activeKeys = new Vector<Integer>();
 
+        //init with the MapMakerControl state
+        controlHandler = MapMakerControl.getInstance();
 
     }
 
@@ -42,76 +37,44 @@ public class Controller extends JComponent implements KeyListener{
 
 
 
-    @Override
-    public void keyPressed(KeyEvent e) {
+    public void right(){
 
-        if(!activeKeys.contains(e.getKeyCode()))
-            activeKeys.add(new Integer(e.getKeyCode()));
-
-        //functionality on keypresses
-        keyPressDispatch();
+        controlHandler.right();
     }
+    public void left(){
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        activeKeys.remove(new Integer(e.getKeyCode()));
+        controlHandler.left();
+    }
+    public void select(){
+
+        controlHandler.select();
 
     }
+    public void moveN(){
 
+        controlHandler.moveN();
+    }
+    public void moveNE(){
 
-    /*
-     MAC SYSTEM DEFAULT KEY PRESSES
+        controlHandler.moveNE();
+    }
+    public void moveNW(){
 
-    left: 37, right: 39,  down: 40,  up: 38
+        controlHandler.moveNW();
+    }
+    public void moveS(){
 
-     */
+        controlHandler.moveS();
+    }
+    public void moveSE(){
 
+        controlHandler.moveSE();
+    }
+    public void moveSW() {
 
-    public void keyPressDispatch(){
-
-        if(activeKeys.contains(new Integer(39))){
-            //right
-            controlHandler.right();
-        }
-        if(activeKeys.contains(new Integer(37))){
-            //left
-            controlHandler.left();
-        }
-        if(activeKeys.contains(KeyEvent.VK_ENTER)){
-            //enter
-            controlHandler.select();
-        }
-        if(activeKeys.contains(KeyEvent.VK_W)){
-            //W maps to north
-            controlHandler.moveN();
-        }
-        if(activeKeys.contains(KeyEvent.VK_E)){
-            //E maps to north east
-            controlHandler.moveNE();
-        }
-        if(activeKeys.contains(KeyEvent.VK_Q)){
-            //Q maps to north west
-            controlHandler.moveNW();
-        }
-        if(activeKeys.contains(KeyEvent.VK_S)){
-            //S maps to south
-            controlHandler.moveS();
-        }
-        if(activeKeys.contains(KeyEvent.VK_D)) {
-            //D maps to south east
-            controlHandler.moveSE();
-        }
-        if(activeKeys.contains(KeyEvent.VK_A)) {
-            //A maps to south west
-            controlHandler.moveSW();
-        }
-
-
+        controlHandler.moveSW();
     }
 
 
-    @Override
-    public void keyTyped(KeyEvent e) {
 
-    }
 }
