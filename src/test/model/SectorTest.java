@@ -3,6 +3,7 @@ package model;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Terrains.Mountains;
@@ -42,18 +43,22 @@ public class SectorTest {
         sector3Edges.add(CardinalDirection.NE);
 
         Map map = new Map();
-        RiverTile landTile = new RiverTile(Mountains.getInstance(), new ForkedRiver(CardinalDirection.ENE, CardinalDirection.SSW, CardinalDirection.NW));
+        RiverTile landTile = new RiverTile(Mountains.getInstance(), new ForkedRiver(HexSide.NE, HexSide.S, HexSide.NW));
         Location l1 = new Location(0, 0, 0);
 
         map.addTile(landTile, l1);
         landTile.getSectors();
+
+        if(landTile.getSectors().size() != 3){
+            fail();
+        }
 
         for (int i = 0; i < landTile.getSectors().size(); i++) {
             if (i == 0) {
                 assertEquals(landTile.getSectors().get(i).getHalfEdges(), sector1Edges);
             } else if (i == 1) {
                 assertEquals(landTile.getSectors().get(i).getHalfEdges(), sector2Edges);
-            } else if (i == 3) {
+            } else if (i == 2) {
                 assertEquals(landTile.getSectors().get(i).getHalfEdges(), sector3Edges);
             } else {
                 fail();

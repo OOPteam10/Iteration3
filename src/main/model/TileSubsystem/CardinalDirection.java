@@ -19,7 +19,7 @@ public enum CardinalDirection {
 
     private final int degree;
 
-    CardinalDirection(int degree){
+    private CardinalDirection(int degree){
         this.degree = degree;
     }
 
@@ -43,7 +43,8 @@ public enum CardinalDirection {
         return angle;
     }
 
-    public int getHexagonSide(){
+    //replace with actual hexagon side class
+    /*public int getHexagonSide(){
         return ((degree + 15) / 60) % 6;
-    }
+    }*/
 }

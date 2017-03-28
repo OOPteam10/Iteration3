@@ -12,6 +12,7 @@ public class LandTile extends Tile {
     public LandTile(Terrain terrain){
         setTerrain(terrain);
         configureSectors();
+
     }
 
     @Override

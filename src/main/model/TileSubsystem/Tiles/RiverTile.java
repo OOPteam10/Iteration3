@@ -1,6 +1,7 @@
 package model.TileSubsystem.Tiles;
 
 import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.Terrain;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class RiverTile extends LandTile {
 
-    River river;
+    private River river;
 
     public RiverTile(Terrain terrain, River river){
         super(terrain);
@@ -29,14 +30,16 @@ public class RiverTile extends LandTile {
     @Override
     protected void configureSectors() {
         if (river != null) {
-            ArrayList<CardinalDirection> riverEdges = river.getEdges();
+            ArrayList<HexSide> riverEdges = river.getEdges();
+
             for (int i = 0; i < riverEdges.size(); i++) {
                 if (i < riverEdges.size()-1) {
                     // if there still are edges to connect
-                    Sector sector = new Sector(riverEdges.get(i), riverEdges.get(i+1).previous());
+                    Sector sector = new Sector(riverEdges.get(i).getSecondHalf(), riverEdges.get(i+1).getFirstHalf());
                     addSector(sector);
                 } else {
-                    Sector sector = new Sector(riverEdges.get(i), riverEdges.get(0).previous());
+                    Sector sector = new Sector(riverEdges.get(i).getSecondHalf(), riverEdges.get(0).getFirstHalf());
+                    addSector(sector);
                 }
             }
         }
