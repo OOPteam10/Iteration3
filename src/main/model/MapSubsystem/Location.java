@@ -48,15 +48,22 @@ public class Location {
         return Objects.hash(x, y, z);
     }
 
-    ArrayList<Location> getAdjacentLocations(){
+    public ArrayList<Location> getAdjacentLocations(){
         ArrayList<Location> adjacents = new ArrayList<Location>();
-        adjacents.add(new Location(x+1, y, z));
-        adjacents.add(new Location(x-1, y, z));
-        adjacents.add(new Location(x, y+1, z));
-        adjacents.add(new Location(x, y-1, z));
-        adjacents.add(new Location(x, y, z+1));
-        adjacents.add(new Location(x, y, z-1));
-    return adjacents;
+        adjacents.add(new Location(x+1, y, z-1));
+        adjacents.add(new Location(x-1, y, z+1));
+        adjacents.add(new Location(x, y+1, z-1));
+        adjacents.add(new Location(x, y-1, z+1));
+        adjacents.add(new Location(x-1, y+1, z));
+        adjacents.add(new Location(x+1, y-1, z));
+        return adjacents;
+    }
+
+    public Location getRelativeLocation(Location target){
+        int newX = target.x - this.x;
+        int newY = target.y - this.y;
+        int newZ = target.z - this.z;
+        return new Location(newX, newY, newZ);
     }
 
     //For debugging only

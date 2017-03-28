@@ -8,9 +8,9 @@ import model.TileSubsystem.Visitor.TileVisitor;
  */
 public class ForkedRiver extends River {
     public ForkedRiver(CardinalDirection edge1, CardinalDirection edge2, CardinalDirection edge3){
-        edges.add(edge1);
-        edges.add(edge2);
-        edges.add(edge3);
+        addEdge(edge1);
+        addEdge(edge2);
+        addEdge(edge3);
     }
 
     @Override
