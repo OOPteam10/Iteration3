@@ -29,6 +29,31 @@ public class Location {
         z += i;
     }
 
+    public void moveN(){
+        y++;
+        z--;
+    }
+    public void moveNW(){
+        y++;
+        x--;
+    }
+    public void moveNE(){
+        x++;
+        z--;
+    }
+    public void moveS(){
+        y--;
+        z++;
+    }
+    public void moveSW(){
+        x--;
+        z++;
+    }
+    public void moveSE(){
+        y--;
+        x++;
+    }
+
     public int getX(){return this.x;}
     public int getY(){return this.y;}
     public int getZ(){return this.z;}
