@@ -21,8 +21,12 @@ public class PastureState implements TerrainMMCSubState{
         subContext.setSubState(RockState.getInstance());
     }
     public void select(MapMakerControl context){
-        TileEditor.getInstance().createLandTile(Pasture.getInstance());
-        context.setCurrentTerrain(Pasture.getInstance());
+
+
+        //just setting the terrain in TileEditor to Pasture
+        TileEditor.getInstance().setTerrain(Pasture.getInstance());
+
+        //make next transiton of state machine
         context.setMmcState(RiverMMCState.getInstance());
     }
     //for testing

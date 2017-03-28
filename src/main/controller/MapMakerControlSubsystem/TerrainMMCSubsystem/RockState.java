@@ -21,8 +21,11 @@ public class RockState implements TerrainMMCSubState{
         subContext.setSubState(SeaState.getInstance());
     }
     public void select(MapMakerControl context){
-        TileEditor.getInstance().createLandTile(Rock.getInstance());
-        context.setCurrentTerrain(Rock.getInstance());
+
+        //just setting the terrain in TileEditor to Rock
+        TileEditor.getInstance().setTerrain(Rock.getInstance());
+
+        //make next transiton of state machine
         context.setMmcState(RiverMMCState.getInstance());
     }
     //for testing

@@ -19,7 +19,7 @@ public class MapMakerControl implements ControlHandler{
     //represents state of MapMakerControl
     private MMCState mmcState;
 
-    private Terrain currentTerrain;
+    //private Terrain currentTerrain;
     //private Tile tile;
     //private Map map;
     private Location location;
@@ -37,8 +37,8 @@ public class MapMakerControl implements ControlHandler{
 
     public MMCState getMmcState() {return mmcState;}
     public void setMmcState(MMCState mmcState) {this.mmcState = mmcState;}
-    public Terrain getCurrentTerrain() {return currentTerrain;}
-    public void setCurrentTerrain(Terrain currentTerrain) {this.currentTerrain = currentTerrain;}
+    //public Terrain getCurrentTerrain() {return currentTerrain;}
+    //public void setCurrentTerrain(Terrain currentTerrain) {this.currentTerrain = currentTerrain;}
 
     public void left(){
         mmcState.left();
