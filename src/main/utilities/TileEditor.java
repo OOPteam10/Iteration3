@@ -104,26 +104,26 @@ public class TileEditor implements Editor{
     }
 
     public void moveNW(){
-        location.addZ(1);
+        location.moveNW();
     }
     public void moveN(){
-        location.addY(1);
+        location.moveN();
 
     }
     public void moveNE(){
-        location.addX(1);
+        location.moveNE();
 
     }
     public void moveSW(){
-        location.addX(-1);
+        location.moveSW();
 
     }
     public void moveS(){
-        location.addY(-1);
+        location.moveS();
 
     }
     public void moveSE(){
-        location.addZ(-1);
+        location.moveSE();
 
     }
 

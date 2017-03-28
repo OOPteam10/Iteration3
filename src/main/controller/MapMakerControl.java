@@ -75,7 +75,7 @@ public class MapMakerControl implements ControlHandler{
 
         TileEditor.getInstance().moveSE();
     }
-    
+
 
     //TESTING ONLY
     public void printState(){
