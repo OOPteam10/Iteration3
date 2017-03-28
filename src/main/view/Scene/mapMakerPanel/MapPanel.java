@@ -25,6 +25,7 @@ import model.TileSubsystem.Visitor.TileDrawingVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
 import view.Panel;
 import view.PanelManager;
+import view.Tool.ImageLocationTranslator;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
@@ -34,8 +35,9 @@ import java.util.HashMap;
 
 public class MapPanel extends Panel{
 
-    HashMap<Location, Tile> gameMap;
-    AssetManager assets;
+    private HashMap<Location, Tile> gameMap;
+    private AssetManager assets;
+    private ImageLocationTranslator imageLocationTranslator;
 
 
     public MapPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root){
@@ -78,9 +80,9 @@ public class MapPanel extends Panel{
         return map.getMap();
     }
 
-
     public void draw(GraphicsContext gc, Point screenDimension){
         int i = 0;
+        drawbackground(gc);
         for(Location loc:gameMap.keySet()){
             Point p = new Point();
             p.x = loc.getX();
@@ -89,7 +91,16 @@ public class MapPanel extends Panel{
             gameMap.get(loc).accept(tileDrawingVisitor);
             i++;
         }
+    }
 
+    public void drawbackground(GraphicsContext gc){
+        for (int i=0;i<21;i++){
+            for(int j=0;j<21;j++){
+                Point p = new Point(i-10,j-10);
+                imageLocationTranslator = new ImageLocationTranslator(gc,p);
+                gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), imageLocationTranslator.offset().x,imageLocationTranslator.offset().y);
+            }
+        }
     }
 
     public void showGUIElements(){}
