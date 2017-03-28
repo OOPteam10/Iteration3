@@ -8,8 +8,8 @@ import model.TileSubsystem.Visitor.TileVisitor;
  */
 public class NormalRiver extends River {
     public NormalRiver(CardinalDirection edge1, CardinalDirection edge2){
-        edges.add(edge1);
-        edges.add(edge2);
+        addEdge(edge1);
+        addEdge(edge2);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class NormalRiver extends River {
     }
 
     public int calculateAngle(){
-        return edges.get(0).calculateAngle(edges.get(1));
+        return getEdges().get(0).calculateAngle(getEdges().get(1));
     }
 
 

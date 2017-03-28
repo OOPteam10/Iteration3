@@ -62,6 +62,7 @@ public class MapMakerControl implements ControlHandler{
 
         TileEditor.getInstance().moveNE();
     }
+
     public void moveSW(){
 
         TileEditor.getInstance().moveSW();
@@ -74,6 +75,7 @@ public class MapMakerControl implements ControlHandler{
 
         TileEditor.getInstance().moveSE();
     }
+
 
     //TESTING ONLY
     public void printState(){

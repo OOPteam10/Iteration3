@@ -29,6 +29,31 @@ public class Location {
         z += i;
     }
 
+    public void moveN(){
+        y++;
+        z--;
+    }
+    public void moveNW(){
+        y++;
+        x--;
+    }
+    public void moveNE(){
+        x++;
+        z--;
+    }
+    public void moveS(){
+        y--;
+        z++;
+    }
+    public void moveSW(){
+        x--;
+        z++;
+    }
+    public void moveSE(){
+        y--;
+        x++;
+    }
+
     public int getX(){return this.x;}
     public int getY(){return this.y;}
     public int getZ(){return this.z;}
@@ -48,15 +73,22 @@ public class Location {
         return Objects.hash(x, y, z);
     }
 
-    ArrayList<Location> getAdjacentLocations(){
+    public ArrayList<Location> getAdjacentLocations(){
         ArrayList<Location> adjacents = new ArrayList<Location>();
-        adjacents.add(new Location(x+1, y, z));
-        adjacents.add(new Location(x-1, y, z));
-        adjacents.add(new Location(x, y+1, z));
-        adjacents.add(new Location(x, y-1, z));
-        adjacents.add(new Location(x, y, z+1));
-        adjacents.add(new Location(x, y, z-1));
-    return adjacents;
+        adjacents.add(new Location(x+1, y, z-1));
+        adjacents.add(new Location(x-1, y, z+1));
+        adjacents.add(new Location(x, y+1, z-1));
+        adjacents.add(new Location(x, y-1, z+1));
+        adjacents.add(new Location(x-1, y+1, z));
+        adjacents.add(new Location(x+1, y-1, z));
+        return adjacents;
+    }
+
+    public Location getRelativeLocation(Location target){
+        int newX = target.x - this.x;
+        int newY = target.y - this.y;
+        int newZ = target.z - this.z;
+        return new Location(newX, newY, newZ);
     }
 
     //For debugging only
