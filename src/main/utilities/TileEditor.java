@@ -44,6 +44,9 @@ public class TileEditor implements Editor{
 
     }
 
+    public Location getLocation(){
+        return location;
+    }
     public void setLocation(Location location){
         this.location = location;
     }
@@ -98,6 +101,30 @@ public class TileEditor implements Editor{
             return true;
         }
         return false;
+    }
+
+    public void moveNW(){
+        location.addZ(1);
+    }
+    public void moveN(){
+        location.addY(1);
+
+    }
+    public void moveNE(){
+        location.addX(1);
+
+    }
+    public void moveSW(){
+        location.addX(-1);
+
+    }
+    public void moveS(){
+        location.addY(-1);
+
+    }
+    public void moveSE(){
+        location.addZ(-1);
+
     }
 
    /*

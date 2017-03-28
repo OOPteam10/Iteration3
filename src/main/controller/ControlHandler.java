@@ -11,13 +11,13 @@ public interface ControlHandler {
 
     public void left();
     public void right();
-    public void select(Controller c);
+    public void select();
     public void moveNW();
     public void moveN();
     public void moveNE();
     public void moveSW();
     public void moveS();
     public void moveSE();
-    public MMCState getMmcState();
+
 
 }
