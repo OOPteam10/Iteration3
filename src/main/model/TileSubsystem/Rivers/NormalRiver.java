@@ -3,8 +3,6 @@ package model.TileSubsystem.Rivers;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Visitor.TileVisitor;
 
-import javax.smartcardio.Card;
-
 /**
  * Created by hankerins on 3/26/17.
  */
@@ -18,4 +16,10 @@ public class NormalRiver extends River {
     protected void accept(TileVisitor v) {
         v.visitNormalRiver(this);
     }
+
+    public int calculateAngle(){
+        return edges.get(0).calculateAngle(edges.get(1));
+    }
+
+
 }
