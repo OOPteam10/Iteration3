@@ -22,11 +22,12 @@ public class SeaState implements TerrainMMCSubState{
         subContext.setSubState(WoodsState.getInstance());
     }
     public void select(MapMakerControl context){
-        context.setCurrentTerrain(Sea.getInstance());
-        //context.setTile(new SeaTile(Sea.getInstance()));
-        //context.addTileToMap();
+
+        //allocating current tile as SeaTile and placing it
         TileEditor.getInstance().createSeaTile();
         TileEditor.getInstance().commit();
+
+        //go back to Terrain selecting state of the controller
         context.setMmcState(TerrainMMCState.getInstance());
     }
     //for testing

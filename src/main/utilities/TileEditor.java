@@ -27,8 +27,9 @@ public class TileEditor implements Editor{
 
     private Map map;
     private Tile tile;
-    private Tile prevTile;
     private Location location;
+
+    private Terrain terrain;
 
     public void init(Map map){
         this.map = map;
@@ -37,26 +38,36 @@ public class TileEditor implements Editor{
 
     private void initTile(){
         //code for initializing tile, called after every commit and during initialization
-        tile = new LandTile(Desert.getInstance());
-        prevTile = tile;
+
+        //NOW DO NOT NEED TO CREAT A LAND TILE ON INIT
+        //tile = new LandTile(Desert.getInstance());
+
     }
 
     public void setLocation(Location location){
         this.location = location;
     }
 
-    public void createLandTile(Terrain terrain){
-        prevTile = tile;
-        tile = new LandTile(terrain);
+    // method for seting the terrain
+    public void setTerrain(Terrain terrain){
+        this.terrain = terrain;
     }
 
+    // method to create a land tile directly using the set terrain in the TileEditdor
+    public void createLandTile(){
+
+        tile = new LandTile(this.terrain);
+
+    }
+
+
     public void createRiverTile(River river){
-        prevTile = tile;
-        tile = new RiverTile(tile.getTerrain(), river);
+
+        tile = new RiverTile(terrain, river);
     }
 
     public void createSeaTile(){
-        prevTile = tile;
+
         tile = new SeaTile(Sea.getInstance());
     }
 
@@ -89,9 +100,11 @@ public class TileEditor implements Editor{
         return false;
     }
 
+   /*
     //TODO
     @Override
     public void discard() {
         tile = prevTile;
     }
+    */
 }

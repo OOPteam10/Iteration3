@@ -22,8 +22,11 @@ public class WoodsState implements TerrainMMCSubState{
         subContext.setSubState(DesertState.getInstance());
     }
     public void select(MapMakerControl context){
-        TileEditor.getInstance().createLandTile(Woods.getInstance());
-        context.setCurrentTerrain(Woods.getInstance());
+
+        //just setting the terrain in TileEditor to Woods
+        TileEditor.getInstance().setTerrain(Woods.getInstance());
+
+        //make next transition to River selection state, of state machine
         context.setMmcState(RiverMMCState.getInstance());
     }
     //for testing

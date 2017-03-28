@@ -23,8 +23,12 @@ public class MountainState implements TerrainMMCSubState{
         subContext.setSubState(PastureState.getInstance());
     }
     public void select(MapMakerControl context){
-        TileEditor.getInstance().createLandTile(Mountains.getInstance());
-        context.setCurrentTerrain(Mountains.getInstance());
+
+        //just setting the terrain in TileEditor to Mountains
+        TileEditor.getInstance().setTerrain(Mountains.getInstance());
+
+
+        //make next transiton of state machine
         context.setMmcState(RiverMMCState.getInstance());
     }
     //for testing

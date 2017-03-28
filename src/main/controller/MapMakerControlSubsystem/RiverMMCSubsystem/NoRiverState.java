@@ -30,8 +30,12 @@ public class NoRiverState implements RiverMMCSubState {
     public void select(MapMakerControl context){
         //context.setTile(new LandTile(context.getCurrentTerrain()));
         //context.addTileToMap();
-        TileEditor.getInstance().createLandTile(context.getCurrentTerrain());
+
+        //create and commit a this current Tile as  LandTile
+        TileEditor.getInstance().createLandTile();
         TileEditor.getInstance().commit();
+
+        // make next transition of state machine
         context.setMmcState(TerrainMMCState.getInstance());
     }
     //for testing

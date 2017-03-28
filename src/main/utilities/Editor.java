@@ -6,6 +6,6 @@ package utilities;
 public interface Editor {
 
     boolean commit();
-    void discard();
+    //void discard();
 
 }
