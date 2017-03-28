@@ -1,5 +1,6 @@
 package model.TileSubsystem.Rivers;
 
+import model.MapSubsystem.Location;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Visitor.TileVisitor;
 
@@ -11,13 +12,22 @@ import java.util.ArrayList;
  */
 public abstract class River {
 
-    protected ArrayList<CardinalDirection> edges = new ArrayList<CardinalDirection>();
+    private ArrayList<CardinalDirection> edges = new ArrayList<CardinalDirection>();
+
+    protected ArrayList<CardinalDirection> getEdges(){
+        return edges;
+    }
+    protected void addEdge(CardinalDirection edge){
+        edges.add(edge);
+    }
+
     public void rotate(int offset){
         for(CardinalDirection cd: edges){
             cd = cd.next();
             cd = cd.next();
         }
     }
+
 
     public int getHexagonSide(){
         return edges.get(0).getHexagonSide();
