@@ -2,25 +2,33 @@ package controller;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Vector;
 import model.MapSubsystem.Map;
+
+import javax.swing.*;
 
 /**
  * Created by cduica on 3/22/17.
  */
-public class Controller extends KeyAdapter{
+public class Controller extends JComponent implements KeyListener{
 
     //represents the top level state of Controller
     private ControlHandler controlHandler;
 
+
     private Vector<Integer> activeKeys;
+
+
 
     public Controller(){
         //init with the MapMakerControl state
-        
+        addKeyListener(this);
+        setFocusable(true);
+        controlHandler = MapMakerControl.getInstance();
         activeKeys = new Vector<Integer>();
 
-        controlHandler = new MapMakerControl();
+
     }
 
 
@@ -32,6 +40,8 @@ public class Controller extends KeyAdapter{
         this.controlHandler = controlHandler;
     }
 
+
+
     @Override
     public void keyPressed(KeyEvent e) {
 
@@ -42,6 +52,13 @@ public class Controller extends KeyAdapter{
         keyPressDispatch();
 
     }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        activeKeys.remove(new Integer(e.getKeyCode()));
+
+    }
+
 
     /*
      MAC SYSTEM DEFAULT KEY PRESSES
@@ -63,7 +80,7 @@ public class Controller extends KeyAdapter{
         }
         if(activeKeys.contains(KeyEvent.VK_ENTER)){
             //enter
-            controlHandler.select(this);
+            controlHandler.select();
         }
         if(activeKeys.contains(KeyEvent.VK_W)){
             //W maps to north
@@ -93,9 +110,9 @@ public class Controller extends KeyAdapter{
 
     }
 
+
     @Override
-    public void keyReleased(KeyEvent e) {
-        activeKeys.remove(new Integer(e.getKeyCode()));
+    public void keyTyped(KeyEvent e) {
 
     }
 }
