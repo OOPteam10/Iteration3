@@ -1,12 +1,18 @@
 import controller.Controller;
+import controller.InputHandler;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Game;
 import view.View;
+
+import java.util.Vector;
 
 public class GameEngine extends Application {
 
@@ -15,9 +21,13 @@ public class GameEngine extends Application {
 
     private View view;
     private Game game;
-    private Controller controller;
 
     private int frameCounter = 0;
+    private Vector<KeyCode> activeKeys;
+
+
+
+
 
     @Override
     public void start(Stage primaryStage){
@@ -25,9 +35,38 @@ public class GameEngine extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, Color.WHITE);
 
+        //array for active keyCodes
+        activeKeys = new Vector<KeyCode>();
+
+
         game = new Game();
-        controller = new Controller();
         view = new View(game, scene, root);
+
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+                System.out.println(event.getCode());
+                //functionality on keypresses
+               InputHandler.keyPress(event);
+
+
+
+            }
+        });
+
+
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+                //functionality on key release
+                InputHandler.keyRelease(event);
+            }
+        });
+
+
 
         new AnimationTimer() {
             @Override
