@@ -36,6 +36,6 @@ public class CardinalAngleAndSideTest {
         assertEquals(r4.calculateAngle(), 60);
         assertEquals(r5.getHexagonSide(), 5);
         assertEquals(r5.calculateAngle(), 120);
-        
+
     }
 }
