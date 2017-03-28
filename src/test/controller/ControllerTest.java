@@ -11,8 +11,8 @@ public class ControllerTest {
     @Test
     public void keyPressTest() {
 
-       /* Map map = new Map();
-        Controller controller  =  new Controller(map);*/
+
+        Controller controller  =  new Controller();
 
 
 

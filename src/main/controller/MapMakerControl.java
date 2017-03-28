@@ -19,26 +19,20 @@ public class MapMakerControl implements ControlHandler{
     //represents state of MapMakerControl
     private MMCState mmcState;
 
-    //private Terrain currentTerrain;
-    //private Tile tile;
-    //private Map map;
-    private Location location;
+    private static MapMakerControl instance = new MapMakerControl();
+    public static MapMakerControl getInstance(){return instance;}
 
-    //public Tile getTile() {return tile;}
-    //public void setTile(Tile tile) {this.tile = tile;}
 
     //constructor
-    public MapMakerControl(){
+    private MapMakerControl(){
         mmcState = TerrainMMCState.getInstance();
-        //this.map = map;
-        location = new Location(0, 0, 0);
-        TileEditor.getInstance().setLocation(location);
+        TileEditor.getInstance().setLocation(new Location(0,0,0));
     }
 
     public MMCState getMmcState() {return mmcState;}
     public void setMmcState(MMCState mmcState) {this.mmcState = mmcState;}
-    //public Terrain getCurrentTerrain() {return currentTerrain;}
-    //public void setCurrentTerrain(Terrain currentTerrain) {this.currentTerrain = currentTerrain;}
+
+
 
     public void left(){
         mmcState.left();
@@ -46,41 +40,48 @@ public class MapMakerControl implements ControlHandler{
     public void right(){
         mmcState.right();
     }
-    public void select(Controller controller){
+
+
+ /*   public void select(Controller controller){
         controller.getControlHandler().getMmcState().select(this);
     }
-
+*/
     public void select(){
         mmcState.select(this);
     }
+
     public void moveNW(){
-        location.addZ(1);
+
+        TileEditor.getInstance().moveNW();
     }
     public void moveN(){
-        location.addY(1);
+
+        TileEditor.getInstance().moveN();
     }
     public void moveNE(){
-        location.addX(1);
+
+        TileEditor.getInstance().moveNE();
     }
     public void moveSW(){
-        location.addX(-1);
+
+        TileEditor.getInstance().moveSW();
     }
     public void moveS(){
-        location.addY(-1);
+
+        TileEditor.getInstance().moveS();
     }
     public void moveSE(){
-        location.addZ(-1);
+
+        TileEditor.getInstance().moveSE();
     }
 
     //TESTING ONLY
     public void printState(){
-        System.out.println("Location: " + location.toString() +
+        System.out.println("Location: " + TileEditor.getInstance().getLocation().toString() +
                 "State: " + mmcState.toString() + "Substate: ");
         mmcState.printSubState();
 
     }
-    //public void addTileToMap(){
-        //map.addTile(tile, location);
-    //}
+
 
 }

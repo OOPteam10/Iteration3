@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class CommandLineControl {
     public static void main(String args[]){
 
-        Map map = new Map();
-        MapMakerControl mmc = new MapMakerControl();
+
+        MapMakerControl mmc = MapMakerControl.getInstance();
 
         while(true){
             debugMenu(mmc);
