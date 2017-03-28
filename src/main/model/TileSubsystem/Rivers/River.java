@@ -32,7 +32,7 @@ public abstract class River {
     public int getHexagonSide() {
         return edges.get(0).ordinal();
     }
-    
+
     abstract public void accept(TileVisitor v);
 
     public static boolean validateRiverConnection(River source, River target, HexSide adjacency){

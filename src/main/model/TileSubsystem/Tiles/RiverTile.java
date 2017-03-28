@@ -44,4 +44,8 @@ public class RiverTile extends LandTile {
             }
         }
     }
+
+    public River getRiver(){
+        return river;
+    }
 }
