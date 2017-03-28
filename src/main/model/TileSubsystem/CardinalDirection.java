@@ -34,4 +34,16 @@ public enum CardinalDirection {
         i %= values().length;
         return values()[i];
     }
+
+    public int calculateAngle(CardinalDirection comparison){
+        int angle = comparison.degree - this.degree;
+        if(angle < 0){
+            angle += 360;
+        }
+        return angle;
+    }
+
+    public int getHexagonSide(){
+        return ((degree + 15) / 60) % 6;
+    }
 }
