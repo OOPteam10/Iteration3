@@ -106,7 +106,7 @@ public class FilePanel extends view.Panel {
             saveFile(saveMap);
         }
     }
-
+    
 
     public String location_print(Location l) {
         return "(" + l.getX() + "," + l.getY() + "," + l.getZ() + ")";
@@ -193,7 +193,8 @@ public class FilePanel extends view.Panel {
         File newMap = fileChooser.showOpenDialog(null);
         if(newMap!= null){
             HashMap<Location, Tile> newMapObject = readFile(newMap);
-            //this.gameMap = newMapObject;
+            //TODO need to update model
+            this.gameMap = newMapObject;
         }
     }
 
@@ -209,6 +210,7 @@ public class FilePanel extends view.Panel {
             Tile t = parseTile(in);
             System.out.println("Loaded this tile");
             out.put(l, t);
+            in = reader.readLine();
         }
 
         return out;
@@ -247,26 +249,22 @@ public class FilePanel extends view.Panel {
                     t = null;
             }
         } else {
-            while (in.charAt(cur) != ' ') {
-                //System.out.println("Checking index " + cur + " of " + in);
-                buf += in.charAt(cur);
-                cur++;
-            }
-
             //Now we know its a river tile
             River r;
             cur = cur +2;
             String riverBuf = "";
-            while (in.charAt(cur) != ')') {
-                riverBuf += in.charAt(cur);
-                cur++;
+            String[] riverSplit;
+            riverBuf = in.substring(in.indexOf('(')+1, in.length()-1);
+            if (riverBuf.length() == 1) {
+                riverSplit = new String[]{riverBuf};
+            } else {
+                riverSplit = riverBuf.split(" ");
             }
 
-            String[] riverSplit = riverBuf.split(" ");
 
             switch (riverSplit.length) {
                 case 1:
-                    r = new SourceRiver(intSide_to_hexSide(Integer.parseInt(riverSplit[0])));
+                    r = new SourceRiver(intSide_to_hexSide(Integer.parseInt(riverBuf)));
                     break;
                 case 2:
                     r = new NormalRiver(intSide_to_hexSide(Integer.parseInt(riverSplit[0])), intSide_to_hexSide(Integer.parseInt(riverSplit[1])));
@@ -279,6 +277,7 @@ public class FilePanel extends view.Panel {
                     System.out.println("what r u doing son theres no such river");
                     r = null;
             }
+            buf = in.substring(0,in.indexOf(' '));
             Terrain terrain;
             switch(buf) {
                 case "rock":

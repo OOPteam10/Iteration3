@@ -128,6 +128,9 @@ public class MapPanel extends Panel{
     public void updateMap(HashMap<Location, Tile> gameMap){
         this.gameMap = gameMap;
     }
+//    public void updateMap(HashMap<Location, Tile> gameMap){
+//        this.gameMap = gameMap;
+//    }
 
     public void showGUIElements(){}
     public void hideGUIElements(){}
