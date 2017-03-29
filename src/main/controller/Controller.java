@@ -76,6 +76,15 @@ public class Controller {
 
         controlHandler.moveSW();
     }
+    public void delete(){
+
+        controlHandler.delete();
+    }
+    public void reset(){
+
+        controlHandler.reset();
+    }
+
 
 
 

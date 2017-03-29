@@ -26,7 +26,7 @@ public class GameEngine extends Application {
     private int frameCounter = 0;
     private Vector<KeyCode> activeKeys;
 
-    boolean scrollLeft,scrollRight,goNorth,goNE,goNW,goSouth,goSE,goSW,select;
+    boolean scrollLeft,scrollRight,goNorth,goNE,goNW,goSouth,goSE,goSW,select,reset,delete;
 
 
 
@@ -80,6 +80,12 @@ public class GameEngine extends Application {
                     case ENTER:
                         select = true;
                         break;
+                    case R:
+                        reset = true;
+                        break;
+                    case T:
+                        delete = true;
+                        break;
                 }
 
 
@@ -119,6 +125,13 @@ public class GameEngine extends Application {
                     case ENTER:
                         select = false;
                         break;
+                    case R:
+                        reset = false;
+                        break;
+                    case T:
+                        delete = false;
+                        break;
+
                 }
 
             }
@@ -145,6 +158,10 @@ public class GameEngine extends Application {
                     if(goSouth) {controller.moveS();}
                     if(goSE) {controller.moveSE();}
                     if(goSW) {controller.moveSW();}
+
+                    //reset and delete
+                    if(reset){controller.reset();}
+                    if(delete){controller.delete();}
 
                     //selesction
                     if(select) {controller.select();}
