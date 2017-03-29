@@ -73,7 +73,7 @@ public abstract class River {
     public static boolean validateLandToRiverConnection(River target, HexSide adjacency){
         boolean sourceAdjacencyHasNoRiver = true;
         for(HexSide hs: target.getEdges()) {
-            if (hs == adjacency) {
+            if (hs == adjacency.getOppositeSide()) {
                 sourceAdjacencyHasNoRiver = false;
             }
         }

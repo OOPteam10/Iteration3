@@ -1,9 +1,11 @@
 package model.MapSubsystem;
 
+import com.sun.org.apache.bcel.internal.generic.LAND;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.Tile;
+import model.TileSubsystem.Visitor.LandTileValidationVisitor;
 import model.TileSubsystem.Visitor.RiverTileValidationVisitor;
 
 import java.util.HashMap;
@@ -34,10 +36,18 @@ public class Map {
             }
 
         }
+        if (tile instanceof LandTile) {
+            valid = validateLandTilePlacement((LandTile)tile, location) ;
+            if (!valid) {
+                System.out.println("river validation failed\n");
+                return valid;
+            }
+        }
         tiles.put(location, tile);
         System.out.println("map.addTile() succeeds\n");
         return true;
     }
+
     public Tile getTile(Location location){
         return tiles.get(location);
     }
@@ -87,10 +97,31 @@ public class Map {
         return isValid;
     }
 
-    public boolean remove(Location location){
-        if(tiles.remove(location) == null)
+    public boolean remove(Location location) {
+        if (tiles.remove(location) == null)
             return false;
         else return true;
+    }
+
+    public boolean validateLandTilePlacement(LandTile landTile, Location location) {
+        boolean isValid = true;
+        HashMap<HexSide, Tile> adjacentTiles = getAdjacentTiles(location);
+
+        //TODO delete for testing
+        System.out.println("attempting to add tile at " + location.toString());
+        for(HexSide hs: adjacentTiles.keySet()){
+            System.out.println("adjacent tile: " + adjacentTiles.get(hs).toString());
+        }
+
+
+        for(HexSide hs: adjacentTiles.keySet()){
+            LandTileValidationVisitor visitor = new LandTileValidationVisitor(landTile, hs);
+            adjacentTiles.get(hs).accept(visitor);
+            if(!visitor.isValid())
+                isValid = false;
+            //validate the tile at this hexside with the source tile
+        }
+        return isValid;
     }
 
     public HashMap<Location, Tile> getMap(){
