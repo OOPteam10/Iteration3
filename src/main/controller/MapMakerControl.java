@@ -119,6 +119,10 @@ public class MapMakerControl implements ControlHandler{
     }
     public void delete(){
         TileEditor.getInstance().delete();
+        for(int i =0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).placeTile();
+        }
+
     }
     public void reset(){
         mmcState.reset(this);
