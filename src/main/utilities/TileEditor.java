@@ -127,6 +127,12 @@ public class TileEditor implements Editor{
 
     }
 
+    public boolean delete(){
+        if(map.remove(location))
+            return true;
+        else return false;
+    }
+
    /*
     //TODO
     @Override

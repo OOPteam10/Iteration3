@@ -34,7 +34,7 @@ public class CommandLineControl {
         int input = 0;
         System.out.println("0: left    1: right    2: select\n" +
                 "3: NW    4: N   5: NE\n" +
-                "6: SE    7: S    8: SW\n");
+                "6: SE    7: S    8: SW    9: delete    10: reset\n");
         input = in.nextInt();
         switch(input){
             case 0:
@@ -63,6 +63,12 @@ public class CommandLineControl {
                 break;
             case 8:
                 mmc.moveSW();
+                break;
+            case 9:
+                mmc.delete();
+                break;
+            case 10:
+                mmc.reset();
                 break;
         }
         mmc.printState();

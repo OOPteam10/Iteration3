@@ -35,6 +35,10 @@ public class RiverMMCState implements MMCState {
         riverMMCSubState = Shape1State.getInstance();
     }
 
+    public void reset(MapMakerControl context){
+        context.setMmcState(TerrainMMCState.getInstance());
+    }
+
     //For testing
     public void printSubState(){
         System.out.println("River " + riverMMCSubState.toString() + "\n");

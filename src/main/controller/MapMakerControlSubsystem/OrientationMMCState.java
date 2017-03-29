@@ -43,6 +43,10 @@ public class OrientationMMCState implements MMCState {
         context.setMmcState(TerrainMMCState.getInstance());
     }
 
+    public void reset(MapMakerControl context){
+        context.setMmcState(TerrainMMCState.getInstance());
+    }
+
     //For testing
     public void printSubState(){
         System.out.println("offset " + offset + "\n");

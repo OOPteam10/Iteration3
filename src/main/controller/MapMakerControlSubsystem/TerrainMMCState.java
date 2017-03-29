@@ -32,6 +32,10 @@ public class TerrainMMCState implements MMCState {
         terrainMMCSubState = DesertState.getInstance();
     }
 
+    public void reset(MapMakerControl context){
+        terrainMMCSubState = DesertState.getInstance();
+    }
+
     //For testing
     public void printSubState(){
         System.out.println("Terrain " + terrainMMCSubState.toString() + "\n");

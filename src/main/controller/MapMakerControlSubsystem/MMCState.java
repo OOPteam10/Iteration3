@@ -13,6 +13,7 @@ public interface MMCState {
     //For testing
     public void printSubState();
     public String toString();
+    public void reset(MapMakerControl context);
 
 
 }
