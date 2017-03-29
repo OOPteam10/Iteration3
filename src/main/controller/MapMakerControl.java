@@ -75,6 +75,13 @@ public class MapMakerControl implements ControlHandler{
 
         TileEditor.getInstance().moveSE();
     }
+    public void delete(){
+        TileEditor.getInstance().delete();
+    }
+    public void reset(){
+        mmcState.reset(this);
+    }
+
 
 
     //TESTING ONLY

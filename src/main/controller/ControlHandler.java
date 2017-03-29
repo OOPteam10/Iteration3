@@ -18,6 +18,8 @@ public interface ControlHandler {
     public void moveSW();
     public void moveS();
     public void moveSE();
+    public void delete();
+    public void reset();
 
 
 }

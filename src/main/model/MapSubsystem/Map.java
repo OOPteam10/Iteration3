@@ -87,6 +87,12 @@ public class Map {
         return isValid;
     }
 
+    public boolean remove(Location location){
+        if(tiles.remove(location) == null)
+            return false;
+        else return true;
+    }
+
     public HashMap<Location, Tile> getMap(){
         return tiles;
     }
