@@ -7,7 +7,7 @@ public abstract class LocationMovementCommand {
     private Location location;
 
     public void configureLocation(Location loc) {
-        location = loc;
+        location = new Location(loc);
     }
 
     protected Location getLocation() {

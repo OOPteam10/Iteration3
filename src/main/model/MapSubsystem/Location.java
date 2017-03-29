@@ -19,6 +19,11 @@ public class Location {
         this.y = y;
         this.z = z;
     }
+    public Location(Location loc){
+        this.x = loc.getX();
+        this.y = loc.getY();
+        this.z = loc.getZ();
+    }
 
     public void addX(int i){
         x += i;
