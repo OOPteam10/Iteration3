@@ -59,9 +59,6 @@ public class View implements MMCObserver{
         panelManager.drawPanels(screenDimension);
     }
 
-
-
-
     //MMCObserver methods
     @Override
     public void updateTerrainToDesert() {

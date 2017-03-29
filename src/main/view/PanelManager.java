@@ -36,4 +36,8 @@ public class PanelManager {
     }
 
     public void setMode(ViewEnum currentViewMode){this.currentViewMode = currentViewMode;}
+
+    public void updatePreview(String img){
+        mapMakerPanel.updatePreview(img);
+    }
 }

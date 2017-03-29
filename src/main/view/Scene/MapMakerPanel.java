@@ -44,4 +44,8 @@ public class MapMakerPanel extends Panel {
     public void showGUIElements(){
         filePanel.showGUIElements();
     }
+
+    public void updatePreview(String img) {
+        bottomPanel.setPreviewImage(img);
+    }
 }
