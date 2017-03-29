@@ -174,4 +174,7 @@ public class Map {
     public HashMap<Location, Tile> getMap(){
         return tiles;
     }
+    public void setMap(HashMap<Location, Tile> gameMap){
+        this.tiles = gameMap;
+    }
 }
