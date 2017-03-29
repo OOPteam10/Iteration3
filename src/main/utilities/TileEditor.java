@@ -1,5 +1,6 @@
 package utilities;
 
+import controller.MapMakerControlSubsystem.MMCObserver;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Rivers.River;
@@ -10,6 +11,8 @@ import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
+
+import java.util.Vector;
 
 /**
  * Created by cduica on 3/27/17.
@@ -48,6 +51,7 @@ public class TileEditor implements Editor{
     public Location getLocation(){
         return location;
     }
+
     public void setLocation(Location location){
         this.location = location;
     }
@@ -87,7 +91,7 @@ public class TileEditor implements Editor{
     }
 
     @Override
-    public boolean commit() {
+    public boolean commit(Vector<MMCObserver> mmcObserverVector) {
 
 
         if(mapNotInitialized() || locationNotSet()){
@@ -98,6 +102,10 @@ public class TileEditor implements Editor{
         if (tileCreationCommand.execute()) {
             initTile();
             location = new Location(location);
+            for(int i=0;i<mmcObserverVector.size();i++){
+                mmcObserverVector.get(i).placeTile();
+            }
+
             return true;
         }
 

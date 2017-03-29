@@ -1,5 +1,4 @@
 import controller.Controller;
-import controller.InputHandler;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -26,7 +25,7 @@ public class GameEngine extends Application {
     private int frameCounter = 0;
     private Vector<KeyCode> activeKeys;
 
-
+    boolean scrollLeft,scrollRight,goNorth,goNE,goNW,goSouth,goSE,goSW,select;
 
 
 
@@ -44,14 +43,43 @@ public class GameEngine extends Application {
         view = new View(game, scene, root);
 
 
+
+
+        Controller controller  = new Controller(view);
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
 
-               
-                //functionality on keypresses
-               InputHandler.keyPress(event);
-
+                switch(event.getCode()) {
+                    case J:
+                        scrollLeft = true;
+                        break;
+                    case K:
+                        scrollRight = true;
+                        break;
+                    case W:
+                        goNorth = true;
+                        break;
+                    case E:
+                        goNE = true;
+                        break;
+                    case Q:
+                        goNW = true;
+                        break;
+                    case S:
+                        goSouth = true;
+                        break;
+                    case D:
+                        goSE = true;
+                        break;
+                    case A:
+                        goSW = true;
+                        break;
+                    case ENTER:
+                        select = true;
+                        break;
+                }
 
 
             }
@@ -62,8 +90,36 @@ public class GameEngine extends Application {
             @Override
             public void handle(KeyEvent event) {
 
-                //functionality on key release
-                InputHandler.keyRelease(event);
+                switch(event.getCode()) {
+                    case J:
+                        scrollLeft = false;
+                        break;
+                    case K:
+                        scrollRight = false;
+                        break;
+                    case W:
+                        goNorth = false;
+                        break;
+                    case E:
+                        goNE = false;
+                        break;
+                    case Q:
+                        goNW = false;
+                        break;
+                    case S:
+                        goSouth = false;
+                        break;
+                    case D:
+                        goSE = false;
+                        break;
+                    case A:
+                        goSW = false;
+                        break;
+                    case ENTER:
+                        select = false;
+                        break;
+                }
+
             }
         });
 
@@ -73,9 +129,28 @@ public class GameEngine extends Application {
             @Override
             public void handle(long currentPulse) {
                 frameCounter++;
+                //menus
+                if(scrollLeft){ System.out.println("left");controller.left();}
+                if(scrollRight) {controller.right();}
+
+                //movement
+                if(goNorth) {controller.moveN();}
+                if(goNE) {controller.moveNE();}
+                if(goNW) {controller.moveNW();}
+                if(goSouth) {controller.moveS();}
+                if(goSE) {controller.moveSE();}
+                if(goSW) {controller.moveSW();}
+
+                //selesction
+                if(select) {controller.select();}
+
                 if (frameCounter == 2) { //Limit FPS to 30
                     frameCounter = 0;
+
+
+
                     view.renderGame();
+
                 }
             }
         }.start();
@@ -85,4 +160,16 @@ public class GameEngine extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+
+
+    public void keyRelease(KeyEvent event){
+
+        activeKeys.remove(event.getCode());
+    }
+
+
+
+
+
 }

@@ -4,6 +4,8 @@ import controller.MapMakerControl;
 import controller.MapMakerControlSubsystem.TerrainMMCSubsystem.DesertState;
 import controller.MapMakerControlSubsystem.TerrainMMCSubsystem.TerrainMMCSubState;
 
+import java.util.Vector;
+
 /**
  * Created by rishabh on 26/03/17.
  */
@@ -21,11 +23,11 @@ public class TerrainMMCState implements MMCState {
         this.terrainMMCSubState = terrainMMCSubState;
     }
 
-    public void left(){
-        terrainMMCSubState.left(this);
+    public void left(Vector<MMCObserver> mmcObservers){
+        terrainMMCSubState.left(this,mmcObservers);
     }
-    public void right(){
-        terrainMMCSubState.right(this);
+    public void right(Vector<MMCObserver> mmcObservers){
+        terrainMMCSubState.right(this,mmcObservers);
     }
     public void select(MapMakerControl context){
         terrainMMCSubState.select(context);

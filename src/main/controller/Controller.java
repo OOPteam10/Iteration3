@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Vector;
 import model.MapSubsystem.Map;
+import view.View;
 
 import javax.swing.*;
 
@@ -19,10 +20,11 @@ public class Controller {
 
 
 
-    public Controller(){
+    public Controller(View view){
 
         //init with the MapMakerControl state
         controlHandler = MapMakerControl.getInstance();
+        controlHandler.init(view);
 
     }
 
