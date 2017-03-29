@@ -131,6 +131,10 @@ public class MapMakerControl implements ControlHandler{
         }
     }
 
+    public void centerGravity(){
+        //TODO: IMPLEMENT
+    }
+
 
     //TESTING ONLY
     public void printState(){

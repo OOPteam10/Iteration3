@@ -1,4 +1,5 @@
 import controller.Controller;
+import controller.MapMakerControlSubsystem.ControlAction.ControlAction;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -12,6 +13,8 @@ import model.Game;
 import view.Camera;
 import view.View;
 
+import javax.naming.ldap.Control;
+import java.util.HashMap;
 import java.util.Vector;
 
 public class GameEngine extends Application {
@@ -26,10 +29,8 @@ public class GameEngine extends Application {
     private int frameCounter = 0;
     private Vector<KeyCode> activeKeys;
 
-    boolean scrollLeft,scrollRight,goNorth,goNE,goNW,goSouth,goSE,goSW,select,reset,delete;
-
-
-
+    private boolean scrollLeft,scrollRight,goNorth,goNE,goNW,goSouth,goSE,goSW,select;
+    
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("MapMakerV0.2");
@@ -43,15 +44,19 @@ public class GameEngine extends Application {
         game = new Game();
         view = new View(game, scene, root);
 
-
-
-
         controller  = new Controller(view);
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
 
+                KeyCode code = event.getCode();
+
+                if(!activeKeys.contains( code )) {
+                    activeKeys.add( code );
+                }
+
+                /*
                 switch(event.getCode()) {
                     case J:
                         scrollLeft = true;
@@ -87,7 +92,7 @@ public class GameEngine extends Application {
                         delete = true;
                         break;
                 }
-
+                */
 
             }
         });
@@ -97,6 +102,11 @@ public class GameEngine extends Application {
             @Override
             public void handle(KeyEvent event) {
 
+                KeyCode code = event.getCode();
+
+                activeKeys.remove( code );
+
+                /*
                 switch(event.getCode()) {
                     case J:
                         scrollLeft = false;
@@ -133,6 +143,7 @@ public class GameEngine extends Application {
                         break;
 
                 }
+                */
 
             }
         });
@@ -148,6 +159,13 @@ public class GameEngine extends Application {
                 //menus
                 if (frameCounter == 10) { //Limit FPS to 30
                     frameCounter = 0;
+
+                    for(KeyCode code: activeKeys){
+
+                        controller.executeCode( code );
+                    }
+
+                    /*
                     if(scrollLeft){ System.out.println("left");controller.left();}
                     if(scrollRight) {controller.right();}
 
@@ -165,7 +183,7 @@ public class GameEngine extends Application {
 
                     //selesction
                     if(select) {controller.select();}
-
+                    */
 
                     view.renderGame();
                 }
