@@ -99,6 +99,7 @@ public class TileEditor implements Editor{
 
         if(map.addTile(tile, location)){
             initTile();
+            location = new Location(location);
             return true;
         }
         return false;

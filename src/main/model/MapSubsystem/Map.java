@@ -27,9 +27,9 @@ public class Map {
 
         //TODO: get rid of instanceof and have functions for both kinds of tiles
         if(tile instanceof RiverTile){
-            System.out.println("Map->addTile()-> instanceof rivertile\n");
             valid = validateRiverTilePlacement( (RiverTile)tile,  location);
             if (!valid){
+                System.out.println("river validation failed\n");
                 return valid;
             }
 
@@ -69,6 +69,14 @@ public class Map {
     public boolean validateRiverTilePlacement(RiverTile riverTile, Location location){
         boolean isValid = true;
         HashMap<HexSide, Tile> adjacentTiles = getAdjacentTiles(location);
+
+        //TODO delete for testing
+        System.out.println("attempting to add tile at " + location.toString());
+        for(HexSide hs: adjacentTiles.keySet()){
+            System.out.println("adjacent tile: " + adjacentTiles.get(hs).toString());
+        }
+
+
         for(HexSide hs: adjacentTiles.keySet()){
             RiverTileValidationVisitor visitor = new RiverTileValidationVisitor(riverTile, hs);
             adjacentTiles.get(hs).accept(visitor);
