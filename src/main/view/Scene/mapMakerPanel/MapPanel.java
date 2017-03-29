@@ -53,6 +53,7 @@ public class MapPanel extends Panel{
 
 //        camera.setScale(1);
 //        camera.setCameraOffset(1,1);
+        //gameMap = generateMap();
     }
 
     //TODO: This is a hard coded thing, remove it later
@@ -111,7 +112,6 @@ public class MapPanel extends Panel{
         }
     }
 
-
     public void drawTileSelector(GraphicsContext gc){
         Point p = new Point();
         p.x = TileEditor.getInstance().getLocation().getX();
@@ -122,6 +122,11 @@ public class MapPanel extends Panel{
 
     private void updateMap(){
         gameMap = game.getMap();
+    }
+
+
+    public void updateMap(HashMap<Location, Tile> gameMap){
+        this.gameMap = gameMap;
     }
 
     public void showGUIElements(){}

@@ -35,6 +35,9 @@ public class MapMakerPanel extends Panel {
         filePanel.draw(gc, screenDimension);
         mapPanel.draw(gc, screenDimension);
         bottomPanel.draw(gc, screenDimension);
+
+
+        //mapPanel.updateMap(filePanel.getGameMap());
     }
 
     public void hideGUIElements(){
