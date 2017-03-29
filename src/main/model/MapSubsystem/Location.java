@@ -91,8 +91,10 @@ public class Location {
         int newZ = target.z - this.z;
         return new Location(newX, newY, newZ);
     }
+
     public Location getAdjacentLocation(HexSide hs){
         //TODO: find the location on whatever side
+        return LocationUtility.getAdjacentLocationFromHexSide(this, hs);
     }
 
     //For debugging only
