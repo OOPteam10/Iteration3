@@ -24,12 +24,17 @@ public class ForkState implements RiverMMCSubState {
     }
 
     public void left(RiverMMCState subContext,Vector<MMCObserver> mmcObservers){
-
+        for(int i = 0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).updateRiverToSource();
+        }
         subContext.setSubState(SourceState.getInstance());
     }
     public void right(RiverMMCState subContext,Vector<MMCObserver> mmcObservers){
-
+        for(int i = 0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).updateRiverToNone();
+        }
         subContext.setSubState(NoRiverState.getInstance());
+
     }
     public void select(MapMakerControl context){
         //notifying observers
