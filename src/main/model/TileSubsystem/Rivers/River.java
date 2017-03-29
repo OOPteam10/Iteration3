@@ -23,10 +23,20 @@ public abstract class River {
         edges.add(edge);
     }
 
-    public void rotate(int offset){
+    public void rotateR(){
+        ArrayList<HexSide> newEdges = new ArrayList<HexSide>();
         for(HexSide side: edges){
-            side = side.next();
+            newEdges.add(side.next());
+
         }
+        this.edges = newEdges;
+    }
+    public void rotateL(){
+        ArrayList<HexSide> newEdges = new ArrayList<HexSide>();
+        for(HexSide side: edges){
+            newEdges.add(side.previous());
+        }
+        this.edges = newEdges;
     }
 
     public int getHexagonSide() {

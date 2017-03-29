@@ -28,10 +28,10 @@ public class OrientationMMCState implements MMCState {
     }
 
     public void left(){
-        currentRiver.rotate(-1);
+        currentRiver.rotateL();
     }
     public void right(){
-        currentRiver.rotate(1);
+        currentRiver.rotateR();
     }
     public void select(MapMakerControl context){
         //context.setTile(new RiverTile(context.getCurrentTerrain(), currentRiver));
