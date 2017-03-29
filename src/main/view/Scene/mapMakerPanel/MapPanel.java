@@ -50,8 +50,8 @@ public class MapPanel extends Panel{
         gameMap = generateMap();
         this.camera = camera;
 
-        camera.setScale(1);
-        camera.setCameraOffset(1,1);
+//        camera.setScale(1);
+//        camera.setCameraOffset(1,1);
     }
 
     //TODO: This is a hard coded thing, remove it later
