@@ -99,12 +99,14 @@ public class TileEditor implements Editor{
         }
 
         tileCreationCommand.configureLocation(location);
+        for(int i=0;i<mmcObserverVector.size();i++){
+            mmcObserverVector.get(i).placeTile();
+        }
+
         if (tileCreationCommand.execute()) {
             initTile();
             location = new Location(location);
-            for(int i=0;i<mmcObserverVector.size();i++){
-                mmcObserverVector.get(i).placeTile();
-            }
+
 
             return true;
         }
