@@ -40,7 +40,7 @@ public class TileDrawingVisitor implements TileVisitor {
         this.gc = gc;
         this.p = p;
 
-        imageTranslator = new ImageLocationTranslator(gc, p);
+        imageTranslator = new ImageLocationTranslator();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class TileDrawingVisitor implements TileVisitor {
                 break;
         }
         try {
-            drawRotatedImage(img, river.getHexagonSide() * ROTATION_ANGLE, imageTranslator.offset().x, imageTranslator.offset().y);
+            drawRotatedImage(img, river.getHexagonSide() * ROTATION_ANGLE, imageTranslator.offset(gc, p).x, imageTranslator.offset(gc, p).y);
         }
         catch(NullPointerException e){
             System.out.println("Wrong angle, malfunctioning normal river. Angle = "+normalRiverAngle);
@@ -92,13 +92,13 @@ public class TileDrawingVisitor implements TileVisitor {
     @Override
     public void visitSourceRiver(SourceRiver river) {
         Image img = assets.getImage("SOURCE_RIVER");
-        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, imageTranslator.offset().x, imageTranslator.offset().y);
+        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, imageTranslator.offset(gc, p).x, imageTranslator.offset(gc, p).y);
     }
 
     @Override
     public void visitForkedRiver(ForkedRiver river) {
         Image img = assets.getImage("FORKED_RIVER");
-        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, imageTranslator.offset().x, imageTranslator.offset().y);
+        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, imageTranslator.offset(gc, p).x, imageTranslator.offset(gc,p).y);
     }
 
     @Override
@@ -110,28 +110,28 @@ public class TileDrawingVisitor implements TileVisitor {
     public void visitMountains(Mountains terrain) {
         // do something with this, draw over current constructed tile
         Image img = assets.getImage("MOUNTAIN_TILE");
-        gc.drawImage(img, imageTranslator.offset().x, imageTranslator.offset().y);
+        gc.drawImage(img, imageTranslator.offset(gc, p).x, imageTranslator.offset(gc, p).y);
     }
 
     @Override
     public void visitPasture(Pasture terrain) {
         // do something with this, draw over current constructed tile
         Image img = assets.getImage("GRASS_TILE");
-        gc.drawImage(img, imageTranslator.offset().x, imageTranslator.offset().y);
+        gc.drawImage(img, imageTranslator.offset(gc, p).x, imageTranslator.offset(gc, p).y);
     }
 
     @Override
     public void visitRock(Rock terrain) {
         // do something with this, draw over current constructed tile
         Image img = assets.getImage("ROCK_TILE");
-        gc.drawImage(img, imageTranslator.offset().x, imageTranslator.offset().y);
+        gc.drawImage(img, imageTranslator.offset(gc, p).x, imageTranslator.offset(gc, p).y);
     }
 
     @Override
     public void visitSea(Sea terrain) {
         // do something with this, draw over current constructed tile
         Image img = assets.getImage("SEA_TILE");
-        gc.drawImage(img, imageTranslator.offset().x, imageTranslator.offset().y);
+        gc.drawImage(img, imageTranslator.offset(gc, p).x, imageTranslator.offset(gc, p).y);
     }
 
     @Override
