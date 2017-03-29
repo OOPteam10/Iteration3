@@ -55,10 +55,14 @@ public class MapMakerControl implements ControlHandler{
 
     public void left(){
         mmcState.left(mmcObservers);
+        //TODO get rid of print
+        printState();
 
     }
     public void right(){
         mmcState.right(mmcObservers);
+        //TODO get rid of print
+        printState();
     }
 
 

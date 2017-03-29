@@ -20,6 +20,7 @@ public class BottomPanel extends Panel {
     private Camera camera;
     private Image terrainPreviewImage;
     private Image riverPreviewImage;
+    private int rotationAngle;
 
     public BottomPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
         super(game, assets, gameMode);
@@ -27,8 +28,9 @@ public class BottomPanel extends Panel {
         this.bottomPanelRect = new Rectangle();
         this.root = root;
         this.camera = camera;
-        terrainPreviewImage = assets.getImage("MOUNTAIN_TILE");
-        riverPreviewImage = assets.getImage("EMPTY_HEX_GRID");
+        terrainPreviewImage = assets.getImage("DESERT_TILE");
+        riverPreviewImage = assets.getImage("NORMAL_RIVER_60");
+        rotationAngle = 0;
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){
@@ -43,7 +45,7 @@ public class BottomPanel extends Panel {
     public void drawPreview(GraphicsContext gc, Point screenDimension){
         gc.drawImage(terrainPreviewImage, screenDimension.x/2-115, screenDimension.y-110);
         gc.drawImage(riverPreviewImage, screenDimension.x/2, screenDimension.y-110);
-        drawRotatedPreview(gc, terrainPreviewImage, riverPreviewImage, 0, screenDimension.x/2+115,screenDimension.y-110);
+        drawRotatedPreview(gc, terrainPreviewImage, riverPreviewImage, rotationAngle, screenDimension.x/2+115,screenDimension.y-110);
     }
 
     public void showGUIElements(){
@@ -74,5 +76,9 @@ public class BottomPanel extends Panel {
         }
         gc.restore(); // back to original state (before rotation)
 
+    }
+
+    public void setRotationAngle(int numRotation){
+        rotationAngle = numRotation *60;
     }
 }

@@ -44,4 +44,8 @@ public class PanelManager {
     public void updateRiverPreview(String img){
         mapMakerPanel.updateRiverPreview(img);
     }
+
+    public void updateRotation(int rotation){
+        mapMakerPanel.updateRotation(rotation);
+    }
 }

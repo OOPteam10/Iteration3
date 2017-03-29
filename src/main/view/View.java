@@ -27,6 +27,7 @@ public class View implements MMCObserver{
     private Scene scene;
     private int pulse = 0;
     private Camera camera;
+    private int rotation;
 
     public View(Game game, Scene scene, Group root){
         assets = new AssetManager();
@@ -39,7 +40,7 @@ public class View implements MMCObserver{
         camera = new Camera(screenDimension);
         gc = canvas.getGraphicsContext2D();
         panelManager = new PanelManager(game, assets, root, gc, camera);
-
+        this.rotation = 0;
         initializeView();
     }
 
@@ -152,7 +153,9 @@ public class View implements MMCObserver{
 
     @Override
     public void placeTile(){
-
+        panelManager.updateTerrainPreview("DESERT_TILE");
+        panelManager.updateRiverPreview("NORMAL_RIVER_60");
+        rotation = 0;
     }
 
     @Override
@@ -167,11 +170,13 @@ public class View implements MMCObserver{
 
     @Override
     public void rotateLeft() {
-
+        rotation--;
+        panelManager.updateRotation(rotation%4);
     }
 
     public void rotateRight(){
-
+        rotation++;
+        panelManager.updateRotation(rotation%4);
 
     }
 }

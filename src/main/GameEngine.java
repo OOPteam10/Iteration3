@@ -133,7 +133,7 @@ public class GameEngine extends Application {
 
                 frameCounter++;
                 //menus
-                if (frameCounter == 6) { //Limit FPS to 30
+                if (frameCounter == 10) { //Limit FPS to 30
                     frameCounter = 0;
                     if(scrollLeft){ System.out.println("left");controller.left();}
                     if(scrollRight) {controller.right();}

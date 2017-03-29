@@ -52,4 +52,6 @@ public class MapMakerPanel extends Panel {
     public void updateRiverPreview(String img){
         bottomPanel.setRiverPreviewImage(img);
     }
+
+    public void updateRotation(int rotation){bottomPanel.setRotationAngle(rotation);}
 }
