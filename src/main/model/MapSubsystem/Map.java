@@ -4,9 +4,11 @@ import com.sun.org.apache.bcel.internal.generic.LAND;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
+import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.LandTileValidationVisitor;
 import model.TileSubsystem.Visitor.RiverTileValidationVisitor;
+import model.TileSubsystem.Visitor.TileVisitor;
 
 import java.util.HashMap;
 
@@ -20,28 +22,34 @@ public class Map {
         tiles = new HashMap<Location, Tile>();
     }
 
-    public boolean addTile(Tile tile, Location location){
+    public boolean addLandTile(LandTile tile, Location location) {
         boolean valid;
+        valid = validateLandTilePlacement(tile, location) ;
+        if (!valid) {
+            System.out.println("river validation failed\n");
+            return valid;
+        }
+        return addTile(tile, location);
+    }
+
+    public boolean addRiverTile(RiverTile tile, Location location) {
+        boolean valid;
+        valid = validateRiverTilePlacement(tile, location) ;
+        if (!valid) {
+            System.out.println("river validation failed\n");
+            return valid;
+        }
+        return addTile(tile, location);
+    }
+
+    public boolean addSeaTile(SeaTile tile, Location location) {
+        return addTile(tile, location);
+    }
+
+    private boolean addTile(Tile tile, Location location) {
         if(tiles.containsKey(location)){
             System.out.println("already tile there\n");
             return false;
-        }
-
-        //TODO: get rid of instanceof and have functions for both kinds of tiles
-        if(tile instanceof RiverTile){
-            valid = validateRiverTilePlacement( (RiverTile)tile,  location);
-            if (!valid){
-                System.out.println("river validation failed\n");
-                return valid;
-            }
-
-        }
-        if (tile instanceof LandTile) {
-            valid = validateLandTilePlacement((LandTile)tile, location) ;
-            if (!valid) {
-                System.out.println("river validation failed\n");
-                return valid;
-            }
         }
         tiles.put(location, tile);
         System.out.println("map.addTile() succeeds\n");
@@ -76,17 +84,15 @@ public class Map {
         return adjacentTiles;
     }
 
+    public boolean validateTilePlacement(TileVisitor v) {
+        boolean isValid = true;
+        return isValid;
+    }
+
     public boolean validateRiverTilePlacement(RiverTile riverTile, Location location){
         boolean isValid = true;
         HashMap<HexSide, Tile> adjacentTiles = getAdjacentTiles(location);
-
-        //TODO delete for testing
-        System.out.println("attempting to add tile at " + location.toString());
-        for(HexSide hs: adjacentTiles.keySet()){
-            System.out.println("adjacent tile: " + adjacentTiles.get(hs).toString());
-        }
-
-
+        
         for(HexSide hs: adjacentTiles.keySet()){
             RiverTileValidationVisitor visitor = new RiverTileValidationVisitor(riverTile, hs);
             adjacentTiles.get(hs).accept(visitor);
@@ -106,13 +112,6 @@ public class Map {
     public boolean validateLandTilePlacement(LandTile landTile, Location location) {
         boolean isValid = true;
         HashMap<HexSide, Tile> adjacentTiles = getAdjacentTiles(location);
-
-        //TODO delete for testing
-        System.out.println("attempting to add tile at " + location.toString());
-        for(HexSide hs: adjacentTiles.keySet()){
-            System.out.println("adjacent tile: " + adjacentTiles.get(hs).toString());
-        }
-
 
         for(HexSide hs: adjacentTiles.keySet()){
             LandTileValidationVisitor visitor = new LandTileValidationVisitor(landTile, hs);

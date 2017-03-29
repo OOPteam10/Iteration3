@@ -26,7 +26,8 @@ public class TileEditor implements Editor{
     }
 
     private Map map;
-    private Tile tile;
+//    private Tile tile;
+    private TileCreationCommand tileCreationCommand;
     private Location location;
 
     private Terrain terrain;
@@ -58,18 +59,16 @@ public class TileEditor implements Editor{
 
     // method to create a land tile directly using the set terrain in the TileEditdor
     public void createLandTile(){
-        tile = new LandTile(this.terrain);
+        tileCreationCommand = new LandTileCreationCommand(map, this.terrain);
     }
 
 
     public void createRiverTile(River river){
-
-        tile = new RiverTile(terrain, river);
+        tileCreationCommand = new RiverTileCreationCommand(map, this.terrain, river);
     }
 
     public void createSeaTile(){
-
-        tile = new SeaTile(Sea.getInstance());
+        tileCreationCommand = new SeaTileCreationCommand(map);
     }
 
 
@@ -95,11 +94,13 @@ public class TileEditor implements Editor{
             return false;
         }
 
-        if(map.addTile(tile, location)){
+        tileCreationCommand.configureLocation(location);
+        if (tileCreationCommand.execute()) {
             initTile();
             location = new Location(location);
             return true;
         }
+
         return false;
     }
 

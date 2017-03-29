@@ -49,12 +49,12 @@ public class AdjacencyTest {
 
         Map map = new Map();
 
-        map.addTile(t1, l1);
-        map.addTile(t2, l2);
-        map.addTile(t3, l3);
-        map.addTile(t4, l4);
-        map.addTile(t5, l5);
-        map.addTile(t6, l6);
+        map.addLandTile(t1, l1);
+        map.addLandTile(t2, l2);
+        map.addLandTile(t3, l3);
+        map.addLandTile(t4, l4);
+        map.addLandTile(t5, l5);
+        map.addLandTile(t6, l6);
 
 
 

@@ -46,7 +46,7 @@ public class SectorTest {
         RiverTile landTile = new RiverTile(Mountains.getInstance(), new ForkedRiver(HexSide.NE, HexSide.S, HexSide.NW));
         Location l1 = new Location(0, 0, 0);
 
-        map.addTile(landTile, l1);
+        map.addLandTile(landTile, l1);
         landTile.getSectors();
 
         if(landTile.getSectors().size() != 3){

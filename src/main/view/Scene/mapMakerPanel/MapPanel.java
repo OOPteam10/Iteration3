@@ -77,10 +77,10 @@ public class MapPanel extends Panel{
 
         Map map = new Map();
         //map.addTile(mountainTile, l1);
-        map.addTile(riverTile, l1);
-        map.addTile(riverTile2, l2);
-        map.addTile(riverTile3, l3);
-        map.addTile(seaTile,l4);
+        map.addRiverTile(riverTile, l1);
+        map.addRiverTile(riverTile2, l2);
+        map.addRiverTile(riverTile3, l3);
+        map.addSeaTile(seaTile,l4);
         //map.addTile(mountainTile,l5);
 
         return map.getMap();
