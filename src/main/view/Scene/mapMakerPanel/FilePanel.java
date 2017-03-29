@@ -56,6 +56,7 @@ public class FilePanel extends view.Panel {
         int x = screenDimension.x/8;
         int y = screenDimension.y - 125;
 
+
         newMapButton.setTranslateX(0);
         newMapButton.setTranslateY(y);
 
@@ -67,6 +68,7 @@ public class FilePanel extends view.Panel {
 
         startGameButton.setTranslateX(screenDimension.x - 120);
         startGameButton.setTranslateY(y);
+
     }
 
     private void restartMap(){

@@ -23,6 +23,7 @@ import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
+import utilities.TileEditor;
 import view.Panel;
 import view.PanelManager;
 import view.Tool.ImageLocationTranslator;
@@ -44,10 +45,10 @@ public class MapPanel extends Panel{
         super(game, assets,gameMode);
         this.assets = assets;
 
-
         //TODO: this is hard coded, remove it after
         gameMap = new HashMap<Location, Tile>();
         gameMap = generateMap();
+        imageLocationTranslator = new ImageLocationTranslator();
     }
 
     //TODO: This is a hard coded thing, remove it later
@@ -93,16 +94,24 @@ public class MapPanel extends Panel{
             gameMap.get(loc).accept(tileDrawingVisitor);
             i++;
         }
+        drawTileSelector(gc);
+
     }
 
     public void drawBackground(GraphicsContext gc){
         for (int i=0;i<21;i++){
             for(int j=0;j<21;j++){
                 Point p = new Point(i-10,j-10);
-                imageLocationTranslator = new ImageLocationTranslator(gc,p);
-                gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), imageLocationTranslator.offset().x,imageLocationTranslator.offset().y);
+                gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), imageLocationTranslator.offset(gc, p).x,imageLocationTranslator.offset(gc, p).y);
             }
         }
+    }
+
+    public void drawTileSelector(GraphicsContext gc){
+        Point p = new Point();
+        p.x = TileEditor.getInstance().getLocation().getX();
+        p.y = TileEditor.getInstance().getLocation().getY();
+        gc.drawImage(getAssets().getImage("TILE_SELECTOR"), imageLocationTranslator.offset(gc, p).x, imageLocationTranslator.offset(gc, p).y);
     }
 
     public void showGUIElements(){}

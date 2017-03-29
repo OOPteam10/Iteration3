@@ -33,7 +33,7 @@ public class GameEngine extends Application {
     public void start(Stage primaryStage){
         primaryStage.setTitle("MapMakerV0.2");
         Group root = new Group();
-        Scene scene = new Scene(root, Color.WHITE);
+        Scene scene = new Scene(root, Color.TRANSPARENT);
 
         //array for active keyCodes
         activeKeys = new Vector<KeyCode>();

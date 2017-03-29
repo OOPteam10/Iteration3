@@ -6,19 +6,18 @@ import javafx.scene.transform.Rotate;
 import java.awt.*;
 
 public class ImageLocationTranslator {
-    private Point p;
     private final static int HEX_W = 115;
     private final static int HEX_H = 100;
-    public ImageLocationTranslator(GraphicsContext gc, Point p){
-        this.p = p;
+    public ImageLocationTranslator(){
+
     }
 
-    public Point offset() {
+    public Point offset(GraphicsContext gc, Point p) {
         Point offsetTile = new Point();
         Point offset = new Point(1024/2-115,768/2-100);
 
-        offsetTile.x = getPixelLocation().x + offset.x;
-        offsetTile.y = getPixelLocation().y + offset.y;
+        offsetTile.x = getPixelLocation(p).x + offset.x;
+        offsetTile.y = getPixelLocation(p).y + offset.y;
         return offsetTile;
     }
 
@@ -28,7 +27,7 @@ public class ImageLocationTranslator {
     }
 
 
-    private Point getPixelLocation() {
+    private Point getPixelLocation(Point p) {
         Point pixelLocation = new Point();
 
         pixelLocation.x = (int)(0.75f * HEX_W * p.x);

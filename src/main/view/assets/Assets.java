@@ -37,6 +37,8 @@ public class Assets {
         loadItem("SOURCE_RIVER", "Assets/SourceRiver.png");
         loadItem("FORKED_RIVER", "Assets/ForkedRiver.png");
         loadItem("EMPTY_HEX_GRID","Assets/EmptyHexGrid.png");
+        loadItem("BOTTOM_PANEL", "Assets/BottomPanel.png");
+        loadItem("TILE_SELECTOR", "Assets/TileSelector.png");
     }
 
     public void loadItem(String name, String path){
