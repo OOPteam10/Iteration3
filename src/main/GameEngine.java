@@ -157,7 +157,7 @@ public class GameEngine extends Application {
 
                 frameCounter++;
                 //menus
-                if (frameCounter == 10) { //Limit FPS to 30
+                if (frameCounter == 15) { //Limit FPS to 30
                     frameCounter = 0;
 
                     for(KeyCode code: activeKeys){
