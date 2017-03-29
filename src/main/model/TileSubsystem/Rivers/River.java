@@ -69,4 +69,14 @@ public abstract class River {
         }
         return !sourceAdjacencyHasRiver;
     }
+
+    public static boolean validateLandToRiverConnection(River target, HexSide adjacency){
+        boolean sourceAdjacencyHasNoRiver = true;
+        for(HexSide hs: target.getEdges()) {
+            if (hs == adjacency) {
+                sourceAdjacencyHasNoRiver = false;
+            }
+        }
+        return sourceAdjacencyHasNoRiver;
+    }
 }
