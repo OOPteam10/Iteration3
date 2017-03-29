@@ -28,15 +28,15 @@ public class CenterOfGravityTest {
         Location l8 = new Location(-1, -2, 3);
         Location l9 = new Location(-2, -2, 4);
 
-        map.addTile(new LandTile(Mountains.getInstance()), l1);
-        map.addTile(new LandTile(Mountains.getInstance()), l2);
-        map.addTile(new LandTile(Mountains.getInstance()), l3);
-        map.addTile(new LandTile(Mountains.getInstance()), l4);
-        map.addTile(new LandTile(Mountains.getInstance()), l5);
-        map.addTile(new LandTile(Mountains.getInstance()), l6);
-        map.addTile(new LandTile(Mountains.getInstance()), l7);
-        map.addTile(new LandTile(Mountains.getInstance()), l8);
-        map.addTile(new LandTile(Mountains.getInstance()), l9);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l1);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l2);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l3);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l4);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l5);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l6);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l7);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l8);
+        map.addLandTile(new LandTile(Mountains.getInstance()), l9);
 
         for(Location loc: map.getMap().keySet()){
 

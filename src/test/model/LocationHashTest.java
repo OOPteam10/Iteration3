@@ -24,7 +24,7 @@ public class LocationHashTest {
         Location l1 = new Location(0, 0, 0);
         Location l2 = new Location(0, 0, 0);
 
-        map.addTile(landTile, l1);
-        assertFalse(map.addTile(landTile, l2));
+        map.addLandTile(landTile, l1);
+        assertFalse(map.addLandTile(landTile, l2));
     }
 }

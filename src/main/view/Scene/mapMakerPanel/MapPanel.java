@@ -20,6 +20,7 @@ import model.TileSubsystem.Terrains.Rock;
 import model.TileSubsystem.Terrains.Sea;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
+import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
@@ -58,7 +59,7 @@ public class MapPanel extends Panel{
     private HashMap<Location, Tile> generateMap(){
         LandTile mountainTile = new LandTile(Mountains.getInstance());
         LandTile rockTile = new LandTile(Rock.getInstance());
-        LandTile seaTile = new LandTile(Sea.getInstance());
+        SeaTile seaTile = new SeaTile(Sea.getInstance());
 
         NormalRiver river = new NormalRiver(HexSide.N ,HexSide.NE);
         ForkedRiver riverF = new ForkedRiver(HexSide.SE , HexSide.N, HexSide.SW);
@@ -77,10 +78,10 @@ public class MapPanel extends Panel{
 
         Map map = new Map();
         //map.addTile(mountainTile, l1);
-        map.addTile(riverTile, l1);
-        map.addTile(riverTile2, l2);
-        map.addTile(riverTile3, l3);
-        map.addTile(seaTile,l4);
+        map.addRiverTile(riverTile, l1);
+        map.addRiverTile(riverTile2, l2);
+        map.addRiverTile(riverTile3, l3);
+        map.addSeaTile(seaTile,l4);
         //map.addTile(mountainTile,l5);
 
         return map.getMap();
