@@ -87,10 +87,58 @@ public class Map {
         return isValid;
     }
 
-    public boolean remove(Location location){
-        if(tiles.remove(location) == null)
+    public boolean remove(Location location) {
+        if (tiles.remove(location) == null)
             return false;
         else return true;
+    }
+
+    public void updateCenterOfGravity(){
+
+        Location newCenter = getCentralLocation();
+
+        tiles = createNewMapAroundLocation(newCenter);
+    }
+
+    private Location getCentralLocation(){
+
+        int xAvg, yAvg, zAvg;
+        int xCount, yCount, zCount, tileCount;
+
+        xCount = 0;
+        yCount = 0;
+        zCount = 0;
+        tileCount = 0;
+
+        for(Location loc: tiles.keySet()){
+
+            xCount += loc.getX();
+            yCount += loc.getY();
+            zCount += loc.getZ();
+
+            tileCount++;
+        }
+
+        xAvg = xCount/tileCount;
+        yAvg = yCount/tileCount;
+        zAvg = zCount/tileCount;
+
+        return new Location(xAvg, yAvg, zAvg);
+    }
+
+    private HashMap<Location, Tile> createNewMapAroundLocation(Location center){
+
+        HashMap<Location, Tile> newMap = new HashMap<>();
+
+        for(Location target: tiles.keySet()){
+
+            Tile tile = tiles.get(target);
+            Location newLoc = center.getRelativeLocation(target);
+
+            newMap.put(newLoc, tile);
+        }
+
+        return newMap;
     }
 
     public HashMap<Location, Tile> getMap(){
