@@ -205,8 +205,9 @@ public class FilePanel extends view.Panel {
 
         while (in != null) {
             Location l = parseLocation(in);
+            System.out.println("loaded this location");
             Tile t = parseTile(in);
-
+            System.out.println("Loaded this tile");
             out.put(l, t);
         }
 
