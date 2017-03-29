@@ -30,7 +30,7 @@ public class GameEngine extends Application {
     private Vector<KeyCode> activeKeys;
 
     private boolean scrollLeft,scrollRight,goNorth,goNE,goNW,goSouth,goSE,goSW,select;
-    
+
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("MapMakerV0.2");

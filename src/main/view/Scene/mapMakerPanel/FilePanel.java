@@ -94,7 +94,8 @@ public class FilePanel extends view.Panel {
     }
 
     private void restartMap(){
-
+        HashMap<Location, Tile> newMap = new HashMap<>();
+        game.setMap(newMap);
     }
 
     private void saveMap(){
