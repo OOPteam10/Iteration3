@@ -57,4 +57,16 @@ public class MapMakerPanel extends Panel {
     }
 
     public void updateRotation(int rotation){bottomPanel.setRotationAngle(rotation);}
+
+    public void selectTerrainMode(){
+        bottomPanel.terrainModeSelected();
+    }
+
+    public void selectRiverMode(){
+        bottomPanel.riverModeSelected();
+    }
+
+    public void selectFinalPreviewMode(){
+        bottomPanel.finalPreviewModeSelected();
+    }
 }

@@ -156,16 +156,18 @@ public class View implements MMCObserver{
         panelManager.updateTerrainPreview("DESERT_TILE");
         panelManager.updateRiverPreview("NORMAL_RIVER_60");
         rotation = 0;
+        panelManager.updateRotation(rotation%4);
+        panelManager.selectTerrain();
     }
 
     @Override
     public void terrainSelected() {
-
+        panelManager.selectRiver();
     }
 
     @Override
     public void riverSelected() {
-
+        panelManager.selectFinal();
     }
 
     @Override

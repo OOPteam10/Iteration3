@@ -1,5 +1,6 @@
 package view.Scene.mapMakerPanel;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
@@ -21,6 +22,11 @@ public class BottomPanel extends Panel {
     private Image terrainPreviewImage;
     private Image riverPreviewImage;
     private int rotationAngle;
+    private double terrainScale;
+    private double riverScale;
+    private double finalPreviewScale;
+
+    String currentMode;
 
     public BottomPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
         super(game, assets, gameMode);
@@ -31,11 +37,16 @@ public class BottomPanel extends Panel {
         terrainPreviewImage = assets.getImage("DESERT_TILE");
         riverPreviewImage = assets.getImage("NORMAL_RIVER_60");
         rotationAngle = 0;
+        terrainScale = 1;
+        riverScale = 1;
+        finalPreviewScale = 1;
+        currentMode = "TERRAIN_SELECTED";
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){
         initializePanel(gc, screenDimension);
         drawPreview(gc, screenDimension);
+        drawIndicator(gc, screenDimension);
     }
 
     private void initializePanel(GraphicsContext gc, Point screenDimension){
@@ -43,8 +54,9 @@ public class BottomPanel extends Panel {
     }
 
     public void drawPreview(GraphicsContext gc, Point screenDimension){
-        gc.drawImage(terrainPreviewImage, screenDimension.x/2-115, screenDimension.y-110);
-        gc.drawImage(riverPreviewImage, screenDimension.x/2, screenDimension.y-110);
+        gc.drawImage(terrainPreviewImage, screenDimension.x/2-115, screenDimension.y-110, terrainScale*terrainPreviewImage.getWidth(),
+                terrainPreviewImage.getHeight()*terrainScale);
+        gc.drawImage(riverPreviewImage, screenDimension.x/2, screenDimension.y-110, riverScale* riverPreviewImage.getHeight(), riverScale * riverPreviewImage.getHeight());
         drawRotatedPreview(gc, terrainPreviewImage, riverPreviewImage, rotationAngle, screenDimension.x/2+115,screenDimension.y-110);
     }
 
@@ -65,12 +77,12 @@ public class BottomPanel extends Panel {
     }
 
     private void drawRotatedPreview(GraphicsContext gc,Image terrainPreview, Image riverPreview, double angle, double tlpx, double tlpy) {
-        gc.drawImage(terrainPreview, tlpx, tlpy);
+        gc.drawImage(terrainPreview, tlpx, tlpy, finalPreviewScale*terrainPreview.getWidth(), finalPreviewScale*terrainPreview.getHeight());
         gc.save(); // saves the current state on stack, including the current transform
         try {
             camera.rotate(gc, angle, tlpx + riverPreview.getWidth() / 2, tlpy + riverPreview.getHeight() / 2);
-            gc.drawImage(riverPreview, tlpx, tlpy, camera.getScale() * riverPreview.getWidth(),
-                    camera.getScale() * riverPreview.getHeight());
+            gc.drawImage(riverPreview, tlpx, tlpy, finalPreviewScale * riverPreview.getWidth(),
+                    finalPreviewScale * riverPreview.getHeight());
         }catch (NullPointerException e){
             System.out.println();
         }
@@ -80,5 +92,21 @@ public class BottomPanel extends Panel {
 
     public void setRotationAngle(int numRotation){
         rotationAngle = numRotation *60;
+    }
+
+    public void terrainModeSelected(){
+        currentMode = "TERRAIN_SELECTED";
+    }
+
+    public void riverModeSelected(){
+        currentMode = "RIVER_SELECTED";
+    }
+
+    public void finalPreviewModeSelected(){
+        currentMode = "FINAL_SELECTED";
+    }
+
+    private void drawIndicator(GraphicsContext gc, Point screenDimension){
+        gc.drawImage(getAssets().getImage(currentMode),screenDimension.x-300, screenDimension.y-110);
     }
 }
