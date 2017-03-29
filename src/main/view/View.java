@@ -24,16 +24,19 @@ public class View {
     private Point screenDimension = new Point();
     private Scene scene;
     private int pulse = 0;
+    private Camera camera;
 
     public View(Game game, Scene scene, Group root){
         assets = new AssetManager();
         this.root = root;
         this.scene = scene;
+
         canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         screenDimension.x = SCREEN_WIDTH;
         screenDimension.y = SCREEN_HEIGHT;
+        camera = new Camera(screenDimension);
         gc = canvas.getGraphicsContext2D();
-        panelManager = new PanelManager(game, assets, root, gc);
+        panelManager = new PanelManager(game, assets, root, gc, camera);
 
         initializeView();
     }

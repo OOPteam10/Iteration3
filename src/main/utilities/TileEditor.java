@@ -38,7 +38,7 @@ public class TileEditor implements Editor{
 
     private void initTile(){
         //code for initializing tile, called after every commit and during initialization
-
+        location = new Location(0,0,0);
         //NOW DO NOT NEED TO CREAT A LAND TILE ON INIT
         //tile = new LandTile(Desert.getInstance());
 
@@ -58,9 +58,7 @@ public class TileEditor implements Editor{
 
     // method to create a land tile directly using the set terrain in the TileEditdor
     public void createLandTile(){
-
         tile = new LandTile(this.terrain);
-
     }
 
 
