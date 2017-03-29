@@ -16,16 +16,17 @@ public class PanelManager {
     private AssetManager assets;
     private GraphicsContext gc;
     private ArrayList<Panel> panels;
+    private Camera camera;
 
-    public PanelManager(Game game, AssetManager assets, Group group, GraphicsContext gc){
+    public PanelManager(Game game, AssetManager assets, Group group, GraphicsContext gc, Camera camera){
         currentViewMode = ViewEnum.MAP_MAKER;
 
         this.game = game;
         this.gc = gc;
+        this.camera = camera;
         panels = new ArrayList<>();
-        mapMakerPanel = new MapMakerPanel(game, assets, ViewEnum.MAP_MAKER, group);
+        mapMakerPanel = new MapMakerPanel(game, assets, ViewEnum.MAP_MAKER, group, camera);
         panels.add(mapMakerPanel);
-
     }
 
     public void drawPanels(Point screenDimension){

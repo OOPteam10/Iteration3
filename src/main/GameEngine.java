@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Game;
+import view.Camera;
 import view.View;
 
 import java.util.Vector;

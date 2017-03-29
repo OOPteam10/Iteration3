@@ -24,9 +24,9 @@ import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
 import utilities.TileEditor;
+import view.Camera;
 import view.Panel;
 import view.PanelManager;
-import view.Tool.ImageLocationTranslator;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
@@ -38,17 +38,20 @@ public class MapPanel extends Panel{
 
     private HashMap<Location, Tile> gameMap;
     private AssetManager assets;
-    private ImageLocationTranslator imageLocationTranslator;
+    private Camera camera;
 
 
-    public MapPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root){
+    public MapPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
         super(game, assets,gameMode);
         this.assets = assets;
 
         //TODO: this is hard coded, remove it after
         gameMap = new HashMap<Location, Tile>();
         gameMap = generateMap();
-        imageLocationTranslator = new ImageLocationTranslator();
+        this.camera = camera;
+
+//        camera.setScale(1);
+//        camera.setCameraOffset(1,1);
     }
 
     //TODO: This is a hard coded thing, remove it later
@@ -78,7 +81,7 @@ public class MapPanel extends Panel{
         map.addTile(riverTile2, l2);
         map.addTile(riverTile3, l3);
         map.addTile(seaTile,l4);
-        map.addTile(mountainTile,l5);
+        //map.addTile(mountainTile,l5);
 
         return map.getMap();
     }
@@ -90,7 +93,7 @@ public class MapPanel extends Panel{
             Point p = new Point();
             p.x = loc.getX();
             p.y = loc.getY();
-            TileDrawingVisitor tileDrawingVisitor = new TileDrawingVisitor(assets, gc,p);
+            TileDrawingVisitor tileDrawingVisitor = new TileDrawingVisitor(assets, gc,p,camera);
             gameMap.get(loc).accept(tileDrawingVisitor);
             i++;
         }
@@ -102,7 +105,8 @@ public class MapPanel extends Panel{
         for (int i=0;i<21;i++){
             for(int j=0;j<21;j++){
                 Point p = new Point(i-10,j-10);
-                gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), imageLocationTranslator.offset(gc, p).x,imageLocationTranslator.offset(gc, p).y);
+                gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), camera.offset(gc, p).x,camera.offset(gc, p).y,camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getWidth(),
+                        camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getHeight());
             }
         }
     }
@@ -111,7 +115,8 @@ public class MapPanel extends Panel{
         Point p = new Point();
         p.x = TileEditor.getInstance().getLocation().getX();
         p.y = TileEditor.getInstance().getLocation().getY();
-        gc.drawImage(getAssets().getImage("TILE_SELECTOR"), imageLocationTranslator.offset(gc, p).x, imageLocationTranslator.offset(gc, p).y);
+        gc.drawImage(getAssets().getImage("TILE_SELECTOR"), camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * getAssets().getImage("TILE_SELECTOR").getWidth(),
+                camera.getScale() * getAssets().getImage("TILE_SELECTOR").getHeight());
     }
 
     public void showGUIElements(){}
