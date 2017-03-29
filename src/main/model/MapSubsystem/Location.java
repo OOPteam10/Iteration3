@@ -2,6 +2,7 @@ package model.MapSubsystem;
 
 
 import javafx.geometry.Point3D;
+import model.TileSubsystem.HexSide;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -89,6 +90,9 @@ public class Location {
         int newY = target.y - this.y;
         int newZ = target.z - this.z;
         return new Location(newX, newY, newZ);
+    }
+    public Location getAdjacentLocation(HexSide hs){
+        //TODO: find the location on whatever side
     }
 
     //For debugging only

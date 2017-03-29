@@ -36,6 +36,18 @@ public abstract class River {
     abstract public void accept(TileVisitor v);
 
     public static boolean validateRiverConnection(River source, River target, HexSide adjacency){
-        return true;
+        boolean sourceAdjacencyHasRiver = false;
+        boolean targetAdjacencyHasRiver = false;
+        for(HexSide hs: source.getEdges()) {
+            if (hs == adjacency) {
+                sourceAdjacencyHasRiver = true;
+            }
+        }
+        for(HexSide hs: target.getEdges()) {
+            if (hs == adjacency.getOppositeSide()) {
+                targetAdjacencyHasRiver = true;
+            }
+        }
+        return (sourceAdjacencyHasRiver == targetAdjacencyHasRiver);
     }
 }

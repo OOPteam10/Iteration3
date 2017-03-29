@@ -1,5 +1,6 @@
 package model.MapSubsystem;
 
+import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Tiles.Tile;
 
 import java.util.HashMap;
@@ -27,13 +28,23 @@ public class Map {
     //getAdjacentTiles could return a HashMap<CardinalDirection, Tile> so that you know where
     //the adjacent tiles are in reference to the location passed as argument
 
-    public HashMap<Location, Tile> getAdjacentTiles(Location location) {
+    /*public HashMap<Location, Tile> getAdjacentTiles(Location location) {
         HashMap<Location, Tile> adjacentTiles =new HashMap<Location, Tile>();
         for(Location l: location.getAdjacentLocations()){
             Tile t = tiles.get(l);
             if(t != null)
                 adjacentTiles.put(l, t);
         }
+        return adjacentTiles;
+    }*/
+    public HashMap<HexSide, Tile> getAdjacentTiles(Location location) {
+        HashMap<HexSide, Tile> adjacentTiles =new HashMap<HexSide, Tile>();
+        for(HexSide hs: HexSide.values()){
+            Tile t = tiles.get(location.getAdjacentLocation(hs));
+            if(t != null)
+                adjacentTiles.put(hs, t);
+        }
+
         return adjacentTiles;
     }
 
