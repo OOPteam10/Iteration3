@@ -41,6 +41,9 @@ public class Assets {
         loadItem("TILE_SELECTOR", "Assets/TileSelector.png");
         loadItem("DESERT_TILE", "Assets/DesertTile.png");
         loadItem("WOOD_TILE", "Assets/WoodTile.png");
+        loadItem("TERRAIN_SELECTED","Assets/TerrainSelected.png");
+        loadItem("RIVER_SELECTED","Assets/RiverSelected.png");
+        loadItem("FINAL_SELECTED","Assets/FinalSelected.png");
     }
 
     public void loadItem(String name, String path){

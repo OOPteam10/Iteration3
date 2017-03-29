@@ -48,4 +48,8 @@ public class PanelManager {
     public void updateRotation(int rotation){
         mapMakerPanel.updateRotation(rotation);
     }
+
+    public void selectTerrain(){mapMakerPanel.selectTerrainMode();}
+    public void selectRiver(){mapMakerPanel.selectRiverMode();}
+    public void selectFinal(){mapMakerPanel.selectFinalPreviewMode();}
 }
