@@ -90,12 +90,14 @@ public class TileEditor implements Editor{
     @Override
     public boolean commit() {
 
+
         if(mapNotInitialized() || locationNotSet()){
             return false;
         }
 
         if(map.addTile(tile, location)){
             initTile();
+            location = new Location(location);
             return true;
         }
         return false;
