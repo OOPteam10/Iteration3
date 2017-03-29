@@ -22,6 +22,7 @@ public interface ControlHandler {
 
     public void delete();
     public void reset();
+    public void centerGravity();
 
     public void init(View view);
 

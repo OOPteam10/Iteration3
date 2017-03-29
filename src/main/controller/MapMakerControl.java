@@ -120,7 +120,7 @@ public class MapMakerControl implements ControlHandler{
     public void delete(){
         TileEditor.getInstance().delete();
         for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).placeTile();
+            //mmcObservers.get(i).placeTile();
         }
 
     }
@@ -129,6 +129,10 @@ public class MapMakerControl implements ControlHandler{
         for(int i =0;i<mmcObservers.size();i++){
             mmcObservers.get(i).placeTile();
         }
+    }
+
+    public void centerGravity(){
+        TileEditor.getInstance().centerGravity();
     }
 
 

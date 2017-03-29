@@ -4,7 +4,11 @@ import java.applet.Applet;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 import java.util.Vector;
+
+import controller.MapMakerControlSubsystem.ControlAction.ControlAction;
+import javafx.scene.input.KeyCode;
 import model.MapSubsystem.Map;
 import view.View;
 
@@ -17,7 +21,8 @@ public class Controller {
 
     //represents the top level state of Controller
     private ControlHandler controlHandler;
-
+    private HashMap<KeyCode, ControlAction> actionMap;
+    private KeyMapControls controlMap;
 
 
     public Controller(View view){
@@ -25,9 +30,16 @@ public class Controller {
         //init with the MapMakerControl state
         controlHandler = MapMakerControl.getInstance();
         controlHandler.init(view);
+        controlMap = new KeyMapControls();
 
+        actionMap = controlMap.getActionMap();
     }
 
+
+    public void setActionMap(HashMap<KeyCode, ControlAction> actionMap){
+
+        this.actionMap = actionMap;
+    }
 
     public ControlHandler getControlHandler() {
         return controlHandler;
@@ -37,7 +49,12 @@ public class Controller {
         this.controlHandler = controlHandler;
     }
 
+    public void executeCode(KeyCode code){
 
+        ControlAction action = actionMap.get(code);
+
+        action.execute(this);
+    }
 
     public void right(){
 
@@ -50,8 +67,13 @@ public class Controller {
     public void select(){
 
         controlHandler.select();
-
     }
+
+    public void centerGravity(){
+
+        controlHandler.centerGravity();
+    }
+
     public void moveN(){
 
         controlHandler.moveN();

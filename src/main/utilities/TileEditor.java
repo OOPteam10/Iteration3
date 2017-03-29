@@ -144,6 +144,10 @@ public class TileEditor implements Editor{
         else return false;
     }
 
+    public void centerGravity(){
+        map.updateCenterOfGravity();
+    }
+
    /*
     //TODO
     @Override
