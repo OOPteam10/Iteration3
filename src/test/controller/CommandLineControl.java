@@ -1,6 +1,7 @@
 package controller;
 
 import model.MapSubsystem.Map;
+import utilities.TileEditor;
 
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class CommandLineControl {
 
 
         MapMakerControl mmc = MapMakerControl.getInstance();
+        TileEditor.getInstance().init(new Map());
 
         while(true){
             debugMenu(mmc);

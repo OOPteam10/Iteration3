@@ -92,6 +92,7 @@ public class TileEditor implements Editor{
     @Override
     public boolean commit() {
 
+
         if(mapNotInitialized() || locationNotSet()){
             return false;
         }

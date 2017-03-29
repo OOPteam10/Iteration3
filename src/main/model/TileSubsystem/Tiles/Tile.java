@@ -2,6 +2,7 @@ package model.TileSubsystem.Tiles;
 
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
+import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.Terrain;
 import model.TileSubsystem.Visitor.TileVisitor;
@@ -32,4 +33,5 @@ public abstract class Tile {
     public CardinalDirection[] getHalfEdges() {return halfEdges;}
     public ArrayList<Sector> getSectors() {return sectors;}
     public HexSide[] getSides() {return sides;}
+
 }
