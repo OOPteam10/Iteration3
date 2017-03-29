@@ -1,6 +1,7 @@
 package controller.MapMakerControlSubsystem.RiverMMCSubsystem;
 
 import controller.MapMakerControl;
+import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.OrientationMMCState;
 import controller.MapMakerControlSubsystem.RiverMMCState;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
@@ -9,6 +10,8 @@ import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
 import utilities.TileEditor;
+
+import java.util.Vector;
 
 /**
  * Created by hankerins on 3/27/17.
@@ -19,12 +22,18 @@ public class NoRiverState implements RiverMMCSubState {
     private NoRiverState(){
     }
 
-    public void left(RiverMMCState subContext){
+    public void left(RiverMMCState subContext, Vector<MMCObserver> mmcObservers){
 
+        for(int i = 0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).updateRiverToFork();
+        }
         subContext.setSubState(ForkState.getInstance());
     }
-    public void right(RiverMMCState subContext){
+    public void right(RiverMMCState subContext, Vector<MMCObserver> mmcObservers){
 
+        for(int i = 0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).updateRiverToShape1();
+        }
         subContext.setSubState(Shape1State.getInstance());
     }
     public void select(MapMakerControl context){
@@ -33,7 +42,10 @@ public class NoRiverState implements RiverMMCSubState {
 
         //create and commit a this current Tile as  LandTile
         TileEditor.getInstance().createLandTile();
-        TileEditor.getInstance().commit();
+        //notifying observers
+        Vector<MMCObserver> mmcObservers = context.getMmcObservers();
+        TileEditor.getInstance().commit(mmcObservers);
+
 
         // make next transition of state machine
         context.setMmcState(TerrainMMCState.getInstance());

@@ -9,6 +9,8 @@ import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Tiles.RiverTile;
 import utilities.TileEditor;
 
+import java.util.Vector;
+
 /**
  * Created by rishabh on 26/03/17.
  */
@@ -27,10 +29,19 @@ public class OrientationMMCState implements MMCState {
         offset = 0;
     }
 
-    public void left(){
+    public void left(Vector<MMCObserver> mmcObservers){
+
+        for(int i=0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).rotateLeft();
+        }
+
         currentRiver.rotateL();
     }
-    public void right(){
+    public void right(Vector<MMCObserver> mmcObservers){
+
+        for(int i=0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).rotateRight();
+        }
         currentRiver.rotateR();
     }
     public void select(MapMakerControl context){
@@ -39,7 +50,8 @@ public class OrientationMMCState implements MMCState {
         TileEditor.getInstance().createRiverTile(currentRiver);
 
         //TODO handling code for commit not working
-        TileEditor.getInstance().commit();
+        Vector<MMCObserver> mmcObservers = context.getMmcObservers();
+        TileEditor.getInstance().commit(mmcObservers);
         context.setMmcState(TerrainMMCState.getInstance());
     }
 

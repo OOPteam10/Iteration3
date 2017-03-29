@@ -5,6 +5,8 @@ import controller.MapMakerControlSubsystem.RiverMMCSubsystem.RiverMMCSubState;
 import controller.MapMakerControlSubsystem.RiverMMCSubsystem.Shape1State;
 import model.TileSubsystem.Rivers.River;
 
+import java.util.Vector;
+
 /**
  * Created by rishabh on 26/03/17.
  */
@@ -24,11 +26,11 @@ public class RiverMMCState implements MMCState {
         this.riverMMCSubState = terrainMMCSubState;
     }
 
-    public void left(){
-        riverMMCSubState.left(this);
+    public void left(Vector<MMCObserver> mmcObservers){
+        riverMMCSubState.left(this,mmcObservers);
     }
-    public void right(){
-        riverMMCSubState.right(this);
+    public void right(Vector<MMCObserver> mmcObservers){
+        riverMMCSubState.right(this,mmcObservers);
     }
     public void select(MapMakerControl context){
         riverMMCSubState.select(context);
