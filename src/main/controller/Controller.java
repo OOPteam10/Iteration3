@@ -30,6 +30,7 @@ public class Controller {
         //init with the MapMakerControl state
         controlHandler = MapMakerControl.getInstance();
         controlHandler.init(view);
+        controlMap = new KeyMapControls();
 
         actionMap = controlMap.getActionMap();
     }
