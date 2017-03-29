@@ -1,6 +1,9 @@
 package controller;
 
+import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
+import model.TileSubsystem.Tiles.Tile;
+import utilities.TileEditor;
 
 import java.util.Scanner;
 
@@ -12,9 +15,15 @@ public class CommandLineControl {
 
 
         MapMakerControl mmc = MapMakerControl.getInstance();
+        Map map = new Map();
+        TileEditor.getInstance().init(map);
 
         while(true){
             debugMenu(mmc);
+            System.out.println("current map locations occupied: ");
+            for(Location loc: map.getMap().keySet()){
+                System.out.println(loc.toString());
+            }
         }
 
 
@@ -57,5 +66,6 @@ public class CommandLineControl {
                 break;
         }
         mmc.printState();
+
     }
 }

@@ -19,6 +19,11 @@ public class Location {
         this.y = y;
         this.z = z;
     }
+    public Location(Location loc){
+        this.x = loc.getX();
+        this.y = loc.getY();
+        this.z = loc.getZ();
+    }
 
     public void addX(int i){
         x += i;
@@ -91,8 +96,10 @@ public class Location {
         int newZ = target.z - this.z;
         return new Location(newX, newY, newZ);
     }
+
     public Location getAdjacentLocation(HexSide hs){
         //TODO: find the location on whatever side
+        return LocationUtility.getAdjacentLocationFromHexSide(this, hs);
     }
 
     //For debugging only

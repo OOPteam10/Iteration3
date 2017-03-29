@@ -50,4 +50,13 @@ public abstract class River {
         }
         return (sourceAdjacencyHasRiver == targetAdjacencyHasRiver);
     }
+    public static boolean validateRiverToLandConnection(River source, HexSide adjacency){
+        boolean sourceAdjacencyHasRiver = false;
+        for(HexSide hs: source.getEdges()) {
+            if (hs == adjacency) {
+                sourceAdjacencyHasRiver = true;
+            }
+        }
+        return !sourceAdjacencyHasRiver;
+    }
 }
