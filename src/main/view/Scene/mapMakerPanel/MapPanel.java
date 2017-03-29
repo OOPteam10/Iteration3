@@ -40,15 +40,15 @@ public class MapPanel extends Panel{
     private HashMap<Location, Tile> gameMap;
     private AssetManager assets;
     private Camera camera;
-
+    private Game game;
 
     public MapPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
         super(game, assets,gameMode);
         this.assets = assets;
-
+        this.game = game;
         //TODO: this is hard coded, remove it after
         gameMap = new HashMap<Location, Tile>();
-        gameMap = generateMap();
+        gameMap = game.getMap();
         this.camera = camera;
 
 //        camera.setScale(1);
@@ -56,37 +56,36 @@ public class MapPanel extends Panel{
     }
 
     //TODO: This is a hard coded thing, remove it later
-    private HashMap<Location, Tile> generateMap(){
-        LandTile mountainTile = new LandTile(Mountains.getInstance());
-        LandTile rockTile = new LandTile(Rock.getInstance());
-        SeaTile seaTile = new SeaTile(Sea.getInstance());
-
-        NormalRiver river = new NormalRiver(HexSide.N ,HexSide.NE);
-        ForkedRiver riverF = new ForkedRiver(HexSide.SE , HexSide.N, HexSide.SW);
-
-        SourceRiver riverS = new SourceRiver(HexSide.NW);
-
-        RiverTile riverTile = new RiverTile(Mountains.getInstance(), river);
-        RiverTile riverTile2 = new RiverTile(Rock.getInstance(), riverF);
-        RiverTile riverTile3 = new RiverTile(Pasture.getInstance(), riverS);
-
-        Location l1 = new Location(0, 0, 0);
-        Location l2 = new Location(1, -1, 0);
-        Location l3 = new Location(2, -1, -1);
-        Location l4 = new Location(-1, 0, 1);
-        Location l5 = new Location(0, -1, 1);
-
-        Map map = new Map();
-        //map.addTile(mountainTile, l1);
-        map.addRiverTile(riverTile, l1);
-        map.addRiverTile(riverTile2, l2);
-        map.addRiverTile(riverTile3, l3);
-        map.addSeaTile(seaTile,l4);
-        //map.addTile(mountainTile,l5);
-
-        return map.getMap();
-    }
-
+//    private HashMap<Location, Tile> generateMap(){
+//        LandTile mountainTile = new LandTile(Mountains.getInstance());
+//        LandTile rockTile = new LandTile(Rock.getInstance());
+//        LandTile seaTile = new LandTile(Sea.getInstance());
+//
+//        NormalRiver river = new NormalRiver(HexSide.N ,HexSide.NE);
+//        ForkedRiver riverF = new ForkedRiver(HexSide.SE , HexSide.N, HexSide.SW);
+//
+//        SourceRiver riverS = new SourceRiver(HexSide.NW);
+//
+//        RiverTile riverTile = new RiverTile(Mountains.getInstance(), river);
+//        RiverTile riverTile2 = new RiverTile(Rock.getInstance(), riverF);
+//        RiverTile riverTile3 = new RiverTile(Pasture.getInstance(), riverS);
+//
+//        Location l1 = new Location(0, 0, 0);
+//        Location l2 = new Location(1, -1, 0);
+//        Location l3 = new Location(2, -1, -1);
+//        Location l4 = new Location(-1, 0, 1);
+//        Location l5 = new Location(0, -1, 1);
+//
+//        Map map = new Map();
+//        //map.addTile(mountainTile, l1);
+//        map.addTile(riverTile, l1);
+//        map.addTile(riverTile2, l2);
+//        map.addTile(riverTile3, l3);
+//        map.addTile(seaTile,l4);
+//        //map.addTile(mountainTile,l5);
+//
+//        return map.getMap();
+//    }
     public void draw(GraphicsContext gc, Point screenDimension){
         int i = 0;
         drawBackground(gc);
@@ -99,6 +98,7 @@ public class MapPanel extends Panel{
             i++;
         }
         drawTileSelector(gc);
+        updateMap();
     }
 
     public void drawBackground(GraphicsContext gc){
@@ -120,6 +120,9 @@ public class MapPanel extends Panel{
                 camera.getScale() * assets.getImage("TILE_SELECTOR").getHeight());
     }
 
+    private void updateMap(){
+        gameMap = game.getMap();
+    }
 
     public void showGUIElements(){}
     public void hideGUIElements(){}

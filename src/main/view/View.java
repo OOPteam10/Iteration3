@@ -62,62 +62,62 @@ public class View implements MMCObserver{
     //MMCObserver methods
     @Override
     public void updateTerrainToDesert() {
-
+        panelManager.updateTerrainPreview("DESERT_TILE");
     }
 
     @Override
     public void updateTerrainToMountain() {
-
+        panelManager.updateTerrainPreview("MOUNTAIN_TILE");
     }
 
     @Override
     public void updateTerrainToPasture() {
-
+        panelManager.updateTerrainPreview("GRASS_TILE");
     }
 
     @Override
     public void updateTerrainToRock() {
-
+        panelManager.updateTerrainPreview("ROCK_TILE");
     }
 
     @Override
     public void updateTerrainToSea() {
-
+        panelManager.updateTerrainPreview("SEA_TILE");
     }
 
     @Override
     public void updateTerrainToWoods() {
-
+        panelManager.updateTerrainPreview("WOOD_TILE");
     }
 
     @Override
     public void updateRiverToFork() {
-
+        panelManager.updateRiverPreview("FORKED_RIVER");
     }
 
     @Override
     public void updateRiverToNone() {
-
+        panelManager.updateRiverPreview("EMPTY_HEX_GRID");
     }
 
     @Override
     public void updateRiverToShape1() {
-
+        panelManager.updateRiverPreview("NORMAL_RIVER_60");
     }
 
     @Override
     public void updateRiverToShape2() {
-
+        panelManager.updateRiverPreview("NORMAL_RIVER_120");
     }
 
     @Override
     public void updateRiverToShape3() {
-
+        panelManager.updateRiverPreview("NORMAL_RIVER_180");
     }
 
     @Override
     public void updateRiverToSource() {
-
+        panelManager.updateRiverPreview("SOURCE_RIVER");
     }
 
     @Override

@@ -21,6 +21,7 @@ public class GameEngine extends Application {
 
     private View view;
     private Game game;
+    private Controller controller;
 
     private int frameCounter = 0;
     private Vector<KeyCode> activeKeys;
@@ -45,7 +46,7 @@ public class GameEngine extends Application {
 
 
 
-        Controller controller  = new Controller(view);
+        controller  = new Controller(view);
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -128,29 +129,28 @@ public class GameEngine extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long currentPulse) {
+
+
                 frameCounter++;
                 //menus
-                if(scrollLeft){ System.out.println("left");controller.left();}
-                if(scrollRight) {controller.right();}
-
-                //movement
-                if(goNorth) {controller.moveN();}
-                if(goNE) {controller.moveNE();}
-                if(goNW) {controller.moveNW();}
-                if(goSouth) {controller.moveS();}
-                if(goSE) {controller.moveSE();}
-                if(goSW) {controller.moveSW();}
-
-                //selesction
-                if(select) {controller.select();}
-
-                if (frameCounter == 2) { //Limit FPS to 30
+                if (frameCounter == 6) { //Limit FPS to 30
                     frameCounter = 0;
+                    if(scrollLeft){ System.out.println("left");controller.left();}
+                    if(scrollRight) {controller.right();}
 
+                    //movement
+                    if(goNorth) {controller.moveN();}
+                    if(goNE) {controller.moveNE();}
+                    if(goNW) {controller.moveNW();}
+                    if(goSouth) {controller.moveS();}
+                    if(goSE) {controller.moveSE();}
+                    if(goSW) {controller.moveSW();}
+
+                    //selesction
+                    if(select) {controller.select();}
 
 
                     view.renderGame();
-
                 }
             }
         }.start();
@@ -169,6 +169,9 @@ public class GameEngine extends Application {
     }
 
 
+    public void keyRelase(KeyEvent e){
+
+    }
 
 
 

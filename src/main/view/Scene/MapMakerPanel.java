@@ -27,7 +27,7 @@ public class MapMakerPanel extends Panel {
     public MapMakerPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
         super(game, assets, gameMode);
         mapPanel = new MapPanel(game, assets,gameMode, root, camera);
-        bottomPanel = new BottomPanel(game, assets, gameMode, root);
+        bottomPanel = new BottomPanel(game, assets, gameMode, root,camera);
         filePanel = new FilePanel(game, assets,gameMode,root);
     }
 
@@ -45,7 +45,11 @@ public class MapMakerPanel extends Panel {
         filePanel.showGUIElements();
     }
 
-    public void updatePreview(String img) {
-        bottomPanel.setPreviewImage(img);
+    public void updateTilePreview(String img) {
+        bottomPanel.setTerrainPreviewImage(img);
+    }
+
+    public void updateRiverPreview(String img){
+        bottomPanel.setRiverPreviewImage(img);
     }
 }

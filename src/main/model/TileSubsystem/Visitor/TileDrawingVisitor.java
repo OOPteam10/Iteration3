@@ -103,7 +103,9 @@ public class TileDrawingVisitor implements TileVisitor {
 
     @Override
     public void visitDesert(Desert terrain) {
-
+        Image img = assets.getImage("DESERT_TILE");
+        gc.drawImage(img, camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * img.getWidth(),
+                camera.getScale() * img.getHeight());
     }
 
     @Override
@@ -140,7 +142,9 @@ public class TileDrawingVisitor implements TileVisitor {
 
     @Override
     public void visitWoods(Woods woods) {
-
+        Image img = assets.getImage("WOOD_TILE");
+        gc.drawImage(img, camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * img.getWidth(),
+                camera.getScale() * img.getHeight());
     }
 
 

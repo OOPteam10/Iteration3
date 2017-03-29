@@ -39,6 +39,8 @@ public class Assets {
         loadItem("EMPTY_HEX_GRID","Assets/EmptyHexGrid.png");
         loadItem("BOTTOM_PANEL", "Assets/BottomPanel.png");
         loadItem("TILE_SELECTOR", "Assets/TileSelector.png");
+        loadItem("DESERT_TILE", "Assets/DesertTile.png");
+        loadItem("WOOD_TILE", "Assets/WoodTile.png");
     }
 
     public void loadItem(String name, String path){
