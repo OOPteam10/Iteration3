@@ -40,19 +40,40 @@ public class FilePanel extends view.Panel {
     private Button fileSaveButton = new Button();
     private Button fileLoadButton = new Button();
     private Button startGameButton = new Button();
+
+    private Camera camera;
+
+    private Button moveUp = new Button();
+    private Button moveDown = new Button();
+    private Button moveLeft = new Button();
+    private Button moveRight = new Button();
+
+
     private HashMap<Location, Tile> gameMap = new HashMap<>();
     private Group root;
     private Game game;
 
-    public FilePanel(Game game, AssetManager assets, ViewEnum gameMode, Group root){
+    public FilePanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
         super(game, assets, gameMode);
         this.game =game;
         this.root = root;
+        this.camera = camera;
         setUpButton(newMapButton, getAssets().getImage("NEW_MAP_BUTTON"));
         newMapButton.setOnAction(event-> restartMap());
         setUpButton(fileSaveButton, getAssets().getImage("FILE_SAVE_BUTTON"));
         fileSaveButton.setOnAction(event -> saveMap());
         setUpButton(fileLoadButton, getAssets().getImage("FILE_LOAD_BUTTON"));
+
+        setUpButton(moveUp, getAssets().getImage("BUTTON_MOVE"));
+        moveUp.setOnAction(event->moveUpMap());
+        setUpButton(moveDown, getAssets().getImage("BUTTON_MOVE"));
+        moveDown.setOnAction(event ->moveDownMap());
+        setUpButton(moveLeft, getAssets().getImage("BUTTON_MOVE"));
+        moveLeft.setOnAction(event->moveLeftMap());
+        setUpButton(moveRight, getAssets().getImage("BUTTON_MOVE"));
+        moveRight.setOnAction(event->moveRightMap());
+
+
         fileLoadButton.setOnAction(event -> {
             try {
                 loadMap();
@@ -90,6 +111,15 @@ public class FilePanel extends view.Panel {
 
         startGameButton.setTranslateX(screenDimension.x - 120);
         startGameButton.setTranslateY(y);
+
+        moveUp.setTranslateX(screenDimension.x - 150);
+        moveUp.setTranslateY(screenDimension.y - 300);
+        moveDown.setTranslateX(screenDimension.x - 150);
+        moveDown.setTranslateY(screenDimension.y - 250);
+        moveLeft.setTranslateX(screenDimension.x - 200);
+        moveLeft.setTranslateY(screenDimension.y - 250);
+        moveRight.setTranslateX(screenDimension.x - 100);
+        moveRight.setTranslateY(screenDimension.y - 250);
 
     }
 
@@ -354,6 +384,23 @@ public class FilePanel extends view.Panel {
 
     public void hideGUIElements(){root.getChildren().remove(filePanelLayout);}
     public void showGUIElements(){root.getChildren().add(filePanelLayout);}
+
+    private void moveUpMap(){
+        camera.setCameraOffset(0,-1);
+    }
+
+    private void moveDownMap(){
+        camera.setCameraOffset(0,1);
+    }
+
+    private void moveLeftMap(){
+        camera.setCameraOffset(-1,0);
+    }
+
+    private void moveRightMap(){
+        camera.setCameraOffset(1,0);
+    }
+
 
     public HashMap<Location, Tile> getGameMap() {
         return gameMap;

@@ -28,7 +28,7 @@ public class MapMakerPanel extends Panel {
         super(game, assets, gameMode);
         mapPanel = new MapPanel(game, assets,gameMode, root, camera);
         bottomPanel = new BottomPanel(game, assets, gameMode, root,camera);
-        filePanel = new FilePanel(game, assets,gameMode,root);
+        filePanel = new FilePanel(game, assets,gameMode,root, camera);
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){
