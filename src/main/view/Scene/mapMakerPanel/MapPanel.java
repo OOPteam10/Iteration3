@@ -99,7 +99,6 @@ public class MapPanel extends Panel{
             i++;
         }
         drawTileSelector(gc);
-
     }
 
     public void drawBackground(GraphicsContext gc){
@@ -112,13 +111,15 @@ public class MapPanel extends Panel{
         }
     }
 
+
     public void drawTileSelector(GraphicsContext gc){
         Point p = new Point();
         p.x = TileEditor.getInstance().getLocation().getX();
         p.y = TileEditor.getInstance().getLocation().getY();
-        gc.drawImage(getAssets().getImage("TILE_SELECTOR"), camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * getAssets().getImage("TILE_SELECTOR").getWidth(),
-                camera.getScale() * getAssets().getImage("TILE_SELECTOR").getHeight());
+        gc.drawImage(assets.getImage("TILE_SELECTOR"), camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * assets.getImage("TILE_SELECTOR").getWidth(),
+                camera.getScale() * assets.getImage("TILE_SELECTOR").getHeight());
     }
+
 
     public void showGUIElements(){}
     public void hideGUIElements(){}

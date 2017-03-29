@@ -23,10 +23,10 @@ public class Camera {
 
     public Point offset(GraphicsContext gc, Point p) {
         Point offsetTile = new Point();
-        Point offset = new Point(1024/2-115,768/2-100);
+        Point offset = new Point(1024/2-115/2,768/2+100);
 
         offsetTile.x = getPixelLocation(p).x + offset.x + cameraOffsetX;
-        offsetTile.y = getPixelLocation(p).y + offset.y + cameraOffsetY;
+        offsetTile.y = 768-(getPixelLocation(p).y + offset.y + cameraOffsetY);
         return offsetTile;
     }
 

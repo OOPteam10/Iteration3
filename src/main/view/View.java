@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
+import utilities.TileEditor;
 import view.assets.AssetManager;
 
 import java.awt.*;
@@ -176,7 +177,4 @@ public class View implements MMCObserver{
 
 
     }
-
-
-
 }
