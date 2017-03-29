@@ -11,6 +11,7 @@ import model.TileSubsystem.Visitor.RiverTileValidationVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
 
 import java.util.HashMap;
+import java.lang.Math;
 
 /**
  * Created by hankerins on 3/26/17.
@@ -63,6 +64,12 @@ public class Map {
 
     private boolean validateAdjacentToExistingTiles(Location location){
         if(!tiles.isEmpty()){
+
+            for(Location loc : tiles.keySet()){
+
+                System.out.println(loc.toString() + "\n");
+            }
+
             if(getAdjacentTiles(location).isEmpty()) {
                 return false;
             }
@@ -146,7 +153,7 @@ public class Map {
 
     private Location getCentralLocation(){
 
-        int xAvg, yAvg, zAvg;
+        float xAvg, yAvg, zAvg;
         int xCount, yCount, zCount, tileCount;
 
         xCount = 0;
@@ -163,11 +170,17 @@ public class Map {
             tileCount++;
         }
 
-        xAvg = xCount/tileCount;
-        yAvg = yCount/tileCount;
-        zAvg = zCount/tileCount;
+        xAvg = (float)xCount/tileCount;
+        yAvg = (float)yCount/tileCount;
+        zAvg = (float)zCount/tileCount;
 
-        return new Location(xAvg, yAvg, zAvg);
+        int newX = (int) Math.rint(xAvg);
+        int newY = (int) Math.rint(yAvg);
+        int newZ = (int) Math.rint(zAvg);
+
+        System.out.println("Center map at: " + new Location(newX, newY, newZ).toString());
+
+        return new Location(newX, newY, newZ);
     }
 
     private HashMap<Location, Tile> createNewMapAroundLocation(Location center){
