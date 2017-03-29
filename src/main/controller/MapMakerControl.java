@@ -122,8 +122,10 @@ public class MapMakerControl implements ControlHandler{
     }
     public void reset(){
         mmcState.reset(this);
+        for(int i =0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).placeTile();
+        }
     }
-
 
 
     //TESTING ONLY
@@ -131,8 +133,5 @@ public class MapMakerControl implements ControlHandler{
         System.out.println("Location: " + TileEditor.getInstance().getLocation().toString() +
                 "State: " + mmcState.toString() + "Substate: ");
         mmcState.printSubState();
-
     }
-
-
 }
