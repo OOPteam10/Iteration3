@@ -42,10 +42,11 @@ public class FilePanel extends view.Panel {
     private Button startGameButton = new Button();
     private HashMap<Location, Tile> gameMap = new HashMap<>();
     private Group root;
+    private Game game;
 
     public FilePanel(Game game, AssetManager assets, ViewEnum gameMode, Group root){
         super(game, assets, gameMode);
-
+        this.game =game;
         this.root = root;
         setUpButton(newMapButton, getAssets().getImage("NEW_MAP_BUTTON"));
         newMapButton.setOnAction(event-> restartMap());
@@ -106,7 +107,7 @@ public class FilePanel extends view.Panel {
             saveFile(saveMap);
         }
     }
-    
+
 
     public String location_print(Location l) {
         return "(" + l.getX() + "," + l.getY() + "," + l.getZ() + ")";
@@ -151,6 +152,7 @@ public class FilePanel extends view.Panel {
     public void mapWrite(File mapFile, BufferedWriter bf) throws IOException {
         //TODO hardcoded to test the method, replace with logic that gets the actual game board
         HashMap<Location, Tile> map = new HashMap<>();
+        map = game.getMap();
 
         TileFileVisitor fileVisitor = new TileFileVisitor();
         for (Location o: map.keySet()) {
@@ -179,6 +181,7 @@ public class FilePanel extends view.Panel {
         BufferedWriter writeMap;
         try{
             writeMap = new BufferedWriter(new PrintWriter(saveMap));
+            mapWrite(saveMap, writeMap);
             writeMap.close();
         }catch (IOException e){
             e.printStackTrace();
@@ -194,7 +197,7 @@ public class FilePanel extends view.Panel {
         if(newMap!= null){
             HashMap<Location, Tile> newMapObject = readFile(newMap);
             //TODO need to update model
-            this.gameMap = newMapObject;
+            game.setMap(newMapObject);
         }
     }
 

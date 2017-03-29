@@ -24,4 +24,5 @@ public class Game {
     public HashMap<Location, Tile> getMap(){
         return map.getMap();
     }
+    public void setMap(HashMap<Location, Tile> gameMap){this.map.setMap(gameMap);}
 }
