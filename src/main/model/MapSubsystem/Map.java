@@ -43,6 +43,7 @@ public class Map {
     }
 
     public boolean addSeaTile(SeaTile tile, Location location) {
+
         return addTile(tile, location);
     }
 
@@ -51,8 +52,21 @@ public class Map {
             System.out.println("already tile there\n");
             return false;
         }
+        if(!validateAdjacentToExistingTiles(location)){
+            System.out.println("not adjacent existing map\n");
+            return false;
+        }
         tiles.put(location, tile);
         System.out.println("map.addTile() succeeds\n");
+        return true;
+    }
+
+    private boolean validateAdjacentToExistingTiles(Location location){
+        if(!tiles.isEmpty()){
+            if(getAdjacentTiles(location).isEmpty()) {
+                return false;
+            }
+        }
         return true;
     }
 
