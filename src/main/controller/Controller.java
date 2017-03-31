@@ -124,11 +124,11 @@ public class Controller {
     public void cameraZoomOut(){camera.zoomOut();}
 
     public void keyReleased(KeyEvent e){
-        KeyCode key = e.getCode();
-        executeCode(key);
+
     }
 
     public void keyPressed(KeyEvent e){
-
+        KeyCode key = e.getCode();
+        executeCode(key);
     }
 }
