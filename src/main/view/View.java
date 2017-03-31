@@ -178,7 +178,7 @@ public class View implements MMCObserver{
         }
         panelManager.updateRotation(rotation%6);
     }
-
+    @Override
     public void rotateRight(){
         rotation++;
         if(rotation > 6){

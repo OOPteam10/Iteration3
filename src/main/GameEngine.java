@@ -28,14 +28,12 @@ public class GameEngine extends Application {
 
     private int frameCounter = 0;
     private Vector<KeyCode> activeKeys;
+    private Group root;
+    private Scene scene;
 
-    private boolean scrollLeft,scrollRight,goNorth,goNE,goNW,goSouth,goSE,goSW,select;
-
-    @Override
-    public void start(Stage primaryStage){
-        primaryStage.setTitle("MapMakerV0.2");
-        Group root = new Group();
-        Scene scene = new Scene(root, Color.TRANSPARENT);
+    public GameEngine(){
+         root = new Group();
+         scene = new Scene(root, Color.TRANSPARENT);
 
         //array for active keyCodes
         activeKeys = new Vector<KeyCode>();
@@ -45,145 +43,33 @@ public class GameEngine extends Application {
         view = new View(game, scene, root);
 
         controller  = new Controller(view);
+    }
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
+    @Override
+    public void start(Stage primaryStage){
+        primaryStage.setTitle("MapMakerV0.2");
 
-                KeyCode code = event.getCode();
-
-                if(!activeKeys.contains( code )) {
-                    activeKeys.add( code );
-                }
-
-                /*
-                switch(event.getCode()) {
-                    case J:
-                        scrollLeft = true;
-                        break;
-                    case K:
-                        scrollRight = true;
-                        break;
-                    case W:
-                        goNorth = true;
-                        break;
-                    case E:
-                        goNE = true;
-                        break;
-                    case Q:
-                        goNW = true;
-                        break;
-                    case S:
-                        goSouth = true;
-                        break;
-                    case D:
-                        goSE = true;
-                        break;
-                    case A:
-                        goSW = true;
-                        break;
-                    case ENTER:
-                        select = true;
-                        break;
-                    case R:
-                        reset = true;
-                        break;
-                    case T:
-                        delete = true;
-                        break;
-                }
-                */
-
-            }
-        });
-
-
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-
-                KeyCode code = event.getCode();
-
-                activeKeys.remove( code );
-
-                /*
-                switch(event.getCode()) {
-                    case J:
-                        scrollLeft = false;
-                        break;
-                    case K:
-                        scrollRight = false;
-                        break;
-                    case W:
-                        goNorth = false;
-                        break;
-                    case E:
-                        goNE = false;
-                        break;
-                    case Q:
-                        goNW = false;
-                        break;
-                    case S:
-                        goSouth = false;
-                        break;
-                    case D:
-                        goSE = false;
-                        break;
-                    case A:
-                        goSW = false;
-                        break;
-                    case ENTER:
-                        select = false;
-                        break;
-                    case R:
-                        reset = false;
-                        break;
-                    case T:
-                        delete = false;
-                        break;
-
-                }
-                */
-
-            }
-        });
-
-
-
+        //TODO if no bug, remove the commentted out lines
+//        Group root = new Group();
+//        Scene scene = new Scene(root, Color.TRANSPARENT);
+//
+//        //array for active keyCodes
+//        activeKeys = new Vector<KeyCode>();
+//
+//
+//        game = new Game();
+//        view = new View(game, scene, root);
+//
+//        controller  = new Controller(view);
+        sendEventToController(scene);
         new AnimationTimer() {
             @Override
             public void handle(long currentPulse) {
-
-
                 frameCounter++;
                 //menus
-                if (frameCounter == 10) { //Limit FPS to 30
+
+                if (frameCounter == 2) { //Limit FPS to 30
                     frameCounter = 0;
-
-                    for(KeyCode code: activeKeys){
-
-                        controller.executeCode( code );
-                    }
-
-                    /*
-                    if(scrollLeft){ System.out.println("left");controller.left();}
-                    if(scrollRight) {controller.right();}
-
-                    //movement
-                    if(goNorth) {controller.moveN();}
-                    if(goNE) {controller.moveNE();}
-                    if(goNW) {controller.moveNW();}
-                    if(goSouth) {controller.moveS();}
-                    if(goSE) {controller.moveSE();}
-                    if(goSW) {controller.moveSW();}
-
-                    //reset and delete
-                    if(reset){controller.reset();}
-                    if(delete){controller.delete();}
-
-                    //selesction
-                    if(select) {controller.select();}
-                    */
 
                     view.renderGame();
                 }
@@ -196,18 +82,20 @@ public class GameEngine extends Application {
         primaryStage.show();
     }
 
+    public void sendEventToController(Scene scene){
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                controller.keyPressed(event);
+            }
+        });
 
 
-    public void keyRelease(KeyEvent event){
-
-        activeKeys.remove(event.getCode());
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                controller.keyReleased(event);
+            }
+        });
     }
-
-
-    public void keyRelase(KeyEvent e){
-
-    }
-
-
-
 }
