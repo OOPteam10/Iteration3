@@ -187,4 +187,8 @@ public class View implements MMCObserver{
         panelManager.updateRotation(rotation%6);
 
     }
+
+    public Camera getCamera(){
+        return this.camera;
+    }
 }

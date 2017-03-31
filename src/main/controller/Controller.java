@@ -100,7 +100,7 @@ public class Controller {
 
         controlHandler.reset();
     }
-
+    
     public void keyReleased(KeyEvent e){
         KeyCode key = e.getCode();
         executeCode(key);
@@ -109,6 +109,4 @@ public class Controller {
     public void keyPressed(KeyEvent e){
 
     }
-
-
 }
