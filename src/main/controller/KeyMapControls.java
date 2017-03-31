@@ -30,6 +30,10 @@ public class KeyMapControls {
         actionMap.put(KeyCode.Z, new ResetAction());
         actionMap.put(KeyCode.X, new DeleteAction());
         actionMap.put(KeyCode.C, new CenterGravityAction());
+        actionMap.put(KeyCode.UP, new MoveCameraUpAction());
+        actionMap.put(KeyCode.DOWN, new MoveCameraDownAction());
+        actionMap.put(KeyCode.LEFT, new MoveCameraLeftAction());
+        actionMap.put(KeyCode.RIGHT, new MoveCameraRightAction());
     }
 
     public HashMap<KeyCode, ControlAction> getActionMap(){

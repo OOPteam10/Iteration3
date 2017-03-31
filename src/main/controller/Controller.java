@@ -1,18 +1,12 @@
 package controller;
 
-import java.applet.Applet;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.HashMap;
-import java.util.Vector;
-
 import controller.MapMakerControlSubsystem.ControlAction.ControlAction;
 import javafx.scene.input.KeyCode;
-import model.MapSubsystem.Map;
+import javafx.scene.input.KeyEvent;
+import view.Camera;
 import view.View;
 
-import javax.swing.*;
+import java.util.HashMap;
 
 /**
  * Created by cduica on 3/22/17.
@@ -23,7 +17,7 @@ public class Controller {
     private ControlHandler controlHandler;
     private HashMap<KeyCode, ControlAction> actionMap;
     private KeyMapControls controlMap;
-
+    private Camera camera;
 
     public Controller(View view){
 
@@ -33,8 +27,8 @@ public class Controller {
         controlMap = new KeyMapControls();
 
         actionMap = controlMap.getActionMap();
+        camera = view.getCamera();
     }
-
 
     public void setActionMap(HashMap<KeyCode, ControlAction> actionMap){
 
@@ -50,10 +44,12 @@ public class Controller {
     }
 
     public void executeCode(KeyCode code){
-
-        ControlAction action = actionMap.get(code);
-
-        action.execute(this);
+        for(KeyCode codeKey:actionMap.keySet()) {
+            if(code == codeKey) {
+                ControlAction action = actionMap.get(code);
+                action.execute(this);
+            }
+        }
     }
 
     public void right(){
@@ -107,7 +103,28 @@ public class Controller {
         controlHandler.reset();
     }
 
+    public void moveMapUp(){
+        camera.moveUpMap();
+    }
 
+    public void moveMapDown(){
+        camera.moveDownMap();
+    }
 
+    public void moveMapLeft(){
+        camera.moveLeftMap();
+    }
 
+    public void moveMapRight(){
+        camera.moveRightMap();
+    }
+
+    public void keyReleased(KeyEvent e){
+        KeyCode key = e.getCode();
+        executeCode(key);
+    }
+
+    public void keyPressed(KeyEvent e){
+
+    }
 }

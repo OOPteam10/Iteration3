@@ -18,7 +18,7 @@ public class Camera {
         cameraOffsetX = 0;
         cameraOffsetY = 0;
 
-        scale = 1.0;
+        scale = 1;
     }
 
     public Point offset(GraphicsContext gc, Point p) {
@@ -35,9 +35,9 @@ public class Camera {
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
-    public void setCameraOffset(int x, int y){
-        cameraOffsetX = x*HEX_W;
-        cameraOffsetY = y*HEX_H;
+    private void setCameraOffset(int x, int y){
+        cameraOffsetX = cameraOffsetX + x*HEX_W;
+        cameraOffsetY = cameraOffsetY + y*HEX_H;
     }
 
     private Point getPixelLocation(Point p) {
@@ -54,5 +54,21 @@ public class Camera {
 
     public double getScale(){
         return scale;
+    }
+
+    public void moveUpMap(){
+        setCameraOffset(0,-1);
+    }
+
+    public void moveDownMap(){
+        setCameraOffset(0,1);
+    }
+
+    public void moveLeftMap(){
+        setCameraOffset(1,0);
+    }
+
+    public void moveRightMap(){
+        setCameraOffset(-1,0);
     }
 }

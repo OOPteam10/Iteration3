@@ -7,7 +7,5 @@ import controller.Controller;
  */
 
 public abstract class ControlAction {
-
-
     public abstract void execute(Controller controller);
 }

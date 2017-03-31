@@ -44,6 +44,7 @@ public class Assets {
         loadItem("TERRAIN_SELECTED","Assets/TerrainSelected.png");
         loadItem("RIVER_SELECTED","Assets/RiverSelected.png");
         loadItem("FINAL_SELECTED","Assets/FinalSelected.png");
+        loadItem("BUTTON_MOVE","Assets/ButtonMove.png" );
     }
 
     public void loadItem(String name, String path){

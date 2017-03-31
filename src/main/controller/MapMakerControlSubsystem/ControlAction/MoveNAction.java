@@ -10,7 +10,6 @@ public class MoveNAction extends ControlAction{
 
     @Override
     public void execute(Controller controller) {
-
         controller.moveN();
     }
 }
