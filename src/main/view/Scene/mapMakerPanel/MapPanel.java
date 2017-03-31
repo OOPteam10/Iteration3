@@ -106,7 +106,7 @@ public class MapPanel extends Panel{
         for (int i=0;i<21;i++){
             for(int j=0;j<21;j++){
                 Point p = new Point(i-10,j-10);
-                gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), camera.offset(gc, p).x,camera.offset(gc, p).y,camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getWidth(),
+                gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), camera.offset( p).x,camera.offset( p).y,camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getWidth(),
                         camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getHeight());
             }
         }
@@ -116,7 +116,7 @@ public class MapPanel extends Panel{
         Point p = new Point();
         p.x = TileEditor.getInstance().getLocation().getX();
         p.y = TileEditor.getInstance().getLocation().getY();
-        gc.drawImage(assets.getImage("TILE_SELECTOR"), camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * assets.getImage("TILE_SELECTOR").getWidth(),
+        gc.drawImage(assets.getImage("TILE_SELECTOR"), camera.offset( p).x, camera.offset( p).y,camera.getScale() * assets.getImage("TILE_SELECTOR").getWidth(),
                 camera.getScale() * assets.getImage("TILE_SELECTOR").getHeight());
     }
 
