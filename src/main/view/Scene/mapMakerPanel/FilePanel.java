@@ -40,19 +40,23 @@ public class FilePanel extends view.Panel {
     private Button fileSaveButton = new Button();
     private Button fileLoadButton = new Button();
     private Button startGameButton = new Button();
+
+    private Camera camera;
     private HashMap<Location, Tile> gameMap = new HashMap<>();
     private Group root;
     private Game game;
 
-    public FilePanel(Game game, AssetManager assets, ViewEnum gameMode, Group root){
+    public FilePanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
         super(game, assets, gameMode);
         this.game =game;
         this.root = root;
+        this.camera = camera;
         setUpButton(newMapButton, getAssets().getImage("NEW_MAP_BUTTON"));
         newMapButton.setOnAction(event-> restartMap());
         setUpButton(fileSaveButton, getAssets().getImage("FILE_SAVE_BUTTON"));
         fileSaveButton.setOnAction(event -> saveMap());
         setUpButton(fileLoadButton, getAssets().getImage("FILE_LOAD_BUTTON"));
+
         fileLoadButton.setOnAction(event -> {
             try {
                 loadMap();
@@ -90,7 +94,6 @@ public class FilePanel extends view.Panel {
 
         startGameButton.setTranslateX(screenDimension.x - 120);
         startGameButton.setTranslateY(y);
-
     }
 
     private void restartMap(){
