@@ -82,7 +82,7 @@ public class TileDrawingVisitor implements TileVisitor {
                 break;
         }
         try {
-            drawRotatedImage(img, river.getHexagonSide() * ROTATION_ANGLE, camera.offset(gc, p).x, camera.offset(gc, p).y);
+            drawRotatedImage(img, river.getHexagonSide() * ROTATION_ANGLE, camera.offset(p).x, camera.offset( p).y);
         }
         catch(NullPointerException e){
             System.out.println("Wrong angle, malfunctioning normal river. Angle = "+normalRiverAngle);
@@ -92,19 +92,19 @@ public class TileDrawingVisitor implements TileVisitor {
     @Override
     public void visitSourceRiver(SourceRiver river) {
         Image img = assets.getImage("SOURCE_RIVER");
-        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, camera.offset(gc, p).x, camera.offset(gc, p).y);
+        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, camera.offset( p).x, camera.offset( p).y);
     }
 
     @Override
     public void visitForkedRiver(ForkedRiver river) {
         Image img = assets.getImage("FORKED_RIVER");
-        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, camera.offset(gc, p).x, camera.offset(gc,p).y);
+        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, camera.offset( p).x, camera.offset(p).y);
     }
 
     @Override
     public void visitDesert(Desert terrain) {
         Image img = assets.getImage("DESERT_TILE");
-        gc.drawImage(img, camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * img.getWidth(),
+        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
                 camera.getScale() * img.getHeight());
     }
 
@@ -112,7 +112,7 @@ public class TileDrawingVisitor implements TileVisitor {
     public void visitMountains(Mountains terrain) {
         // do something with this, draw over current constructed tile
         Image img = assets.getImage("MOUNTAIN_TILE");
-        gc.drawImage(img, camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * img.getWidth(),
+        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
                 camera.getScale() * img.getHeight());
     }
 
@@ -120,7 +120,7 @@ public class TileDrawingVisitor implements TileVisitor {
     public void visitPasture(Pasture terrain) {
         // do something with this, draw over current constructed tile
         Image img = assets.getImage("GRASS_TILE");
-        gc.drawImage(img, camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * img.getWidth(),
+        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
                 camera.getScale() * img.getHeight());
     }
 
@@ -128,7 +128,7 @@ public class TileDrawingVisitor implements TileVisitor {
     public void visitRock(Rock terrain) {
         // do something with this, draw over current constructed tile
         Image img = assets.getImage("ROCK_TILE");
-        gc.drawImage(img, camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * img.getWidth(),
+        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
                 camera.getScale() * img.getHeight());
     }
 
@@ -136,14 +136,14 @@ public class TileDrawingVisitor implements TileVisitor {
     public void visitSea(Sea terrain) {
         // do something with this, draw over current constructed tile
         Image img = assets.getImage("SEA_TILE");
-        gc.drawImage(img, camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * img.getWidth(),
+        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
                 camera.getScale() * img.getHeight());
     }
 
     @Override
     public void visitWoods(Woods woods) {
         Image img = assets.getImage("WOOD_TILE");
-        gc.drawImage(img, camera.offset(gc, p).x, camera.offset(gc, p).y,camera.getScale() * img.getWidth(),
+        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
                 camera.getScale() * img.getHeight());
     }
 
@@ -152,7 +152,7 @@ public class TileDrawingVisitor implements TileVisitor {
 
     private void drawRotatedImage(Image image, double angle, double tlpx, double tlpy) {
         gc.save(); // saves the current state on stack, including the current transform
-        camera.rotate(gc, angle, tlpx + image.getWidth() / 2, tlpy + image.getHeight() / 2);
+        camera.rotate(gc, angle, tlpx + image.getWidth()*camera.getScale() / 2, tlpy + image.getHeight()*camera.getScale() / 2);
         gc.drawImage(image, tlpx, tlpy, camera.getScale() * image.getWidth(),
                 camera.getScale() * image.getHeight());
         gc.restore(); // back to original state (before rotation)

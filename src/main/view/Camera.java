@@ -21,7 +21,7 @@ public class Camera {
         scale = 1;
     }
 
-    public Point offset(GraphicsContext gc, Point p) {
+    public Point offset(Point p) {
         Point offsetTile = new Point();
         Point offset = new Point(1024/2-115/2,768/2+100);
 
@@ -70,5 +70,17 @@ public class Camera {
 
     public void moveRightMap(){
         setCameraOffset(-1,0);
+    }
+
+    public void zoomIn(){
+        if(this.scale <= 1.5) {
+            this.setScale(this.scale + 0.1);
+        }
+    }
+
+    public void zoomOut(){
+        if(this.scale>=0.5) {
+            this.setScale(this.scale - 0.1);
+        }
     }
 }

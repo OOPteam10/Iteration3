@@ -34,6 +34,8 @@ public class KeyMapControls {
         actionMap.put(KeyCode.DOWN, new MoveCameraDownAction());
         actionMap.put(KeyCode.LEFT, new MoveCameraLeftAction());
         actionMap.put(KeyCode.RIGHT, new MoveCameraRightAction());
+        actionMap.put(KeyCode.EQUALS, new ZoomInAction());
+        actionMap.put(KeyCode.MINUS, new ZoomOutAction());
     }
 
     public HashMap<KeyCode, ControlAction> getActionMap(){
