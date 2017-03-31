@@ -18,7 +18,7 @@ public class Camera {
         cameraOffsetX = 0;
         cameraOffsetY = 0;
 
-        scale = 1.0;
+        scale = 1;
     }
 
     public Point offset(GraphicsContext gc, Point p) {
@@ -36,8 +36,8 @@ public class Camera {
     }
 
     public void setCameraOffset(int x, int y){
-        cameraOffsetX = x*HEX_W;
-        cameraOffsetY = y*HEX_H;
+        cameraOffsetX = cameraOffsetX + x*HEX_W;
+        cameraOffsetY = cameraOffsetY + y*HEX_H;
     }
 
     private Point getPixelLocation(Point p) {
