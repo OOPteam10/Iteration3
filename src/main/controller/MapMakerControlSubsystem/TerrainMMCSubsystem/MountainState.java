@@ -31,7 +31,7 @@ public class MountainState implements TerrainMMCSubState{
     public void right(TerrainMMCState subContext, Vector<MMCObserver> mmcObservers){
 
         for(int i = 0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateTerrainToDesert();
+            mmcObservers.get(i).updateTerrainToPasture();
         }
 
         subContext.setSubState(PastureState.getInstance());
