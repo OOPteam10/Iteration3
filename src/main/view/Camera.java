@@ -35,7 +35,7 @@ public class Camera {
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
-    public void setCameraOffset(int x, int y){
+    private void setCameraOffset(int x, int y){
         cameraOffsetX = cameraOffsetX + x*HEX_W;
         cameraOffsetY = cameraOffsetY + y*HEX_H;
     }
@@ -54,5 +54,21 @@ public class Camera {
 
     public double getScale(){
         return scale;
+    }
+
+    public void moveUpMap(){
+        setCameraOffset(0,-1);
+    }
+
+    public void moveDownMap(){
+        setCameraOffset(0,1);
+    }
+
+    public void moveLeftMap(){
+        setCameraOffset(1,0);
+    }
+
+    public void moveRightMap(){
+        setCameraOffset(-1,0);
     }
 }

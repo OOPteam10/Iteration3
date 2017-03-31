@@ -3,6 +3,7 @@ package controller;
 import controller.MapMakerControlSubsystem.ControlAction.ControlAction;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import view.Camera;
 import view.View;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class Controller {
     private ControlHandler controlHandler;
     private HashMap<KeyCode, ControlAction> actionMap;
     private KeyMapControls controlMap;
-
+    private Camera camera;
 
     public Controller(View view){
 
@@ -26,6 +27,7 @@ public class Controller {
         controlMap = new KeyMapControls();
 
         actionMap = controlMap.getActionMap();
+        camera = view.getCamera();
     }
 
     public void setActionMap(HashMap<KeyCode, ControlAction> actionMap){
@@ -100,7 +102,23 @@ public class Controller {
 
         controlHandler.reset();
     }
-    
+
+    public void moveMapUp(){
+        camera.moveUpMap();
+    }
+
+    public void moveMapDown(){
+        camera.moveDownMap();
+    }
+
+    public void moveMapLeft(){
+        camera.moveLeftMap();
+    }
+
+    public void moveMapRight(){
+        camera.moveRightMap();
+    }
+
     public void keyReleased(KeyEvent e){
         KeyCode key = e.getCode();
         executeCode(key);
