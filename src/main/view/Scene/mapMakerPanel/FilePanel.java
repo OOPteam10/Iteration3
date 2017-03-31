@@ -79,14 +79,14 @@ public class FilePanel extends view.Panel {
     }
 
     private void setPositions(Point screenDimension){
-        int x = screenDimension.x/8;
+        int x = 130;
         int y = screenDimension.y - 125;
 
 
         newMapButton.setTranslateX(0);
         newMapButton.setTranslateY(y);
 
-        fileSaveButton.setTranslateX(1*x);
+        fileSaveButton.setTranslateX(x);
         fileSaveButton.setTranslateY(y);
 
         fileLoadButton.setTranslateX(2*x);

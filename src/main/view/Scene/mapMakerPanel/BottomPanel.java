@@ -56,7 +56,7 @@ public class BottomPanel extends Panel {
     public void drawPreview(GraphicsContext gc, Point screenDimension){
         gc.drawImage(terrainPreviewImage, screenDimension.x/2-115, screenDimension.y-110, terrainScale*terrainPreviewImage.getWidth(),
                 terrainPreviewImage.getHeight()*terrainScale);
-        gc.drawImage(riverPreviewImage, screenDimension.x/2, screenDimension.y-110, riverScale* riverPreviewImage.getHeight(), riverScale * riverPreviewImage.getHeight());
+        gc.drawImage(riverPreviewImage, screenDimension.x/2, screenDimension.y-110, riverScale* riverPreviewImage.getWidth(), riverScale * riverPreviewImage.getHeight());
         drawRotatedPreview(gc, terrainPreviewImage, riverPreviewImage, rotationAngle, screenDimension.x/2+115,screenDimension.y-110);
     }
 
@@ -84,7 +84,7 @@ public class BottomPanel extends Panel {
             gc.drawImage(riverPreview, tlpx, tlpy, finalPreviewScale * riverPreview.getWidth(),
                     finalPreviewScale * riverPreview.getHeight());
         }catch (NullPointerException e){
-            System.out.println();
+            System.out.println("Error: Preview Not drawing right");
         }
         gc.restore(); // back to original state (before rotation)
 

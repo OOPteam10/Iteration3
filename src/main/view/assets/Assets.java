@@ -56,7 +56,6 @@ public class Assets {
             System.out.println("Invalid image file: "+ name + " " + path);
             e.printStackTrace();
         }
-
         assets.put(name, new Image(localUrl));
         System.out.println("Loaded item: " + name);
     }
