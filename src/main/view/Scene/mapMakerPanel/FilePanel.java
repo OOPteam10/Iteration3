@@ -45,12 +45,14 @@ public class FilePanel extends view.Panel {
     private HashMap<Location, Tile> gameMap = new HashMap<>();
     private Group root;
     private Game game;
+    private PanelManager panelManager;
 
-    public FilePanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
+    public FilePanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
         this.game =game;
         this.root = root;
         this.camera = camera;
+        this.panelManager = panelManager;
         setUpButton(newMapButton, getAssets().getImage("NEW_MAP_BUTTON"));
         newMapButton.setOnAction(event-> restartMap());
         setUpButton(fileSaveButton, getAssets().getImage("FILE_SAVE_BUTTON"));
@@ -65,9 +67,11 @@ public class FilePanel extends view.Panel {
             }
         });
         setUpButton(startGameButton, getAssets().getImage("START_GAME_BUTTON"));
-        //TODO Bind the start game button to StartGame function
+        startGameButton.setOnAction(event->startGame());
 
     }
+
+
 
     public void draw(GraphicsContext gc, Point screenDimension){
         setPositions(screenDimension);
@@ -203,6 +207,10 @@ public class FilePanel extends view.Panel {
             //TODO need to update model
             game.setMap(newMapObject);
         }
+    }
+
+    private void startGame() {
+        panelManager.setMode(ViewEnum.MAIN_GAME);
     }
 
     private HashMap<Location,Tile> readFile(File newMap) throws IOException {

@@ -3,6 +3,7 @@ package view;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
+import view.Scene.IntroPanel;
 import view.Scene.MapMakerPanel;
 import view.assets.AssetManager;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class PanelManager {
     private ViewEnum currentViewMode;
     private MapMakerPanel mapMakerPanel;
+    private IntroPanel introPanel;
     private Game game;
     private AssetManager assets;
     private GraphicsContext gc;
@@ -19,13 +21,15 @@ public class PanelManager {
     private Camera camera;
 
     public PanelManager(Game game, AssetManager assets, Group group, GraphicsContext gc, Camera camera){
-        currentViewMode = ViewEnum.MAP_MAKER;
+        currentViewMode = ViewEnum.INTRO_SCENE;
 
         this.game = game;
         this.gc = gc;
         this.camera = camera;
         panels = new ArrayList<>();
-        mapMakerPanel = new MapMakerPanel(game, assets, ViewEnum.MAP_MAKER, group, camera);
+        introPanel = new IntroPanel(game, assets, ViewEnum.INTRO_SCENE, group, camera, this);
+        panels.add(introPanel);
+        mapMakerPanel = new MapMakerPanel(game, assets, ViewEnum.MAP_MAKER, group, camera, this);
         panels.add(mapMakerPanel);
     }
 
