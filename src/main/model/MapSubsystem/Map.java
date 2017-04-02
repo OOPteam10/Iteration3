@@ -13,6 +13,8 @@ import model.TileSubsystem.Visitor.TileVisitor;
 import java.util.HashMap;
 import java.lang.Math;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by hankerins on 3/26/17.
  */
@@ -64,11 +66,6 @@ public class Map {
 
     private boolean validateAdjacentToExistingTiles(Location location){
         if(!tiles.isEmpty()){
-
-            for(Location loc : tiles.keySet()){
-
-                System.out.println(loc.toString() + "\n");
-            }
 
             if(getAdjacentTiles(location).isEmpty()) {
                 return false;
@@ -153,7 +150,7 @@ public class Map {
 
     private Location getCentralLocation(){
 
-        float xAvg, yAvg, zAvg;
+        double xAvg, yAvg, zAvg;
         int xCount, yCount, zCount, tileCount;
 
         xCount = 0;
@@ -170,15 +167,38 @@ public class Map {
             tileCount++;
         }
 
-        xAvg = (float)xCount/tileCount;
-        yAvg = (float)yCount/tileCount;
-        zAvg = (float)zCount/tileCount;
+        xAvg = (double)xCount/tileCount;
+        yAvg = (double)yCount/tileCount;
+        zAvg = (double)zCount/tileCount;
 
-        int newX = (int) Math.rint(xAvg);
-        int newY = (int) Math.rint(yAvg);
-        int newZ = (int) Math.rint(zAvg);
+        return getLegalLocationFromFloat(xAvg, yAvg, zAvg);
+    }
 
-        System.out.println("Center map at: " + new Location(newX, newY, newZ).toString());
+    private Location getLegalLocationFromFloat(double x, double y, double z){
+
+        int newX = (int) Math.rint(x);
+        int newY = (int) Math.rint(y);
+        int newZ = (int) Math.rint(z);
+
+        if((newX + newY + newZ) != 0){
+
+            double xDiff = abs( .5 - ( x % 1.0 ) );
+            double yDiff = abs( .5 - ( x % 1.0 ) );
+            double zDiff = abs( .5 - ( x % 1.0 ) );
+
+            if(xDiff <= yDiff && xDiff <= zDiff){
+
+                newX = -(newY + newZ);
+
+            }else if(yDiff <= xDiff && yDiff <= zDiff){
+
+                newY = -(newX + newZ);
+
+            }else if(zDiff <= xDiff && zDiff <= yDiff){
+
+                newZ = -(newX + newY);
+            }
+        }
 
         return new Location(newX, newY, newZ);
     }
