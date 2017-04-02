@@ -51,7 +51,7 @@ public class MapMakerPanel extends Panel {
     public void showGUIElements(){
         filePanel.showGUIElements();
         mapPanel.showGUIElements();
-        bottomPanel.showGUIElements();g
+        bottomPanel.showGUIElements();
     }
 
     public void updateTilePreview(String img) {
