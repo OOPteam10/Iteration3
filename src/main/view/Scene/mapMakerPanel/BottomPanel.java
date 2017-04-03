@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import model.Game;
 import view.Camera;
 import view.Panel;
+import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
 import javafx.scene.shape.Rectangle;
@@ -21,6 +22,7 @@ public class BottomPanel extends Panel {
     private Camera camera;
     private Image terrainPreviewImage;
     private Image riverPreviewImage;
+    private PanelManager panelManager;
     private int rotationAngle;
     private double terrainScale;
     private double riverScale;
@@ -28,12 +30,13 @@ public class BottomPanel extends Panel {
 
     String currentMode;
 
-    public BottomPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
+    public BottomPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
 
         this.bottomPanelRect = new Rectangle();
         this.root = root;
         this.camera = camera;
+        this.panelManager = panelManager;
         terrainPreviewImage = assets.getImage("DESERT_TILE");
         riverPreviewImage = assets.getImage("NORMAL_RIVER_60");
         rotationAngle = 0;

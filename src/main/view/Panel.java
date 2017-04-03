@@ -30,6 +30,9 @@ public abstract class Panel {
                 showGUIElements();
                 isGUIShown = true;
             }
+        } else {
+            hideGUIElements();
+            isGUIShown = false;
         }
     }
 
@@ -40,5 +43,20 @@ public abstract class Panel {
     public AssetManager getAssets(){
         return assets;
     }
+
+
+    /* Copy paste for a new Panel subclass
+     public void draw(GraphicsContext gc, Point screenDimension){
+
+    }
+
+    public void showGUIElements(){
+
+    }
+
+    public void hideGUIElements(){
+
+    }
+     */
 
 }

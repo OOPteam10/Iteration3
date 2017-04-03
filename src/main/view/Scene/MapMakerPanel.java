@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import model.Game;
 import view.Camera;
 import view.Panel;
+import view.PanelManager;
 import view.Scene.mapMakerPanel.BottomPanel;
 import view.Scene.mapMakerPanel.FilePanel;
 import view.Scene.mapMakerPanel.MapPanel;
@@ -19,16 +20,17 @@ public class MapMakerPanel extends Panel {
     private Point screenDimension = new Point(0,0);
     private Group root;
 
+    private PanelManager panelManager;
 
     private BottomPanel bottomPanel;
     private FilePanel filePanel;
     private MapPanel mapPanel;
 
-    public MapMakerPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera){
+    public MapMakerPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
         mapPanel = new MapPanel(game, assets,gameMode, root, camera);
-        bottomPanel = new BottomPanel(game, assets, gameMode, root,camera);
-        filePanel = new FilePanel(game, assets,gameMode,root, camera);
+        bottomPanel = new BottomPanel(game, assets, gameMode, root,camera, panelManager);
+        filePanel = new FilePanel(game, assets,gameMode,root, camera, panelManager);
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){
@@ -41,11 +43,15 @@ public class MapMakerPanel extends Panel {
     }
 
     public void hideGUIElements(){
-
+        filePanel.hideGUIElements();
+        mapPanel.hideGUIElements();
+        bottomPanel.hideGUIElements();
     }
 
     public void showGUIElements(){
         filePanel.showGUIElements();
+        mapPanel.showGUIElements();
+        bottomPanel.showGUIElements();
     }
 
     public void updateTilePreview(String img) {

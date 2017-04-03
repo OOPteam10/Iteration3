@@ -2,13 +2,14 @@ package view;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
+import javafx.scene.image.Image;
 
 import java.awt.*;
 
 public class Camera {
     private final static int HEX_W = 115;
     private final static int HEX_H = 100;
-
+    private Point screenDimension;
     private int cameraOffsetX;
     private int cameraOffsetY;
 
@@ -17,16 +18,16 @@ public class Camera {
     public Camera(Point screenDimension){
         cameraOffsetX = 0;
         cameraOffsetY = 0;
-
+        this.screenDimension = screenDimension;
         scale = 1;
     }
 
     public Point offset(Point p) {
         Point offsetTile = new Point();
-        Point offset = new Point(1024/2-115/2,768/2+100);
+        Point offset = new Point(screenDimension.x/2-HEX_W/2,screenDimension.y/2+HEX_H);
 
         offsetTile.x = getPixelLocation(p).x + offset.x + cameraOffsetX;
-        offsetTile.y = 768-(getPixelLocation(p).y + offset.y + cameraOffsetY);
+        offsetTile.y = screenDimension.y-(getPixelLocation(p).y + offset.y + cameraOffsetY);
         return offsetTile;
     }
 
@@ -47,6 +48,8 @@ public class Camera {
         pixelLocation.y = (int)(HEX_H *scale* (p.x * 0.5f + p.y));
         return pixelLocation;
     }
+
+
 
     public void setScale(double scale){
         this.scale = scale;

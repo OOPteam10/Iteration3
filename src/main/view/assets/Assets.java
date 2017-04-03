@@ -45,6 +45,10 @@ public class Assets {
         loadItem("RIVER_SELECTED","Assets/RiverSelected.png");
         loadItem("FINAL_SELECTED","Assets/FinalSelected.png");
         loadItem("BUTTON_MOVE","Assets/ButtonMove.png" );
+        loadItem("START_GAME_BUTTON_TEXT", "Assets/StartGameButtonText.png");
+        loadItem("OPTION_BUTTON","Assets/OptionButton.png");
+        loadItem("MAP_MAKER_BUTTON", "Assets/MapMakerButton.png");
+        loadItem("INTRO_BACKGROUND_IMAGE", "Assets/IntroBackground.png");
     }
 
     public void loadItem(String name, String path){
