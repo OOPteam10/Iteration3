@@ -30,7 +30,7 @@ public class IntroPanel extends Panel {
     private Button startGameButton = new Button();
     private Button optionButton = new Button();
     private Button mapMakerButton = new Button();
-    private double scaleBackground = 0.5;
+    private double scaleBackground = 0.4;
     private Image background;
 
     public IntroPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
@@ -60,7 +60,7 @@ public class IntroPanel extends Panel {
     public void draw(GraphicsContext gc, Point screenDimension){
         updateScaleBackground(screenDimension);
         setPosition(screenDimension);
-        gc.drawImage(background,screenDimension.x/2 - background.getWidth()/2*scaleBackground, screenDimension.y/3.5 - background.getHeight()/2*scaleBackground,
+        gc.drawImage(background,screenDimension.x/2 - background.getWidth()/2*scaleBackground, screenDimension.y/3 - background.getHeight()/2*scaleBackground,
                 scaleBackground*background.getWidth(), scaleBackground*background.getHeight());
     }
 
@@ -69,15 +69,15 @@ public class IntroPanel extends Panel {
         double y = screenDimension.y/20;
         startGameButton.setTranslateX(x - 269/2);
         //startGameButton.setTranslateX(x);
-        startGameButton.setTranslateY(12*y);
+        startGameButton.setTranslateY(14*y);
 
         optionButton.setTranslateX(x-getAssets().getImage("OPTION_BUTTON").getWidth()/2);
         //optionButton.setTranslateX(x);
-        optionButton.setTranslateY(14*y);
+        optionButton.setTranslateY(16*y);
 
         mapMakerButton.setTranslateX(x-getAssets().getImage("MAP_MAKER_BUTTON").getWidth()/2);
         //mapMakerButton.setTranslateX(x);
-        mapMakerButton.setTranslateY(16*y);
+        mapMakerButton.setTranslateY(18*y);
     }
 
     public void showGUIElements(){
@@ -101,6 +101,6 @@ public class IntroPanel extends Panel {
     }
 
     private void updateScaleBackground(Point screenDimension){
-        this.scaleBackground = (double)screenDimension.x/2048;
+        this.scaleBackground = (double)screenDimension.x/2600;
     }
 }
