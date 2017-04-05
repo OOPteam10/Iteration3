@@ -90,12 +90,12 @@ public class Camera {
     }
 
     public double getBackgroundScaleX(){
-        System.out.print((double)screenDimension.x/DEFAULT_SCREEN_WIDTH+" ");
+        //System.out.print((double)screenDimension.x/DEFAULT_SCREEN_WIDTH+" ");
         return (double)screenDimension.x/DEFAULT_SCREEN_WIDTH;
     }
 
     public double getBackgroundScaleY(){
-        System.out.println((double)screenDimension.y/DEFAULT_SCREEN_DEPTH);
+        //System.out.println((double)screenDimension.y/DEFAULT_SCREEN_DEPTH);
         return (double)screenDimension.y/DEFAULT_SCREEN_DEPTH;
     }
 }

@@ -8,6 +8,7 @@ import view.Panel;
 import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
+import javafx.scene.image.Image;
 
 import java.awt.*;
 
@@ -15,12 +16,18 @@ import java.awt.*;
  * Created by Karth on 4/5/2017.
  */
 public class WonderPanel extends Panel {
+    private Image wonderBoard = getAssets().getImage("WONDER_BOARD");
+
     public WonderPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
     }
 
-    public void draw(GraphicsContext gc, Point screenDimension){
+    private void drawWonderBoard(GraphicsContext gc){
+        gc.drawImage(wonderBoard, 1288, 252);
+    }
 
+    public void draw(GraphicsContext gc, Point screenDimension) {
+        drawWonderBoard(gc);
     }
 
     public void showGUIElements(){
