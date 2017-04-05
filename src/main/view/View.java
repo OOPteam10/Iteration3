@@ -16,8 +16,8 @@ import java.awt.*;
  */
 public class View implements MMCObserver{
     private AssetManager assets;
-    private static final int SCREEN_WIDTH = 1024;
-    private static final int SCREEN_HEIGHT = 768;
+    private static final int SCREEN_WIDTH = 1800;
+    private static final int SCREEN_HEIGHT = 900;
 
     private Canvas canvas;
     private GraphicsContext gc;
