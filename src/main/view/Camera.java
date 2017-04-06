@@ -89,6 +89,10 @@ public class Camera {
         }
     }
 
+    public void centerBoardInGame(){
+        setCameraOffset(-2, 0);
+    }
+
     public double getBackgroundScaleX(){
         //System.out.print((double)screenDimension.x/DEFAULT_SCREEN_WIDTH+" ");
         return (double)screenDimension.x/DEFAULT_SCREEN_WIDTH;

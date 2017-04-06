@@ -89,6 +89,7 @@ public class IntroPanel extends Panel {
     }
 
     private void startGame(){
+        camera.centerBoardInGame();
         panelManager.setMode(ViewEnum.MAIN_GAME);
     }
 

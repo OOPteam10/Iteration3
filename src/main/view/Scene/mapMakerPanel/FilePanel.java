@@ -210,6 +210,7 @@ public class FilePanel extends view.Panel {
     }
 
     private void startGame() {
+        camera.centerBoardInGame();
         panelManager.setMode(ViewEnum.MAIN_GAME);
     }
 
