@@ -22,12 +22,12 @@ public class WonderPanel extends Panel {
         super(game, assets, gameMode);
     }
 
-    private void drawWonderBoard(GraphicsContext gc){
-        gc.drawImage(wonderBoard, 1288, 252);
+    private void drawWonderBoard(GraphicsContext gc, Point screenDimension){
+        gc.drawImage(wonderBoard, screenDimension.x/1.397, screenDimension.y - 648);
     }
 
     public void draw(GraphicsContext gc, Point screenDimension) {
-        drawWonderBoard(gc);
+        drawWonderBoard(gc, screenDimension);
     }
 
     public void showGUIElements(){

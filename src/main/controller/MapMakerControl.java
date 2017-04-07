@@ -11,6 +11,7 @@ import model.TileSubsystem.Terrains.Desert;
 import model.TileSubsystem.Terrains.Terrain;
 import model.TileSubsystem.Tiles.Tile;
 import utilities.TileEditor;
+import view.MapMakerPreview;
 import view.View;
 
 import java.util.Vector;
@@ -32,9 +33,8 @@ public class MapMakerControl implements ControlHandler{
 
 
     //onInit
-    public void init(View view){
-
-        mmcObservers.add(view);
+    public void init(MapMakerPreview preview){
+        mmcObservers.add(preview);
     }
 
 

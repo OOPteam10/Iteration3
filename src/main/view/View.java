@@ -14,7 +14,7 @@ import java.awt.*;
 /**
  * Created by cduica on 3/22/17.
  */
-public class View implements MMCObserver{
+public class View{
     private AssetManager assets;
     private static final int SCREEN_WIDTH = 1800;
     private static final int SCREEN_HEIGHT = 900;
@@ -25,9 +25,8 @@ public class View implements MMCObserver{
     private PanelManager panelManager;
     private Point screenDimension = new Point();
     private Scene scene;
-    private int pulse = 0;
     private Camera camera;
-    private int rotation;
+    private MapMakerPreview mapMakerPreview;
 
     public View(Game game, Scene scene, Group root){
         assets = new AssetManager();
@@ -40,12 +39,12 @@ public class View implements MMCObserver{
         camera = new Camera(screenDimension);
         gc = canvas.getGraphicsContext2D();
         panelManager = new PanelManager(game, assets, root, gc, camera);
-        this.rotation = 0;
         initializeView();
     }
 
     private void initializeView(){
         root.getChildren().add(canvas);
+        mapMakerPreview = new MapMakerPreview(panelManager);
     }
 
     public void renderGame(){
@@ -60,135 +59,9 @@ public class View implements MMCObserver{
         panelManager.drawPanels(screenDimension);
     }
 
-    //MMCObserver methods
-    @Override
-    public void updateTerrainToDesert() {
-        panelManager.updateTerrainPreview("DESERT_TILE");
-    }
-
-    @Override
-    public void updateTerrainToMountain() {
-        panelManager.updateTerrainPreview("MOUNTAIN_TILE");
-    }
-
-    @Override
-    public void updateTerrainToPasture() {
-        panelManager.updateTerrainPreview("GRASS_TILE");
-    }
-
-    @Override
-    public void updateTerrainToRock() {
-        panelManager.updateTerrainPreview("ROCK_TILE");
-    }
-
-    @Override
-    public void updateTerrainToSea() {
-        panelManager.updateTerrainPreview("SEA_TILE");
-    }
-
-    @Override
-    public void updateTerrainToWoods() {
-        panelManager.updateTerrainPreview("WOOD_TILE");
-    }
-
-    @Override
-    public void updateRiverToFork() {
-        panelManager.updateRiverPreview("FORKED_RIVER");
-    }
-
-    @Override
-    public void updateRiverToNone() {
-        panelManager.updateRiverPreview("EMPTY_HEX_GRID");
-    }
-
-    @Override
-    public void updateRiverToShape1() {
-        panelManager.updateRiverPreview("NORMAL_RIVER_60");
-    }
-
-    @Override
-    public void updateRiverToShape2() {
-        panelManager.updateRiverPreview("NORMAL_RIVER_120");
-    }
-
-    @Override
-    public void updateRiverToShape3() {
-        panelManager.updateRiverPreview("NORMAL_RIVER_180");
-    }
-
-    @Override
-    public void updateRiverToSource() {
-        panelManager.updateRiverPreview("SOURCE_RIVER");
-    }
-
-    @Override
-    public void updateCursorN() {
-
-    }
-
-    @Override
-    public void updateCursorNE() {
-
-    }
-
-    @Override
-    public void updateCursorNW() {
-
-    }
-
-    @Override
-    public void updateCursorS() {
-
-    }
-
-    @Override
-    public void updateCursorSE() {
-
-    }
-
-    @Override
-    public void updateCursorSW() {
-
-    }
-
-    @Override
-    public void placeTile(){
-        panelManager.updateTerrainPreview("DESERT_TILE");
-        panelManager.updateRiverPreview("NORMAL_RIVER_60");
-        rotation = 0;
-        panelManager.updateRotation(rotation%4);
-        panelManager.selectTerrain();
-    }
-
-    @Override
-    public void terrainSelected() {
-        panelManager.selectRiver();
-    }
-
-    @Override
-    public void riverSelected() {
-        panelManager.selectFinal();
-    }
-
-    @Override
-    public void rotateLeft() {
-        rotation--;
-        if(rotation < 0){
-            rotation += 6;
-        }
-        panelManager.updateRotation(rotation%6);
-    }
-    @Override
-    public void rotateRight(){
-        rotation++;
-        if(rotation > 6){
-            rotation -= 6;
-        }
-        panelManager.updateRotation(rotation%6);
-
-    }
-
     public Camera getCamera(){
         return this.camera;
     }
+
+    public MapMakerPreview getMapMakerPreview(){return mapMakerPreview;}
 }
