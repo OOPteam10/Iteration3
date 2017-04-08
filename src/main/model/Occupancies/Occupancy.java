@@ -8,4 +8,6 @@ public abstract class Occupancy<T2> {
     public abstract void add(T2 target);
 
     public abstract boolean contains(T2 target);
+
+    public abstract void remove(T2 target);
 }

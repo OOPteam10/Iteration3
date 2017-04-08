@@ -8,17 +8,17 @@ import java.util.HashMap;
 /**
  * Created by hankerins on 4/8/17.
  */
-public abstract class Manager<T1, T2>{
+public abstract class OccupancyManager<T1, T2>{
     private HashMap<T1, Occupancy<T2>> managerMap;
-    public void remove(T1 t1)
+    
+
+    public void add(T1 loc, T2 occupant)
     {
-        managerMap.remove(t1);
+
+        managerMap.get(loc).add(occupant);
     }
-
-    public void add(T1 loc, T2 occupier)
-    {
-
-        managerMap.get(loc).add(occupier);
+    public void remove(T2 occupant){
+        //todo
     }
 
     public Occupancy<T2> get(T1 loc)
