@@ -4,6 +4,7 @@ import model.MapSubsystem.Location;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Visitor.TileVisitor;
+import model.TileSubsystem.Waterway;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * Created by hankerins on 3/26/17.
  *
  */
-public abstract class River {
+public abstract class River implements Waterway {
 
 
     private ArrayList<HexSide> edges = new ArrayList<HexSide>();
