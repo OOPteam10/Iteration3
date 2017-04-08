@@ -23,7 +23,7 @@ public class WonderPanel extends Panel {
     }
 
     private void drawWonderBoard(GraphicsContext gc, Point screenDimension){
-        gc.drawImage(wonderBoard, screenDimension.x/1.397, screenDimension.y - 648);
+        gc.drawImage(wonderBoard, screenDimension.x/1.397, screenDimension.y - 748);
     }
 
     public void draw(GraphicsContext gc, Point screenDimension) {
