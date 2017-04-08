@@ -47,7 +47,7 @@ public class MapPanel extends Panel{
         this.assets = assets;
         this.game = game;
         //TODO: this is hard coded, remove it after
-        gameMap = new HashMap<Location, Tile>();
+        gameMap = new HashMap<>();
         gameMap = game.getMap();
         this.camera = camera;
 
@@ -88,7 +88,6 @@ public class MapPanel extends Panel{
 //        return map.getMap();
 //    }
     public void draw(GraphicsContext gc, Point screenDimension){
-        int i = 0;
         drawBackground(gc);
         for(Location loc:gameMap.keySet()){
             Point p = new Point();
@@ -96,7 +95,6 @@ public class MapPanel extends Panel{
             p.y = loc.getY();
             TileDrawingVisitor tileDrawingVisitor = new TileDrawingVisitor(assets, gc,p,camera);
             gameMap.get(loc).accept(tileDrawingVisitor);
-            i++;
         }
         drawTileSelector(gc);
         updateMap();

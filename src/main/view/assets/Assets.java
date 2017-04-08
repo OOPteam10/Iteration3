@@ -49,6 +49,9 @@ public class Assets {
         loadItem("OPTION_BUTTON","Assets/OptionButton.png");
         loadItem("MAP_MAKER_BUTTON", "Assets/MapMakerButton.png");
         loadItem("INTRO_BACKGROUND_IMAGE", "Assets/IntroBackground.png");
+        loadItem("GAME_BORDER","Assets/GameBorder.png");
+        loadItem("SIDE_PANEL_BACKGROUND", "Assets/SidePanelBackground.png");
+        loadItem("WONDER_BOARD", "Assets/WonderBoard.png");
     }
 
     public void loadItem(String name, String path){

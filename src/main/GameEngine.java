@@ -19,8 +19,8 @@ import java.util.Vector;
 
 public class GameEngine extends Application {
 
-    private static final int MIN_HEIGHT = 768;
-    private static final int MIN_WIDTH = 1024;
+    private static final int MIN_HEIGHT = 400;
+    private static final int MIN_WIDTH = 800;
 
     private View view;
     private Game game;

@@ -1,6 +1,7 @@
 package controller;
 
 import controller.MapMakerControlSubsystem.MMCState;
+import view.MapMakerPreview;
 import view.View;
 
 /**
@@ -24,6 +25,6 @@ public interface ControlHandler {
     public void reset();
     public void centerGravity();
 
-    public void init(View view);
+    public void init(MapMakerPreview preview);
 
 }

@@ -9,6 +9,8 @@ import java.awt.*;
 public class Camera {
     private final static int HEX_W = 115;
     private final static int HEX_H = 100;
+    private final static int DEFAULT_SCREEN_WIDTH = 1800;
+    private final static int DEFAULT_SCREEN_DEPTH = 900;
     private Point screenDimension;
     private int cameraOffsetX;
     private int cameraOffsetY;
@@ -85,5 +87,19 @@ public class Camera {
         if(this.scale>=0.5) {
             this.setScale(this.scale - 0.1);
         }
+    }
+
+    public void centerBoardInGame(){
+        setCameraOffset(-2, 0);
+    }
+
+    public double getBackgroundScaleX(){
+        //System.out.print((double)screenDimension.x/DEFAULT_SCREEN_WIDTH+" ");
+        return (double)screenDimension.x/DEFAULT_SCREEN_WIDTH;
+    }
+
+    public double getBackgroundScaleY(){
+        //System.out.println((double)screenDimension.y/DEFAULT_SCREEN_DEPTH);
+        return (double)screenDimension.y/DEFAULT_SCREEN_DEPTH;
     }
 }
