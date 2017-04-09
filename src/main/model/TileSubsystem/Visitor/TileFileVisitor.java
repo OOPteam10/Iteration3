@@ -7,7 +7,7 @@ import model.TileSubsystem.Terrains.*;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.SeaTile;
-import view.Scene.mapMakerPanel.filePanel.TileFileInfo;
+import utilities.FileManager.TileFileInfo;
 
 /**
  * Created by doug0_000 on 3/27/2017.

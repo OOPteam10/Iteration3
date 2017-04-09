@@ -1,4 +1,4 @@
-package view.Scene.mapMakerPanel.filePanel;
+package utilities.FileManager;
 
 import model.TileSubsystem.HexSide;
 
