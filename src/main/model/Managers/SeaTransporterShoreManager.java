@@ -8,11 +8,6 @@ import java.util.ArrayList;
 /**
  * Created by hankerins on 4/8/17.
  */
-public class SeaTransporterShoreManager extends ListManager<Sector, ArrayList<SeaTransporter>> {
+public class SeaTransporterShoreManager extends TransporterManager<SeaTransporter, Sector> {
 
-    @Override
-    public boolean add(Sector loc, ArrayList<SeaTransporter> occupant) {
-
-        return false;
-    }
 }

@@ -6,7 +6,7 @@ import model.Transporters.LandTransporter;
 /**
  * Created by hankerins on 4/8/17.
  */
-public class LandTransporterManager extends ListManager<Sector, LandTransporter> {
+public class LandTransporterManager extends TransporterManager<LandTransporter, Sector> {
 
 
 
