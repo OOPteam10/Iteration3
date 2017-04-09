@@ -16,7 +16,7 @@ import java.awt.*;
  */
 public class View{
     private AssetManager assets;
-    private static final int SCREEN_WIDTH = 1800;
+    private static final int SCREEN_WIDTH = 1600;
     private static final int SCREEN_HEIGHT = 900;
 
     private Canvas canvas;
@@ -36,7 +36,7 @@ public class View{
         canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         screenDimension.x = SCREEN_WIDTH;
         screenDimension.y = SCREEN_HEIGHT;
-        camera = new Camera(screenDimension);
+        camera = new Camera(screenDimension, SCREEN_WIDTH, SCREEN_HEIGHT);
         gc = canvas.getGraphicsContext2D();
         panelManager = new PanelManager(game, assets, root, gc, camera);
         initializeView();
