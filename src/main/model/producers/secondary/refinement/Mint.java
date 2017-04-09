@@ -12,8 +12,4 @@ public class Mint extends RefinementProducer {
         return null;
     }
 
-    @Override
-    public void giveResource(Resource resource) {
-
-    }
 }

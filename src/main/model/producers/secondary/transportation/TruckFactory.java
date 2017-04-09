@@ -12,8 +12,4 @@ public class TruckFactory extends TransportationProducer {
         return null;
     }
 
-    @Override
-    public void giveResource(Resource resource) {
-
-    }
 }

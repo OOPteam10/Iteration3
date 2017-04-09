@@ -1,6 +1,7 @@
 package model.producers.primary;
 
 import model.producers.Product;
+import model.resources.Fuel;
 
 /**
  * Created by cduica on 4/8/17.
@@ -8,6 +9,6 @@ import model.producers.Product;
 public class OilRig extends PrimaryProducer {
     @Override
     public Product produce() {
-        return null;
+        return new Fuel();
     }
 }
