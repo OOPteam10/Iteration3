@@ -12,10 +12,10 @@ public abstract class Manager<Obj, Loc>{
         return managerMap;
     }
 
-    public void add(Obj o, Loc loc) //TODO: make this fail when producers exist in other sectors
-            //TODO: remove conditional logic when abilities are in place
+    public void add(Obj o, Loc loc)
+            //TODO: make this impossible when producers exist in other sectors via Abilities
     {
-            managerMap.put(o, loc);
+        managerMap.put(o, loc);
     }
 
     public void removeOccupant(Obj o){
