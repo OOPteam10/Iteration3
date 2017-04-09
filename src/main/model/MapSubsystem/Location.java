@@ -2,6 +2,7 @@ package model.MapSubsystem;
 
 
 import javafx.geometry.Point3D;
+import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 
 import java.util.ArrayList;
@@ -98,7 +99,6 @@ public class Location {
     }
 
     public Location getAdjacentLocation(HexSide hs){
-        //TODO: find the location on whatever side
         return LocationUtility.getAdjacentLocationFromHexSide(this, hs);
     }
 

@@ -1,5 +1,6 @@
 package model.MapSubsystem;
 
+import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 
 import java.util.*;

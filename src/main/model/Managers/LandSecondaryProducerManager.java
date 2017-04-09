@@ -6,5 +6,5 @@ import model.producers.secondary.SecondaryProducer;
 /**
  * Created by hankerins on 4/8/17.
  */
-public class LandSecondaryProducerManager extends Manager<SecondaryProducer, Sector> {
+public class LandSecondaryProducerManager extends ProductManager<SecondaryProducer, Sector> {
 }

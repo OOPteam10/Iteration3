@@ -43,8 +43,7 @@ public enum CardinalDirection {
         return angle;
     }
 
-    //replace with actual hexagon side class
-    /*public int getHexagonSide(){
-        return ((degree + 15) / 60) % 6;
-    }*/
+    public HexSide toHexSide(){
+        return HexSide.values()[((ordinal()+1)%12)/2];
+    }
 }
