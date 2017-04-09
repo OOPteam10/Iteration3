@@ -1,7 +1,12 @@
 package model.MapSubsystem;
 
 import com.sun.org.apache.bcel.internal.generic.LAND;
+import model.Managers.Adjacency;
+import model.Managers.SectorAdjacency;
+import model.Managers.SectorAdjacencyManager;
+import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
+import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.SeaTile;
@@ -11,6 +16,7 @@ import model.TileSubsystem.Visitor.RiverTileValidationVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
 
 import java.util.HashMap;
+import java.util.Map.*;
 import java.lang.Math;
 
 import static java.lang.Math.abs;
@@ -105,6 +111,24 @@ public class Map {
     public boolean validateTilePlacement(TileVisitor v) {
         boolean isValid = true;
         return isValid;
+    }
+
+    private void addLocationToSectorAdjacencyMatrix(Location loc, SectorAdjacencyManager sam){
+        HashMap<HexSide, Tile> adjacents = getAdjacentTiles(loc);
+        for(Sector s: tiles.get(loc).getSectors()) {
+            sam.add(s, createSectorAdjacency(loc, s));
+        }
+    }
+
+    public SectorAdjacency createSectorAdjacency(Location loc, Sector s){
+        SectorAdjacency sa = new SectorAdjacency();
+        for(CardinalDirection cd: s.getHalfEdges()){
+            Tile t = tiles.get(loc.getAdjacentLocation(cd.toHexSide()));
+            if(t != null){
+                sa.add(cd, t.getSectorAtCardinalDirection(cd.getOppositeSide()));
+            }
+        }
+        return sa;
     }
 
     public boolean validateRiverTilePlacement(RiverTile riverTile, Location location){

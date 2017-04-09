@@ -1,5 +1,7 @@
 package model.TileSubsystem;
 
+import javax.smartcardio.Card;
+
 /**
  * Created by hankerins on 3/26/17.
  */
@@ -45,5 +47,15 @@ public enum CardinalDirection {
 
     public HexSide toHexSide(){
         return HexSide.values()[((ordinal()+1)%12)/2];
+    }
+
+    public CardinalDirection getOppositeSide(){
+        //rotate a CD 6 times
+        int offset = (ordinal()%2)*2;
+        CardinalDirection opp = this;
+        for(int i = 0; i < (5 + offset); i++){
+            opp = opp.next();
+        }
+        return opp;
     }
 }

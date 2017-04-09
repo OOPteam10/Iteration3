@@ -13,7 +13,10 @@ public class Sector {
             start = start.next();
             halfEdges.add(start);
         }
+    }
 
+    public boolean contains(CardinalDirection cd){
+        return halfEdges.contains(cd);
     }
 
     public ArrayList<CardinalDirection> getHalfEdges() {
