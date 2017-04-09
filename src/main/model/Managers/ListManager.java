@@ -8,16 +8,14 @@ import java.util.HashMap;
  * Created by hankerins on 4/8/17.
  * TODO: separate list managers and object managers
  */
-public abstract class Manager<T1, T2>{
+public abstract class ListManager<T1, T2>{
     private HashMap<T1, T2> managerMap;
 
     protected HashMap<T1, T2> getManagerMap() {
         return managerMap;
     }
 
-    public boolean add(T1 loc, T2 occupant){
-        managerMap.put(loc, occupant);
-    };
+    public abstract boolean add(T1 loc, T2 occupant);
 
     public void removeOccupant(T2 occupant){
         for(T1 each: managerMap.keySet()){

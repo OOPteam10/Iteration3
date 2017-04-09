@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by hankerins on 4/8/17.
  */
-public class CargoManager extends Manager<Transporter, ArrayList<Cargo>> {
+public class CargoManager extends ListManager<Transporter, ArrayList<Cargo>> {
 
     public boolean add(Transporter loc, Cargo occupant)
     {
