@@ -11,9 +11,5 @@ public class RaftFactory extends TransportationProducer {
     public Product produce() {
         return null;
     }
-
-    @Override
-    public void giveResource(Resource resource) {
-
-    }
+    
 }

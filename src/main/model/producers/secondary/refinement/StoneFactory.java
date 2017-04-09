@@ -12,8 +12,4 @@ public class StoneFactory extends RefinementProducer {
         return null;
     }
 
-    @Override
-    public void giveResource(Resource resource) {
-
-    }
 }

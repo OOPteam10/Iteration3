@@ -12,8 +12,4 @@ public class StockExchange extends RefinementProducer {
         return null;
     }
 
-    @Override
-    public void giveResource(Resource resource) {
-
-    }
 }
