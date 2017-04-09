@@ -24,7 +24,7 @@ import javafx.scene.control.Button;
  */
 public class GameFilePanel extends Panel {
     private double buttonScale = 1;
-    private double IMAGE_SPACE = getAssets().getImage("NEW_MAP_BUTTON").getWidth()*buttonScale+10;
+    private double IMAGE_SPACE = (getAssets().getImage("NEW_MAP_BUTTON").getWidth()-20)*buttonScale;
     private AnchorPane gameFilePanelLayout = new AnchorPane();
     private Button newGameButton = new Button();
     private Button fileSaveButton = new Button();
@@ -60,6 +60,7 @@ public class GameFilePanel extends Panel {
     private void setUpButton(Button button, Image image){
         button.setGraphic(new ImageView(image));
         gameFilePanelLayout.getChildren().add(button);
+        button.getStyleClass().setAll("");
     }
 
     private void saveGame(){
@@ -102,9 +103,10 @@ public class GameFilePanel extends Panel {
         fileSaveButton.setTranslateY(y);
         fileLoadButton.setTranslateX(x+2*IMAGE_SPACE);
         fileLoadButton.setTranslateY(y);
-        mainMenuButton.setTranslateX(screenDimension.x - 70*camera.getBackgroundScaleX());
-        mainMenuButton.setTranslateY(y);
+        mainMenuButton.setTranslateX(screenDimension.x-115*camera.getBackgroundScaleX());
+        mainMenuButton.setTranslateY(10*camera.getBackgroundScaleY());
 
+       IMAGE_SPACE = (getAssets().getImage("NEW_MAP_BUTTON").getWidth()-20)*camera.getBackgroundScaleX();
     }
 
     private void saveFile(File saveMap){

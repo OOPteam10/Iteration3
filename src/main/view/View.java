@@ -10,6 +10,7 @@ import utilities.TileEditor;
 import view.assets.AssetManager;
 
 import java.awt.*;
+import java.io.File;
 
 /**
  * Created by cduica on 3/22/17.
@@ -45,6 +46,10 @@ public class View{
     private void initializeView(){
         root.getChildren().add(canvas);
         mapMakerPreview = new MapMakerPreview(panelManager);
+//
+//        File buttonStyle = new File("Assets/ButtonStyle.css");
+//        scene.getStylesheets().clear();
+//        scene.getStylesheets().add("file:///"+buttonStyle.getAbsolutePath().replace("\\","/"));
     }
 
     public void renderGame(){
