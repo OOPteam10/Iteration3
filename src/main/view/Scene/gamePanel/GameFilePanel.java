@@ -24,7 +24,7 @@ import javafx.scene.control.Button;
  */
 public class GameFilePanel extends Panel {
     private double buttonScale = 1;
-    private double IMAGE_SPACE = (getAssets().getImage("NEW_MAP_BUTTON").getWidth()-20)*buttonScale;
+    private double IMAGE_SPACE = (getAssets().getImage("NEW_MAP_BUTTON").getWidth()-10)*buttonScale;
     private AnchorPane gameFilePanelLayout = new AnchorPane();
     private Button newGameButton = new Button();
     private Button fileSaveButton = new Button();
@@ -95,18 +95,18 @@ public class GameFilePanel extends Panel {
 
     private void setPosition(Point screenDimension){
         double x = 1187*camera.getBackgroundScaleX();
-        double y = 18*camera.getBackgroundScaleY();
+        double y = (screenDimension.y/40)*camera.getBackgroundScaleY();
 
         newGameButton.setTranslateX(x);
         newGameButton.setTranslateY(y);
         fileSaveButton.setTranslateX(x+IMAGE_SPACE);
         fileSaveButton.setTranslateY(y);
-        fileLoadButton.setTranslateX(x+2*IMAGE_SPACE);
+        fileLoadButton.setTranslateX(x+2*IMAGE_SPACE-5);
         fileLoadButton.setTranslateY(y);
-        mainMenuButton.setTranslateX(screenDimension.x-115*camera.getBackgroundScaleX());
-        mainMenuButton.setTranslateY(10*camera.getBackgroundScaleY());
+        mainMenuButton.setTranslateX(1526*camera.getBackgroundScaleX());
+        mainMenuButton.setTranslateY(19*camera.getBackgroundScaleY());
 
-       IMAGE_SPACE = (getAssets().getImage("NEW_MAP_BUTTON").getWidth()-20)*camera.getBackgroundScaleX();
+       IMAGE_SPACE = (getAssets().getImage("NEW_MAP_BUTTON").getWidth()-10)*camera.getBackgroundScaleX();
     }
 
     private void saveFile(File saveMap){
