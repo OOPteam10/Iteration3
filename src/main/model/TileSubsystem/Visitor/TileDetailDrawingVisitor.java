@@ -1,13 +1,7 @@
 package model.TileSubsystem.Visitor;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.Rotate;
-import model.MapSubsystem.Location;
+import javafx.scene.image.*;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Rivers.SourceRiver;
@@ -19,36 +13,28 @@ import view.Camera;
 import view.assets.AssetManager;
 
 import java.awt.*;
-
+import java.awt.Image;
 
 /**
- * Created by allisonaguirre on 3/26/17.
+ * Created by Karth on 4/10/2017.
  */
-public class TileDrawingVisitor implements TileVisitor {
-
+public class TileDetailDrawingVisitor implements TileVisitor {
     private final static int ROTATION_ANGLE = 60;
-
     private AssetManager assets;
     private GraphicsContext gc;
-    private Camera camera;
     private Point p;
-    // current constructed tile
-
-
-    public TileDrawingVisitor(AssetManager assets, GraphicsContext gc, Point p, Camera camera) {
+    private Camera camera;
+    public TileDetailDrawingVisitor(AssetManager assets, GraphicsContext gc, Point p, Camera camera){
         this.assets = assets;
         this.gc = gc;
         this.p = p;
-
         this.camera = camera;
     }
-
+    
     @Override
-    public void visitLandTile(LandTile tile) {
-        // start basic tile graphic (don't know terrain yet)
-        tile.getTerrain().accept(this);
+    public void visitLandTile(LandTile tile){
+        
     }
-
     @Override
     public void visitSeaTile(SeaTile tile) {
         // start basic tile graphic (don't know terrain truly yet)
@@ -66,7 +52,7 @@ public class TileDrawingVisitor implements TileVisitor {
     @Override
     public void visitNormalRiver(NormalRiver river) {
         int normalRiverAngle = river.calculateAngle();
-        Image img;
+        javafx.scene.image.Image img;
         switch(normalRiverAngle){
             case 60:
                 img = assets.getImage("NORMAL_RIVER_60");
@@ -82,7 +68,7 @@ public class TileDrawingVisitor implements TileVisitor {
                 break;
         }
         try {
-            drawRotatedImage(img, river.getHexagonSide() * ROTATION_ANGLE, camera.offset(p).x, camera.offset( p).y);
+            drawRotatedImage(img, river.getHexagonSide() * ROTATION_ANGLE, p.x, p.y);
         }
         catch(NullPointerException e){
             System.out.println("Wrong angle, malfunctioning normal river. Angle = "+normalRiverAngle);
@@ -91,70 +77,71 @@ public class TileDrawingVisitor implements TileVisitor {
 
     @Override
     public void visitSourceRiver(SourceRiver river) {
-        Image img = assets.getImage("SOURCE_RIVER");
-        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, camera.offset( p).x, camera.offset( p).y);
+        javafx.scene.image.Image img = assets.getImage("SOURCE_RIVER");
+        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, p.x, p.y);
     }
 
     @Override
     public void visitForkedRiver(ForkedRiver river) {
-        Image img = assets.getImage("FORKED_RIVER");
-        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, camera.offset( p).x, camera.offset(p).y);
+        javafx.scene.image.Image img = assets.getImage("FORKED_RIVER");
+        drawRotatedImage(img, river.getHexagonSide()*ROTATION_ANGLE, p.x, p.y);
     }
 
     @Override
     public void visitDesert(Desert terrain) {
-        Image img = assets.getImage("DESERT_TILE");
-        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
-                camera.getScale() * img.getHeight());
+        javafx.scene.image.Image img = assets.getImage("DESERT_TILE");
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+                camera.getBackgroundScaleY() * img.getHeight());
     }
 
     @Override
     public void visitMountains(Mountains terrain) {
         // do something with this, draw over current constructed tile
-        Image img = assets.getImage("MOUNTAIN_TILE");
-        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
-                camera.getScale() * img.getHeight());
+        javafx.scene.image.Image img = assets.getImage("MOUNTAIN_TILE");
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+                camera.getBackgroundScaleY() * img.getHeight());
     }
 
     @Override
     public void visitPasture(Pasture terrain) {
         // do something with this, draw over current constructed tile
-        Image img = assets.getImage("GRASS_TILE");
-        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
-                camera.getScale() * img.getHeight());
+        javafx.scene.image.Image img = assets.getImage("GRASS_TILE");
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+                camera.getBackgroundScaleY() * img.getHeight());
     }
 
     @Override
     public void visitRock(Rock terrain) {
         // do something with this, draw over current constructed tile
-        Image img = assets.getImage("ROCK_TILE");
-        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
-                camera.getScale() * img.getHeight());
+        javafx.scene.image.Image img = assets.getImage("ROCK_TILE");
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+                camera.getBackgroundScaleY() * img.getHeight());
     }
 
     @Override
     public void visitSea(Sea terrain) {
         // do something with this, draw over current constructed tile
-        Image img = assets.getImage("SEA_TILE");
-        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
-                camera.getScale() * img.getHeight());
+        javafx.scene.image.Image img = assets.getImage("SEA_TILE");
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+                camera.getBackgroundScaleY() * img.getHeight());
     }
 
     @Override
     public void visitWoods(Woods woods) {
-        Image img = assets.getImage("WOOD_TILE");
-        gc.drawImage(img, camera.offset( p).x, camera.offset( p).y,camera.getScale() * img.getWidth(),
-                camera.getScale() * img.getHeight());
+        javafx.scene.image.Image img = assets.getImage("WOOD_TILE");
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+                camera.getBackgroundScaleY() * img.getHeight());
     }
 
 
     //TODO integrate these function into a ImagePlacementTranslator class
 
-    private void drawRotatedImage(Image image, double angle, double tlpx, double tlpy) {
+    private void drawRotatedImage(javafx.scene.image.Image image, double angle, double tlpx, double tlpy) {
         gc.save(); // saves the current state on stack, including the current transform
-        camera.rotate(gc, angle, tlpx + image.getWidth()*camera.getScale() / 2, tlpy + image.getHeight()*camera.getScale() / 2);
-        gc.drawImage(image, tlpx, tlpy, camera.getScale() * image.getWidth(),
-                camera.getScale() * image.getHeight());
+        camera.rotate(gc, angle, tlpx + image.getWidth()*camera.getBackgroundScaleX() / 2, 
+                tlpy + image.getHeight()*camera.getBackgroundScaleY() / 2);
+        gc.drawImage(image, tlpx, tlpy, camera.getBackgroundScaleX() * image.getWidth(),
+                camera.getBackgroundScaleY() * image.getHeight());
         gc.restore(); // back to original state (before rotation)
     }
 }
