@@ -1,5 +1,6 @@
 package view.Scene.gamePanel;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
@@ -43,7 +44,7 @@ public class GameboardPanel extends Panel {
         gameMap = game.getMap();
     }
 
-    public void drawBackground(GraphicsContext gc){
+    private void drawBackground(GraphicsContext gc){
         for (int i=0;i<21;i++){
             for(int j=0;j<21;j++){
                 Point p = new Point(i-10,j-10);
@@ -53,7 +54,7 @@ public class GameboardPanel extends Panel {
         }
     }
 
-    public void drawTileSelector(GraphicsContext gc){
+    private void drawTileSelector(GraphicsContext gc){
         Point p = new Point();
         p.x = TileEditor.getInstance().getLocation().getX();
         p.y = TileEditor.getInstance().getLocation().getY();
@@ -61,8 +62,7 @@ public class GameboardPanel extends Panel {
                 camera.getScale() * assets.getImage("TILE_SELECTOR").getHeight());
     }
 
-    public void draw(GraphicsContext gc, Point screenDimension){
-        drawBackground(gc);
+    private void drawGameboard(GraphicsContext gc){
         for(Location loc:gameMap.keySet()){
             Point p = new Point();
             p.x = loc.getX();
@@ -70,6 +70,11 @@ public class GameboardPanel extends Panel {
             TileDrawingVisitor tileDrawingVisitor = new TileDrawingVisitor(assets, gc,p,camera);
             gameMap.get(loc).accept(tileDrawingVisitor);
         }
+    }
+
+    public void draw(GraphicsContext gc, Point screenDimension){
+        drawBackground(gc);
+        drawGameboard(gc);
         drawTileSelector(gc);
         updateGameMap();
     }
