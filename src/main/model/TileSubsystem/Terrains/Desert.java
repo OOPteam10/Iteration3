@@ -14,4 +14,9 @@ public class Desert extends Terrain {
     public void accept(TileVisitor v) {
         v.visitDesert(this);
     }
+
+    //testing only
+    public String toString(){
+        return "Desert";
+    }
 }

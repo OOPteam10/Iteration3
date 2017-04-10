@@ -64,17 +64,7 @@ public class FilePanel extends view.Panel {
                 gameMap = FileManager.loadMap();
 
                 game.setMap(gameMap);
-
-                //////////DELETE, FOR TESTING/////////
-                //////////
-                //////////
-                Map testMap = new Map();
-                testMap.setMap(gameMap);
-                SectorAdjacencyManager sam = testMap.generateSectorAdjacencyManager();
-                System.out.println(sam.toString());
-                /////////////END DELETE FOR TESTING//////////
-                ////////////
-                ////////////
+                
 
             } catch (IOException e) {
                 e.printStackTrace();

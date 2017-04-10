@@ -22,7 +22,7 @@ public abstract class AdjacencyManager<Loc, Dir, AdjLoc> {
     public String toString(){
         String s = "";
         for(Loc l: managerMap.keySet()){
-            s += (l.toString() + ": " + managerMap.get(l).toString() + "\n----------\n");
+            s += ("Starting Sector: " + l.toString() + ": " + managerMap.get(l).toString() + "\n----------\n");
         }
         return s;
     }

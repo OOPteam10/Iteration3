@@ -256,4 +256,14 @@ public class Map {
     public void setMap(HashMap<Location, Tile> gameMap){
         this.tiles = gameMap;
     }
+
+    //For testing only
+
+    public String toString(){
+        String s = "";
+        for(Location l: tiles.keySet()){
+            s += (l.toString() + " " + tiles.get(l).getTerrain().toString() + "\n");
+        }
+        return s;
+    }
 }
