@@ -76,6 +76,7 @@ public class FilePanel extends view.Panel {
     private void setUpButton(Button button, Image image){
         button.setGraphic(new ImageView(image));
         filePanelLayout.getChildren().add(button);
+        button.getStyleClass().setAll("");
     }
 
     private void setPositions(Point screenDimension){

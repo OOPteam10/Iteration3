@@ -10,13 +10,14 @@ import utilities.TileEditor;
 import view.assets.AssetManager;
 
 import java.awt.*;
+import java.io.File;
 
 /**
  * Created by cduica on 3/22/17.
  */
 public class View{
     private AssetManager assets;
-    private static final int SCREEN_WIDTH = 1800;
+    private static final int SCREEN_WIDTH = 1600;
     private static final int SCREEN_HEIGHT = 900;
 
     private Canvas canvas;
@@ -36,7 +37,7 @@ public class View{
         canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         screenDimension.x = SCREEN_WIDTH;
         screenDimension.y = SCREEN_HEIGHT;
-        camera = new Camera(screenDimension);
+        camera = new Camera(screenDimension, SCREEN_WIDTH, SCREEN_HEIGHT);
         gc = canvas.getGraphicsContext2D();
         panelManager = new PanelManager(game, assets, root, gc, camera);
         initializeView();
@@ -45,6 +46,10 @@ public class View{
     private void initializeView(){
         root.getChildren().add(canvas);
         mapMakerPreview = new MapMakerPreview(panelManager);
+//
+//        File buttonStyle = new File("Assets/ButtonStyle.css");
+//        scene.getStylesheets().clear();
+//        scene.getStylesheets().add("file:///"+buttonStyle.getAbsolutePath().replace("\\","/"));
     }
 
     public void renderGame(){

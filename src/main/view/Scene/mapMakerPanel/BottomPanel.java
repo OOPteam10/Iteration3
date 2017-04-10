@@ -40,9 +40,9 @@ public class BottomPanel extends Panel {
         terrainPreviewImage = assets.getImage("DESERT_TILE");
         riverPreviewImage = assets.getImage("NORMAL_RIVER_60");
         rotationAngle = 0;
-        terrainScale = 1;
-        riverScale = 1;
-        finalPreviewScale = 1;
+        terrainScale = 0.31;
+        riverScale = 0.31;
+        finalPreviewScale = 0.31;
         currentMode = "TERRAIN_SELECTED";
     }
 
@@ -57,10 +57,10 @@ public class BottomPanel extends Panel {
     }
 
     public void drawPreview(GraphicsContext gc, Point screenDimension){
-        gc.drawImage(terrainPreviewImage, screenDimension.x/2-115, screenDimension.y-110, terrainScale*terrainPreviewImage.getWidth(),
+        gc.drawImage(terrainPreviewImage, screenDimension.x/2-125, screenDimension.y-110, terrainScale*terrainPreviewImage.getWidth(),
                 terrainPreviewImage.getHeight()*terrainScale);
         gc.drawImage(riverPreviewImage, screenDimension.x/2, screenDimension.y-110, riverScale* riverPreviewImage.getWidth(), riverScale * riverPreviewImage.getHeight());
-        drawRotatedPreview(gc, terrainPreviewImage, riverPreviewImage, rotationAngle, screenDimension.x/2+115,screenDimension.y-110);
+        drawRotatedPreview(gc, terrainPreviewImage, riverPreviewImage, rotationAngle, screenDimension.x/2+125,screenDimension.y-110);
     }
 
     public void showGUIElements(){
@@ -83,7 +83,7 @@ public class BottomPanel extends Panel {
         gc.drawImage(terrainPreview, tlpx, tlpy, finalPreviewScale*terrainPreview.getWidth(), finalPreviewScale*terrainPreview.getHeight());
         gc.save(); // saves the current state on stack, including the current transform
         try {
-            camera.rotate(gc, angle, tlpx + riverPreview.getWidth() / 2, tlpy + riverPreview.getHeight() / 2);
+            camera.rotate(gc, angle, tlpx + finalPreviewScale*riverPreview.getWidth() / 2, tlpy + finalPreviewScale*riverPreview.getHeight() / 2);
             gc.drawImage(riverPreview, tlpx, tlpy, finalPreviewScale * riverPreview.getWidth(),
                     finalPreviewScale * riverPreview.getHeight());
         }catch (NullPointerException e){

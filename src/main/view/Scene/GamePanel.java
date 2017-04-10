@@ -6,10 +6,7 @@ import model.Game;
 import view.Camera;
 import view.Panel;
 import view.PanelManager;
-import view.Scene.gamePanel.GameboardPanel;
-import view.Scene.gamePanel.ResearchPanel;
-import view.Scene.gamePanel.TileDetailPanel;
-import view.Scene.gamePanel.WonderPanel;
+import view.Scene.gamePanel.*;
 import view.ViewEnum;
 import view.assets.AssetManager;
 import javafx.scene.image.Image;
@@ -19,14 +16,11 @@ import java.awt.*;
  * Created by Karth on 4/5/2017.
  */
 public class GamePanel extends Panel {
-
-    private static final int SIDE_PANEL_LOCATION_X = 1261;
-    private static final int SIDE_PANEL_LOCATION_Y = 0;
-
     private GameboardPanel gameboardPanel;
     private ResearchPanel researchPanel;
     private TileDetailPanel tileDetailPanel;
     private WonderPanel wonderPanel;
+    private GameFilePanel gameFilePanel;
 
     private Game game;
     private AssetManager assets;
@@ -57,6 +51,7 @@ public class GamePanel extends Panel {
         researchPanel = new ResearchPanel(game, assets, gameMode, root, camera, panelManager);
         tileDetailPanel = new TileDetailPanel(game, assets, gameMode, root, camera, panelManager);
         wonderPanel = new WonderPanel(game, assets, gameMode, root, camera, panelManager);
+        gameFilePanel = new GameFilePanel(game, assets, gameMode, root, camera, panelManager);
     }
 
     private void drawBorder(GraphicsContext gc){
@@ -65,9 +60,10 @@ public class GamePanel extends Panel {
                 gameboardBorder.getHeight()*camera.getBackgroundScaleY());
     }
 
-    private void drawSidePanelBackground(GraphicsContext gc){
-        gc.drawImage(sidePanelBackground, SIDE_PANEL_LOCATION_X*camera.getBackgroundScaleX(),
-                SIDE_PANEL_LOCATION_Y*camera.getBackgroundScaleY(),
+    private void drawSidePanelBackground(GraphicsContext gc, Point screenDimension){
+        gc.drawImage(sidePanelBackground,
+                (screenDimension.x - sidePanelBackground.getWidth()*camera.getBackgroundScaleX()),
+                (screenDimension.y-sidePanelBackground.getHeight()*camera.getBackgroundScaleY()),
                 sidePanelBackground.getWidth()*camera.getBackgroundScaleX(),
                 sidePanelBackground.getHeight()*camera.getBackgroundScaleY());
     }
@@ -75,10 +71,11 @@ public class GamePanel extends Panel {
     public void draw(GraphicsContext gc, Point screenDimension){
 
         gameboardPanel.draw(gc, screenDimension);
-        drawSidePanelBackground(gc);
+        drawSidePanelBackground(gc, screenDimension);
         researchPanel.draw(gc, screenDimension);
         tileDetailPanel.draw(gc,screenDimension);
-        wonderPanel.draw(gc, screenDimension);
+        gameFilePanel.draw(gc, screenDimension);
+        //wonderPanel.draw(gc, screenDimension);
         drawBorder(gc);
     }
 
@@ -87,6 +84,7 @@ public class GamePanel extends Panel {
         researchPanel.showGUIElements();
         tileDetailPanel.showGUIElements();
         wonderPanel.showGUIElements();
+        gameFilePanel.showGUIElements();
     }
 
     public void hideGUIElements(){
@@ -94,5 +92,6 @@ public class GamePanel extends Panel {
         researchPanel.hideGUIElements();
         tileDetailPanel.hideGUIElements();
         wonderPanel.hideGUIElements();
+        gameFilePanel.hideGUIElements();
     }
 }

@@ -7,21 +7,23 @@ import javafx.scene.image.Image;
 import java.awt.*;
 
 public class Camera {
-    private final static int HEX_W = 115;
-    private final static int HEX_H = 100;
-    private final static int DEFAULT_SCREEN_WIDTH = 1800;
-    private final static int DEFAULT_SCREEN_DEPTH = 900;
+    private final static int HEX_W = 400;
+    private final static int HEX_H = 347;
+    private int screenWidth;
+    private int screenHeight;
     private Point screenDimension;
     private int cameraOffsetX;
     private int cameraOffsetY;
 
     private double scale;
 
-    public Camera(Point screenDimension){
-        cameraOffsetX = 0;
-        cameraOffsetY = 0;
+    public Camera(Point screenDimension, int screenWidth, int screenHeight){
+        cameraOffsetX = 150;
+        cameraOffsetY = -250;
         this.screenDimension = screenDimension;
-        scale = 1;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+        scale = 0.3;
     }
 
     public Point offset(Point p) {
@@ -39,8 +41,8 @@ public class Camera {
     }
 
     private void setCameraOffset(int x, int y){
-        cameraOffsetX = cameraOffsetX + x*HEX_W;
-        cameraOffsetY = cameraOffsetY + y*HEX_H;
+        cameraOffsetX = cameraOffsetX + (int)(x*HEX_W*scale);
+        cameraOffsetY = cameraOffsetY + (int)(y*HEX_H*scale);
     }
 
     private Point getPixelLocation(Point p) {
@@ -78,28 +80,31 @@ public class Camera {
     }
 
     public void zoomIn(){
-        if(this.scale <= 1.5) {
+        if(this.scale <= 2) {
             this.setScale(this.scale + 0.1);
         }
     }
 
     public void zoomOut(){
-        if(this.scale>=0.5) {
+        if(this.scale>=0.1) {
             this.setScale(this.scale - 0.1);
+            if(scale<=0){
+                scale = 0.1;
+            }
         }
     }
 
     public void centerBoardInGame(){
-        setCameraOffset(-2, 0);
+        setCameraOffset(-1, 0);
     }
 
     public double getBackgroundScaleX(){
-        //System.out.print((double)screenDimension.x/DEFAULT_SCREEN_WIDTH+" ");
-        return (double)screenDimension.x/DEFAULT_SCREEN_WIDTH;
+        //System.out.print((double)screenDimension.x/screenWidth+" ");
+        return (double)screenDimension.x/screenWidth;
     }
 
     public double getBackgroundScaleY(){
-        //System.out.println((double)screenDimension.y/DEFAULT_SCREEN_DEPTH);
-        return (double)screenDimension.y/DEFAULT_SCREEN_DEPTH;
+        //System.out.println((double)screenDimension.y/screenHeight);
+        return (double)screenDimension.y/screenHeight;
     }
 }
