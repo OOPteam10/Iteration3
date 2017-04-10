@@ -113,6 +113,14 @@ public class Map {
         return isValid;
     }
 
+    public SectorAdjacencyManager generateSectorAdjacencyManager(){
+        SectorAdjacencyManager sam = new SectorAdjacencyManager();
+        for(Location loc: tiles.keySet()){
+            addLocationToSectorAdjacencyMatrix(loc, sam);
+        }
+        return sam;
+    }
+
     private void addLocationToSectorAdjacencyMatrix(Location loc, SectorAdjacencyManager sam){
         HashMap<HexSide, Tile> adjacents = getAdjacentTiles(loc);
         for(Sector s: tiles.get(loc).getSectors()) {
@@ -120,7 +128,7 @@ public class Map {
         }
     }
 
-    public SectorAdjacency createSectorAdjacency(Location loc, Sector s){
+    private SectorAdjacency createSectorAdjacency(Location loc, Sector s){
         SectorAdjacency sa = new SectorAdjacency();
         for(CardinalDirection cd: s.getHalfEdges()){
             Tile t = tiles.get(loc.getAdjacentLocation(cd.toHexSide()));

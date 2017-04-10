@@ -26,4 +26,14 @@ public abstract class Adjacency<Dir, AdjLoc> {
     public boolean containsKey(Dir d){
         return managerMap.containsKey(d);
     }
+
+    //Testing
+
+    public String toString(){
+        String s = "";
+        for(Dir d: managerMap.keySet()){
+            s += (d.toString() + ": " + managerMap.get(d).toString() + "\n");
+        }
+        return s;
+    }
 }

@@ -22,4 +22,14 @@ public class Sector {
     public ArrayList<CardinalDirection> getHalfEdges() {
         return halfEdges;
     }
+
+    //for testing only
+    public String toString(){
+        String s = "Sector(";
+        for(CardinalDirection cd: halfEdges){
+            s += (cd.name() + " ");
+        }
+        s += ")";
+        return s;
+    }
 }

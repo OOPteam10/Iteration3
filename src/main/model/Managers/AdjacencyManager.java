@@ -17,4 +17,13 @@ public abstract class AdjacencyManager<Loc, Dir, AdjLoc> {
         managerMap.put(loc, newAdjacency);
     }
 
+    //TESTING ONLY
+
+    public String toString(){
+        String s = "";
+        for(Loc l: managerMap.keySet()){
+            s += (l.toString() + ": " + managerMap.get(l).toString() + "\n----------\n");
+        }
+        return s;
+    }
 }
