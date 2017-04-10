@@ -8,7 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import model.Game;
+import model.Managers.SectorAdjacencyManager;
 import model.MapSubsystem.Location;
+import model.MapSubsystem.Map;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
@@ -60,7 +62,10 @@ public class FilePanel extends view.Panel {
         fileLoadButton.setOnAction(event -> {
             try {
                 gameMap = FileManager.loadMap();
+
                 game.setMap(gameMap);
+                
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

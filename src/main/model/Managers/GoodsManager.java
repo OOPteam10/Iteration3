@@ -1,19 +1,14 @@
 package model.Managers;
 
-import model.Cargo;
 import model.TileSubsystem.Sector;
-import model.Transporters.Transporter;
-import model.producers.primary.OilRig;
-import model.resources.Resource;
 
-import java.awt.print.Paper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by hankerins on 4/8/17.
- * for a SectorResourceManager, Loc = Sector or OilRig, ResourceType is a Resource
- * for CargoManager, Loc = Transporter, ResourceType = cargo
+ * for a SectorResourceManager, Loc = Sector or OilRig, GoodsType is a Resource
+ * for CargoManager, Loc = Transporter, GoodsType = cargo
  * this works best if a player has to drop their resources before building,
  * otherwise we need a cargo manager for every resource type (doable)
  *
@@ -21,14 +16,14 @@ import java.util.HashMap;
  *
  * examples at bottom
  */
-public class GoodsManager<Loc, ResourceType> {
-    private HashMap<Loc, ArrayList<ResourceType>> managerMap = new HashMap<Loc, ArrayList<ResourceType>>();
+public class GoodsManager<Loc, GoodsType> {
+    private HashMap<Loc, ArrayList<GoodsType>> managerMap = new HashMap<Loc, ArrayList<GoodsType>>();
 
-    protected HashMap<Loc, ArrayList<ResourceType>> getManagerMap() {
+    protected HashMap<Loc, ArrayList<GoodsType>> getManagerMap() {
         return managerMap;
     }
 
-    public void add(Loc l, ResourceType r)
+    public void add(Loc l, GoodsType r)
             //This method assumes a HashMap entry for every Sector/Transporter,
             // with empty lists for Sectors/Transporters with no resources
     {
@@ -39,9 +34,7 @@ public class GoodsManager<Loc, ResourceType> {
         return managerMap.get(s).size();
     }
 
-    public void removeResourceFromSector(ResourceType r, Sector s){  //This removes a particular Resource object
-        managerMap.remove(s, r);
-    }
+
 
     //GoodsManager<Transporter, Cargo> CargoManager = new GoodsManager<Transporter, Cargo>();
     //GoodsManager<OilRig, Resource> OilRigResourceManager = new GoodsManager<OilRig, Resource>();

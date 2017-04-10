@@ -14,4 +14,9 @@ public class Pasture extends Terrain {
     public void accept(TileVisitor v) {
         v.visitPasture(this);
     }
+
+    //testing only
+    public String toString(){
+        return "Pasture";
+    }
 }

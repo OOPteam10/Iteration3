@@ -14,4 +14,9 @@ public class Sea extends Terrain {
     public void accept(TileVisitor v) {
         v.visitSea(this);
     }
+
+    //testing only
+    public String toString(){
+        return "Sea";
+    }
 }

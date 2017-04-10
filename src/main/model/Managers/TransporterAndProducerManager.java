@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Created by hankerins on 4/8/17.
  */
-public abstract class Manager<Obj, Loc>{
+public abstract class TransporterAndProducerManager<Obj, Loc>{
     private HashMap<Obj, Loc> managerMap = new HashMap<Obj, Loc>();
 
     protected HashMap<Obj, Loc> getManagerMap() {

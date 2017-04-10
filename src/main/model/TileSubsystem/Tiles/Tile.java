@@ -25,6 +25,25 @@ public abstract class Tile {
         sectors.add(sector);
     }
 
+    public Sector getSectorAtCardinalDirection(CardinalDirection cd){
+        for(Sector s:sectors){
+            if(s.getHalfEdges().contains(cd))
+                return s;
+        }
+        return null;
+    }
+
+    public ArrayList<Sector> getSectorsAtHexSide(HexSide hs){
+        ArrayList<Sector> sectorsAtHexSide = new ArrayList<Sector>();
+        for(Sector s:sectors){
+            if(s.contains(hs.getFirstHalf()) || s.contains(hs.getSecondHalf())) {
+                sectorsAtHexSide.add(s);
+            }
+        }
+        return sectorsAtHexSide;
+    }
+
+
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
     }

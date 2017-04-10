@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by hankerins on 3/28/17.
  */
-public class AdjacencyTest {
+public class MapAdjacencyTest {
     @Test
     public void AdjacencyTest()
     {
