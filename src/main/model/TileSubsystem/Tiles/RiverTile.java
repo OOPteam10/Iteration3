@@ -32,6 +32,7 @@ public class RiverTile extends LandTile implements Waterway {
     }
 
     public void addToSurfaceMap(Location l, LandMap lm, WaterwayMap wm){
+        lm.add(l, this);
         wm.add(l, this);
     }
 
