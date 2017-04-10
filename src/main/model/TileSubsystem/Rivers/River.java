@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by hankerins on 3/26/17.
  *
  */
-public abstract class River implements Waterway {
+public abstract class River {
 
 
     private ArrayList<HexSide> edges = new ArrayList<HexSide>();
@@ -79,5 +79,8 @@ public abstract class River implements Waterway {
             }
         }
         return sourceAdjacencyHasNoRiver;
+    }
+    public boolean contains(HexSide hs){
+        return edges.contains(hs);
     }
 }

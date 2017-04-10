@@ -1,5 +1,8 @@
 package model.TileSubsystem.Tiles;
 
+import model.MapSubsystem.LandMap;
+import model.MapSubsystem.Location;
+import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.Terrain;
@@ -24,5 +27,9 @@ public class LandTile extends Tile {
     protected void configureSectors() {
         Sector sector = new Sector(CardinalDirection.NNE, CardinalDirection.NNW);
         addSector(sector);
+    }
+
+    public void addToSurfaceMap(Location l, LandMap lm, WaterwayMap wm){
+        lm.add(l, this);
     }
 }

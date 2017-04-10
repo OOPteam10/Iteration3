@@ -1,9 +1,7 @@
 package model.MapSubsystem;
 
 import com.sun.org.apache.bcel.internal.generic.LAND;
-import model.Managers.Adjacency;
-import model.Managers.SectorAdjacency;
-import model.Managers.SectorAdjacencyManager;
+import model.Managers.*;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
@@ -14,6 +12,7 @@ import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.LandTileValidationVisitor;
 import model.TileSubsystem.Visitor.RiverTileValidationVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
+import model.TileSubsystem.Waterway;
 
 import java.util.HashMap;
 import java.util.Map.*;
@@ -26,6 +25,8 @@ import static java.lang.Math.abs;
  */
 public class Map {
     HashMap<Location, Tile> tiles;
+    private LandMap landMap = new LandMap();
+    private WaterwayMap waterwayMap = new WaterwayMap();
 
     public Map(){
         tiles = new HashMap<Location, Tile>();
@@ -70,6 +71,7 @@ public class Map {
         return true;
     }
 
+
     private boolean validateAdjacentToExistingTiles(Location location){
         if(!tiles.isEmpty()){
 
@@ -84,18 +86,7 @@ public class Map {
         return tiles.get(location);
     }
 
-    //getAdjacentTiles could return a HashMap<CardinalDirection, Tile> so that you know where
-    //the adjacent tiles are in reference to the location passed as argument
 
-    /*public HashMap<Location, Tile> getAdjacentTiles(Location location) {
-        HashMap<Location, Tile> adjacentTiles =new HashMap<Location, Tile>();
-        for(Location l: location.getAdjacentLocations()){
-            Tile t = tiles.get(l);
-            if(t != null)
-                adjacentTiles.put(l, t);
-        }
-        return adjacentTiles;
-    }*/
     public HashMap<HexSide, Tile> getAdjacentTiles(Location location) {
         HashMap<HexSide, Tile> adjacentTiles =new HashMap<HexSide, Tile>();
         for(HexSide hs: HexSide.values()){
@@ -113,6 +104,13 @@ public class Map {
         return isValid;
     }
 
+    public void formatSurfaceMaps(){
+        for(Location l: tiles.keySet()){
+            tiles.get(l).addToSurfaceMap(l, landMap, waterwayMap);
+        }
+    }
+
+    /*  MOVED THIS TO LANDMAP, WATERWAYMAP.  FORMAT THEM IN MAP, THEN CALL THEIR GENERATE FUNCTIONS
     public SectorAdjacencyManager generateSectorAdjacencyManager(){
         SectorAdjacencyManager sam = new SectorAdjacencyManager();
         for(Location loc: tiles.keySet()){
@@ -122,7 +120,7 @@ public class Map {
     }
 
     private void addLocationToSectorAdjacencyMatrix(Location loc, SectorAdjacencyManager sam){
-        HashMap<HexSide, Tile> adjacents = getAdjacentTiles(loc);
+        HashMap<HexSide, Tile> adjacents = getAdjacentWaterways(loc);
         for(Sector s: tiles.get(loc).getSectors()) {
             sam.add(s, createSectorAdjacency(loc, s));
         }
@@ -137,7 +135,8 @@ public class Map {
             }
         }
         return sa;
-    }
+    }*/
+
 
     public boolean validateRiverTilePlacement(RiverTile riverTile, Location location){
         boolean isValid = true;
