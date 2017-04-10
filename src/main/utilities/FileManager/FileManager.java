@@ -48,6 +48,15 @@ public class FileManager {
             }
         }
 
+        public static HashMap<Location, Tile> loadDefaultMap() throws IOException{
+            File newMap = new File("Assets/Maps/default.txt");
+            if(newMap!= null){
+                return readFile(newMap);
+            } else {
+                return null;
+            }
+        }
+
 
         /*
         |----------------|

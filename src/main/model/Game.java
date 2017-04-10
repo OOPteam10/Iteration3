@@ -3,8 +3,10 @@ package model;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Tiles.Tile;
+import utilities.FileManager.FileManager;
 import utilities.TileEditor;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -19,10 +21,19 @@ public class Game {
         map = new Map();
         //instantiate tile editor
         TileEditor.getInstance().init(map);
+        setDefaultMap();
     }
 
     public HashMap<Location, Tile> getMap(){
         return map.getMap();
+    }
+    private void setDefaultMap(){
+        FileManager fileManager = new FileManager();
+        try {
+            setMap(fileManager.loadDefaultMap());
+        }catch (IOException e){
+            System.out.println("No default.txt found");
+        }
     }
     public void setMap(HashMap<Location, Tile> gameMap){this.map.setMap(gameMap);}
 }
