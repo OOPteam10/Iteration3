@@ -13,6 +13,7 @@ import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileFileVisitor;
+import model.resources.Resource;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -47,6 +48,12 @@ public class FileManager {
             }
         }
 
+
+        /*
+        |----------------|
+        |-Save Functions-|
+        |----------------|
+         */
         private static void saveFile(File saveMap, HashMap<Location, Tile> map){
             BufferedWriter writeMap;
             try{
@@ -122,6 +129,25 @@ public class FileManager {
 
             return out;
         }
+
+        //TODO
+
+        private static String minePrint(MineFileInfo info) {
+            String out = "{";
+            String spacer = "";
+
+            for (ResourceFileInfo res: info.getRemainingProduct()) {
+                out += spacer + res.getResource();
+            }
+
+            return out + ")" ;
+        }
+
+         /*
+        |----------------|
+        |-Load Functions-|
+        |----------------|
+         */
 
         private static HashMap<Location,Tile> readFile(File newMap) throws IOException {
             HashMap<Location, Tile> out = new HashMap<>();
