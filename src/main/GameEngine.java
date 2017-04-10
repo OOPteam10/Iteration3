@@ -37,8 +37,6 @@ public class GameEngine extends Application {
 
         //array for active keyCodes
         activeKeys = new Vector<KeyCode>();
-
-
         game = new Game();
         view = new View(game, scene, root);
 

@@ -1,5 +1,0 @@
-(1,-1,0) sea
-(2,-1,-1) pasture (6)
-(0,-1,1) mountains
-(0,0,0) pasture (1 2)
-(-1,0,1) sea
