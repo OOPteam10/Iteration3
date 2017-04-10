@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by doug0_000 on 3/27/2017.
  */
-public class TileFileInfo {
+public class TileFileInfo extends FileInfo {
     private String terrain;
     private ArrayList<HexSide> riverEdges;
 
