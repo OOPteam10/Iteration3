@@ -54,12 +54,13 @@ public class FilePanel extends view.Panel {
         setUpButton(newMapButton, getAssets().getImage("NEW_MAP_BUTTON"));
         newMapButton.setOnAction(event-> restartMap());
         setUpButton(fileSaveButton, getAssets().getImage("FILE_SAVE_BUTTON"));
-        fileSaveButton.setOnAction(event -> FileManager.saveMap(gameMap));
+        fileSaveButton.setOnAction(event -> FileManager.saveMap(game.getMap()));
         setUpButton(fileLoadButton, getAssets().getImage("FILE_LOAD_BUTTON"));
 
         fileLoadButton.setOnAction(event -> {
             try {
                 gameMap = FileManager.loadMap();
+                game.setMap(gameMap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
