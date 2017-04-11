@@ -33,13 +33,12 @@ public class TileDetailDrawingVisitor implements TileVisitor {
     
     @Override
     public void visitLandTile(LandTile tile){
-        
+        tile.getTerrain().accept(this);
     }
     @Override
     public void visitSeaTile(SeaTile tile) {
         // start basic tile graphic (don't know terrain truly yet)
         tile.getTerrain().accept(this);
-
     }
 
     @Override
