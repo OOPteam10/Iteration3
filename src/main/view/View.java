@@ -46,10 +46,10 @@ public class View{
     private void initializeView(){
         root.getChildren().add(canvas);
         mapMakerPreview = new MapMakerPreview(panelManager);
-//
-//        File buttonStyle = new File("Assets/ButtonStyle.css");
-//        scene.getStylesheets().clear();
-//        scene.getStylesheets().add("file:///"+buttonStyle.getAbsolutePath().replace("\\","/"));
+
+        File buttonStyle = new File("Assets/ButtonStyle.css");
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add("file:///"+buttonStyle.getAbsolutePath().replace("\\","/"));
     }
 
     public void renderGame(){
