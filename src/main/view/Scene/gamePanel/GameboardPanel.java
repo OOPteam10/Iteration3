@@ -4,9 +4,16 @@ import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
+import model.Managers.LandTransporterManager;
 import model.MapSubsystem.Location;
+import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.Sector;
+import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
+import model.Transporters.Donkey;
+import model.Transporters.LandTransporter;
+import model.Transporters.Visitor.TransporterDrawingVisitor;
 import utilities.TileEditor;
 import view.Camera;
 import view.Panel;
@@ -28,6 +35,7 @@ public class GameboardPanel extends Panel {
     private Camera camera;
     private Game game;
     private Group root;
+    private LandTransporterManager landTransporterManager;
 
     public GameboardPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
@@ -36,8 +44,19 @@ public class GameboardPanel extends Panel {
         this.root = root;
         this.camera = camera;
         this.panelManager = panelManager;
-
+        landTransporterManager = game.getLandTransporterManager();
         updateGameMap();
+        addDonkey();
+    }
+
+    //TODO: this is a test function, delete it after
+    private void addDonkey(){
+        Donkey dq = new Donkey();
+        Location l = new Location(0,0,0);
+        game.getActualMap().formatSurfaceMaps();
+        LandTile lt1 = game.getActualMap().getLandMap().getTile(l);
+        System.out.println(lt1);
+        landTransporterManager.add(dq, lt1.getSectorAtCardinalDirection(CardinalDirection.NE));
     }
 
     private void updateGameMap(){
@@ -72,9 +91,18 @@ public class GameboardPanel extends Panel {
         }
     }
 
+    private void drawTransporters(GraphicsContext gc){
+        for(LandTransporter landTransporter: landTransporterManager.getManagerMap().keySet()){
+            Sector findTransporter = landTransporterManager.getLocation(landTransporter);
+            TransporterDrawingVisitor v = new TransporterDrawingVisitor(assets, gc,
+                    new Location(0,0,0), camera, findTransporter);
+        }
+    }
+
     public void draw(GraphicsContext gc, Point screenDimension){
         drawBackground(gc);
         drawGameboard(gc);
+        drawTransporters(gc);
         drawTileSelector(gc);
         updateGameMap();
     }

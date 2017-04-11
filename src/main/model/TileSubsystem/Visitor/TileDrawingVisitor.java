@@ -53,7 +53,6 @@ public class TileDrawingVisitor implements TileVisitor {
     public void visitSeaTile(SeaTile tile) {
         // start basic tile graphic (don't know terrain truly yet)
         tile.getTerrain().accept(this);
-
     }
 
     @Override

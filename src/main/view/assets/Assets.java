@@ -58,6 +58,8 @@ public class Assets {
         loadItem("WONDER_BACKGROUND", "Assets/Background/WonderBackground.png");
         //Load wonder stuff
         loadItem("WONDER_BOARD", "Assets/WonderBoard.png");
+        //Load transporters
+        loadItem("DONKEY", "Assets/Transporters/Donkey");
     }
 
     public void loadItem(String name, String path){
