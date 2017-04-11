@@ -7,6 +7,7 @@ import view.Camera;
 import view.View;
 
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * Created by cduica on 3/22/17.
@@ -18,6 +19,12 @@ public class Controller {
     private HashMap<KeyCode, ControlAction> actionMap;
     private KeyMapControls controlMap;
     private Camera camera;
+
+    //new KeyMapping
+    private Vector<KeyListener> currentKLSet;
+
+
+
 
     public Controller(View view){
 

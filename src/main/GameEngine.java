@@ -46,6 +46,7 @@ public class GameEngine extends Application {
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("MapMakerV0.2");
+
         sendEventToController(scene);
         new AnimationTimer() {
             @Override

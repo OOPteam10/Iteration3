@@ -26,5 +26,6 @@ public interface ControlHandler {
     public void centerGravity();
 
     public void init(MapMakerPreview preview);
+    public void addToKLSet(KeyListener keyListener);
 
 }

@@ -2,30 +2,25 @@ package controller;
 
 import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.MMCState;
+import controller.MapMakerControlSubsystem.MapMakerControlHandler;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
-import controller.MapMakerControlSubsystem.TerrainMMCSubsystem.DesertState;
 import model.MapSubsystem.Location;
-import model.MapSubsystem.Map;
-import model.TileSubsystem.Rivers.River;
-import model.TileSubsystem.Terrains.Desert;
-import model.TileSubsystem.Terrains.Terrain;
-import model.TileSubsystem.Tiles.Tile;
 import utilities.TileEditor;
 import view.MapMakerPreview;
-import view.View;
 
 import java.util.Vector;
 
 /**
  * Created by rishabh on 26/03/17.
  */
-public class MapMakerControl implements ControlHandler{
+public class MapMakerControl extends MapMakerControlHandler {
 
     //represents state of MapMakerControl
     private MMCState mmcState;
 
-
+    //list of observers
     private Vector<MMCObserver> mmcObservers;
+
 
     //singleton functionality
     private static MapMakerControl instance = new MapMakerControl();
@@ -35,8 +30,8 @@ public class MapMakerControl implements ControlHandler{
     //onInit
     public void init(MapMakerPreview preview){
         mmcObservers.add(preview);
+        addToKLSet();
     }
-
 
 
     //constructor
@@ -66,10 +61,7 @@ public class MapMakerControl implements ControlHandler{
     }
 
 
- /*   public void select(Controller controller){
-        controller.getControlHandler().getMmcState().select(this);
-    }
-*/
+
     public void select(){
         mmcState.select(this);
     }
