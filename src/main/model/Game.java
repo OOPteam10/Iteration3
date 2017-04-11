@@ -24,10 +24,15 @@ public class Game {
         setDefaultMap();
     }
 
-    public HashMap<Location, Tile> getMap(){
+    public HashMap<Location, Tile> getMap(){//TODO: REFACTOR!
         return map.getMap();
     }
-    private void setDefaultMap(){
+
+    public Map getActualMap(){//TODO: REFACTOR!
+        return map;
+    }
+
+    public void setDefaultMap(){
         FileManager fileManager = new FileManager();
         try {
             setMap(fileManager.loadDefaultMap());
