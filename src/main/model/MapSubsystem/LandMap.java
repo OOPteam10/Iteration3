@@ -24,7 +24,7 @@ public class LandMap extends SurfaceMap<LandTile> {
     }
 
     private void addLocationToSectorAdjacencyMatrix(Location loc, SectorAdjacencyManager sam){
-        HashMap<HexSide, LandTile> adjacents = getAdjacentTiles(loc);
+        //HashMap<HexSide, LandTile> adjacents = getAdjacentTiles(loc);
         for(Sector s: getSurfaces().get(loc).getSectors()) {
             sam.add(s, createSectorAdjacency(loc, s));
         }

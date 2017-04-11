@@ -15,4 +15,17 @@ public abstract class SurfaceMap<T> {
     protected HashMap<Location, T> getSurfaces(){
         return surfaces;
     }
+
+    public T getTile(Location l){
+        return surfaces.get(l);
+    }
+
+
+    public String toString(){
+        String s = "";
+        for(Location l: surfaces.keySet()){
+            s += (l.toString() + ": " + surfaces.get(l).toString() + "\n");
+        }
+        return s;
+    }
 }

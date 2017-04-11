@@ -83,4 +83,14 @@ public abstract class River {
     public boolean contains(HexSide hs){
         return edges.contains(hs);
     }
+
+    //testing only
+
+    public String toString(){
+        String s = "R ";
+        for(HexSide hs: edges){
+            s += (hs.name() + " ");
+        }
+        return s;
+    }
 }

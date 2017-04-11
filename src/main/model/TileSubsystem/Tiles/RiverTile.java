@@ -64,4 +64,9 @@ public class RiverTile extends LandTile implements Waterway {
     public boolean contains(HexSide hs){
         return river.contains(hs);
     }
+
+    //testing only
+    public String toString(){
+        return ("RiverTile: " + getTerrain().toString() + " " + river.toString());
+    }
 }

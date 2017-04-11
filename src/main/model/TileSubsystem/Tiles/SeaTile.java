@@ -41,4 +41,9 @@ public class SeaTile extends Tile implements Waterway {
     public boolean contains(HexSide hs){
         return true;
     }
+
+    //testing only
+    public String toString(){
+        return "SeaTile: ";
+    }
 }

@@ -110,6 +110,13 @@ public class Map {
         }
     }
 
+    public SectorAdjacencyManager generateSectorAdjacencyManager(){
+        return landMap.generateSectorAdjacencyManager();
+    }
+    public WaterwayAdjacencyManager generateWaterwayAdjacencyManager(){
+        return waterwayMap.generateWaterwayAdjacencyManager();
+    }
+
     /*  MOVED THIS TO LANDMAP, WATERWAYMAP.  FORMAT THEM IN MAP, THEN CALL THEIR GENERATE FUNCTIONS
     public SectorAdjacencyManager generateSectorAdjacencyManager(){
         SectorAdjacencyManager sam = new SectorAdjacencyManager();
@@ -256,7 +263,16 @@ public class Map {
         this.tiles = gameMap;
     }
 
+
     //For testing only
+
+    public LandMap getLandMap() {
+        return landMap;
+    }
+
+    public WaterwayMap getWaterwayMap() {
+        return waterwayMap;
+    }
 
     public String toString(){
         String s = "";
