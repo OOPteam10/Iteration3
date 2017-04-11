@@ -45,6 +45,7 @@ public class Assets {
         loadItem("OPTION_BUTTON","Assets/Buttons/OptionButton.png");
         loadItem("MAP_MAKER_BUTTON", "Assets/Buttons/MapMakerButton.png");
         loadItem("RETURN_MAIN_MENU_BUTTON", "Assets/Buttons/ExitToMainMenu.png");
+        loadItem("WONDER_BUTTON", "Assets/Buttons/WonderButton.png");
         //Load Panels, backgrounds
         loadItem("BOTTOM_PANEL", "Assets/Background/BottomPanel.png");
         loadItem("TERRAIN_SELECTED","Assets/MapMakerPreview/TerrainSelected.png");
