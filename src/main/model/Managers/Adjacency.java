@@ -1,5 +1,6 @@
 package model.Managers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -23,6 +24,14 @@ public abstract class Adjacency<Dir, AdjLoc> {
         return managerMap.get(d);
     }
 
+    public ArrayList<AdjLoc> getAdjacencyList(){
+        ArrayList<AdjLoc> arr = new ArrayList<AdjLoc>();
+        for(AdjLoc a: managerMap.values()){
+            arr.add(a);
+        }
+        return arr;
+    }
+
     public boolean containsKey(Dir d){
         return managerMap.containsKey(d);
     }
@@ -36,4 +45,5 @@ public abstract class Adjacency<Dir, AdjLoc> {
         }
         return s;
     }
+
 }
