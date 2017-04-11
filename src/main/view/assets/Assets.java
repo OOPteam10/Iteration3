@@ -55,6 +55,8 @@ public class Assets {
         loadItem("INTRO_BACKGROUND_IMAGE", "Assets/Background/IntroBackground.png");
         loadItem("GAME_BORDER","Assets/Background/GameBorder.png");
         loadItem("SIDE_PANEL_BACKGROUND", "Assets/Background/SidePanelBackground.png");
+        loadItem("WONDER_BACKGROUND", "Assets/Background/WonderBackground.png");
+        //Load wonder stuff
         loadItem("WONDER_BOARD", "Assets/WonderBoard.png");
     }
 
