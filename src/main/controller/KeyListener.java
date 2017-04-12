@@ -14,6 +14,7 @@ public class KeyListener {
     KeyListener(KeyCode keyCode){
         this.keyCode = keyCode;
     }
+
     KeyListener(KeyCode keyCode, Action action){
         this.keyCode = keyCode;
         this.action = action;
@@ -22,6 +23,8 @@ public class KeyListener {
     public void setAction(Action action){
         this.action = action;
     }
+
+    public Action getAction(){return action;}
 
     public KeyCode getKeyCode(){
         return keyCode;

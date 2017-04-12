@@ -1,6 +1,6 @@
 package controller;
 
-import controller.MapMakerControlSubsystem.ControlAction.ControlAction;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import view.Camera;
@@ -16,14 +16,16 @@ public class Controller {
 
     //represents the top level state of Controller
     private ControlHandler controlHandler;
+
+    //TODO remove commented out in future
+    /*
     private HashMap<KeyCode, ControlAction> actionMap;
     private KeyMapControls controlMap;
+    */
     private Camera camera;
 
     //new KeyMapping
-    private Vector<KeyListener> currentKLSet;
-
-
+    private Vector<KeyListener> currentKLSet = new Vector<KeyListener>();
 
 
     public Controller(View view){
@@ -31,16 +33,20 @@ public class Controller {
         //init with the MapMakerControl state
         controlHandler = MapMakerControl.getInstance();
         controlHandler.init(view.getMapMakerPreview());
-        controlMap = new KeyMapControls();
 
-        actionMap = controlMap.getActionMap();
+        //TODO remove commented ou tin future
+        // controlMap = new KeyMapControls();
+        //actionMap = controlMap.getActionMap();
+
         camera = view.getCamera();
     }
 
+    /*
     public void setActionMap(HashMap<KeyCode, ControlAction> actionMap){
 
         this.actionMap = actionMap;
     }
+    */
 
     public ControlHandler getControlHandler() {
         return controlHandler;
@@ -51,14 +57,29 @@ public class Controller {
     }
 
     public void executeCode(KeyCode code){
-        for(KeyCode codeKey:actionMap.keySet()) {
-            if(code == codeKey) {
-                ControlAction action = actionMap.get(code);
-                action.execute(this);
+
+        for(int i =0; i <currentKLSet.size();i++) {
+
+            if(currentKLSet.elementAt(i).getKeyCode().equals(code)){
+
+                currentKLSet.elementAt(i).perform();
+                //ControlAction action = actionMap.get(code);
+                //action.execute(this);
             }
         }
     }
 
+
+    public void keyReleased(KeyEvent e){
+
+    }
+
+    public void keyPressed(KeyEvent e){
+        KeyCode key = e.getCode();
+        executeCode(key);
+    }
+
+    /*
     public void right(){
 
         controlHandler.right();
@@ -109,6 +130,7 @@ public class Controller {
 
         controlHandler.reset();
     }
+    */
 
     public void moveMapUp(){
         camera.moveUpMap();
@@ -130,12 +152,4 @@ public class Controller {
 
     public void cameraZoomOut(){camera.zoomOut();}
 
-    public void keyReleased(KeyEvent e){
-
-    }
-
-    public void keyPressed(KeyEvent e){
-        KeyCode key = e.getCode();
-        executeCode(key);
-    }
 }

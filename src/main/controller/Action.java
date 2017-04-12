@@ -7,8 +7,7 @@ public abstract class Action {
 
     private ControlHandler controlHandler;
 
-
-    public void Action(ControlHandler controlHandler){
+    public Action(ControlHandler controlHandler) {
         this.controlHandler = controlHandler;
     }
 
@@ -19,9 +18,6 @@ public abstract class Action {
     public void attachToController(KeyListener keyListener){
 
         keyListener.setAction(this);
-
-        //add this KeyListener to current controlHandler's KLSet
-        controlHandler.addToKLSet(keyListener);
 
     }
 
