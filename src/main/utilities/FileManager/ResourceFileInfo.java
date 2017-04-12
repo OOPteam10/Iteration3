@@ -15,4 +15,9 @@ public class ResourceFileInfo extends FileInfo{
     public String getResource() {
         return resource;
     }
+
+    @Override
+    public String toFileFormat() {
+        return resource;
+    }
 }

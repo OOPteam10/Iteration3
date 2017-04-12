@@ -16,6 +16,11 @@ public class TileFileInfo extends FileInfo {
         riverEdges = new ArrayList<>();
     }
 
+    public TileFileInfo(String terrain) {
+        this.terrain = terrain;
+        riverEdges = new ArrayList<>();
+    }
+
     public String getTerrain() {
         return terrain;
     }
@@ -32,4 +37,17 @@ public class TileFileInfo extends FileInfo {
         this.riverEdges = riverEdges;
     }
 
+    @Override
+    public String toFileFormat() {
+        if (terrain == null) {
+            System.out.println("Error converting tile to save data");
+            return "";
+        }
+        String out = terrain;
+        if (!riverEdges.isEmpty()){
+            out += " (" + FileManager.edge_print(riverEdges) + ")";
+        }
+
+        return out;
+    }
 }

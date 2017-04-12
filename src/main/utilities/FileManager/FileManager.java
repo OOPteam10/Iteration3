@@ -88,11 +88,8 @@ public class FileManager {
                     break;
                 }
 
-                String writeLine = location_print(o) + " " + tileInfo.getTerrain();
+                String writeLine = location_print(o) + " " + tileInfo.toFileFormat();
 
-                if (!tileInfo.getRiverEdges().isEmpty()) {
-                    writeLine += " (" + edge_print(tileInfo.getRiverEdges()) + ")";
-                }
 
                 bf.write(writeLine);
                 bf.newLine();
@@ -103,7 +100,7 @@ public class FileManager {
             return "(" + l.getX() + "," + l.getY() + "," + l.getZ() + ")";
         }
 
-        private static String edge_print(ArrayList<HexSide> edges) {
+        public static String edge_print(ArrayList<HexSide> edges) {
             if (edges == null) {
                 System.out.println("Null edge list, aborting edge_print");
             }

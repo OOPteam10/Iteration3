@@ -1,5 +1,7 @@
 package utilities.FileManager;
 
+import model.Goose;
+import model.Transporters.Donkey;
 import model.resources.*;
 
 /**
@@ -53,5 +55,13 @@ public class FileInfoFactory {
     public static ResourceFileInfo generateFileInfo(Board b) {
         return new ResourceFileInfo("Board");
     }
+
+    //Transporters
+
+    public static TransporterFileInfo generateFileInfo(Donkey d) { return new TransporterFileInfo("Donkey", "#GET_DONKEY_USERID"); }
+
+    //Goose
+
+    public static GooseFileInfo generateFileInfo(Goose g) {return new GooseFileInfo(); }
 }
 
