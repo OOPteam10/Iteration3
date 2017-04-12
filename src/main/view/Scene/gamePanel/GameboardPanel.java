@@ -96,6 +96,7 @@ public class GameboardPanel extends Panel {
             Sector findTransporter = landTransporterManager.getLocation(landTransporter);
             TransporterDrawingVisitor v = new TransporterDrawingVisitor(assets, gc,
                     new Location(0,0,0), camera, findTransporter);
+            landTransporter.accept(v);
         }
     }
 
