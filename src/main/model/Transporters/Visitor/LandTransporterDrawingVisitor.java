@@ -13,38 +13,42 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
-public class TransporterDrawingVisitor implements  TransporterVisitor {
+public class LandTransporterDrawingVisitor implements  TransporterVisitor {
     private AssetManager assets;
     private GraphicsContext gc;
     private Camera camera;
-    private Location location;
     private Point p;
     private Sector sectorLocation;
-    public TransporterDrawingVisitor(AssetManager assets, GraphicsContext gc, Location location, Camera camera,
-                                     Sector sectorLocation ){
+
+    private double scale;
+    private int offsetX;
+    private int offsetY;
+
+    public LandTransporterDrawingVisitor(AssetManager assets, GraphicsContext gc, Point p, Camera camera){
         this.assets = assets;
         this.gc = gc;
         this.camera = camera;
-        this.location = location;
         this.sectorLocation = sectorLocation;
-        p = new Point();
-        p.x = location.getX();
-        p.y = location.getY();
+        this.p = p;
+        scale = camera.getScale()*0.5;
+        offsetX = (int)(43* camera.getScale()/0.3);
+        offsetY = (int)(15*camera.getScale()/0.3);
     }
 
     @Override
     public void visitLandTransporter(LandTransporter landTransporter){
-
+        landTransporter.accept(this);
     }
 
     @Override
     public void visitDonkey(Donkey donkey){
         Image img = assets.getImage("DONKEY");
-        gc.drawImage(img, camera.offset(p).x + 10, camera.offset(p).y + 10,
-                assets.getImage("DONKEY").getWidth()*camera.getScale(),
-                assets.getImage("DONKEY").getHeight()*camera.getScale());
-         }
+        gc.drawImage(img, camera.offset(p).x+offsetX, camera.offset(p).y+offsetY,
+                assets.getImage("DONKEY").getWidth()*scale,
+                assets.getImage("DONKEY").getHeight()*scale);
+    }
 
+//
 //    private Point findDrawingPoint(CardinalDirection cardinalDirection){
 //        Point sectorDrawingLocation = new Point();
 //        double x = 1386*camera.getBackgroundScaleX();
