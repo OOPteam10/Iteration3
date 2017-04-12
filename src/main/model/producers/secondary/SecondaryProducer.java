@@ -9,11 +9,8 @@ import java.util.List;
 /**
  * Created by cduica on 4/8/17.
  */
-public abstract class SecondaryProducer<T> extends Producer {
+public abstract class SecondaryProducer extends Producer {
 
-    List<T> rawResources = new ArrayList<>();
+    abstract protected boolean consumeRawResource();
 
-    public void giveResource(T resource){
-        rawResources.add(resource);
-    }
 }
