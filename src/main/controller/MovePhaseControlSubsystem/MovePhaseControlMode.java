@@ -15,5 +15,7 @@ public interface MovePhaseControlMode {
     void cycleRight();
     void setStateToMoveSelected();
     void resetCurrentMPCInstructionState();
+    void dropOff();
+    void pickUp();
 
 }

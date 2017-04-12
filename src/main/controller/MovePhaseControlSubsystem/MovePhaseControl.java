@@ -1,9 +1,15 @@
 package controller.MovePhaseControlSubsystem;
 
 import controller.ControlHandler;
+import model.Managers.GoodsManager;
 import model.Managers.LandTransporterManager;
 import model.Managers.SeaTransporterManager;
 import model.Managers.SectorAdjacencyManager;
+import model.TileSubsystem.Sector;
+import model.TileSubsystem.Waterway;
+import model.Transporters.Transporter;
+import model.producers.Product;
+import model.resources.Resource;
 import view.MapMakerPreview;
 
 import java.util.ArrayList;
@@ -26,6 +32,9 @@ public class MovePhaseControl implements ControlHandler {
     private SeaTransporterManager seaTransporterManager;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
+    private GoodsManager<Sector, Resource> landResourceManager;
+    private GoodsManager<Waterway, Resource> seaResourceManager;
+    private GoodsManager<Transporter, Resource> cargoManager;
 
     private void nextMode(){
         int next = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)+1)
@@ -78,8 +87,13 @@ public class MovePhaseControl implements ControlHandler {
         return roadAdjacencyManager;
     }
 
+    public GoodsManager<Sector, Resource> getLandResourceManager() {return landResourceManager;}
 
-    //TODO: All Overridden functions call meaningfully named functions
+    public GoodsManager<Waterway, Resource> getSeaResourceManager() {return seaResourceManager;}
+
+    public GoodsManager<Transporter, Resource> getCargoManager() {return cargoManager;}
+
+//TODO: All Overridden functions call meaningfully named functions
     //TODO: rename ControlHandler functions to the name of the keypress
 
     @Override
