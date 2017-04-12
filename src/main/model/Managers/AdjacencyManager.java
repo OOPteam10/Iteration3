@@ -1,5 +1,6 @@
 package model.Managers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -19,6 +20,9 @@ public abstract class AdjacencyManager<Loc, Dir, AdjLoc> {
 
     public Adjacency<Dir, AdjLoc> getAdjacency(Loc l){
         return managerMap.get(l);
+    }
+    public ArrayList<AdjLoc> getAdjacencyList(Loc l){
+        return managerMap.get(l).getAdjacencyList();
     }
 
     //TESTING ONLY

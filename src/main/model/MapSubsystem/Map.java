@@ -104,16 +104,12 @@ public class Map {
         return isValid;
     }
 
-    public void formatSurfaceMaps(){
-        for(Location l: tiles.keySet()){
-            tiles.get(l).addToSurfaceMap(l, landMap, waterwayMap);
-        }
-    }
-
     public SectorAdjacencyManager generateSectorAdjacencyManager(){
+        formatSurfaceMaps();
         return landMap.generateSectorAdjacencyManager();
     }
     public WaterwayAdjacencyManager generateWaterwayAdjacencyManager(){
+        formatSurfaceMaps();
         return waterwayMap.generateWaterwayAdjacencyManager();
     }
 
@@ -143,6 +139,15 @@ public class Map {
         }
         return sa;
     }*/
+
+    public void formatSurfaceMaps(){
+        landMap = new LandMap();
+        waterwayMap = new WaterwayMap();
+
+        for(Location l: tiles.keySet()){
+            tiles.get(l).addToSurfaceMap(l, landMap, waterwayMap);
+        }
+    }
 
 
     public boolean validateRiverTilePlacement(RiverTile riverTile, Location location){
