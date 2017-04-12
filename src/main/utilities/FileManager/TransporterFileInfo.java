@@ -3,6 +3,7 @@ package utilities.FileManager;
 import model.Transporters.Transporter;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Doug on 4/9/2017.
@@ -10,7 +11,7 @@ import java.io.File;
 public class TransporterFileInfo extends FileInfo{
     private String ownerID;
     private String transporter;
-    private FileInfo cargo;
+    private ArrayList<FileInfo> cargo;
 
 
     public TransporterFileInfo(String transporter, String ownerID) {
@@ -18,7 +19,7 @@ public class TransporterFileInfo extends FileInfo{
         this.ownerID = ownerID;
     }
 
-    public TransporterFileInfo(String transporter, String ownerID, FileInfo cargo) {
+    public TransporterFileInfo(String transporter, String ownerID, ArrayList<FileInfo> cargo) {
         this.transporter = transporter;
         this.ownerID = ownerID;
         this.cargo = cargo;
@@ -26,10 +27,20 @@ public class TransporterFileInfo extends FileInfo{
 
     @Override
     public String toFileFormat() {
-        if (cargo == null) {
+        if (cargo.isEmpty()) {
             return transporter + " " + ownerID;
         } else {
-            return transporter + " " + ownerID + " " + cargo.toFileFormat();
+            String out = transporter + " " + ownerID + " (";
+            String spacer = "";
+
+            for (FileInfo f: cargo) {
+                out += spacer + f.toFileFormat();
+                spacer = " ";
+            }
+
+            out += ")";
+
+            return out;
         }
 
     }
