@@ -7,7 +7,7 @@ import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
 import model.Transporters.Transporter;
-import model.producers.Product;
+//import model.producers.Product;
 import model.resources.Resource;
 
 import java.util.ArrayList;
