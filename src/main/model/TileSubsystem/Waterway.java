@@ -1,5 +1,8 @@
 package model.TileSubsystem;
 
+import model.Managers.SeaTransporterManager;
+import model.Transporters.SeaTransporter;
+
 import java.util.ArrayList;
 
 /**
@@ -8,4 +11,5 @@ import java.util.ArrayList;
 public interface Waterway {
     public abstract ArrayList<HexSide> getWaterwaySides();
     public abstract boolean contains(HexSide hs);
+    public ArrayList<SeaTransporter> getSeaTransporters(SeaTransporterManager stm);
 }

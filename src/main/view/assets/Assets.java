@@ -45,6 +45,7 @@ public class Assets {
         loadItem("OPTION_BUTTON","Assets/Buttons/OptionButton.png");
         loadItem("MAP_MAKER_BUTTON", "Assets/Buttons/MapMakerButton.png");
         loadItem("RETURN_MAIN_MENU_BUTTON", "Assets/Buttons/ExitToMainMenu.png");
+        loadItem("WONDER_BUTTON", "Assets/Buttons/WonderButton.png");
         //Load Panels, backgrounds
         loadItem("BOTTOM_PANEL", "Assets/Background/BottomPanel.png");
         loadItem("TERRAIN_SELECTED","Assets/MapMakerPreview/TerrainSelected.png");
@@ -54,6 +55,8 @@ public class Assets {
         loadItem("INTRO_BACKGROUND_IMAGE", "Assets/Background/IntroBackground.png");
         loadItem("GAME_BORDER","Assets/Background/GameBorder.png");
         loadItem("SIDE_PANEL_BACKGROUND", "Assets/Background/SidePanelBackground.png");
+        loadItem("WONDER_BACKGROUND", "Assets/Background/WonderBackground.png");
+        //Load wonder stuff
         loadItem("WONDER_BOARD", "Assets/WonderBoard.png");
     }
 

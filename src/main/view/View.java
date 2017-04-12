@@ -18,7 +18,7 @@ import java.io.File;
 public class View{
     private AssetManager assets;
     private static final int SCREEN_WIDTH = 1600;
-    private static final int SCREEN_HEIGHT = 900;
+    private static final int SCREEN_HEIGHT = (int)(SCREEN_WIDTH/1.77778);
 
     private Canvas canvas;
     private GraphicsContext gc;
@@ -46,10 +46,10 @@ public class View{
     private void initializeView(){
         root.getChildren().add(canvas);
         mapMakerPreview = new MapMakerPreview(panelManager);
-//
-//        File buttonStyle = new File("Assets/ButtonStyle.css");
-//        scene.getStylesheets().clear();
-//        scene.getStylesheets().add("file:///"+buttonStyle.getAbsolutePath().replace("\\","/"));
+
+        File buttonStyle = new File("Assets/ButtonStyle.css");
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add("file:///"+buttonStyle.getAbsolutePath().replace("\\","/"));
     }
 
     public void renderGame(){

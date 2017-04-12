@@ -1,5 +1,6 @@
 package model.TileSubsystem.Tiles;
 
+import model.Managers.SeaTransporterManager;
 import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.WaterwayMap;
@@ -9,6 +10,7 @@ import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.Sea;
 import model.TileSubsystem.Visitor.TileVisitor;
 import model.TileSubsystem.Waterway;
+import model.Transporters.SeaTransporter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +42,10 @@ public class SeaTile extends Tile implements Waterway {
     }
     public boolean contains(HexSide hs){
         return true;
+    }
+
+    public ArrayList<SeaTransporter> getSeaTransporters(SeaTransporterManager stm){
+        return stm.getContentsOfArea(this);
     }
 
     //testing only
