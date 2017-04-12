@@ -16,7 +16,7 @@ public class DropOffMPCIState implements MPCInstructionState {
     }
 
     public void select(MovePhaseControlMode context) {
-        //TODO: actually select what to pick up
+        //TODO: actually select what to drop off
         context.dropOff();
     }
 }

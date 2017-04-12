@@ -8,7 +8,7 @@ import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Waterway;
 import model.Transporters.Transporter;
-import model.producers.Product;
+import model.structures.producers.Product;
 import model.resources.Resource;
 import view.MapMakerPreview;
 
@@ -33,8 +33,10 @@ public class MovePhaseControl implements ControlHandler {
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private GoodsManager<Sector, Resource> landResourceManager;
+
+    //delete seaResourceManager when you can do it safely
     private GoodsManager<Waterway, Resource> seaResourceManager;
-    private GoodsManager<Transporter, Resource> cargoManager;
+    private GoodsManager<Transporter, Product> cargoManager;
 
     private void nextMode(){
         int next = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)+1)
@@ -91,7 +93,7 @@ public class MovePhaseControl implements ControlHandler {
 
     public GoodsManager<Waterway, Resource> getSeaResourceManager() {return seaResourceManager;}
 
-    public GoodsManager<Transporter, Resource> getCargoManager() {return cargoManager;}
+    public GoodsManager<Transporter, Product> getCargoManager() {return cargoManager;}
 
 //TODO: All Overridden functions call meaningfully named functions
     //TODO: rename ControlHandler functions to the name of the keypress
