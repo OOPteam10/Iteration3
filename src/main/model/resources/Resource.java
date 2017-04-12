@@ -1,6 +1,6 @@
 package model.resources;
 
-import model.producers.Product;
+import model.structures.producers.Product;
 
 /**
  * Created by cduica on 4/8/17.

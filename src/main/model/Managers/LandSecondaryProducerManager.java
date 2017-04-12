@@ -1,7 +1,7 @@
 package model.Managers;
 
 import model.TileSubsystem.Sector;
-import model.producers.secondary.SecondaryProducer;
+import model.structures.producers.secondary.SecondaryProducer;
 
 /**
  * Created by hankerins on 4/8/17.

@@ -1,7 +1,7 @@
 package model.Managers;
 
 import model.TileSubsystem.Tiles.SeaTile;
-import model.producers.primary.OilRig;
+import model.structures.producers.primary.OilRig;
 
 /**
  * Created by hankerins on 4/8/17.
