@@ -84,11 +84,13 @@ public class GameboardPanel extends Panel {
     }
 
     private void drawBackground(GraphicsContext gc){
-        for (int i=0;i<21;i++){
-            for(int j=0;j<21;j++){
-                Point p = new Point(i-10,j-10);
-                gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), camera.offset(p).x,camera.offset( p).y,camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getWidth(),
-                        camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getHeight());
+        for (int i=-10;i<11;i++){
+            for(int j=-10;j<11;j++){
+                Point p = new Point(i,j);
+                if((i+j)>= - 10 && (i+j)<=10) {
+                    gc.drawImage(assets.getImage("EMPTY_HEX_GRID"), camera.offset(p).x, camera.offset(p).y, camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getWidth(),
+                            camera.getScale() * assets.getImage("EMPTY_HEX_GRID").getHeight());
+                }
             }
         }
     }
