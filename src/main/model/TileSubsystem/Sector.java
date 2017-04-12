@@ -3,7 +3,6 @@ package model.TileSubsystem;
 import model.Managers.LandTransporterManager;
 import model.Transporters.LandTransporter;
 import model.Transporters.Transporter;
-import model.producers.Producer;
 
 import java.util.ArrayList;
 
