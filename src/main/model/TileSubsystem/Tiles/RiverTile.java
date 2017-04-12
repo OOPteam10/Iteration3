@@ -1,5 +1,6 @@
 package model.TileSubsystem.Tiles;
 
+import model.Managers.SeaTransporterManager;
 import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.WaterwayMap;
@@ -10,6 +11,7 @@ import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.Terrain;
 import model.TileSubsystem.Visitor.TileVisitor;
 import model.TileSubsystem.Waterway;
+import model.Transporters.SeaTransporter;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,10 @@ public class RiverTile extends LandTile implements Waterway {
                 }
             }
         }
+    }
+
+    public ArrayList<SeaTransporter> getSeaTransporters(SeaTransporterManager stm){
+        return stm.getContentsOfArea(this);
     }
 
     public River getRiver(){

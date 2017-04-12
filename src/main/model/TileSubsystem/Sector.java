@@ -1,5 +1,10 @@
 package model.TileSubsystem;
 
+import model.Managers.LandTransporterManager;
+import model.Transporters.LandTransporter;
+import model.Transporters.Transporter;
+import model.producers.Producer;
+
 import java.util.ArrayList;
 
 /**
@@ -31,5 +36,9 @@ public class Sector {
         }
         s += ")";
         return s;
+    }
+
+    public ArrayList<LandTransporter> getTransporters(LandTransporterManager ltm){
+        return ltm.getContentsOfArea(this);
     }
 }

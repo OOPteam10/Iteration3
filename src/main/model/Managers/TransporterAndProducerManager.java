@@ -1,5 +1,6 @@
 package model.Managers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -29,6 +30,16 @@ public abstract class TransporterAndProducerManager<Obj, Loc>{
 
     public boolean containsKey(Obj o){
         return managerMap.containsKey(o);
+    }
+
+    public ArrayList<Obj> getContentsOfArea(Loc l){
+        ArrayList<Obj> contents = new ArrayList<Obj>();
+        for (Obj o: managerMap.keySet()){
+            if(managerMap.get(o) == l){
+                contents.add(o);
+            }
+        }
+        return contents;
     }
 
 }
