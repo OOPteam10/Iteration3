@@ -6,6 +6,6 @@ import model.structures.producers.primary.OilRig;
 /**
  * Created by hankerins on 4/8/17.
  */
-public class SeaProducerManager extends TransporterAndProducerManager<OilRig, SeaTile> {
+public class SeaProducerManager extends TransporterManager<SeaTile, OilRig> {
 
 }

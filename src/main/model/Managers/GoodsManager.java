@@ -12,7 +12,9 @@ import java.util.HashMap;
  * this works best if a player has to drop their resources before building,
  * otherwise we need a cargo manager for every resource type (doable)
  *
- * this version requires a GoodsManager for each resource type.
+ * this version requires a GoodsManager for each resource type.  I think
+ *
+ * gonna use a generic GoodsManager<Sector, Resource>, <Waterway, Resource>,
  *
  * examples at bottom
  */
@@ -30,8 +32,12 @@ public class GoodsManager<Loc, GoodsType> {
         managerMap.get(l).add(r);
     }
 
-    public int getQuantityInSector(Sector s){
-        return managerMap.get(s).size();
+    public GoodsType pop(Loc l){
+        return managerMap.get(l).remove(managerMap.size()-1);
+    }
+
+    public int getQuantityInArea(Loc l){
+        return managerMap.get(l).size();
     }
 
 

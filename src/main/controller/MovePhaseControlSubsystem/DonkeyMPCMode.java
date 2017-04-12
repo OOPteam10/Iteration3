@@ -1,11 +1,14 @@
 package controller.MovePhaseControlSubsystem;
 
-import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.DonkeyMoveSelectedState;
-import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.MPCInstructionState;
-import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.MoveMPCIState;
+import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.*;
+import model.Managers.GoodsManager;
 import model.Managers.LandTransporterManager;
 import model.Managers.SectorAdjacencyManager;
+import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
+import model.Transporters.Transporter;
+import model.producers.Product;
+import model.resources.Resource;
 
 import java.util.ArrayList;
 
@@ -15,12 +18,14 @@ import java.util.ArrayList;
 public class DonkeyMPCMode implements MovePhaseControlMode {
 
     private MPCInstructionState currentMPCInstructionState;
-    private ArrayList<MPCInstructionState> mpcInstructionStates;
+    private ArrayList<MPCInstructionState> mpcInstructionStates = new ArrayList<MPCInstructionState>();
     private Donkey currentDonkey;
     private ArrayList<Donkey> donkeys;
     private LandTransporterManager landTransporterManager;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
+    private GoodsManager<Sector, Resource> landResourceManager;
+    private GoodsManager<Transporter, Resource> cargoManager;
 
     public DonkeyMPCMode(ArrayList<Donkey> donkeys, MovePhaseControl context){
         this.donkeys = donkeys;
@@ -28,6 +33,8 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         landTransporterManager = context.getLandTransporterManager();
         sectorAdjacencyManager = context.getSectorAdjacencyManager();
         roadAdjacencyManager = context.getRoadAdjacencyManager();
+        landResourceManager = context.getLandResourceManager();
+        cargoManager = context.getCargoManager();
         mpcInstructionStates.add(new MoveMPCIState());
         currentMPCInstructionState = mpcInstructionStates.get(0);
     }
@@ -44,16 +51,42 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         currentDonkey = donkeys.get(previous);
     }
 
+    public void resetCurrentMPCInstructionState(){
+        mpcInstructionStates.clear();
+        mpcInstructionStates.add(new MoveMPCIState());
+        currentMPCInstructionState = mpcInstructionStates.get(0);
+        if(landResourceManager.getQuantityInArea(landTransporterManager.getLocation(currentDonkey)) > 0){
+            mpcInstructionStates.add(new PickUpMPCIState());
+        }
+        if(cargoManager.getQuantityInArea(currentDonkey) > 0){
+            mpcInstructionStates.add(new DropOffMPCIState());
+        }
+    }
+
+    public void dropOff(){
+        Resource r = cargoManager.pop(currentDonkey);
+        landResourceManager.add(landTransporterManager.getLocation(currentDonkey), r);
+    };
+    public void pickUp(){
+        Resource r = landResourceManager.pop(landTransporterManager.getLocation(currentDonkey));
+        cargoManager.add(currentDonkey, r);
+    }
+
+
     public void select() {
         currentMPCInstructionState.select(this);
     }
 
     public void nextInstruction() {
-
+        int next = (mpcInstructionStates.indexOf(currentMPCInstructionState)+1)
+                % mpcInstructionStates.size();
+        currentMPCInstructionState = mpcInstructionStates.get(next);
     }
 
     public void previousInstruction() {
-
+        int previous = (mpcInstructionStates.indexOf(currentMPCInstructionState)-1
+                + mpcInstructionStates.size()) % mpcInstructionStates.size();
+        currentMPCInstructionState = mpcInstructionStates.get(previous);
     }
 
     public void cycleLeft() {
@@ -66,10 +99,6 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
 
     public void setStateToMoveSelected() {
         currentMPCInstructionState = new DonkeyMoveSelectedState(this);
-    }
-
-    public void resetCurrentMPCInstructionState() {
-        this.currentMPCInstructionState = mpcInstructionStates.get(0);
     }
 
     public Donkey getCurrentDonkey() {
