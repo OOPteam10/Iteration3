@@ -2,6 +2,9 @@ package view.Scene;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import model.Game;
 import view.Camera;
 import view.Panel;
@@ -21,6 +24,7 @@ public class GamePanel extends Panel {
     private TileDetailPanel tileDetailPanel;
     private WonderPanel wonderPanel;
     private GameFilePanel gameFilePanel;
+    private AnchorPane gamePanelLayout;
 
     private Game game;
     private AssetManager assets;
@@ -31,6 +35,8 @@ public class GamePanel extends Panel {
     private Image gameboardBorder;
     private Image sidePanelBackground;
 
+    private Button wonderButton;
+
     public GamePanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
 
@@ -40,6 +46,7 @@ public class GamePanel extends Panel {
         this.camera = camera;
         this.panelManager = panelManager;
         this.root = root;
+        this.wonderButton = new Button();
 
         gameboardBorder = getAssets().getImage("GAME_BORDER");
         sidePanelBackground = getAssets().getImage("SIDE_PANEL_BACKGROUND");
@@ -52,10 +59,27 @@ public class GamePanel extends Panel {
         tileDetailPanel = new TileDetailPanel(game, assets, gameMode, root, camera, panelManager);
         wonderPanel = new WonderPanel(game, assets, gameMode, root, camera, panelManager);
         gameFilePanel = new GameFilePanel(game, assets, gameMode, root, camera, panelManager);
+        gamePanelLayout = new AnchorPane();
+        setUpButton(wonderButton, assets.getImage("WONDER_BUTTON"));
+        wonderButton.setOnAction(event -> toggleWonderPanel());
+        setPosition();
     }
 
+    private void setUpButton(Button button, Image image){
+        button.setGraphic(new ImageView(image));
+        gamePanelLayout.getChildren().add(button);
+        button.getStyleClass().setAll("");
+    }
+
+    private void setPosition(){
+        wonderButton.setTranslateX(21*camera.getBackgroundScaleX());
+        wonderButton.setTranslateY(820*camera.getBackgroundScaleY());
+    }
+
+    private void toggleWonderPanel(){
+        wonderPanel.toggle();
+    }
     private void drawBorder(GraphicsContext gc){
-        //gc.drawImage(getAssets().getImage("GAME_BORDER"), 0, 0);
         gc.drawImage(gameboardBorder, 0, 0, gameboardBorder.getWidth()*camera.getBackgroundScaleX(),
                 gameboardBorder.getHeight()*camera.getBackgroundScaleY());
     }
@@ -70,16 +94,19 @@ public class GamePanel extends Panel {
 
     public void draw(GraphicsContext gc, Point screenDimension){
 
+        setPosition();
+
         gameboardPanel.draw(gc, screenDimension);
         drawSidePanelBackground(gc, screenDimension);
         researchPanel.draw(gc, screenDimension);
         tileDetailPanel.draw(gc,screenDimension);
         gameFilePanel.draw(gc, screenDimension);
-        //wonderPanel.draw(gc, screenDimension);
+        wonderPanel.draw(gc, screenDimension);
         drawBorder(gc);
     }
 
     public void showGUIElements(){
+        root.getChildren().add(gamePanelLayout);
         gameboardPanel.showGUIElements();
         researchPanel.showGUIElements();
         tileDetailPanel.showGUIElements();
@@ -93,5 +120,7 @@ public class GamePanel extends Panel {
         tileDetailPanel.hideGUIElements();
         wonderPanel.hideGUIElements();
         gameFilePanel.hideGUIElements();
+
+        root.getChildren().remove(gamePanelLayout);
     }
 }
