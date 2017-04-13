@@ -1,6 +1,7 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
-import controller.MovePhaseControlSubsystem.LandMovePhaseControlMode;
+
+import controller.MovePhaseControlSubsystem.MovePhaseControl;
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
 import model.resources.Resource;
 
@@ -14,23 +15,31 @@ public class PickUpSelectedState implements MPCInstructionState {
     private ArrayList<Resource> resources;
     private Resource currentResource;
 
-    public PickUpSelectedState(LandMovePhaseControlMode context) {
-        resources = context.getResourceManager().get(context.getLandTransporterManager().getLocation(context.getCurrentLandTransporter()));
+    public PickUpSelectedState(MovePhaseControlMode context) {
+        resources = context.getResourceManager().get(context.getSectorTransporterManager().getLocation(context.getCurrentTransporter()));
         currentResource = resources.get(0);
     }
 
     @Override
     public void cycleLeft(MovePhaseControlMode context) {
-
+        int previous = (resources.indexOf(currentResource)-1 + resources.size()) % resources.size();
+        currentResource = resources.get(previous);
     }
 
     @Override
     public void cycleRight(MovePhaseControlMode context) {
-
+        int next = (resources.indexOf(currentResource)+1) % resources.size();
+        currentResource = resources.get(next);
     }
 
     @Override
     public void select(MovePhaseControlMode context) {
+        context.pickUp(currentResource);
+        context.resetCurrentMPCInstructionState();
+    }
 
+    //testing only
+    public String toString(){
+        return ("Pick Up " + currentResource.toString());
     }
 }

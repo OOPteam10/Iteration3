@@ -1,12 +1,10 @@
 package controller.MovePhaseControlSubsystem;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.MPCInstructionState;
-import model.Managers.CargoManager;
-import model.Managers.LandTransporterManager;
-import model.Managers.ResourceManager;
-import model.Managers.TransporterManager;
+import model.Managers.*;
 import model.Transporters.LandTransporter;
 import model.Transporters.Transporter;
+import model.resources.Resource;
 import model.structures.producers.Product;
 
 /**
@@ -23,14 +21,14 @@ public interface MovePhaseControlMode {
     void setStateToMoveSelected();
     void resetCurrentMPCInstructionState();
     void dropOff(Product product);
-    void pickUp();
+    void pickUp(Resource r);
     void pickUpLandTransporter(LandTransporter lt);
     int currentIndex();
     MPCInstructionState getCurrentMPCInstructionState();
     void setCurrentMPCInstructionState(MPCInstructionState currentMPCInstructionState);
     ResourceManager getResourceManager();
     CargoManager getCargoManager();
-    LandTransporterManager getLandTransporterManager();
+    SectorTransporterManager getSectorTransporterManager();
     Transporter getCurrentTransporter();
 
 }

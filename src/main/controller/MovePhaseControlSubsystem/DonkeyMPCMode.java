@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by hankerins on 4/10/17.
  * TODO: remove donkey from list of available donkeys when its picked up
  */
-public class DonkeyMPCMode implements LandMovePhaseControlMode {
+public class DonkeyMPCMode implements MovePhaseControlMode {
 
     private MPCInstructionState currentMPCInstructionState;
     private ArrayList<MPCInstructionState> mpcInstructionStates = new ArrayList<MPCInstructionState>();
@@ -81,8 +81,8 @@ public class DonkeyMPCMode implements LandMovePhaseControlMode {
         //2 managers to find all the transporters a donkey can pick up, 2 lists during production/building phase
         //to know where we can produce/build, etc.  Lets solve this
     };
-    public void pickUp(){
-        Resource r = resourceManager.pop(landTransporterManager.getLocation(currentDonkey));
+    public void pickUp(Resource r){
+        resourceManager.remove(landTransporterManager.getLocation(currentDonkey), r);
         cargoManager.add(currentDonkey, r);
     }
 
@@ -131,6 +131,10 @@ public class DonkeyMPCMode implements LandMovePhaseControlMode {
         return landTransporterManager;
     }
 
+    public SectorTransporterManager getSectorTransporterManager() {
+        return landTransporterManager;
+    }
+
     public SectorAdjacencyManager getSectorAdjacencyManager() {
         return sectorAdjacencyManager;
     }
@@ -158,9 +162,6 @@ public class DonkeyMPCMode implements LandMovePhaseControlMode {
     }
 
     public Transporter getCurrentTransporter(){
-        return currentDonkey;
-    }
-    public LandTransporter getCurrentLandTransporter(){
         return currentDonkey;
     }
 
