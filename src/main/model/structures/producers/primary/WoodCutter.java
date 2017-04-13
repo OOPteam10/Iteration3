@@ -1,5 +1,8 @@
 package model.structures.producers.primary;
 
+import model.Managers.GoodsManager;
+import model.TileSubsystem.Sector;
+import model.resources.Resource;
 import model.structures.producers.Product;
 import model.resources.Trunk;
 
@@ -8,7 +11,7 @@ import model.resources.Trunk;
  */
 public class WoodCutter extends PrimaryProducer {
     @Override
-    public Product produce() {
-        return new Trunk();
+    public Product produce(GoodsManager<Sector, Resource> resourceManager) {
+        return new Trunk(resourceManager);
     }
 }

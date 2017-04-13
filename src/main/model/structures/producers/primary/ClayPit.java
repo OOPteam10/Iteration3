@@ -1,5 +1,8 @@
 package model.structures.producers.primary;
 
+import model.Managers.GoodsManager;
+import model.TileSubsystem.Sector;
+import model.resources.Resource;
 import model.structures.producers.Product;
 import model.resources.Clay;
 
@@ -8,7 +11,7 @@ import model.resources.Clay;
  */
 public class ClayPit extends PrimaryProducer {
     @Override
-    public Product produce() {
-        return new Clay();
+    public Product produce(GoodsManager<Sector, Resource> resourceManager) {
+        return new Clay(resourceManager);
     }
 }
