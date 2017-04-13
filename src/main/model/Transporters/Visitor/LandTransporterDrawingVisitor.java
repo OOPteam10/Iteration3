@@ -4,16 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 import model.MapSubsystem.Location;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
-import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
-import model.Transporters.Transporter;
+import model.Transporters.*;
 import view.Camera;
 import view.assets.AssetManager;
 import javafx.scene.image.Image;
 
 import java.awt.*;
 
-public class LandTransporterDrawingVisitor implements  TransporterVisitor {
+public class LandTransporterDrawingVisitor implements  LandTransporterVisitor {
     private AssetManager assets;
     private GraphicsContext gc;
     private Camera camera;
@@ -36,16 +34,28 @@ public class LandTransporterDrawingVisitor implements  TransporterVisitor {
     }
 
     @Override
-    public void visitLandTransporter(LandTransporter landTransporter){
-        landTransporter.accept(this);
-    }
-
-    @Override
     public void visitDonkey(Donkey donkey){
         Image img = assets.getImage("DONKEY");
         gc.drawImage(img, camera.offset(p).x+offsetX, camera.offset(p).y+offsetY,
                 assets.getImage("DONKEY").getWidth()*scale,
                 assets.getImage("DONKEY").getHeight()*scale);
+    }
+
+
+    @Override
+    public void visitWagon(Wagon wagon){
+        Image img = assets.getImage("WAGON");
+        gc.drawImage(img, camera.offset(p).x + offsetX, camera.offset(p).y+offsetY,
+                assets.getImage("WAGON").getWidth()*scale,
+                assets.getImage("WAGON").getHeight()*scale);
+    }
+
+    @Override
+    public void visitTruck(Truck truck){
+        Image img = assets.getImage("TRUCK");
+        gc.drawImage(img, camera.offset(p).x + offsetX, camera.offset(p).y+offsetY,
+                assets.getImage("TRUCK").getWidth()*scale,
+                assets.getImage("TRUCK").getHeight()*scale);
     }
 
 //

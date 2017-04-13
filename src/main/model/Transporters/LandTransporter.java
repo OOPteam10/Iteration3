@@ -5,7 +5,7 @@ import model.DropOffAbilities.LandTransporterDropOffAbility;
 import model.Managers.LandTransporterManager;
 import model.TileSubsystem.Sector;
 
-import model.Transporters.Visitor.TransporterVisitor;
+import model.Transporters.Visitor.LandTransporterVisitor;
 
 
 /**
@@ -22,10 +22,5 @@ public abstract class LandTransporter extends Transporter<Sector> {
     public void dropOff(Sector s) {
         ltdoAbility.execute(s);
     }
-
-    @Override
-    public void accept(TransporterVisitor v){
-        v.visitLandTransporter(this);
-
-    }
+    public abstract void accept(LandTransporterVisitor v);
 }
