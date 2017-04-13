@@ -16,9 +16,7 @@ public class PickUpMPCIState implements MPCInstructionState {
     }
 
     public void select(MovePhaseControlMode context) {
-        //TODO: actually select what to pick up
-        context.pickUp();
-        context.resetCurrentMPCInstructionState();
+        context.setCurrentMPCInstructionState(new PickUpSelectedState(context));
 
     }
     //testing only

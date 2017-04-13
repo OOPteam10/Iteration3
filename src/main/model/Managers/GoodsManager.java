@@ -35,6 +35,12 @@ public class GoodsManager<Loc, GoodsType> {
         managerMap.get(l).add(r);
     }
 
+    public void remove(Loc l, GoodsType g){
+
+            managerMap.get(l).remove(g);
+
+    }
+
     public ArrayList<GoodsType> get(Loc l){
         return managerMap.get(l);
     }

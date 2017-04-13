@@ -1,18 +1,13 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.DonkeyMPCMode;
-import controller.MovePhaseControlSubsystem.MovePhaseControl;
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
-import model.Managers.Adjacency;
 import model.Managers.LandTransporterManager;
 import model.Managers.SectorAdjacencyManager;
-import model.MapSubsystem.Location;
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by hankerins on 4/11/17.

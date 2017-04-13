@@ -5,6 +5,7 @@ import model.Managers.*;
 import model.Transporters.Donkey;
 import model.Transporters.LandTransporter;
 
+import model.Transporters.Transporter;
 import model.resources.Resource;
 import model.structures.producers.Product;
 
@@ -66,9 +67,11 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
 
     }
 
-    public void dropOff(){
-        Product p = cargoManager.pop(currentDonkey);
-        p.dropOff(landTransporterManager.getLocation(currentDonkey)); //crashes if donkey is carrying a seaTransporter
+    public void dropOff(Product product){
+        cargoManager.remove(currentDonkey, product);
+        product.dropOff(landTransporterManager.getLocation(currentDonkey));
+
+        //crashes if donkey is carrying a seaTransporter
         //currently doesn't add the donkey back to the list of donkeys to control
         //this is easily fixed by using a list of donkeys that is updated from the landTransporterManager,
         //but would require rtti to add only the donkeys from the LTM to the list
@@ -78,8 +81,8 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         //2 managers to find all the transporters a donkey can pick up, 2 lists during production/building phase
         //to know where we can produce/build, etc.  Lets solve this
     };
-    public void pickUp(){
-        Resource r = resourceManager.pop(landTransporterManager.getLocation(currentDonkey));
+    public void pickUp(Resource r){
+        resourceManager.remove(landTransporterManager.getLocation(currentDonkey), r);
         cargoManager.add(currentDonkey, r);
     }
 
@@ -128,6 +131,10 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         return landTransporterManager;
     }
 
+    public SectorTransporterManager getSectorTransporterManager() {
+        return landTransporterManager;
+    }
+
     public SectorAdjacencyManager getSectorAdjacencyManager() {
         return sectorAdjacencyManager;
     }
@@ -139,6 +146,25 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     public MPCInstructionState getCurrentMPCInstructionState() {
         return currentMPCInstructionState;
     }
+
+    @Override
+    public ResourceManager getResourceManager() {
+        return resourceManager;
+    }
+
+    @Override
+    public CargoManager getCargoManager() {
+        return cargoManager;
+    }
+
+    public void setCurrentMPCInstructionState(MPCInstructionState currentMPCInstructionState) {
+        this.currentMPCInstructionState = currentMPCInstructionState;
+    }
+
+    public Transporter getCurrentTransporter(){
+        return currentDonkey;
+    }
+
 
     //testing only
     public String toString(){

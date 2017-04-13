@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by hankerins on 4/8/17.
  */
-public class LandTransporterManager extends TransporterManager<LandTransporter, Sector> {
+public class LandTransporterManager extends SectorTransporterManager<LandTransporter> {
 
     @Override
     public void add(LandTransporter o, Sector sector) {
