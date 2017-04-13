@@ -1,12 +1,9 @@
 package controller.MovePhaseControlSubsystem;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.*;
-import model.Managers.GoodsManager;
-import model.Managers.LandTransporterManager;
-import model.Managers.SectorAdjacencyManager;
-import model.TileSubsystem.Sector;
+import model.Managers.*;
 import model.Transporters.Donkey;
-import model.Transporters.Transporter;
+import model.Transporters.LandTransporter;
 
 import model.resources.Resource;
 import model.structures.producers.Product;
@@ -15,6 +12,7 @@ import java.util.ArrayList;
 
 /**
  * Created by hankerins on 4/10/17.
+ * TODO: remove donkey from list of available donkeys when its picked up
  */
 public class DonkeyMPCMode implements MovePhaseControlMode {
 
@@ -25,8 +23,8 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     private LandTransporterManager landTransporterManager;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
-    private GoodsManager<Sector, Resource> landResourceManager;
-    private GoodsManager<Transporter, Product> cargoManager;
+    private ResourceManager resourceManager;
+    private CargoManager cargoManager;
 
     public DonkeyMPCMode(ArrayList<Donkey> donkeys, MovePhaseControl context){
         this.donkeys = donkeys;
@@ -34,10 +32,9 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         landTransporterManager = context.getLandTransporterManager();
         sectorAdjacencyManager = context.getSectorAdjacencyManager();
         roadAdjacencyManager = context.getRoadAdjacencyManager();
-        landResourceManager = context.getLandResourceManager();
+        resourceManager = context.getResourceManager();
         cargoManager = context.getCargoManager();
-        mpcInstructionStates.add(new MoveMPCIState());
-        currentMPCInstructionState = mpcInstructionStates.get(0);
+        resetCurrentMPCInstructionState();
     }
 
     public void nextTransporter() {
@@ -56,27 +53,47 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         mpcInstructionStates.clear();
         mpcInstructionStates.add(new MoveMPCIState());
         currentMPCInstructionState = mpcInstructionStates.get(0);
-        if(landResourceManager.getQuantityInArea(landTransporterManager.getLocation(currentDonkey)) > 0){
+        if(resourceManager.getQuantityInArea(landTransporterManager.getLocation(currentDonkey)) > 0){
             mpcInstructionStates.add(new PickUpMPCIState());
         }
         if(cargoManager.getQuantityInArea(currentDonkey) > 0){
             mpcInstructionStates.add(new DropOffMPCIState());
         }
+        ArrayList<LandTransporter> others = landTransporterManager.getNeighbors(currentDonkey);
+        if(others.size() > 0){
+            mpcInstructionStates.add(new PickUpTransporterMPCIState(others));
+        }
+
     }
 
     public void dropOff(){
         Product p = cargoManager.pop(currentDonkey);
         p.dropOff(landTransporterManager.getLocation(currentDonkey)); //crashes if donkey is carrying a seaTransporter
-
+        //currently doesn't add the donkey back to the list of donkeys to control
+        //this is easily fixed by using a list of donkeys that is updated from the landTransporterManager,
+        //but would require rtti to add only the donkeys from the LTM to the list
+        //also, if donkeys exist but are all being carried as cargo (ergo, no donkeys in the LTM),
+        //we don't want this mode to exist, so we need a way for the LTM to return all its donkeys
+        //one option is to have a specific donkey manager separate from LTM, but then we have to check
+        //2 managers to find all the transporters a donkey can pick up, 2 lists during production/building phase
+        //to know where we can produce/build, etc.  Lets solve this
     };
     public void pickUp(){
-        Resource r = landResourceManager.pop(landTransporterManager.getLocation(currentDonkey));
+        Resource r = resourceManager.pop(landTransporterManager.getLocation(currentDonkey));
         cargoManager.add(currentDonkey, r);
+    }
+
+    public void pickUpLandTransporter(LandTransporter lt){
+        landTransporterManager.removeOccupant(lt);
+        cargoManager.add(currentDonkey, lt);
+        donkeys.remove(lt);
     }
 
 
     public void select() {
+
         currentMPCInstructionState.select(this);
+
     }
 
     public void nextInstruction() {
@@ -122,4 +139,13 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     public MPCInstructionState getCurrentMPCInstructionState() {
         return currentMPCInstructionState;
     }
+
+    //testing only
+    public String toString(){
+        return "Donkey Mode";
+    }
+    public int currentIndex(){
+        return donkeys.indexOf(currentDonkey);
+    }
+
 }

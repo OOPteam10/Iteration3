@@ -1,17 +1,9 @@
 package controller.MovePhaseControlSubsystem;
 
 import controller.ControlHandler;
-import model.Managers.GoodsManager;
-import model.Managers.LandTransporterManager;
-import model.Managers.SeaTransporterManager;
-import model.Managers.SectorAdjacencyManager;
-import model.TileSubsystem.Sector;
-import model.TileSubsystem.Waterway;
-import model.Transporters.Transporter;
+import model.Managers.*;
 
-import model.structures.producers.Product;
-
-import model.resources.Resource;
+import model.Transporters.Donkey;
 import view.MapMakerPreview;
 
 import java.util.ArrayList;
@@ -34,38 +26,54 @@ public class MovePhaseControl implements ControlHandler {
     private SeaTransporterManager seaTransporterManager;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
-    private GoodsManager<Sector, Resource> landResourceManager;
+    private ResourceManager resourceManager;
+    private CargoManager cargoManager;
 
-    //delete seaResourceManager when you can do it safely
-    private GoodsManager<Waterway, Resource> seaResourceManager;
-    private GoodsManager<Transporter, Product> cargoManager;
+    public MovePhaseControl(LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
+                            SectorAdjacencyManager sectorAdjacencyManager, SectorAdjacencyManager roadAdjacencyManager,
+                            ResourceManager resourceManager, CargoManager cargoManager, ArrayList<Donkey> donkeys){
+        this.landTransporterManager = landTransporterManager;
+        this.seaTransporterManager = seaTransporterManager;
+        this.sectorAdjacencyManager = sectorAdjacencyManager;
+        this.roadAdjacencyManager = roadAdjacencyManager;
+        this.resourceManager = resourceManager;
+        this.cargoManager = cargoManager;
+        movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
+        movePhaseControlModes.add(new DonkeyMPCMode(donkeys, this));
+        currentMovePhaseControlMode = movePhaseControlModes.get(0);
+    }
 
     private void nextMode(){
         int next = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)+1)
                 % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(next);
+        currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
     private void previousMode(){
         int previous = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)-1
                 + movePhaseControlModes.size()) % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(previous);
+        currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
 
     private void nextTransporter(){
+
         currentMovePhaseControlMode.nextTransporter();
+        currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
 
     private void previousTransporter(){
         currentMovePhaseControlMode.previousTransporter();
+        currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
 
     private void cycleLeft(){
         currentMovePhaseControlMode.cycleLeft();
-    }
+    } //changes instruction or target
 
     private void cycleRight(){
         currentMovePhaseControlMode.cycleRight();
-    }
+    } //changes instruction or target
 
     public ArrayList<MovePhaseControlMode> getMovePhaseControlModes() {
         return movePhaseControlModes;
@@ -91,36 +99,40 @@ public class MovePhaseControl implements ControlHandler {
         return roadAdjacencyManager;
     }
 
-    public GoodsManager<Sector, Resource> getLandResourceManager() {return landResourceManager;}
+    public ResourceManager getResourceManager() {return resourceManager;}
 
-    public GoodsManager<Waterway, Resource> getSeaResourceManager() {return seaResourceManager;}
-
-    public GoodsManager<Transporter, Product> getCargoManager() {return cargoManager;}
+    public CargoManager getCargoManager() {return cargoManager;}
 
 //TODO: All Overridden functions call meaningfully named functions
     //TODO: rename ControlHandler functions to the name of the keypress
+    //right now mapped to functions kind of at random just to test
 
     @Override
     public void left() {
+        previousMode();
     }
 
     @Override
     public void right() {
+        nextMode();
     }
 
     @Override
     public void select() {
+
         currentMovePhaseControlMode.select();
+
     }
 
     @Override
     public void moveNW() {
+        cycleLeft();
 
     }
 
     @Override
     public void moveN() {
-
+        cycleRight();
     }
 
     @Override
@@ -130,12 +142,12 @@ public class MovePhaseControl implements ControlHandler {
 
     @Override
     public void moveSW() {
-
+        previousTransporter();
     }
 
     @Override
     public void moveS() {
-
+        nextTransporter();
     }
 
     @Override
@@ -161,5 +173,13 @@ public class MovePhaseControl implements ControlHandler {
     @Override
     public void init(MapMakerPreview preview) {
 
+    }
+
+    //testing
+    public String toString(){
+        String s = "";
+        s += ("Mode: " + currentMovePhaseControlMode.toString() + " # " + currentMovePhaseControlMode.currentIndex() +
+                " Instruction: " + currentMovePhaseControlMode.getCurrentMPCInstructionState().toString());
+        return s;
     }
 }

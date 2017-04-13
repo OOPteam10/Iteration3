@@ -56,4 +56,9 @@ public class DonkeyMoveSelectedState implements MPCInstructionState {
         landTransporterManager.move(currentDonkey, targetSector);
         context.resetCurrentMPCInstructionState();
     }
+
+    //testing only
+    public String toString(){
+        return ("Donkey Move to " + targetSector.toString());
+    }
 }
