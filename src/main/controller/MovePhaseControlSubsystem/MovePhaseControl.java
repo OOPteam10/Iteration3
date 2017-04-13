@@ -8,7 +8,9 @@ import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Waterway;
 import model.Transporters.Transporter;
+
 import model.structures.producers.Product;
+
 import model.resources.Resource;
 import view.MapMakerPreview;
 
