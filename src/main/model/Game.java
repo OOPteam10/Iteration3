@@ -1,8 +1,6 @@
 package model;
 
-import model.Managers.LandTransporterManager;
-import model.Managers.SectorAdjacencyManager;
-import model.Managers.WaterwayAdjacencyManager;
+import model.Managers.*;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Tiles.Tile;
@@ -23,15 +21,24 @@ public class Game {
     private SectorAdjacencyManager sectorAdjacencyManager;
     private WaterwayAdjacencyManager waterwayAdjacencyManager;
     private LandTransporterManager landTransporterManager;
+    private SeaTransporterManager seaTransporterManager;
+    private SectorAdjacencyManager roadAdjacencyManager;
+    private ResourceManager resourceManager;
+    private CargoManager cargoManager;
 
     public Game(){
         map = new Map();
         //instantiate tile editor
         TileEditor.getInstance().init(map);
         setDefaultMap();
-        sectorAdjacencyManager = new SectorAdjacencyManager();
-        waterwayAdjacencyManager = new WaterwayAdjacencyManager();
+        map.formatSurfaceMaps();
+        sectorAdjacencyManager = map.generateSectorAdjacencyManager();
+        roadAdjacencyManager = new SectorAdjacencyManager();
+        waterwayAdjacencyManager = map.generateWaterwayAdjacencyManager();
         landTransporterManager = new LandTransporterManager();
+        seaTransporterManager = new SeaTransporterManager();
+        resourceManager = new ResourceManager();
+        cargoManager = new CargoManager();
     }
 
     public HashMap<Location, Tile> getMap(){//TODO: REFACTOR!
@@ -62,5 +69,15 @@ public class Game {
 
     public LandTransporterManager getLandTransporterManager(){
         return landTransporterManager;
+    }
+
+    public SectorAdjacencyManager getRoadAdjacencyManager() {return roadAdjacencyManager;}
+
+    public ResourceManager getResourceManager() {return resourceManager;}
+
+    public CargoManager getCargoManager() {return cargoManager;}
+
+    public SeaTransporterManager getSeaTransporterManager() {
+        return seaTransporterManager;
     }
 }

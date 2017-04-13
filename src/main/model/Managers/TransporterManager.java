@@ -39,6 +39,17 @@ public abstract class TransporterManager<Obj, Loc>{
         }
         return contents;
     }
+    public ArrayList<Obj> getNeighbors(Obj o){
+        Loc l = managerMap.get(o);
+        ArrayList<Obj> contents = new ArrayList<Obj>();
+        for (Obj p: managerMap.keySet()){
+            if(managerMap.get(p) == l){
+                contents.add(p);
+            }
+        }
+        contents.remove(o);
+        return contents;
+    }
 
     public void move(Obj o, Loc newLoc){
         removeOccupant(o);
