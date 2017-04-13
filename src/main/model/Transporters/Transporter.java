@@ -1,8 +1,6 @@
 package model.Transporters;
 
-import model.DropOffAbilities.LandTransporterDropOffAbility;
-import model.Managers.LandTransporterManager;
-import model.TileSubsystem.Sector;
+
 import model.structures.producers.Product;
 
 /**
