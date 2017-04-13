@@ -7,7 +7,6 @@ import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
 import model.Transporters.Transporter;
-
 import model.resources.Resource;
 import model.structures.producers.Product;
 
