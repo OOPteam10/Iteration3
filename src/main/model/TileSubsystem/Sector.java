@@ -1,5 +1,9 @@
 package model.TileSubsystem;
 
+import model.Managers.LandTransporterManager;
+import model.Transporters.LandTransporter;
+import model.Transporters.Transporter;
+
 import java.util.ArrayList;
 
 /**
@@ -13,10 +17,27 @@ public class Sector {
             start = start.next();
             halfEdges.add(start);
         }
+    }
 
+    public boolean contains(CardinalDirection cd){
+        return halfEdges.contains(cd);
     }
 
     public ArrayList<CardinalDirection> getHalfEdges() {
         return halfEdges;
+    }
+
+    //for testing only
+    public String toString(){
+        String s = "Sector(";
+        for(CardinalDirection cd: halfEdges){
+            s += (cd.name() + " ");
+        }
+        s += ")";
+        return s;
+    }
+
+    public ArrayList<LandTransporter> getTransporters(LandTransporterManager ltm){
+        return ltm.getContentsOfArea(this);
     }
 }

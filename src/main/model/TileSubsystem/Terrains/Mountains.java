@@ -14,4 +14,9 @@ public class Mountains extends Terrain {
     public void accept(TileVisitor v) {
         v.visitMountains(this);
     }
+
+    //testing only
+    public String toString(){
+        return "Mountains";
+    }
 }

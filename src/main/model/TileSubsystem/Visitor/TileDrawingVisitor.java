@@ -31,7 +31,7 @@ public class TileDrawingVisitor implements TileVisitor {
     private AssetManager assets;
     private GraphicsContext gc;
     private Camera camera;
-    Point p;
+    private Point p;
     // current constructed tile
 
 
@@ -53,7 +53,6 @@ public class TileDrawingVisitor implements TileVisitor {
     public void visitSeaTile(SeaTile tile) {
         // start basic tile graphic (don't know terrain truly yet)
         tile.getTerrain().accept(this);
-
     }
 
     @Override

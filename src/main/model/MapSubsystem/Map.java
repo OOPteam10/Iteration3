@@ -1,7 +1,10 @@
 package model.MapSubsystem;
 
 import com.sun.org.apache.bcel.internal.generic.LAND;
+import model.Managers.*;
+import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
+import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.SeaTile;
@@ -9,8 +12,10 @@ import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.LandTileValidationVisitor;
 import model.TileSubsystem.Visitor.RiverTileValidationVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
+import model.TileSubsystem.Waterway;
 
 import java.util.HashMap;
+import java.util.Map.*;
 import java.lang.Math;
 
 import static java.lang.Math.abs;
@@ -20,6 +25,8 @@ import static java.lang.Math.abs;
  */
 public class Map {
     HashMap<Location, Tile> tiles;
+    private LandMap landMap = new LandMap();
+    private WaterwayMap waterwayMap = new WaterwayMap();
 
     public Map(){
         tiles = new HashMap<Location, Tile>();
@@ -64,6 +71,7 @@ public class Map {
         return true;
     }
 
+
     private boolean validateAdjacentToExistingTiles(Location location){
         if(!tiles.isEmpty()){
 
@@ -78,18 +86,7 @@ public class Map {
         return tiles.get(location);
     }
 
-    //getAdjacentTiles could return a HashMap<CardinalDirection, Tile> so that you know where
-    //the adjacent tiles are in reference to the location passed as argument
 
-    /*public HashMap<Location, Tile> getAdjacentTiles(Location location) {
-        HashMap<Location, Tile> adjacentTiles =new HashMap<Location, Tile>();
-        for(Location l: location.getAdjacentLocations()){
-            Tile t = tiles.get(l);
-            if(t != null)
-                adjacentTiles.put(l, t);
-        }
-        return adjacentTiles;
-    }*/
     public HashMap<HexSide, Tile> getAdjacentTiles(Location location) {
         HashMap<HexSide, Tile> adjacentTiles =new HashMap<HexSide, Tile>();
         for(HexSide hs: HexSide.values()){
@@ -106,6 +103,52 @@ public class Map {
         boolean isValid = true;
         return isValid;
     }
+
+    public SectorAdjacencyManager generateSectorAdjacencyManager(){
+        formatSurfaceMaps();
+        return landMap.generateSectorAdjacencyManager();
+    }
+    public WaterwayAdjacencyManager generateWaterwayAdjacencyManager(){
+        formatSurfaceMaps();
+        return waterwayMap.generateWaterwayAdjacencyManager();
+    }
+
+    /*  MOVED THIS TO LANDMAP, WATERWAYMAP.  FORMAT THEM IN MAP, THEN CALL THEIR GENERATE FUNCTIONS
+    public SectorAdjacencyManager generateSectorAdjacencyManager(){
+        SectorAdjacencyManager sam = new SectorAdjacencyManager();
+        for(Location loc: tiles.keySet()){
+            addLocationToSectorAdjacencyMatrix(loc, sam);
+        }
+        return sam;
+    }
+
+    private void addLocationToSectorAdjacencyMatrix(Location loc, SectorAdjacencyManager sam){
+        HashMap<HexSide, Tile> adjacents = getAdjacentWaterways(loc);
+        for(Sector s: tiles.get(loc).getSectors()) {
+            sam.add(s, createSectorAdjacency(loc, s));
+        }
+    }
+
+    private SectorAdjacency createSectorAdjacency(Location loc, Sector s){
+        SectorAdjacency sa = new SectorAdjacency();
+        for(CardinalDirection cd: s.getHalfEdges()){
+            Tile t = tiles.get(loc.getAdjacentLocation(cd.toHexSide()));
+            if(t != null){
+                sa.add(cd, t.getSectorAtCardinalDirection(cd.getOppositeSide()));
+            }
+        }
+        return sa;
+    }*/
+
+    public void formatSurfaceMaps(){
+        landMap = new LandMap();
+        waterwayMap = new WaterwayMap();
+
+        for(Location l: tiles.keySet()){
+            tiles.get(l).addToSurfaceMap(l, landMap, waterwayMap);
+        }
+    }
+
 
     public boolean validateRiverTilePlacement(RiverTile riverTile, Location location){
         boolean isValid = true;
@@ -223,5 +266,24 @@ public class Map {
     }
     public void setMap(HashMap<Location, Tile> gameMap){
         this.tiles = gameMap;
+    }
+
+
+    //For testing only
+
+    public LandMap getLandMap() {
+        return landMap;
+    }
+
+    public WaterwayMap getWaterwayMap() {
+        return waterwayMap;
+    }
+
+    public String toString(){
+        String s = "";
+        for(Location l: tiles.keySet()){
+            s += (l.toString() + " " + tiles.get(l).getTerrain().toString() + "\n");
+        }
+        return s;
     }
 }

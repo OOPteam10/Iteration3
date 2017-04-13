@@ -14,4 +14,9 @@ public class Woods extends Terrain {
     public void accept(TileVisitor v) {
         v.visitWoods(this);
     }
+
+    //testing only
+    public String toString(){
+        return "Woods";
+    }
 }

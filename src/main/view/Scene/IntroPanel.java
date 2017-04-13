@@ -55,6 +55,7 @@ public class IntroPanel extends Panel {
     private void setUpButton(Button button, Image image){
         button.setGraphic(new ImageView(image));
         introPanelLayout.getChildren().add(button);
+        button.getStyleClass().setAll("button");
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){

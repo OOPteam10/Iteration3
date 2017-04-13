@@ -4,6 +4,7 @@ import model.MapSubsystem.Location;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Visitor.TileVisitor;
+import model.TileSubsystem.Waterway;
 
 import java.util.ArrayList;
 
@@ -78,5 +79,18 @@ public abstract class River {
             }
         }
         return sourceAdjacencyHasNoRiver;
+    }
+    public boolean contains(HexSide hs){
+        return edges.contains(hs);
+    }
+
+    //testing only
+
+    public String toString(){
+        String s = "R ";
+        for(HexSide hs: edges){
+            s += (hs.name() + " ");
+        }
+        return s;
     }
 }

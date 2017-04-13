@@ -1,5 +1,6 @@
 package view.Scene.gamePanel;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
@@ -17,17 +18,35 @@ import java.awt.*;
  */
 public class WonderPanel extends Panel {
     private Image wonderBoard = getAssets().getImage("WONDER_BOARD");
-
+    private Image wonderBackground = getAssets().getImage("WONDER_BACKGROUND");
+    private Camera camera;
+    private boolean isVisible = false;
     public WonderPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
+
+        this.camera = camera;
     }
 
     private void drawWonderBoard(GraphicsContext gc, Point screenDimension){
-        gc.drawImage(wonderBoard, screenDimension.x/1.397, screenDimension.y - 648);
+        gc.drawImage(wonderBoard, (screenDimension.x-430)/2 - wonderBoard.getWidth()/2,
+                screenDimension.y/2 - wonderBoard.getHeight()/2);
+    }
+
+    private void drawWonderBackground(GraphicsContext gc, Point screenDimension){
+        gc.drawImage(wonderBackground,0,0,
+                wonderBackground.getWidth()*camera.getBackgroundScaleX(),
+                wonderBackground.getHeight()*camera.getBackgroundScaleY());
     }
 
     public void draw(GraphicsContext gc, Point screenDimension) {
-        drawWonderBoard(gc, screenDimension);
+        if(isVisible) {
+            drawWonderBackground(gc, screenDimension);
+            drawWonderBoard(gc, screenDimension);
+        }
+    }
+
+    public void toggle(){
+        isVisible = !isVisible;
     }
 
     public void showGUIElements(){

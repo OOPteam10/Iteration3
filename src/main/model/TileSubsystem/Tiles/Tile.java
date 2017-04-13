@@ -1,11 +1,16 @@
 package model.TileSubsystem.Tiles;
 
+import model.Managers.SectorAdjacencyManager;
+import model.MapSubsystem.LandMap;
+import model.MapSubsystem.Location;
+import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.Terrain;
 import model.TileSubsystem.Visitor.TileVisitor;
+import model.TileSubsystem.Waterway;
 
 import javax.smartcardio.Card;
 import java.util.ArrayList;
@@ -21,9 +26,30 @@ public abstract class Tile {
 
     protected abstract void configureSectors();
 
+    public abstract void addToSurfaceMap(Location l, LandMap lm, WaterwayMap wm);
+
     protected void addSector(Sector sector) {
         sectors.add(sector);
     }
+
+    public Sector getSectorAtCardinalDirection(CardinalDirection cd){
+        for(Sector s:sectors){
+            if(s.getHalfEdges().contains(cd))
+                return s;
+        }
+        return null;
+    }
+
+    public ArrayList<Sector> getSectorsAtHexSide(HexSide hs){
+        ArrayList<Sector> sectorsAtHexSide = new ArrayList<Sector>();
+        for(Sector s:sectors){
+            if(s.contains(hs.getFirstHalf()) || s.contains(hs.getSecondHalf())) {
+                sectorsAtHexSide.add(s);
+            }
+        }
+        return sectorsAtHexSide;
+    }
+
 
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;

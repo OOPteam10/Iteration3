@@ -37,8 +37,6 @@ public class GameEngine extends Application {
 
         //array for active keyCodes
         activeKeys = new Vector<KeyCode>();
-
-
         game = new Game();
         view = new View(game, scene, root);
 
@@ -48,19 +46,6 @@ public class GameEngine extends Application {
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("MapMakerV0.2");
-
-        //TODO if no bug, remove the commentted out lines
-//        Group root = new Group();
-//        Scene scene = new Scene(root, Color.TRANSPARENT);
-//
-//        //array for active keyCodes
-//        activeKeys = new Vector<KeyCode>();
-//
-//
-//        game = new Game();
-//        view = new View(game, scene, root);
-//
-//        controller  = new Controller(view);
         sendEventToController(scene);
         new AnimationTimer() {
             @Override
