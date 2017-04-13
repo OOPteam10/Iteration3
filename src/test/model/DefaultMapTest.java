@@ -29,11 +29,8 @@ public class DefaultMapTest {
     {
 
         Game game = new Game();
-        game.setDefaultMap();
         Map map = game.getActualMap();
-        map.formatSurfaceMaps();
-        LandMap lm = map.getLandMap();
-        WaterwayMap wm = map.getWaterwayMap();
+
 
         SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
         WaterwayAdjacencyManager wam = game.getWaterwayAdjacencyManager();
@@ -46,6 +43,9 @@ public class DefaultMapTest {
         Location SDesert = new Location(0,0,0);
         Location SMountain = new Location(0,-1,1);
         Location CENTERSea = new Location(0, 1, -1);
+
+        LandMap lm = map.getLandMap();
+        WaterwayMap wm = map.getWaterwayMap();
 
         LandTile lt1 = lm.getTile(SDesert);
         Waterway w1 = wm.getTile(SDesert);
