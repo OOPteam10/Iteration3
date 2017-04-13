@@ -13,8 +13,8 @@ import model.TileSubsystem.Waterway;
 public  abstract class SeaTransporter extends Transporter<Waterway> {
     private SeaTransporterDropOffAbility stdoAbility;
 
-    public SeaTransporter(SeaTransporterManager seaTransporterManager){
-        stdoAbility = new SeaTransporterDropOffAbility(this, seaTransporterManager);
+    public void setStdoAbility(SeaTransporterDropOffAbility stdoAbility){
+        this.stdoAbility = stdoAbility;
     }
 
     public void dropOff(Waterway w){

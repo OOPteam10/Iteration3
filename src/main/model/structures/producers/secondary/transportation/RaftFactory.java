@@ -10,9 +10,9 @@ import model.structures.producers.Product;
 /**
  * Created by cduica on 4/8/17.
  */
-public class RaftFactory extends SeaTransportationProducer {
+public class RaftFactory extends TransportationProducer {
     @Override
-    public SeaTransporter produce(SeaTransporterManager seaTransporterManager) {
+    public SeaTransporter produce() {
         return null;
     }
 }

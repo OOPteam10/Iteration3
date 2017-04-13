@@ -7,7 +7,5 @@ import model.TileSubsystem.Sector;
  * Created by cduica on 4/9/17.
  */
 public class Trunk extends Resource {
-    public Trunk(GoodsManager<Sector, Resource> resourceManager){
-        super(resourceManager);
-    }
+
 }

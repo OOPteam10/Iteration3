@@ -11,7 +11,7 @@ import model.resources.Stone;
  */
 public class StoneQuarry extends PrimaryProducer {
     @Override
-    public Product produce(GoodsManager<Sector, Resource> resourceManager) {
-        return new Stone(resourceManager);
+    public Product produce() {
+        return new Stone();
     }
 }

@@ -10,5 +10,5 @@ import model.structures.producers.Product;
  * Created by cduica on 4/8/17.
  */
 public abstract class PrimaryProducer extends Producer {
-    public abstract Product produce(GoodsManager<Sector, Resource> resourceManager);
+
 }

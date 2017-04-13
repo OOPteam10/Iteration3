@@ -12,8 +12,8 @@ public abstract class Resource implements Product<Sector> {
 
     ResourceDropOffAbility rdoAbility;
 
-    public Resource(GoodsManager<Sector, Resource> resourceManager){
-        rdoAbility = new ResourceDropOffAbility(this, resourceManager);
+    public void setRdoAbility(ResourceDropOffAbility rdoAbility) {
+        this.rdoAbility = rdoAbility;
     }
 
     @Override

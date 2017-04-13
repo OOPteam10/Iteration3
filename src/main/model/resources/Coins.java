@@ -7,7 +7,5 @@ import model.TileSubsystem.Sector;
  * Created by cduica on 4/9/17.
  */
 public class Coins extends Resource {
-    public Coins(GoodsManager<Sector, Resource> resourceManager){
-        super(resourceManager);
-    }
+
 }

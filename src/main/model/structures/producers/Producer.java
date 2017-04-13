@@ -10,7 +10,7 @@ import model.structures.Structure;
  */
 public abstract class Producer extends Structure {
 
-
+    public abstract Product produce();
     //Some member variables for production limits go here
 
 

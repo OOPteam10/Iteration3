@@ -11,7 +11,7 @@ import model.resources.Clay;
  */
 public class ClayPit extends PrimaryProducer {
     @Override
-    public Product produce(GoodsManager<Sector, Resource> resourceManager) {
-        return new Clay(resourceManager);
+    public Product produce() {
+        return new Clay();
     }
 }

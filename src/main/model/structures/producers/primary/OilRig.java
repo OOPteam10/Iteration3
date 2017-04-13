@@ -11,7 +11,7 @@ import model.resources.Fuel;
  */
 public class OilRig extends PrimaryProducer {
     @Override
-    public Product produce(GoodsManager<Sector, Resource> resourceManager) {
-        return new Fuel(resourceManager);
+    public Product produce() {
+        return new Fuel();
     }
 }

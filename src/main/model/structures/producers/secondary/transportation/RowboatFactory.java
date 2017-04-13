@@ -7,9 +7,9 @@ import model.structures.producers.Product;
 /**
  * Created by cduica on 4/8/17.
  */
-public class RowboatFactory extends SeaTransportationProducer {
+public class RowboatFactory extends TransportationProducer {
     @Override
-    public SeaTransporter produce(SeaTransporterManager seaTransporterManager) {
+    public SeaTransporter produce() {
         return null;
     }
 }

@@ -14,7 +14,7 @@ import java.util.HashMap;
  *
  * this version requires a GoodsManager for each resource type.  I think
  *
- * gonna use a generic GoodsManager<Sector, Resource>, <Waterway, Resource>,
+ * gonna use a generic GoodsManager<Sector, Resource>,
  *
  * examples at bottom
  */
@@ -42,7 +42,7 @@ public class GoodsManager<Loc, GoodsType> {
 
 
 
-    //GoodsManager<Transporter, Cargo> CargoManager = new GoodsManager<Transporter, Cargo>();
+    //GoodsManager<Transporter, Cargo> CargoManager = new GoodsManager<Transporter, Product>();
     //GoodsManager<OilRig, Resource> OilRigResourceManager = new GoodsManager<OilRig, Resource>();
     //GoodsManager<Sector, Stone> StoneManager = new GoodsManager<Sector, Stone>();
     //GoodsManager<Sector, Wood> WoodManager = new GoodsManager<Sector, Wood>(); //etc.

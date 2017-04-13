@@ -10,8 +10,8 @@ import model.TileSubsystem.Sector;
 public abstract class LandTransporter extends Transporter<Sector> {
     private LandTransporterDropOffAbility ltdoAbility;
 
-    public LandTransporter(LandTransporterManager landTransporterManager){
-        ltdoAbility = new LandTransporterDropOffAbility(this, landTransporterManager);
+    public void setLtdoAbility(LandTransporterDropOffAbility ltdoAbility){
+        this.ltdoAbility = ltdoAbility;
     }
 
     public void dropOff(Sector s){

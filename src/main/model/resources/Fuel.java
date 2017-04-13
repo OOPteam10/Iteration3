@@ -7,8 +7,5 @@ import model.TileSubsystem.Sector;
  * Created by cduica on 4/9/17.
  */
 public class Fuel extends Resource {
-    public Fuel(GoodsManager<Sector, Resource> resourceManager){
-        super(resourceManager);
-    }
 
 }

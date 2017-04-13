@@ -11,7 +11,7 @@ import model.resources.Trunk;
  */
 public class WoodCutter extends PrimaryProducer {
     @Override
-    public Product produce(GoodsManager<Sector, Resource> resourceManager) {
-        return new Trunk(resourceManager);
+    public Product produce() {
+        return new Trunk();
     }
 }

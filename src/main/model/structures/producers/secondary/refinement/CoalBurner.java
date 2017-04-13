@@ -11,7 +11,7 @@ import model.structures.producers.Product;
 public class CoalBurner extends RefinementProducer {
 
     @Override
-    public Product produce(GoodsManager<Sector, Resource> resourceManager) {
+    public Product produce() {
         return null;
     }
 

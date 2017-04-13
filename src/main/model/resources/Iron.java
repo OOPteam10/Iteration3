@@ -7,7 +7,5 @@ import model.TileSubsystem.Sector;
  * Created by cduica on 4/9/17.
  */
 public class Iron extends Resource {
-    public Iron(GoodsManager<Sector, Resource> resourceManager){
-        super(resourceManager);
-    }
+
 }

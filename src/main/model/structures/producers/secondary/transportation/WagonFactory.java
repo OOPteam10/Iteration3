@@ -7,9 +7,9 @@ import model.structures.producers.Product;
 /**
  * Created by cduica on 4/8/17.
  */
-public class WagonFactory extends LandTransportationProducer {
+public class WagonFactory extends TransportationProducer {
     @Override
-    public LandTransporter produce(LandTransporterManager landTransporterManager) {
+    public LandTransporter produce() {
         return null;
     }
 }
