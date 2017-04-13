@@ -8,7 +8,7 @@ public class NeutralBrick extends Brick{
 
     NeutralBrick(){
 
-        playerID = -1;
+        playerID = null;
     }
 
     @Override

@@ -1,14 +1,16 @@
 package model.Wonder;
 
+import model.PlayerID;
+
 /**
  * Created by Kevin on 4/11/17.
  */
 
 public abstract class Brick {
 
-    protected int playerID;
+    protected PlayerID playerID;
 
-    public int getPlayerID() {
+    public PlayerID getPlayerID() {
         return playerID;
     }
 

@@ -1,5 +1,7 @@
 package model.Wonder;
 
+import model.PlayerID;
+
 import java.util.LinkedList;
 import java.util.ListIterator;
 

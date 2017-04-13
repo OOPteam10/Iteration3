@@ -5,4 +5,8 @@ package model;
  */
 
 public class PlayerID {
+
+    public PlayerID(){
+
+    }
 }

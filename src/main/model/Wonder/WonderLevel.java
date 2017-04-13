@@ -1,5 +1,7 @@
 package model.Wonder;
 
+import model.PlayerID;
+
 import java.util.ArrayList;
 
 /**
@@ -19,7 +21,7 @@ public class WonderLevel {
     }
 
     // returns the score of this level for the player passed
-    public int getScore(int playerID){
+    public int getScore(PlayerID playerID){
 
         int levelScore = 0;                 // total score to be returned
         int currentLocation = 1;            // holds the brick location we are at in the level

@@ -1,12 +1,14 @@
 package model.Wonder;
 
+import model.PlayerID;
+
 /**
  * Created by Kevin on 4/13/17.
  */
 
 public class PlayerBrick extends Brick{
 
-    PlayerBrick(int playerID){
+    PlayerBrick(PlayerID playerID){
 
         this.playerID = playerID;
     }
