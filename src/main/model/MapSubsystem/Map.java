@@ -105,11 +105,11 @@ public class Map {
     }
 
     public SectorAdjacencyManager generateSectorAdjacencyManager(){
-        formatSurfaceMaps();
+        //formatSurfaceMaps();
         return landMap.generateSectorAdjacencyManager();
     }
     public WaterwayAdjacencyManager generateWaterwayAdjacencyManager(){
-        formatSurfaceMaps();
+        //formatSurfaceMaps();
         return waterwayMap.generateWaterwayAdjacencyManager();
     }
 

@@ -21,15 +21,22 @@ import java.util.HashMap;
 public class GoodsManager<Loc, GoodsType> {
     private HashMap<Loc, ArrayList<GoodsType>> managerMap = new HashMap<Loc, ArrayList<GoodsType>>();
 
-    protected HashMap<Loc, ArrayList<GoodsType>> getManagerMap() {
+    public HashMap<Loc, ArrayList<GoodsType>> getManagerMap() {
         return managerMap;
     }
 
-    public void add(Loc l, GoodsType r)
-            //This method assumes a HashMap entry for every Sector/Transporter,
-            // with empty lists for Sectors/Transporters with no resources
-    {
+    protected void add(Loc l) {
+        managerMap.put(l, new ArrayList<GoodsType>());
+    }
+
+    public void add(Loc l, GoodsType r) {
+        if(managerMap.get(l) == null)
+            add(l);
         managerMap.get(l).add(r);
+    }
+
+    public ArrayList<GoodsType> get(Loc l){
+        return managerMap.get(l);
     }
 
     public GoodsType pop(Loc l){
@@ -37,7 +44,10 @@ public class GoodsManager<Loc, GoodsType> {
     }
 
     public int getQuantityInArea(Loc l){
-        return managerMap.get(l).size();
+        if(managerMap.get(l) != null){
+            return managerMap.get(l).size();
+        }
+        else return 0;
     }
 
 
