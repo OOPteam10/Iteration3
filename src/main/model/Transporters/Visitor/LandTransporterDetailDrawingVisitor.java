@@ -5,6 +5,8 @@ import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
 import model.Transporters.LandTransporter;
+import model.Transporters.Truck;
+import model.Transporters.Wagon;
 import view.Camera;
 import view.assets.AssetManager;
 import javafx.scene.image.Image;
@@ -14,7 +16,7 @@ import java.awt.*;
 /**
  * Created by Karth on 4/12/2017.
  */
-public class LandTransporterDetailDrawingVisitor implements TransporterVisitor {
+public class LandTransporterDetailDrawingVisitor implements LandTransporterVisitor {
     private final static double scale = 0.2;
 
     private AssetManager assets;
@@ -40,6 +42,24 @@ public class LandTransporterDetailDrawingVisitor implements TransporterVisitor {
         //Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get());
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,assets.getImage("DONKEY").getWidth()*scale,
                 assets.getImage("DONKEY").getHeight()*scale);
+    }
+
+    @Override
+    public void visitWagon(Wagon wagon){
+        Image img = assets.getImage("WAGON");
+        Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2), img);
+        //Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get());
+        gc.drawImage(img, drawingPoint.x, drawingPoint.y,assets.getImage("WAGON").getWidth()*scale,
+                assets.getImage("WAGON").getHeight()*scale);
+    }
+
+    @Override
+    public void visitTruck(Truck truck){
+        Image img = assets.getImage("TRUCK");
+        Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2), img);
+        //Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get());
+        gc.drawImage(img, drawingPoint.x, drawingPoint.y,assets.getImage("TRUCK").getWidth()*scale,
+                assets.getImage("TRUCK").getHeight()*scale);
     }
 
     private int CardinalDirectionToDegree(CardinalDirection c){

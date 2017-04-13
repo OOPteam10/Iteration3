@@ -86,7 +86,7 @@ public class TileDetailPanel extends Panel {
                 }
             }
         }catch (NullPointerException e){
-
+            System.out.println("Something fucked up");
         }
     }
 

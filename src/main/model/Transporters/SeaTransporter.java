@@ -6,6 +6,7 @@ import model.Managers.LandTransporterManager;
 import model.Managers.SeaTransporterManager;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Waterway;
+import model.Transporters.Visitor.SeaTransporterVisitor;
 
 /**
  * Created by hankerins on 4/8/17.
@@ -21,5 +22,5 @@ public  abstract class SeaTransporter extends Transporter<Waterway> {
         stdoAbility.execute(w);
     }
 
-
+    public abstract void accept(SeaTransporterVisitor v);
 }
