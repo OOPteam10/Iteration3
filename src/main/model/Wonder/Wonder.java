@@ -1,6 +1,7 @@
 package model.Wonder;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  * Created by Kevin on 4/11/17.
@@ -8,20 +9,28 @@ import java.util.ArrayList;
 
 public class Wonder {
 
-    private ArrayList<Brick> level1 = new ArrayList<>();
-    private ArrayList<Brick> level2 = new ArrayList<>();
-    private ArrayList<Brick> level3 = new ArrayList<>();
-    private ArrayList<Brick> level4 = new ArrayList<>();
-    private ArrayList<Brick> currentLevel;
+    private final int BRICK_PRICE_INCREASE_INDEX = 17;
+    private final int IRRIGATION_MARK_INDEX = 44;
+
+    private LinkedList<WonderLevel> levels = new LinkedList<>();
+    private WonderLevel currentLevel;
+    ListIterator<WonderLevel> levelIterator;
 
     private int count;
     private int brickPrice;
 
     public Wonder(){
 
+        levels.add(new WonderLevel(4,3));
+        levels.add(new WonderLevel(5,4));
+        levels.add(new WonderLevel(6,5));
+        levels.add(new WonderLevel(7,3));
+
+        levelIterator = levels.listIterator(0);
+
         count = 0;
         brickPrice = 1;
-        currentLevel = level1;
+        currentLevel = levelIterator.next();
     }
 
     // TODO: ensure the playerID is how we are checking this shizz
@@ -29,80 +38,16 @@ public class Wonder {
 
         int totalScore = 0;
 
-        totalScore += getLevel1Score(playerID);
-        totalScore += getLevel2Score(playerID);
-        totalScore += getLevel3Score(playerID);
-        totalScore += getLevel4Score(playerID);
+
 
         return totalScore;
     }
 
-    private int getLevel1Score(int playerID){
-
-        int levelScore = 0;
-        int rowCount = 0;
-
-        for(int i = 0; i < 12; i++){
-
-            Brick currentBrick = level1.get(i);
-
-            if(currentBrick.getPlayerID() == playerID){
-
-                rowCount++;
-            }
-
-            if(i % 4 == 3){
-
-            }
-        }
-
-        return levelScore;
-    }
-
-    private int getLevel2Score(int playerID){
-
-        int levelScore = 0;
-        int rowCount = 0;
-
-        for(int i = 0; i < 20; i++){
-
-
-        }
-
-        return levelScore;
-    }
-
-    private int getLevel3Score(int playerID){
-
-        int levelScore = 0;
-        int rowCount = 0;
-
-        for(int i = 0; i < 30; i++){
-
-
-        }
-
-        return levelScore;
-    }
-
-    private int getLevel4Score(int playerID){
-
-        int levelScore = 0;
-        int rowCount = 0;
-
-        for(int i = 0; i < 21; i++){
-
-
-        }
-
-        return levelScore;
-    }
-
     // TODO: ensure the playerID is how we want to assign a brick (is it an int?)
     // Runs after bricks are bought, runs once for each brick bought
-    private void addPlayerBrick(int playerID){
+    private void addPlayerBrick(PlayerID playerID){
 
-        currentLevel.add(new Brick(playerID));
+        currentLevel.addBrick(new PlayerBrick(playerID));
 
         count++;
         checkForUpdate();
@@ -110,7 +55,7 @@ public class Wonder {
 
     private void addNeutralBrick(){
 
-        currentLevel.add(new Brick());  // note the constructor is empty, thus asking for a neutral brick
+        currentLevel.addBrick(new NeutralBrick());
 
         count++;
         checkForUpdate();
@@ -118,25 +63,22 @@ public class Wonder {
 
     private void checkForUpdate() {
 
-        if(count == 12){            // Advance to second level
+        if(currentLevel.isFull()){            // Advance to second level
 
-            currentLevel = level2;
+            currentLevel = levelIterator.next();
 
-        }else if(count == 17){      // First 4 rows complete so increase brick price
+        }
+
+        if(count == BRICK_PRICE_INCREASE_INDEX){      // First 4 rows complete so increase brick price
 
             increaseBrickPrice();
 
-        }else if(count == 32){      // Advance to third level
+        }
 
-            currentLevel = level3;
-
-        }else if(count == 44){      // Irrigation now active, update desert to pasture
+        if(count == IRRIGATION_MARK_INDEX){      // Irrigation now active, update desert to pasture
 
             makeIrrigationActive();
 
-        }else if(count == 62){      // Advance to fourth level
-
-            currentLevel = level4;
         }
 
     }

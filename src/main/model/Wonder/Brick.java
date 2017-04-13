@@ -4,22 +4,13 @@ package model.Wonder;
  * Created by Kevin on 4/11/17.
  */
 
-public class Brick {
+public abstract class Brick {
 
-    int playerID;
-
-    Brick(){
-
-        playerID = -1;
-    }
-
-    // TODO: ensure this is the correct way we are assigning brick to player
-    Brick(int playerID){
-
-        this.playerID = playerID;
-    }
+    protected int playerID;
 
     public int getPlayerID() {
         return playerID;
     }
+
+    public abstract int getValue();
 }
