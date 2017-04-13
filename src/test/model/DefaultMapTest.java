@@ -35,8 +35,8 @@ public class DefaultMapTest {
         LandMap lm = map.getLandMap();
         WaterwayMap wm = map.getWaterwayMap();
 
-        SectorAdjacencyManager sam = map.generateSectorAdjacencyManager();
-        WaterwayAdjacencyManager wam = map.generateWaterwayAdjacencyManager();
+        SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
+        WaterwayAdjacencyManager wam = game.getWaterwayAdjacencyManager();
 
         //System.out.println(wm.toString());
         //WaterwayMap is created correctly

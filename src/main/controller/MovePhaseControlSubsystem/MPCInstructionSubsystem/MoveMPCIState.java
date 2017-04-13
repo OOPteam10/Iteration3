@@ -18,4 +18,9 @@ public class MoveMPCIState implements MPCInstructionState {
     public void select(MovePhaseControlMode context) {
         context.setStateToMoveSelected();
     }
+
+    //testing only
+    public String toString(){
+        return "Move State";
+    }
 }
