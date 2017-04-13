@@ -58,4 +58,8 @@ public enum CardinalDirection {
         }
         return opp;
     }
+
+    public int getDegree(){
+        return degree;
+    }
 }

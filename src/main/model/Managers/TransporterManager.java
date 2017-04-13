@@ -9,7 +9,7 @@ import java.util.HashMap;
 public abstract class TransporterManager<Obj, Loc>{
     private HashMap<Obj, Loc> managerMap = new HashMap<Obj, Loc>();
 
-    protected HashMap<Obj, Loc> getManagerMap() {
+    public HashMap<Obj, Loc> getManagerMap() {
         return managerMap;
     }
 
