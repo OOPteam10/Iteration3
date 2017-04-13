@@ -1,5 +1,8 @@
 package model.structures.producers;
 
+import model.Managers.GoodsManager;
+import model.TileSubsystem.Sector;
+import model.resources.Resource;
 import model.structures.Structure;
 
 /**
@@ -10,5 +13,5 @@ public abstract class Producer extends Structure {
 
     //Some member variables for production limits go here
 
-    public abstract Product produce();
+
 }

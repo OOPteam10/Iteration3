@@ -5,8 +5,8 @@ package model;
  */
 public class Goose implements Animal {
 
-    @Override
-    public Goose reproduce() {
+
+    /*public Goose reproduce() {
         return new Goose();
-    }
+    }*/
 }
