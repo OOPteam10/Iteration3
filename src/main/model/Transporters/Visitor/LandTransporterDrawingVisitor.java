@@ -1,19 +1,15 @@
 package model.Transporters.Visitor;
 
 import javafx.scene.canvas.GraphicsContext;
-import model.MapSubsystem.Location;
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
-import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
-import model.Transporters.Transporter;
+import model.Transporters.*;
 import view.Camera;
 import view.assets.AssetManager;
 import javafx.scene.image.Image;
 
 import java.awt.*;
 
-public class LandTransporterDrawingVisitor implements  TransporterVisitor {
+public class LandTransporterDrawingVisitor implements  LandTransporterVisitor {
     private AssetManager assets;
     private GraphicsContext gc;
     private Camera camera;
@@ -36,17 +32,13 @@ public class LandTransporterDrawingVisitor implements  TransporterVisitor {
     }
 
     @Override
-    public void visitLandTransporter(LandTransporter landTransporter){
-        landTransporter.accept(this);
-    }
-
-    @Override
     public void visitDonkey(Donkey donkey){
         Image img = assets.getImage("DONKEY");
         gc.drawImage(img, camera.offset(p).x+offsetX, camera.offset(p).y+offsetY,
                 assets.getImage("DONKEY").getWidth()*scale,
                 assets.getImage("DONKEY").getHeight()*scale);
     }
+
 
 //
 //    private Point findDrawingPoint(CardinalDirection cardinalDirection){
