@@ -1,5 +1,8 @@
 package model.structures.producers.primary;
 
+import model.Managers.GoodsManager;
+import model.TileSubsystem.Sector;
+import model.resources.Resource;
 import model.structures.producers.Product;
 import model.resources.Clay;
 

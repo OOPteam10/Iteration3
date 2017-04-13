@@ -1,5 +1,7 @@
 package model.structures.producers.secondary.transportation;
 
+import model.Managers.SeaTransporterManager;
+import model.Transporters.SeaTransporter;
 import model.structures.producers.Product;
 
 /**
@@ -7,8 +9,7 @@ import model.structures.producers.Product;
  */
 public class RowboatFactory extends TransportationProducer {
     @Override
-    public Product produce() {
+    public SeaTransporter produce() {
         return null;
     }
-
 }

@@ -1,5 +1,7 @@
 package model.structures.producers.secondary.transportation;
 
+import model.Managers.LandTransporterManager;
+import model.Transporters.LandTransporter;
 import model.structures.producers.Product;
 
 /**
@@ -7,8 +9,7 @@ import model.structures.producers.Product;
  */
 public class WagonFactory extends TransportationProducer {
     @Override
-    public Product produce() {
+    public LandTransporter produce() {
         return null;
     }
-
 }

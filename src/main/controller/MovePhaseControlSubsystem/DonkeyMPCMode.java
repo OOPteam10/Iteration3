@@ -7,8 +7,9 @@ import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
 import model.Transporters.Transporter;
-//import model.producers.Product;
+
 import model.resources.Resource;
+import model.structures.producers.Product;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private GoodsManager<Sector, Resource> landResourceManager;
-    private GoodsManager<Transporter, Resource> cargoManager;
+    private GoodsManager<Transporter, Product> cargoManager;
 
     public DonkeyMPCMode(ArrayList<Donkey> donkeys, MovePhaseControl context){
         this.donkeys = donkeys;
@@ -64,8 +65,9 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     }
 
     public void dropOff(){
-        Resource r = cargoManager.pop(currentDonkey);
-        landResourceManager.add(landTransporterManager.getLocation(currentDonkey), r);
+        Product p = cargoManager.pop(currentDonkey);
+        p.dropOff(landTransporterManager.getLocation(currentDonkey)); //crashes if donkey is carrying a seaTransporter
+
     };
     public void pickUp(){
         Resource r = landResourceManager.pop(landTransporterManager.getLocation(currentDonkey));

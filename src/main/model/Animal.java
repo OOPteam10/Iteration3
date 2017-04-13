@@ -5,6 +5,6 @@ package model;
  */
 public interface Animal {
 
-    Animal reproduce();
+    //Animal reproduce();
 
 }

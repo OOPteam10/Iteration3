@@ -13,9 +13,7 @@ public abstract class TransporterManager<Obj, Loc>{
         return managerMap;
     }
 
-    public void add(Obj o, Loc loc)
-
-    {
+    public void add(Obj o, Loc loc) {
         managerMap.put(o, loc);
     }
 
