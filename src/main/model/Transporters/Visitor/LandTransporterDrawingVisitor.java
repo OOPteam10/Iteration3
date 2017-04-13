@@ -32,11 +32,6 @@ public class LandTransporterDrawingVisitor implements  LandTransporterVisitor {
     }
 
     @Override
-    public void visitLandTransporter(LandTransporter landTransporter){
-        landTransporter.accept(this);
-    }
-
-    @Override
     public void visitDonkey(Donkey donkey){
         Image img = assets.getImage("DONKEY");
         gc.drawImage(img, camera.offset(p).x+offsetX, camera.offset(p).y+offsetY,
@@ -44,21 +39,6 @@ public class LandTransporterDrawingVisitor implements  LandTransporterVisitor {
                 assets.getImage("DONKEY").getHeight()*scale);
     }
 
-    @Override
-    public void visitWagon(Wagon wagon){
-        Image img = assets.getImage("WAGON");
-        gc.drawImage(img, camera.offset(p).x + offsetX, camera.offset(p).y+offsetY,
-                assets.getImage("WAGON").getWidth()*scale,
-                assets.getImage("WAGON").getHeight()*scale);
-    }
-    
-    @Override
-    public void visitTruck(Truck truck){
-        Image img = assets.getImage("TRUCK");
-        gc.drawImage(img, camera.offset(p).x + offsetX, camera.offset(p).y+offsetY,
-                assets.getImage("TRUCK").getWidth()*scale,
-                assets.getImage("TRUCK").getHeight()*scale);
-    }
 
 //
 //    private Point findDrawingPoint(CardinalDirection cardinalDirection){
