@@ -12,12 +12,12 @@ public class WonderLevel {
 
     private ArrayList<Brick> bricks = new ArrayList<>();
     private int rowSize;
-    private int size;
+    private int capacity;
 
     WonderLevel(int rowSize, int numRows){
 
         this.rowSize = rowSize;
-        size = rowSize * numRows;
+        capacity = rowSize * numRows;
     }
 
     // returns the score of this level for the player passed
@@ -41,10 +41,10 @@ public class WonderLevel {
                 numMyBricksInRow++;
             }
 
-            if(currentLocation % rowSize == rowSize){           // if last brick in the row
+            if(currentLocation % rowSize == 0){           // if last brick in the row
 
                 // calculate row score according to rules
-                int rowScore = numMyBricksInRow * (10/numPlayerBricksInRow);
+                int rowScore = (int)(numMyBricksInRow * (10.0/numPlayerBricksInRow));
 
                 // add to total score for the level
                 levelScore += rowScore;
@@ -63,7 +63,7 @@ public class WonderLevel {
     public boolean addBrick(Brick brick){
 
         // don't add if level is full
-        if(bricks.size() > size){
+        if(bricks.size() > capacity){
             return false;
         }
 
@@ -72,13 +72,13 @@ public class WonderLevel {
         return true;
     }
 
-    public int getSize(){
-        return size;
+    public int getCapacity(){
+        return capacity;
     }
 
     public boolean isFull(){
 
-        if(size == bricks.size()){
+        if(capacity == bricks.size()){
 
             return true;
 

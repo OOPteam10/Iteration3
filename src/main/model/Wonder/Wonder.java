@@ -9,6 +9,15 @@ import java.util.ListIterator;
  * Created by Kevin on 4/11/17.
  */
 
+/**
+ * TODO: LIST
+ *
+ * - activate irrigation
+ * - add buy method for player
+ * - ensure we consume player goods upon buying
+ *
+ */
+
 public class Wonder {
 
     private final int BRICK_PRICE_INCREASE_INDEX = 17;
@@ -20,6 +29,7 @@ public class Wonder {
 
     private int count;
     private int brickPrice;
+    private int capacity;
 
     public Wonder(){
 
@@ -32,40 +42,62 @@ public class Wonder {
 
         count = 0;
         brickPrice = 1;
+
+        capacity = 0;
+        for(WonderLevel level : levels){
+
+            capacity += level.getCapacity();
+        }
+
         currentLevel = levelIterator.next();
     }
 
-    // TODO: ensure the playerID is how we are checking this shizz
-    public int calculateScore(int playerID){
+    public int calculateScore(PlayerID playerID){
 
         int totalScore = 0;
 
+        for( WonderLevel level : levels){
 
+            totalScore += level.getScore(playerID);
+        }
 
         return totalScore;
     }
 
-    // TODO: ensure the playerID is how we want to assign a brick (is it an int?)
     // Runs after bricks are bought, runs once for each brick bought
-    private void addPlayerBrick(PlayerID playerID){
+    public boolean addPlayerBrick(PlayerID playerID){
 
-        currentLevel.addBrick(new PlayerBrick(playerID));
+        if( count < capacity ){
 
-        count++;
-        checkForUpdate();
+            currentLevel.addBrick(new PlayerBrick(playerID));
+
+            count++;
+            checkForUpdate();
+
+            return true;
+        }
+
+        return false;
     }
 
-    private void addNeutralBrick(){
+    public boolean addNeutralBrick(){
 
-        currentLevel.addBrick(new NeutralBrick());
+        if( count < capacity ){
 
-        count++;
-        checkForUpdate();
+            currentLevel.addBrick(new NeutralBrick());
+
+            count++;
+            checkForUpdate();
+
+            return true;
+        }
+
+        return false;
     }
 
     private void checkForUpdate() {
 
-        if(currentLevel.isFull()){            // Advance to second level
+        if(currentLevel.isFull() && levelIterator.hasNext()){            // Advance to second level
 
             currentLevel = levelIterator.next();
 
@@ -95,5 +127,9 @@ public class Wonder {
     // TODO
     private void makeIrrigationActive(){
 
+    }
+
+    public int getBrickPrice(){
+        return brickPrice;
     }
 }
