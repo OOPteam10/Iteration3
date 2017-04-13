@@ -12,9 +12,7 @@ import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
-import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
-import model.Transporters.Transporter;
+import model.Transporters.*;
 import model.Transporters.Visitor.LandTransporterDrawingVisitor;
 import utilities.TileEditor;
 import view.Camera;
@@ -49,11 +47,11 @@ public class GameboardPanel extends Panel {
         this.panelManager = panelManager;
         landTransporterManager = game.getLandTransporterManager();
         updateGameMap();
-        addDonkey();
+        addTransporters();
     }
 
     //TODO: this is a test function, delete it after
-    private void addDonkey(){
+    private void addTransporters(){
 //        Donkey dq = new Donkey();
 //        Location l = new Location(0,0,0);
 //        game.getActualMap().formatSurfaceMaps();
@@ -62,13 +60,13 @@ public class GameboardPanel extends Panel {
 //        landTransporterManager.add(dq, lt1.getSectorAtCardinalDirection(CardinalDirection.NE));
 
         Donkey dq = new Donkey();
-        Donkey dq2 = new Donkey();
+        Wagon dq2 = new Wagon();
         Donkey dq3 = new Donkey();
         Donkey dq4 = new Donkey();
-        Donkey dq5 = new Donkey();
-        Donkey dq6 = new Donkey();
-        Donkey dq7 = new Donkey();
-        Donkey dq8 = new Donkey();
+        Wagon dq5 = new Wagon();
+        Truck dq6 = new Truck();
+        Wagon dq7 = new Wagon();
+        Truck dq8 = new Truck();
         landTransporterManager.add(dq, gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.NE));
         landTransporterManager.add(dq2, gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.SSE));
         landTransporterManager.add(dq3, gameMap.getTile(new Location(-1,0,1)).getSectorAtCardinalDirection(CardinalDirection.NNE));

@@ -4,7 +4,7 @@ import model.Animal;
 
 import model.Managers.LandTransporterManager;
 
-import model.Transporters.Visitor.TransporterVisitor;
+import model.Transporters.Visitor.LandTransporterVisitor;
 
 
 /**
@@ -20,7 +20,7 @@ public class Donkey extends LandTransporter implements Animal {
     }*/
 
     @Override
-    public void accept(TransporterVisitor v){
+    public void accept(LandTransporterVisitor v){
         v.visitDonkey(this);
     }
 

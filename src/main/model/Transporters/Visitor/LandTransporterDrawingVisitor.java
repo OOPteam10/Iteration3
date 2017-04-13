@@ -4,16 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 import model.MapSubsystem.Location;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
-import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
-import model.Transporters.Transporter;
+import model.Transporters.*;
 import view.Camera;
 import view.assets.AssetManager;
 import javafx.scene.image.Image;
 
 import java.awt.*;
 
-public class LandTransporterDrawingVisitor implements  TransporterVisitor {
+public class LandTransporterDrawingVisitor implements  LandTransporterVisitor {
     private AssetManager assets;
     private GraphicsContext gc;
     private Camera camera;
@@ -31,23 +29,46 @@ public class LandTransporterDrawingVisitor implements  TransporterVisitor {
         this.sectorLocation = sectorLocation;
         this.p = p;
         scale = camera.getScale()*0.5;
-        offsetX = (int)(43* camera.getScale()/0.3);
-        offsetY = (int)(15*camera.getScale()/0.3);
-    }
-
-    @Override
-    public void visitLandTransporter(LandTransporter landTransporter){
-        landTransporter.accept(this);
+        
+       
     }
 
     @Override
     public void visitDonkey(Donkey donkey){
         Image img = assets.getImage("DONKEY");
-        gc.drawImage(img, camera.offset(p).x+offsetX, camera.offset(p).y+offsetY,
+        gc.drawImage(img, camera.offset(p).x+getOffsetX(img)-assets.getImage("DONKEY").getWidth()*scale,
+                camera.offset(p).y+getOffsetY(img),
                 assets.getImage("DONKEY").getWidth()*scale,
                 assets.getImage("DONKEY").getHeight()*scale);
     }
 
+
+    @Override
+    public void visitWagon(Wagon wagon){
+        Image img = assets.getImage("WAGON");
+        gc.drawImage(img, camera.offset(p).x + getOffsetX(img), camera.offset(p).y+getOffsetY(img),
+                assets.getImage("WAGON").getWidth()*scale,
+                assets.getImage("WAGON").getHeight()*scale);
+    }
+
+    @Override
+    public void visitTruck(Truck truck){
+        Image img = assets.getImage("TRUCK");
+        gc.drawImage(img, camera.offset(p).x + getOffsetX(img)+assets.getImage("DONKEY").getWidth()*scale,
+                camera.offset(p).y+getOffsetY(img),
+                assets.getImage("TRUCK").getWidth()*scale,
+                assets.getImage("TRUCK").getHeight()*scale);
+    }
+
+    private int getOffsetX(Image img){
+        offsetX = (int)(400*camera.getScale()/2-img.getWidth()*scale/2);
+        return offsetX;
+    }
+    
+    private int getOffsetY(Image img){
+        offsetY = (int)(200*camera.getScale()/2-img.getHeight()*scale/2);
+        return offsetY;
+    }
 //
 //    private Point findDrawingPoint(CardinalDirection cardinalDirection){
 //        Point sectorDrawingLocation = new Point();
