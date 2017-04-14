@@ -1,7 +1,6 @@
 package model.Abilities;
 
-import model.Managers.LandProducerOccupancyManager;
-import model.Managers.SectorAdjacencyManager;
+import model.Managers.LandProducerManager;
 import model.TileSubsystem.Sector;
 
 /**
@@ -14,7 +13,7 @@ public class BuildSawmillAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, LandProducerOccupancyManager lom) {
+    public void execute(Sector s, LandProducerManager lom) {
 
     }
 }

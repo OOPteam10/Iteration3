@@ -55,14 +55,14 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         mpcInstructionStates.add(new MoveMPCIState());
         currentMPCInstructionState = mpcInstructionStates.get(0);
         if(resourceManager.getQuantityInArea(landTransporterManager.getLocation(currentDonkey)) > 0){
-            mpcInstructionStates.add(new PickUpMPCIState());
+            mpcInstructionStates.add(new PickUpResourceMPCIState());
         }
         if(cargoManager.getQuantityInArea(currentDonkey) > 0){
             mpcInstructionStates.add(new DropOffMPCIState());
         }
         ArrayList<LandTransporter> others = landTransporterManager.getNeighbors(currentDonkey);
         if(others.size() > 0){
-            mpcInstructionStates.add(new PickUpTransporterMPCIState(others));
+            mpcInstructionStates.add(new PickUpLandTransporterMPCIState(others));
         }
 
     }

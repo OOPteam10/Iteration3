@@ -1,7 +1,7 @@
 package model.Abilities.MovePhaseAbilities;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.MPCInstructionState;
-import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.PickUpTransporterMPCIState;
+import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.PickUpLandTransporterMPCIState;
 import model.Transporters.LandTransporter;
 
 import java.util.ArrayList;
@@ -19,6 +19,6 @@ public class PickUpTransporterMPAbility extends MovePhaseAbility {
 
     @Override
     MPCInstructionState produceInstructionState() {
-        return new PickUpTransporterMPCIState(landTransporters);
+        return new PickUpLandTransporterMPCIState(landTransporters);
     }
 }
