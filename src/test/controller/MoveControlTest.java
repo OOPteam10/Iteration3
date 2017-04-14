@@ -11,6 +11,7 @@ import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
+import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Waterway;
 import model.Transporters.*;
 import model.resources.Board;
@@ -40,9 +41,12 @@ public class MoveControlTest {
         SeaTransporterShoreManager stsm = game.getSeaTransporterShoreManager();
         ResourceManager rm = game.getResourceManager();
 
+        SectorAdjacencyManager roadAdjacencyManager = game.getRoadAdjacencyManager();
+
 
         Location SDesert = new Location(0,0,0);
         Location SMountain = new Location(0,-1,1);
+        Location NEOfDesert = new Location(1, 0, -1);
 
 
         //map.formatSurfaceMaps();    //for whatever reason, if this isn't here, then the tile objects in
@@ -53,10 +57,14 @@ public class MoveControlTest {
 
         LandTile lt1 = lm.getTile(SDesert);
         LandTile lt2 = lm.getTile(SMountain);
+        LandTile lt1RoadTarget = lm.getTile(NEOfDesert);
 
         ArrayList<Donkey> donkeys = new ArrayList<Donkey>();
         donkeys.add(new Donkey());
         donkeys.add(new Donkey());
+
+        ArrayList<RoadTransporter> roadTransporters = new ArrayList<RoadTransporter>();
+        roadTransporters.add(new Truck());
 
         Raft raft = new Raft();
 
@@ -65,7 +73,17 @@ public class MoveControlTest {
         rm.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NNE), new Stone());
         rm.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NNE), new Board());
 
+        ltm.add(roadTransporters.get(0), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
+
         stsm.add(raft, lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
+
+
+        //making a road
+        SectorAdjacency road1 = new SectorAdjacency();
+        CardinalDirection roadCD1 = CardinalDirection.NE;
+        road1.add(roadCD1, lt1RoadTarget.getSectorAtCardinalDirection(roadCD1.getOppositeSide()));
+        roadAdjacencyManager.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NE), road1);
+        
 
 
 
@@ -73,6 +91,8 @@ public class MoveControlTest {
         MovePhaseControl mpc = new MovePhaseControl(ltm,  game.getSeaTransporterManager(),
                 game.getSeaTransporterShoreManager(), sam,  game.getRoadAdjacencyManager(), rm,
                 game.getCargoManager(), donkeys);
+
+        mpc.addRoadTransporterMPCMode(roadTransporters);
 
         while(true){
             debugMenu(mpc, game);

@@ -4,6 +4,7 @@ import controller.ControlHandler;
 import model.Managers.*;
 
 import model.Transporters.Donkey;
+import model.Transporters.RoadTransporter;
 import view.MapMakerPreview;
 
 import java.util.ArrayList;
@@ -33,8 +34,7 @@ public class MovePhaseControl implements ControlHandler {
     public MovePhaseControl(LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
                             SeaTransporterShoreManager seaTransporterShoreManager,
                             SectorAdjacencyManager sectorAdjacencyManager, SectorAdjacencyManager roadAdjacencyManager,
-                            ResourceManager resourceManager, CargoManager cargoManager, ArrayList<Donkey> donkeys
-                            ){
+                            ResourceManager resourceManager, CargoManager cargoManager, ArrayList<Donkey> donkeys){
         this.landTransporterManager = landTransporterManager;
         this.seaTransporterManager = seaTransporterManager;
         this.seaTransporterShoreManager = seaTransporterShoreManager;
@@ -45,6 +45,10 @@ public class MovePhaseControl implements ControlHandler {
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
         movePhaseControlModes.add(new DonkeyMPCMode(donkeys, this));
         currentMovePhaseControlMode = movePhaseControlModes.get(0);
+    }
+
+    public void addRoadTransporterMPCMode(ArrayList<RoadTransporter> roadTransporters){
+        movePhaseControlModes.add(new RoadTransporterMPCMode(roadTransporters, this));
     }
 
     private void nextMode(){
@@ -69,6 +73,12 @@ public class MovePhaseControl implements ControlHandler {
     private void previousTransporter(){
         currentMovePhaseControlMode.previousTransporter();
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
+    }
+
+    public void resetMPCInstructionStates(){
+        for(MovePhaseControlMode mpcm: movePhaseControlModes){
+            mpcm.resetCurrentMPCInstructionState();
+        }
     }
 
     private void cycleLeft(){
