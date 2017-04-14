@@ -10,12 +10,12 @@ import java.util.ArrayList;
 /**
  * Created by hankerins on 4/13/17.
  */
-public class PickUpSelectedState implements MPCInstructionState {
+public class PickUpResourceSelectedState implements MPCInstructionState {
 
     private ArrayList<Resource> resources;
     private Resource currentResource;
 
-    public PickUpSelectedState(MovePhaseControlMode context) {
+    public PickUpResourceSelectedState(MovePhaseControlMode context) {
         resources = context.getResourceManager().get(context.getSectorTransporterManager().getLocation(context.getCurrentTransporter()));
         currentResource = resources.get(0);
     }

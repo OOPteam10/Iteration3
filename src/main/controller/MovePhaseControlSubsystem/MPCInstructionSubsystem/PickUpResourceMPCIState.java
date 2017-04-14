@@ -5,7 +5,7 @@ import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
 /**
  * Created by hankerins on 4/11/17.
  */
-public class PickUpMPCIState implements MPCInstructionState {
+public class PickUpResourceMPCIState implements MPCInstructionState {
 
     public void cycleLeft(MovePhaseControlMode context) {
         context.previousInstruction();
@@ -16,7 +16,7 @@ public class PickUpMPCIState implements MPCInstructionState {
     }
 
     public void select(MovePhaseControlMode context) {
-        context.setCurrentMPCInstructionState(new PickUpSelectedState(context));
+        context.setCurrentMPCInstructionState(new PickUpResourceSelectedState(context));
 
     }
     //testing only

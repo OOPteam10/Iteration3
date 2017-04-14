@@ -8,11 +8,11 @@ import java.util.ArrayList;
 /**
  * Created by hankerins on 4/13/17.
  */
-public class PickUpTransporterMPCIState implements MPCInstructionState {
+public class PickUpLandTransporterMPCIState implements MPCInstructionState {
 
     private ArrayList<LandTransporter> landTransporters;
 
-    public PickUpTransporterMPCIState(ArrayList<LandTransporter> landTransporters){
+    public PickUpLandTransporterMPCIState(ArrayList<LandTransporter> landTransporters){
         this.landTransporters = landTransporters;
     }
 
@@ -25,9 +25,7 @@ public class PickUpTransporterMPCIState implements MPCInstructionState {
     }
 
     public void select(MovePhaseControlMode context) {
-        //TODO: actually select what to pick up
-        context.pickUpLandTransporter(landTransporters.get(0));
-        context.resetCurrentMPCInstructionState();
+        context.setCurrentMPCInstructionState(new PickUpLandTransporterSelectedState(context, landTransporters));
     }
 
     //testing only

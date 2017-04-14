@@ -1,7 +1,7 @@
 package model.Abilities.MovePhaseAbilities;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.MPCInstructionState;
-import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.PickUpMPCIState;
+import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.PickUpResourceMPCIState;
 
 /**
  * Created by hankerins on 4/13/17.
@@ -9,6 +9,6 @@ import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.PickUpMPCISt
 public class PickUpResourceMPAbility extends MovePhaseAbility {
     @Override
     MPCInstructionState produceInstructionState() {
-        return new PickUpMPCIState();
+        return new PickUpResourceMPCIState();
     }
 }
