@@ -18,11 +18,16 @@ public  abstract class SeaTransporter extends Transporter<Waterway> {
         this.stdoAbility = stdoAbility;
     }
 
-    public void dropOff(Waterway w){
-        stdoAbility.execute(w);
+    public void dropOff(Sector s){
+        stdoAbility.execute(s);
     }
 
+
     public abstract void accept(SeaTransporterVisitor v);
+
+    //public abstract void dropOff(Waterway l);  add later
+
+
 
 
 }

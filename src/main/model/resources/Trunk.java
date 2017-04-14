@@ -8,4 +8,9 @@ import model.TileSubsystem.Sector;
  */
 
 public class Trunk extends Resource implements PaperMillResource, CoalBurnerResource{
+    //testing only
+    public String toString(){
+        return "Trunk";
+    }
+
 }

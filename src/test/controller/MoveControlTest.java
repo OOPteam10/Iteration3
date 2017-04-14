@@ -12,9 +12,7 @@ import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Waterway;
-import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
-import model.Transporters.Transporter;
+import model.Transporters.*;
 import model.resources.Board;
 import model.resources.Resource;
 import model.resources.Stone;
@@ -39,6 +37,7 @@ public class MoveControlTest {
 
         SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
         LandTransporterManager ltm = game.getLandTransporterManager();
+        SeaTransporterShoreManager stsm = game.getSeaTransporterShoreManager();
         ResourceManager rm = game.getResourceManager();
 
 
@@ -59,16 +58,21 @@ public class MoveControlTest {
         donkeys.add(new Donkey());
         donkeys.add(new Donkey());
 
+        Raft raft = new Raft();
+
         ltm.add(donkeys.get(0), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
         ltm.add(donkeys.get(1), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
         rm.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NNE), new Stone());
         rm.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NNE), new Board());
 
+        stsm.add(raft, lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
+
 
 
 
         MovePhaseControl mpc = new MovePhaseControl(ltm,  game.getSeaTransporterManager(),
-                 sam,  game.getRoadAdjacencyManager(), rm,  game.getCargoManager(), donkeys);
+                game.getSeaTransporterShoreManager(), sam,  game.getRoadAdjacencyManager(), rm,
+                game.getCargoManager(), donkeys);
 
         while(true){
             debugMenu(mpc, game);
@@ -109,9 +113,14 @@ public class MoveControlTest {
                 for(Location l: map.getMap().keySet()){
                     for(Sector s: map.getMap().get(l).getSectors()){
                         ArrayList<LandTransporter> landTransporters = game.getLandTransporterManager().getContentsOfArea(s);
+                        ArrayList<SeaTransporter> seaTransporters = game.getSeaTransporterShoreManager().getContentsOfArea(s);
                         if(landTransporters.size() > 0){
                             System.out.println(l.toString() + " " + s.toString() + " " + landTransporters.size() + " transporters on land");
                         }
+                        if(seaTransporters.size() > 0){
+                            System.out.println(l.toString() + " " + s.toString() + " " + seaTransporters.size() + " boats on land");
+                        }
+
                         if(game.getResourceManager().get(s) != null){
                             System.out.print(l.toString() + " " + s.toString() + " ");
                             for(Resource r: game.getResourceManager().get(s)){

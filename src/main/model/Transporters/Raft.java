@@ -1,5 +1,6 @@
 package model.Transporters;
 
+
 import model.Transporters.Visitor.SeaTransporterVisitor;
 
 /**
@@ -7,7 +8,12 @@ import model.Transporters.Visitor.SeaTransporterVisitor;
  */
 public class Raft extends SeaTransporter {
     @Override
-    public void accept(SeaTransporterVisitor v){
+    public void accept(SeaTransporterVisitor v) {
         v.visitRaft(this);
+        //testing
+    }
+
+    public String toString() {
+        return "Raft";
     }
 }

@@ -22,6 +22,7 @@ public class Game {
     private WaterwayAdjacencyManager waterwayAdjacencyManager;
     private LandTransporterManager landTransporterManager;
     private SeaTransporterManager seaTransporterManager;
+    private SeaTransporterShoreManager seaTransporterShoreManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
@@ -37,6 +38,7 @@ public class Game {
         waterwayAdjacencyManager = map.generateWaterwayAdjacencyManager();
         landTransporterManager = new LandTransporterManager();
         seaTransporterManager = new SeaTransporterManager();
+        seaTransporterShoreManager = new SeaTransporterShoreManager();
         resourceManager = new ResourceManager();
         cargoManager = new CargoManager();
     }
@@ -80,4 +82,6 @@ public class Game {
     public SeaTransporterManager getSeaTransporterManager() {
         return seaTransporterManager;
     }
+
+    public SeaTransporterShoreManager getSeaTransporterShoreManager() {return seaTransporterShoreManager;}
 }

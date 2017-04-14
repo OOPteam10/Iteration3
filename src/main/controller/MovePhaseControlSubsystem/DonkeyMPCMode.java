@@ -5,6 +5,7 @@ import model.Managers.*;
 import model.Transporters.Donkey;
 import model.Transporters.LandTransporter;
 
+import model.Transporters.SeaTransporter;
 import model.Transporters.Transporter;
 import model.resources.Resource;
 import model.structures.producers.Product;
@@ -22,6 +23,7 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     private Donkey currentDonkey;
     private ArrayList<Donkey> donkeys;
     private LandTransporterManager landTransporterManager;
+    private SeaTransporterShoreManager seaTransporterShoreManager;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
@@ -31,6 +33,7 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         this.donkeys = donkeys;
         currentDonkey = donkeys.get(0);
         landTransporterManager = context.getLandTransporterManager();
+        seaTransporterShoreManager = context.getSeaTransporterShoreManager();
         sectorAdjacencyManager = context.getSectorAdjacencyManager();
         roadAdjacencyManager = context.getRoadAdjacencyManager();
         resourceManager = context.getResourceManager();
@@ -64,24 +67,18 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         if(others.size() > 0){
             mpcInstructionStates.add(new PickUpLandTransporterMPCIState(others));
         }
+        ArrayList<SeaTransporter> dockedBoats = seaTransporterShoreManager.getContentsOfArea(landTransporterManager.getLocation(currentDonkey));
+        if(dockedBoats.size() > 0){
+            mpcInstructionStates.add(new PickUpSeaTransporterMPCIState(dockedBoats));
+        }
 
     }
 
     public void dropOff(Product product){
         cargoManager.remove(currentDonkey, product);
         product.dropOff(landTransporterManager.getLocation(currentDonkey));
-
-        //crashes if donkey is carrying a seaTransporter
-        //currently doesn't add the donkey back to the list of donkeys to control
-        //this is easily fixed by using a list of donkeys that is updated from the landTransporterManager,
-        //but would require rtti to add only the donkeys from the LTM to the list
-        //also, if donkeys exist but are all being carried as cargo (ergo, no donkeys in the LTM),
-        //we don't want this mode to exist, so we need a way for the LTM to return all its donkeys
-        //one option is to have a specific donkey manager separate from LTM, but then we have to check
-        //2 managers to find all the transporters a donkey can pick up, 2 lists during production/building phase
-        //to know where we can produce/build, etc.  Lets solve this
-    };
-    public void pickUp(Resource r){
+    }
+    public void pickUpResource(Resource r){
         resourceManager.remove(landTransporterManager.getLocation(currentDonkey), r);
         cargoManager.add(currentDonkey, r);
     }
@@ -90,6 +87,10 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         landTransporterManager.removeOccupant(lt);
         cargoManager.add(currentDonkey, lt);
         donkeys.remove(lt);
+    }
+    public void pickUpSeaTransporter(SeaTransporter st){
+        seaTransporterShoreManager.removeOccupant(st);
+        cargoManager.add(currentDonkey, st);
     }
 
 

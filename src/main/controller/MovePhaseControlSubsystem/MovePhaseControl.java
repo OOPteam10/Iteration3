@@ -24,16 +24,20 @@ public class MovePhaseControl implements ControlHandler {
 
     private LandTransporterManager landTransporterManager;
     private SeaTransporterManager seaTransporterManager;
+    private SeaTransporterShoreManager seaTransporterShoreManager;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
 
     public MovePhaseControl(LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
+                            SeaTransporterShoreManager seaTransporterShoreManager,
                             SectorAdjacencyManager sectorAdjacencyManager, SectorAdjacencyManager roadAdjacencyManager,
-                            ResourceManager resourceManager, CargoManager cargoManager, ArrayList<Donkey> donkeys){
+                            ResourceManager resourceManager, CargoManager cargoManager, ArrayList<Donkey> donkeys
+                            ){
         this.landTransporterManager = landTransporterManager;
         this.seaTransporterManager = seaTransporterManager;
+        this.seaTransporterShoreManager = seaTransporterShoreManager;
         this.sectorAdjacencyManager = sectorAdjacencyManager;
         this.roadAdjacencyManager = roadAdjacencyManager;
         this.resourceManager = resourceManager;
@@ -90,6 +94,8 @@ public class MovePhaseControl implements ControlHandler {
     public SeaTransporterManager getSeaTransporterManager() {
         return seaTransporterManager;
     }
+
+    public SeaTransporterShoreManager getSeaTransporterShoreManager() {return seaTransporterShoreManager;}
 
     public SectorAdjacencyManager getSectorAdjacencyManager() {
         return sectorAdjacencyManager;
