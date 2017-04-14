@@ -1,6 +1,6 @@
 package model.Abilities;
 
-import model.Managers.SeaProducerOccupancyManager;
+import model.Managers.SeaProducerManager;
 import model.TileSubsystem.Tiles.SeaTile;
 
 /**
@@ -13,7 +13,7 @@ public class BuildOilRigAbility extends SeaBuildAbility {
     }
 
     @Override
-    public void execute(SeaTile s, SeaProducerOccupancyManager som) {
+    public void execute(SeaTile s, SeaProducerManager spm) {
 
     }
 }
