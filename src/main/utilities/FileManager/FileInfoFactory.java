@@ -42,7 +42,7 @@ public class FileInfoFactory {
         return new ResourceFileInfo("Fuel");
     }
 
-    public static ResourceFileInfo generateFileInfo(Coins c) {
+    public static ResourceFileInfo generateFileInfo(Coin c) {
         return new ResourceFileInfo("Coins");
     }
 

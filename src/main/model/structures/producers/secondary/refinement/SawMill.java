@@ -1,16 +1,20 @@
 package model.structures.producers.secondary.refinement;
 
-import model.Managers.GoodsManager;
-import model.TileSubsystem.Sector;
-import model.resources.Resource;
+
+import model.structures.producers.SecondaryProducerTypeA;
+import model.resources.Board;
+import model.resources.Trunk;
 import model.structures.producers.Product;
 
 /**
  * Created by cduica on 4/8/17.
  */
-public class SawMill extends RefinementProducer {
+public class SawMill extends SecondaryProducerTypeA<Trunk> {
     @Override
     public Product produce() {
+        if(consumeRawResource()){
+            return new Board();
+        }
         return null;
     }
 
