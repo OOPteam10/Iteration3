@@ -1,7 +1,12 @@
 package model;
 
 /**
- * Created by allisonaguirre on 4/11/17.
+ * Created by Kevin on 4/13/17.
  */
+
 public class PlayerID {
+
+    public PlayerID(){
+
+    }
 }
