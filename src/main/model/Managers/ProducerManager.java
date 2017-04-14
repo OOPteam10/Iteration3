@@ -1,12 +1,14 @@
 package model.Managers;
 
+import model.structures.producers.Producer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by hankerins on 4/11/17.
  */
-public abstract class ProducerManager<L, P> {
+public abstract class ProducerManager<L, P extends Producer> {
     private HashMap<L, P> managerMap = new HashMap<L, P>();
 
     protected HashMap<L, P> getManagerMap() {

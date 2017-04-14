@@ -1,12 +1,14 @@
 package model.Managers;
 
+import model.Transporters.Transporter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by hankerins on 4/8/17.
  */
-public abstract class TransporterManager<Obj, Loc>{
+public abstract class TransporterManager<Obj extends Transporter, Loc>{
     private HashMap<Obj, Loc> managerMap = new HashMap<Obj, Loc>();
 
     public HashMap<Obj, Loc> getManagerMap() {
