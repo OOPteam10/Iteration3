@@ -1,5 +1,6 @@
 package model.Transporters;
 
+
 import model.Transporters.Visitor.LandTransporterVisitor;
 
 /**
@@ -7,7 +8,8 @@ import model.Transporters.Visitor.LandTransporterVisitor;
  */
 public class Truck extends RoadTransporter {
     @Override
-    public void accept(LandTransporterVisitor v){
+    public void accept(LandTransporterVisitor v) {
         v.visitTruck(this);
     }
+
 }

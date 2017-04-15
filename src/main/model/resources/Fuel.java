@@ -8,4 +8,9 @@ import model.TileSubsystem.Sector;
  */
 public class Fuel extends Resource {
 
+    //testing only
+    public String toString(){
+        return "Fuel";
+    }
+
 }

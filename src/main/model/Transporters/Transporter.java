@@ -9,5 +9,5 @@ import model.structures.producers.Product;
  */
 
 public abstract class Transporter<L> implements Product<L> {
-    public abstract void dropOff(L l);
+
 }

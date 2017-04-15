@@ -1,7 +1,6 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 
-import controller.MovePhaseControlSubsystem.MovePhaseControl;
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
 import model.resources.Resource;
 
@@ -34,7 +33,7 @@ public class PickUpResourceSelectedState implements MPCInstructionState {
 
     @Override
     public void select(MovePhaseControlMode context) {
-        context.pickUp(currentResource);
+        context.pickUpResource(currentResource);
         context.resetCurrentMPCInstructionState();
     }
 

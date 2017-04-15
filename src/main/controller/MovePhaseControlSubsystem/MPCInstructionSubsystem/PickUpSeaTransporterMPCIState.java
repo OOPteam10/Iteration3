@@ -2,18 +2,19 @@ package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
 import model.Transporters.LandTransporter;
+import model.Transporters.SeaTransporter;
 
 import java.util.ArrayList;
 
 /**
- * Created by hankerins on 4/13/17.
+ * Created by hankerins on 4/14/17.
  */
-public class PickUpLandTransporterMPCIState implements MPCInstructionState {
+public class PickUpSeaTransporterMPCIState implements MPCInstructionState {
 
-    private ArrayList<LandTransporter> landTransporters;
+    private ArrayList<SeaTransporter> seaTransporters;
 
-    public PickUpLandTransporterMPCIState(ArrayList<LandTransporter> landTransporters){
-        this.landTransporters = landTransporters;
+    public PickUpSeaTransporterMPCIState(ArrayList<SeaTransporter> seaTransporters){
+        this.seaTransporters = seaTransporters;
     }
 
     public void cycleLeft(MovePhaseControlMode context) {
@@ -25,11 +26,11 @@ public class PickUpLandTransporterMPCIState implements MPCInstructionState {
     }
 
     public void select(MovePhaseControlMode context) {
-        context.setCurrentMPCInstructionState(new PickUpLandTransporterSelectedState(context, landTransporters));
+        context.setCurrentMPCInstructionState(new PickUpSeaTransporterSelectedState(context, seaTransporters));
     }
 
     //testing only
     public String toString(){
-        return "Pick Up Land Transporter State";
+        return "Pick Up Sea Transporter State";
     }
 }

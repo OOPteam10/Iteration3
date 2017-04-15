@@ -4,6 +4,7 @@ import controller.ControlHandler;
 import model.Managers.*;
 
 import model.Transporters.Donkey;
+import model.Transporters.RoadTransporter;
 import view.MapMakerPreview;
 
 import java.util.ArrayList;
@@ -24,16 +25,19 @@ public class MovePhaseControl implements ControlHandler {
 
     private LandTransporterManager landTransporterManager;
     private SeaTransporterManager seaTransporterManager;
+    private SeaTransporterShoreManager seaTransporterShoreManager;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
 
     public MovePhaseControl(LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
+                            SeaTransporterShoreManager seaTransporterShoreManager,
                             SectorAdjacencyManager sectorAdjacencyManager, SectorAdjacencyManager roadAdjacencyManager,
                             ResourceManager resourceManager, CargoManager cargoManager, ArrayList<Donkey> donkeys){
         this.landTransporterManager = landTransporterManager;
         this.seaTransporterManager = seaTransporterManager;
+        this.seaTransporterShoreManager = seaTransporterShoreManager;
         this.sectorAdjacencyManager = sectorAdjacencyManager;
         this.roadAdjacencyManager = roadAdjacencyManager;
         this.resourceManager = resourceManager;
@@ -41,6 +45,10 @@ public class MovePhaseControl implements ControlHandler {
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
         movePhaseControlModes.add(new DonkeyMPCMode(donkeys, this));
         currentMovePhaseControlMode = movePhaseControlModes.get(0);
+    }
+
+    public void addRoadTransporterMPCMode(ArrayList<RoadTransporter> roadTransporters){
+        movePhaseControlModes.add(new RoadTransporterMPCMode(roadTransporters, this));
     }
 
     private void nextMode(){
@@ -67,6 +75,12 @@ public class MovePhaseControl implements ControlHandler {
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
 
+    public void resetMPCInstructionStates(){
+        for(MovePhaseControlMode mpcm: movePhaseControlModes){
+            mpcm.resetCurrentMPCInstructionState();
+        }
+    }
+
     private void cycleLeft(){
         currentMovePhaseControlMode.cycleLeft();
     } //changes instruction or target
@@ -90,6 +104,8 @@ public class MovePhaseControl implements ControlHandler {
     public SeaTransporterManager getSeaTransporterManager() {
         return seaTransporterManager;
     }
+
+    public SeaTransporterShoreManager getSeaTransporterShoreManager() {return seaTransporterShoreManager;}
 
     public SectorAdjacencyManager getSectorAdjacencyManager() {
         return sectorAdjacencyManager;

@@ -9,4 +9,8 @@ import model.TileSubsystem.Sector;
 public class Stone extends Resource {
 
 
+    //testing only
+    public String toString(){
+        return "Stone";
+    }
 }

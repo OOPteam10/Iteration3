@@ -8,4 +8,10 @@ import model.TileSubsystem.Sector;
  */
 
 public class Board extends Resource implements PaperMillResource, CoalBurnerResource {
+
+    //testing only
+    public String toString(){
+        return "Board";
+    }
+
 }
