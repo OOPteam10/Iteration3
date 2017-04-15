@@ -12,13 +12,13 @@ import java.util.HashMap;
  * this works best if a player has to drop their resources before building,
  * otherwise we need a cargo manager for every resource type (doable)
  *
- * this version requires a GoodsManager for each resource type.  I think
+ * this version requires a ListManager for each resource type.  I think
  *
- * gonna use a generic GoodsManager<Sector, Resource>,
+ * gonna use a generic ListManager<Sector, Resource>,
  *
  * examples at bottom
  */
-public class GoodsManager<Loc, GoodsType> {
+public class ListManager<Loc, GoodsType> {
     private HashMap<Loc, ArrayList<GoodsType>> managerMap = new HashMap<Loc, ArrayList<GoodsType>>();
 
     public HashMap<Loc, ArrayList<GoodsType>> getManagerMap() {
@@ -35,18 +35,18 @@ public class GoodsManager<Loc, GoodsType> {
         managerMap.get(l).add(r);
     }
 
+    public void add(Loc l, ArrayList<GoodsType> r) {
+        for(GoodsType goodsType: r){
+            add(l, goodsType);
+        }
+    }
+
     public void remove(Loc l, GoodsType g){
-
             managerMap.get(l).remove(g);
-
     }
 
     public ArrayList<GoodsType> get(Loc l){
         return managerMap.get(l);
-    }
-
-    public GoodsType pop(Loc l){
-        return managerMap.get(l).remove(managerMap.size()-1);
     }
 
     public int getQuantityInArea(Loc l){
@@ -58,9 +58,9 @@ public class GoodsManager<Loc, GoodsType> {
 
 
 
-    //GoodsManager<Transporter, Cargo> CargoManager = new GoodsManager<Transporter, Product>();
-    //GoodsManager<OilRig, Resource> OilRigResourceManager = new GoodsManager<OilRig, Resource>();
-    //GoodsManager<Sector, Stone> StoneManager = new GoodsManager<Sector, Stone>();
-    //GoodsManager<Sector, Wood> WoodManager = new GoodsManager<Sector, Wood>(); //etc.
+    //ListManager<Transporter, Cargo> CargoManager = new ListManager<Transporter, Product>();
+    //ListManager<OilRig, Resource> OilRigResourceManager = new ListManager<OilRig, Resource>();
+    //ListManager<Sector, Stone> StoneManager = new ListManager<Sector, Stone>();
+    //ListManager<Sector, Wood> WoodManager = new ListManager<Sector, Wood>(); //etc.
 
 }
