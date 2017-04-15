@@ -45,6 +45,10 @@ public class MoveControlTest {
 
         SectorAdjacencyManager roadAdjacencyManager = game.getRoadAdjacencyManager();
 
+        WaterwayToSectorManager wtsm = map.generateWaterwayToSectorManager();
+        SectorToWaterwayManager stwm = map.generateSectorToWaterwayManager();
+
+
 
         Location SDesert = new Location(0,0,0);
         Location SMountain = new Location(0,-1,1);
@@ -91,10 +95,8 @@ public class MoveControlTest {
 
 
 
-        MovePhaseControl mpc = new MovePhaseControl(ltm,  game.getSeaTransporterManager(),
-                game.getSeaTransporterShoreManager(), sam,  game.getRoadAdjacencyManager(), rm,
-                game.getCargoManager(), donkeys);
-
+        MovePhaseControl mpc = new MovePhaseControl(game);
+        mpc.addDonkeyMPCMode(donkeys);
         mpc.addRoadTransporterMPCMode(roadTransporters);
 
         while(true){

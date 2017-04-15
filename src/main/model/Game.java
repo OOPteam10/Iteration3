@@ -27,11 +27,16 @@ public class Game {
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
+
     private LandPrimaryProducerManager landPrimaryProducerManager;
     private LandSecondaryProducerManager landSecondaryProducerManager;
     private SeaProducerManager seaProducerManager;
 
     private ProductionPhase productionPhase;
+
+    private WaterwayToSectorManager waterwayToSectorManager;
+    private SectorToWaterwayManager sectorToWaterwayManager;
+
 
     public Game(){
         map = new Map();
@@ -47,6 +52,7 @@ public class Game {
         seaTransporterShoreManager = new SeaTransporterShoreManager();
         resourceManager = new ResourceManager();
         cargoManager = new CargoManager();
+
         landPrimaryProducerManager = new LandPrimaryProducerManager();
         landSecondaryProducerManager = new LandSecondaryProducerManager();
         //seaProducerManager = new SeaProducerManager();
@@ -54,6 +60,9 @@ public class Game {
         productionPhase = new ProductionPhase(landPrimaryProducerManager, landSecondaryProducerManager,
                 landTransporterManager, seaProducerManager, seaTransporterManager, seaTransporterShoreManager,
                 cargoManager, resourceManager);
+        waterwayToSectorManager = new WaterwayToSectorManager();
+        sectorToWaterwayManager = new SectorToWaterwayManager();
+
     }
 
     public HashMap<Location, Tile> getMap(){//TODO: REFACTOR!
@@ -96,9 +105,8 @@ public class Game {
         return seaTransporterManager;
     }
 
-    public SeaTransporterShoreManager getSeaTransporterShoreManager(){
-        return seaTransporterShoreManager;
-    }
+
+
 
     public LandPrimaryProducerManager getLandPrimaryProducerManager() {
         return landPrimaryProducerManager;
@@ -111,4 +119,11 @@ public class Game {
     public SeaProducerManager getSeaProducerManager() {
         return seaProducerManager;
     }
+
+    public SeaTransporterShoreManager getSeaTransporterShoreManager() {return seaTransporterShoreManager;}
+
+    public WaterwayToSectorManager getWaterwayToSectorManager() {return waterwayToSectorManager;}
+
+    public SectorToWaterwayManager getSectorToWaterwayManager() {return sectorToWaterwayManager;}
+
 }

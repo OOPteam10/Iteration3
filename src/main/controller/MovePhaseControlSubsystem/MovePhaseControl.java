@@ -1,6 +1,7 @@
 package controller.MovePhaseControlSubsystem;
 
 import controller.ControlHandler;
+import model.Game;
 import model.Managers.*;
 
 import model.Transporters.Donkey;
@@ -31,19 +32,24 @@ public class MovePhaseControl extends ControlHandler {
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
+    private SectorToWaterwayManager sectorToWaterwayManager;
+    private WaterwayToSectorManager waterwayToSectorManager;
 
-    public MovePhaseControl(LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
-                            SeaTransporterShoreManager seaTransporterShoreManager,
-                            SectorAdjacencyManager sectorAdjacencyManager, SectorAdjacencyManager roadAdjacencyManager,
-                            ResourceManager resourceManager, CargoManager cargoManager, ArrayList<Donkey> donkeys){
-        this.landTransporterManager = landTransporterManager;
-        this.seaTransporterManager = seaTransporterManager;
-        this.seaTransporterShoreManager = seaTransporterShoreManager;
-        this.sectorAdjacencyManager = sectorAdjacencyManager;
-        this.roadAdjacencyManager = roadAdjacencyManager;
-        this.resourceManager = resourceManager;
-        this.cargoManager = cargoManager;
+    public MovePhaseControl(Game game){
+        this.landTransporterManager = game.getLandTransporterManager();
+        this.seaTransporterManager = game.getSeaTransporterManager();
+        this.seaTransporterShoreManager = game.getSeaTransporterShoreManager();
+        this.sectorAdjacencyManager = game.getSectorAdjacencyManager();
+        this.roadAdjacencyManager = game.getRoadAdjacencyManager();
+        this.resourceManager = game.getResourceManager();
+        this.cargoManager = game.getCargoManager();
+        this.sectorToWaterwayManager = game.getSectorToWaterwayManager();
+        this.waterwayToSectorManager = game.getWaterwayToSectorManager();
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
+    }
+
+
+    public void addDonkeyMPCMode(ArrayList<Donkey> donkeys){
         movePhaseControlModes.add(new DonkeyMPCMode(donkeys, this));
         currentMovePhaseControlMode = movePhaseControlModes.get(0);
     }
