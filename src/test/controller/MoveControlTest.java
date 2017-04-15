@@ -32,6 +32,7 @@ public class MoveControlTest {
 
 
         SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
+        WaterwayAdjacencyManager wam = game.getWaterwayAdjacencyManager();
         LandTransporterManager ltm = game.getLandTransporterManager();
         SeaTransporterManager stm = game.getSeaTransporterManager();
         SeaTransporterShoreManager stsm = game.getSeaTransporterShoreManager();
@@ -66,8 +67,13 @@ public class MoveControlTest {
         ArrayList<RoadTransporter> roadTransporters = new ArrayList<RoadTransporter>();
         roadTransporters.add(new Truck());
 
-        Raft raft = new Raft();
-        stm.add(raft, wy1);
+        Raft raft1 = new Raft(); //on land
+
+        ArrayList<SeaTransporter> seaTransportersAtSea = new ArrayList<SeaTransporter>();
+        Raft raft2 = new Raft();
+        Raft raft3 = new Raft();
+        seaTransportersAtSea.add(raft2);
+        seaTransportersAtSea.add(raft3);
 
         ltm.add(donkeys.get(0), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
         ltm.add(donkeys.get(1), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
@@ -76,8 +82,10 @@ public class MoveControlTest {
 
         ltm.add(roadTransporters.get(0), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
 
-        stsm.add(raft, lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
+        stsm.add(raft1, lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
 
+        stm.add(seaTransportersAtSea.get(0), wy1);
+        stm.add(seaTransportersAtSea.get(1), wy1);
 
         //making a road
         SectorAdjacency road1 = new SectorAdjacency();
@@ -92,6 +100,7 @@ public class MoveControlTest {
         MovePhaseControl mpc = new MovePhaseControl(game);
         mpc.addDonkeyMPCMode(donkeys);
         mpc.addRoadTransporterMPCMode(roadTransporters);
+        mpc.addSeaTransporterMPCMode(seaTransportersAtSea);
 
         while(true){
             debugMenu(mpc, game);

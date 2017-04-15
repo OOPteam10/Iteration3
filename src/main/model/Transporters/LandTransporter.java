@@ -3,6 +3,9 @@ package model.Transporters;
 
 import model.DropOffAbilities.LandTransporterDropOffAbility;
 import model.TileSubsystem.Sector;
+import model.DropOffAbilities.WaterwayDiscardAbility;
+
+import model.TileSubsystem.Waterway;
 import model.Transporters.Visitor.LandTransporterVisitor;
 
 
@@ -12,7 +15,12 @@ import model.Transporters.Visitor.LandTransporterVisitor;
 
 public abstract class LandTransporter extends Transporter<Sector> {
     private LandTransporterDropOffAbility ltdoAbility;
+    private WaterwayDiscardAbility waterwayDiscardAbility;
 
+    public void setWaterwayDiscardAbility(WaterwayDiscardAbility waterwayDiscardAbility) {this.waterwayDiscardAbility = waterwayDiscardAbility;}
+    public void dropOff(Waterway w) {
+        waterwayDiscardAbility.execute(w);
+    }
     public void setLtdoAbility(LandTransporterDropOffAbility ltdoAbility){
         this.ltdoAbility = ltdoAbility;
     }
@@ -20,5 +28,6 @@ public abstract class LandTransporter extends Transporter<Sector> {
     public void dropOff(Sector s) {
         ltdoAbility.execute(s);
     }
+
     public abstract void accept(LandTransporterVisitor v);
 }

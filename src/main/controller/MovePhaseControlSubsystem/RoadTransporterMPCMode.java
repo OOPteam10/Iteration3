@@ -14,8 +14,6 @@ import java.util.ArrayList;
 /**
  * Created by hankerins on 4/14/17.
  *
- * CURRENTLY WE HAVE MIXED INSTANCE COHESION + CRASH WHEN NO INSTRUCTIONS ARE POSSIBLE
- * ADD A STATE OF NO INSTRUCTION POSSIBLE
  *
  */
 public class RoadTransporterMPCMode implements MovePhaseControlMode {
@@ -137,10 +135,6 @@ public class RoadTransporterMPCMode implements MovePhaseControlMode {
 
     public SectorTransporterManager getSectorTransporterManager() {
         return landTransporterManager;
-    }
-
-    public SectorAdjacencyManager getSectorAdjacencyManager() {
-        return roadAdjacencyManager;
     }
 
     public SectorAdjacencyManager getRoadAdjacencyManager() {
