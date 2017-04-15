@@ -1,14 +1,9 @@
 package model.Transporters.Visitor;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.*;
 import javafx.scene.image.Image;
-import model.TileSubsystem.CardinalDirection;
-import model.TileSubsystem.Sector;
 import model.Transporters.Raft;
 import model.Transporters.Rowboat;
-import model.Transporters.SeaTransporter;
 import model.Transporters.Steamship;
 import view.Camera;
 import view.assets.AssetManager;

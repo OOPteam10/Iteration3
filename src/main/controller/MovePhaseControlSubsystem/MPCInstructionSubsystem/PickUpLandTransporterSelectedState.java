@@ -2,7 +2,6 @@ package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
 import model.Transporters.LandTransporter;
-import model.Transporters.Transporter;
 
 import java.util.ArrayList;
 

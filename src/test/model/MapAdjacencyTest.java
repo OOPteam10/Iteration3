@@ -3,7 +3,6 @@ package model;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.HexSide;
-import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Terrains.Rock;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;

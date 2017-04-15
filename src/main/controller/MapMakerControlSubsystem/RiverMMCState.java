@@ -3,7 +3,6 @@ package controller.MapMakerControlSubsystem;
 import controller.MapMakerControl;
 import controller.MapMakerControlSubsystem.RiverMMCSubsystem.RiverMMCSubState;
 import controller.MapMakerControlSubsystem.RiverMMCSubsystem.Shape1State;
-import model.TileSubsystem.Rivers.River;
 
 import java.util.Vector;
 

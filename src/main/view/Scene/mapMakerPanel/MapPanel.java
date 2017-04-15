@@ -2,36 +2,16 @@ package view.Scene.mapMakerPanel;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.Rotate;
 import model.Game;
 import model.MapSubsystem.Location;
-import model.MapSubsystem.Map;
-import model.TileSubsystem.CardinalDirection;
-import model.TileSubsystem.HexSide;
-import model.TileSubsystem.Rivers.ForkedRiver;
-import model.TileSubsystem.Rivers.NormalRiver;
-import model.TileSubsystem.Rivers.River;
-import model.TileSubsystem.Rivers.SourceRiver;
-import model.TileSubsystem.Terrains.Mountains;
-import model.TileSubsystem.Terrains.Pasture;
-import model.TileSubsystem.Terrains.Rock;
-import model.TileSubsystem.Terrains.Sea;
-import model.TileSubsystem.Tiles.LandTile;
-import model.TileSubsystem.Tiles.RiverTile;
-import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
-import model.TileSubsystem.Visitor.TileVisitor;
 import utilities.TileEditor;
 import view.Camera;
 import view.Panel;
-import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
-import javax.xml.transform.Source;
 import java.awt.*;
 import java.util.HashMap;
 

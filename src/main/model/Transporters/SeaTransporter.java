@@ -1,9 +1,6 @@
 package model.Transporters;
 
-import model.DropOffAbilities.LandTransporterDropOffAbility;
 import model.DropOffAbilities.SeaTransporterDropOffAbility;
-import model.Managers.LandTransporterManager;
-import model.Managers.SeaTransporterManager;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Waterway;
 import model.Transporters.Visitor.SeaTransporterVisitor;

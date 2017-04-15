@@ -1,15 +1,14 @@
 package model.MapSubsystem;
 
-import model.Managers.*;
-import model.TileSubsystem.CardinalDirection;
+import model.Managers.WaterwayAdjacency;
+import model.Managers.WaterwayAdjacencyManager;
+import model.Managers.WaterwayToSectorManager;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
-import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Waterway;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by hankerins on 4/10/17.

@@ -2,7 +2,6 @@ package view;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
-import javafx.scene.image.Image;
 
 import java.awt.*;
 
@@ -114,10 +113,10 @@ public class Camera {
     public double getResourceScale(){return getScale()*0.15;}
 
     public int getTileWidth(){
-        return this.HEX_W;
+        return HEX_W;
     }
 
     public int getTileHeight(){
-        return this.HEX_H;
+        return HEX_H;
     }
 }

@@ -1,15 +1,14 @@
 package model.Transporters.Visitor;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
 import model.Transporters.Truck;
 import model.Transporters.Wagon;
 import view.Camera;
 import view.assets.AssetManager;
-import javafx.scene.image.Image;
 
 import java.awt.*;
 

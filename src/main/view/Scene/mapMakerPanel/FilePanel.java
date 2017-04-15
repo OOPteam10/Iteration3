@@ -6,30 +6,17 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import model.Game;
-import model.Managers.SectorAdjacencyManager;
 import model.MapSubsystem.Location;
-import model.MapSubsystem.Map;
-import model.TileSubsystem.HexSide;
-import model.TileSubsystem.Rivers.ForkedRiver;
-import model.TileSubsystem.Rivers.NormalRiver;
-import model.TileSubsystem.Rivers.River;
-import model.TileSubsystem.Rivers.SourceRiver;
-import model.TileSubsystem.Terrains.*;
-import model.TileSubsystem.Tiles.LandTile;
-import model.TileSubsystem.Tiles.RiverTile;
-import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
-import model.TileSubsystem.Visitor.TileFileVisitor;
 import utilities.FileManager.FileManager;
-import view.*;
-import utilities.FileManager.TileFileInfo;
+import view.Camera;
+import view.PanelManager;
+import view.ViewEnum;
 import view.assets.AssetManager;
 
 import java.awt.*;
-import java.io.*;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashMap;
 
 

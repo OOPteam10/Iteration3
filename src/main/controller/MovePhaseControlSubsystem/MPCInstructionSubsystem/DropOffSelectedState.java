@@ -1,7 +1,6 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
-import model.resources.Resource;
 import model.structures.producers.Product;
 
 import java.util.ArrayList;

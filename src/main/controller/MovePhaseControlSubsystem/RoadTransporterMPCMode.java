@@ -2,7 +2,10 @@ package controller.MovePhaseControlSubsystem;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.*;
 import model.Managers.*;
-import model.Transporters.*;
+import model.Transporters.LandTransporter;
+import model.Transporters.RoadTransporter;
+import model.Transporters.SeaTransporter;
+import model.Transporters.Transporter;
 import model.resources.Resource;
 import model.structures.producers.Product;
 

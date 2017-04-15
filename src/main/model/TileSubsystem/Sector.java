@@ -2,7 +2,6 @@ package model.TileSubsystem;
 
 import model.Managers.LandTransporterManager;
 import model.Transporters.LandTransporter;
-import model.Transporters.Transporter;
 
 import java.util.ArrayList;
 

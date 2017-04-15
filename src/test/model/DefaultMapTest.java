@@ -1,7 +1,6 @@
 package model;
 
 import model.Managers.Adjacency;
-import model.Managers.SectorAdjacency;
 import model.Managers.SectorAdjacencyManager;
 import model.Managers.WaterwayAdjacencyManager;
 import model.MapSubsystem.LandMap;
@@ -10,11 +9,8 @@ import model.MapSubsystem.Map;
 import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
-import model.TileSubsystem.Rivers.NormalRiver;
-import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
-import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Waterway;
 import org.junit.Test;
 

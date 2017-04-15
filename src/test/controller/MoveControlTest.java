@@ -8,23 +8,17 @@ import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
-import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
-import model.TileSubsystem.Tiles.RiverTile;
-import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Waterway;
 import model.Transporters.*;
 import model.resources.Board;
 import model.resources.Resource;
 import model.resources.Stone;
 import model.structures.producers.Product;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by hankerins on 4/13/17.

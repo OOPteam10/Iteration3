@@ -1,7 +1,5 @@
 package model.resources;
 
-import model.Managers.GoodsManager;
-import model.TileSubsystem.Sector;
 import model.resources.Visitor.ResourceVisitor;
 
 /**
@@ -10,7 +8,7 @@ import model.resources.Visitor.ResourceVisitor;
 public class Clay extends Resource {
 
     //testing only
-    public String toString(){
+    public String toString() {
         return "Clay";
     }
 

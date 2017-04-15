@@ -3,7 +3,6 @@ package controller.MovePhaseControlSubsystem;
 import controller.ControlHandler;
 import model.Game;
 import model.Managers.*;
-
 import model.Transporters.Donkey;
 import model.Transporters.RoadTransporter;
 import view.Camera;

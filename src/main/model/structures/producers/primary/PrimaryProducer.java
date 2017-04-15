@@ -1,8 +1,6 @@
 package model.structures.producers.primary;
 
 import model.Managers.ResourceManager;
-import model.TileSubsystem.Sector;
-import model.resources.Resource;
 import model.structures.producers.Producer;
 
 /**

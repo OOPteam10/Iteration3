@@ -1,7 +1,5 @@
 package model.resources;
 
-import model.Managers.GoodsManager;
-import model.TileSubsystem.Sector;
 import model.resources.Visitor.ResourceVisitor;
 
 /**

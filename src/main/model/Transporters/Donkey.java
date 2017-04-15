@@ -1,9 +1,6 @@
 package model.Transporters;
 
 import model.Animal;
-
-import model.Managers.LandTransporterManager;
-
 import model.Transporters.Visitor.LandTransporterVisitor;
 
 

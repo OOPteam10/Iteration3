@@ -1,6 +1,5 @@
 package view.Scene.gamePanel;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
@@ -13,14 +12,11 @@ import model.MapSubsystem.Map;
 import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
-import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
-import model.TileSubsystem.Waterway;
 import model.Transporters.*;
 import model.Transporters.Visitor.LandTransporterDrawingVisitor;
 import model.Transporters.Visitor.SeaTransporterDrawingVisitor;
-import model.Transporters.Visitor.SeaTransporterVisitor;
 import model.resources.*;
 import model.resources.Visitor.ResourceDrawingVisitor;
 import utilities.TileEditor;
@@ -185,16 +181,12 @@ public class GameboardPanel extends Panel {
             Point p = new Point();
             p.x = loc.getX();
             p.y = loc.getY();
-            try {
                 for (Sector sector : landMap.getTile(loc).getSectors()) {
                     for (Resource resource : resourceManager.get(sector)) {
                         ResourceDrawingVisitor v = new ResourceDrawingVisitor(assets, gc, p, camera, sector);
                         resource.accept(v);
                     }
                 }
-            }catch (NullPointerException e){
-                System.out.println(landMap.getTile(loc).getSectors());
-            }
         }
     }
 

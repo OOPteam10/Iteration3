@@ -1,14 +1,12 @@
 package model.resources.Visitor;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import view.Camera;
 import view.assets.AssetManager;
 
-import javax.annotation.Resource;
 import java.awt.*;
 
 public class ResourceDrawingVisitor implements ResourceVisitor {

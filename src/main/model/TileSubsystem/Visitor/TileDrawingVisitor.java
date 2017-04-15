@@ -1,13 +1,7 @@
 package model.TileSubsystem.Visitor;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.Rotate;
-import model.MapSubsystem.Location;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Rivers.SourceRiver;

@@ -1,13 +1,11 @@
 package controller;
 
 
-import controller.Actions.CycleLeft;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import view.Camera;
 import view.View;
 
-import java.util.HashMap;
 import java.util.Vector;
 
 /**
