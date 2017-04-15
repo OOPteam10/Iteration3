@@ -7,6 +7,7 @@ import controller.MapMakerControlSubsystem.TerrainMMCState;
 import javafx.scene.input.KeyCode;
 import model.MapSubsystem.Location;
 import utilities.TileEditor;
+import view.Camera;
 import view.MapMakerPreview;
 
 import java.util.Vector;
@@ -30,13 +31,19 @@ public class MapMakerControl extends ControlHandler {
 
 
     //onInit
-    public void init(MapMakerPreview preview){
+    public void init(MapMakerPreview preview, Camera camera){
+
+        //camera functionality
+        setCamera(camera);
+        addCameraActions();
+
         mmcObservers.add(preview);
     }
 
 
     //constructor
     private MapMakerControl(){
+
 
         mmcState = TerrainMMCState.getInstance();
         mmcObservers =  new Vector<MMCObserver>();

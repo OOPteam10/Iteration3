@@ -1,6 +1,7 @@
 package controller;
 
 
+import controller.Actions.CycleLeft;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import view.Camera;
@@ -30,19 +31,19 @@ public class Controller {
 
     public Controller(View view){
 
+        //camera
+        camera = view.getCamera();
+
         //init with the MapMakerControl state
+
         controlHandler = MapMakerControl.getInstance();
-        controlHandler.init(view.getMapMakerPreview());
+        controlHandler.init(view.getMapMakerPreview(),camera);
         setCurrentKLSet(controlHandler);
 
-        //TODO remove commented ou tin future
-        // controlMap = new KeyMapControls();
-        //actionMap = controlMap.getActionMap();
 
-        camera = view.getCamera();
     }
 
-   
+
     public void setCurrentKLSet(ControlHandler controlHandler){currentKLSet = controlHandler.getKLSet();}
 
     public ControlHandler getControlHandler() {
@@ -61,8 +62,7 @@ public class Controller {
             if(currentKLSet.elementAt(i).getKeyCode().equals(code)){
 
                 currentKLSet.elementAt(i).perform();
-                //ControlAction action = actionMap.get(code);
-                //action.execute(this);
+
             }
         }
     }
@@ -74,25 +74,6 @@ public class Controller {
     }
 
 
-    public void moveMapUp(){
-        camera.moveUpMap();
-    }
-
-    public void moveMapDown(){
-        camera.moveDownMap();
-    }
-
-    public void moveMapLeft(){
-        camera.moveLeftMap();
-    }
-
-    public void moveMapRight(){
-        camera.moveRightMap();
-    }
-
-    public void cameraZoomIn(){camera.zoomIn();}
-
-    public void cameraZoomOut(){camera.zoomOut();}
 
 
 

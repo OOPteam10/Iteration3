@@ -36,7 +36,6 @@ public class GameEngine extends Application {
          scene = new Scene(root, Color.TRANSPARENT);
 
         //array for active keyCodes
-
         game = new Game();
         view = new View(game, scene, root);
 
@@ -53,8 +52,8 @@ public class GameEngine extends Application {
             @Override
             public void handle(long currentPulse) {
                 frameCounter++;
-                //menus
 
+                //menus
                 if (frameCounter == 2) { //Limit FPS to 30
                     frameCounter = 0;
 

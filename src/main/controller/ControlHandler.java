@@ -1,6 +1,9 @@
 package controller;
 
+import controller.Actions.*;
 import controller.MapMakerControlSubsystem.MMCState;
+import javafx.scene.input.KeyCode;
+import view.Camera;
 import view.MapMakerPreview;
 import view.View;
 
@@ -15,7 +18,20 @@ public abstract class  ControlHandler {
 
     private Vector<Action> actions = new Vector<Action>() ;
     private Vector<KeyListener> kLSet = new Vector<KeyListener>();
+    private Camera camera;
 
+    public void setCamera(Camera camera){this.camera = camera;}
+
+    public void addCameraActions(){
+
+        addAction(new ZoomIn(this,camera), new KeyListener(KeyCode.EQUALS));
+
+        addAction(new ZoomOut(this, camera), new KeyListener(KeyCode.MINUS));
+        addAction(new CameraMoveUp(this,camera), new KeyListener(KeyCode.I));
+        addAction(new CameraMoveDown(this, camera), new KeyListener(KeyCode.K));
+        addAction(new CameraMoveRight(this, camera), new KeyListener(KeyCode.L));
+        addAction(new CameraMoveLeft(this, camera), new KeyListener(KeyCode.J));
+    }
 
     public void addAction(Action action, KeyListener keyListener){
 
@@ -33,6 +49,28 @@ public abstract class  ControlHandler {
     public Vector<KeyListener> getKLSet(){
         return kLSet;
     }
+
+
+    public void moveMapUp(Camera camera){
+        camera.moveUpMap();
+    }
+
+    public void moveMapDown(Camera camera){
+        camera.moveDownMap();
+    }
+
+    public void moveMapLeft(Camera camera){
+        camera.moveLeftMap();
+    }
+
+    public void moveMapRight(Camera camera){
+        camera.moveRightMap();
+    }
+
+    public void cameraZoomIn(Camera camera){camera.zoomIn();}
+
+    public void cameraZoomOut(Camera camera){camera.zoomOut();}
+
 
 
     /*public void addToKLSet(KeyListener keyListener){
@@ -68,7 +106,7 @@ public abstract class  ControlHandler {
 
     //initialisers
     //TODO try to remove it
-    public abstract void init(MapMakerPreview preview);
+    public abstract void init(MapMakerPreview preview, Camera camera);
 
 
 
