@@ -5,15 +5,20 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
 import model.Managers.LandTransporterManager;
+import model.Managers.SeaTransporterManager;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
+import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
+import model.TileSubsystem.Waterway;
 import model.Transporters.*;
 import model.Transporters.Visitor.LandTransporterDrawingVisitor;
+import model.Transporters.Visitor.SeaTransporterDrawingVisitor;
+import model.Transporters.Visitor.SeaTransporterVisitor;
 import utilities.TileEditor;
 import view.Camera;
 import view.Panel;
@@ -31,12 +36,14 @@ public class GameboardPanel extends Panel {
 
     private PanelManager panelManager;
     private Map gameMap;
+    private WaterwayMap waterwayMap;
     private HashMap<Location, Tile> gameBoard;
     private AssetManager assets;
     private Camera camera;
     private Game game;
     private Group root;
     private LandTransporterManager landTransporterManager;
+    private SeaTransporterManager seaTransporterManager;
 
     public GameboardPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
@@ -46,12 +53,13 @@ public class GameboardPanel extends Panel {
         this.camera = camera;
         this.panelManager = panelManager;
         landTransporterManager = game.getLandTransporterManager();
+        seaTransporterManager = game.getSeaTransporterManager();
         updateGameMap();
         addTransporters();
     }
 
     //TODO: this is a test function, delete it after
-    private void addTransporters(){
+    private void addTransporters() {
 //        Donkey dq = new Donkey();
 //        Location l = new Location(0,0,0);
 //        game.getActualMap().formatSurfaceMaps();
@@ -67,19 +75,27 @@ public class GameboardPanel extends Panel {
         Truck dq6 = new Truck();
         Wagon dq7 = new Wagon();
         Truck dq8 = new Truck();
-        landTransporterManager.add(dq, gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.NE));
-        landTransporterManager.add(dq2, gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.SSE));
-        landTransporterManager.add(dq3, gameMap.getTile(new Location(-1,0,1)).getSectorAtCardinalDirection(CardinalDirection.NNE));
-        landTransporterManager.add(dq4, gameMap.getTile(new Location(-1,1,0)).getSectorAtCardinalDirection(CardinalDirection.SSE));
-        landTransporterManager.add(dq5, gameMap.getTile(new Location(-1,3,-2)).getSectorAtCardinalDirection(CardinalDirection.SSE));
-        landTransporterManager.add(dq6, gameMap.getTile(new Location(1,1,-2)).getSectorAtCardinalDirection(CardinalDirection.NW));
-        landTransporterManager.add(dq7, gameMap.getTile(new Location(2,1,-3)).getSectorAtCardinalDirection(CardinalDirection.SSW));
-        landTransporterManager.add(dq8, gameMap.getTile(new Location(2,1,-3)).getSectorAtCardinalDirection(CardinalDirection.ENE));
+        landTransporterManager.add(dq, gameMap.getTile(new Location(0, 0, 0)).getSectorAtCardinalDirection(CardinalDirection.NE));
+        landTransporterManager.add(dq2, gameMap.getTile(new Location(0, 0, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE));
+        landTransporterManager.add(dq3, gameMap.getTile(new Location(-1, 0, 1)).getSectorAtCardinalDirection(CardinalDirection.NNE));
+        landTransporterManager.add(dq4, gameMap.getTile(new Location(-1, 1, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE));
+        landTransporterManager.add(dq5, gameMap.getTile(new Location(-1, 3, -2)).getSectorAtCardinalDirection(CardinalDirection.SSE));
+        landTransporterManager.add(dq6, gameMap.getTile(new Location(1, 1, -2)).getSectorAtCardinalDirection(CardinalDirection.NW));
+        landTransporterManager.add(dq7, gameMap.getTile(new Location(2, 1, -3)).getSectorAtCardinalDirection(CardinalDirection.SSW));
+        landTransporterManager.add(dq8, gameMap.getTile(new Location(2, 1, -3)).getSectorAtCardinalDirection(CardinalDirection.ENE));
 
+        Raft st1 = new Raft();
+        Steamship st2 = new Steamship();
+        Rowboat st3 = new Rowboat();
+
+        seaTransporterManager.add(st1, waterwayMap.getTile(new Location(0,0,0)));
+        seaTransporterManager.add(st2, waterwayMap.getTile(new Location(0,1,-1)));
+        seaTransporterManager.add(st3, waterwayMap.getTile(new Location(1,1,-2)));
     }
 
     private void updateGameMap(){
         gameMap = game.getActualMap();
+        waterwayMap = gameMap.getWaterwayMap();
         gameBoard = gameMap.getMap();
     }
 
@@ -117,16 +133,28 @@ public class GameboardPanel extends Panel {
         }
     }
 
-    private void drawTransporters(GraphicsContext gc){
+    private void drawLandTransporters(GraphicsContext gc){
         for(Location loc:gameBoard.keySet()){
             Point p = new Point();
             p.x = loc.getX();
             p.y = loc.getY();
             for(Sector sector:gameBoard.get(loc).getSectors()){
                 for(LandTransporter transporter:sector.getTransporters(landTransporterManager)){
-                    LandTransporterDrawingVisitor v = new LandTransporterDrawingVisitor(assets, gc, p, camera);
+                    LandTransporterDrawingVisitor v = new LandTransporterDrawingVisitor(assets, gc, p, camera, sector);
                     transporter.accept(v);
                 }
+            }
+        }
+    }
+
+    private void drawSeaTransporters(GraphicsContext gc){
+        for(Location loc:waterwayMap.getSurfaces().keySet()){
+            Point p = new Point();
+            p.x = loc.getX();
+            p.y = loc.getY();
+            for(SeaTransporter transporter:waterwayMap.getTile(loc).getSeaTransporters(seaTransporterManager)){
+                SeaTransporterDrawingVisitor v = new SeaTransporterDrawingVisitor(assets, gc, p, camera);
+                transporter.accept(v);
             }
         }
     }
@@ -135,7 +163,8 @@ public class GameboardPanel extends Panel {
         drawBackground(gc);
         drawGameboard(gc);
         drawTileSelector(gc);
-        drawTransporters(gc);
+        drawLandTransporters(gc);
+        drawSeaTransporters(gc);
         updateGameMap();
     }
 

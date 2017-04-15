@@ -62,6 +62,9 @@ public class Assets {
         loadItem("DONKEY", "Assets/Transporters/Donkey.png");
         loadItem("WAGON","Assets/Transporters/Wagon.png");
         loadItem("TRUCK","Assets/Transporters/Truck.png");
+        loadItem("RAFT", "Assets/Transporters/Raft.png");
+        loadItem("ROWBOAT", "Assets/Transporters/ROWBOAT.png");
+        loadItem("STEAMSHIP", "Assets/Transporters/Steamship.png");
     }
 
     public void loadItem(String name, String path){
