@@ -81,12 +81,13 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
             mpcInstructionStates.add(new PickUpSeaTransporterMPCIState(dockedBoats));
         }
         //check if you're in the water with adjacent dock locations
-        //System.out.println("current waterway: " + seaTransporterManager.getLocation(currentSeaTransporter).toString());
-        //mpcInstructionStates.add(new DockMPCIState());
         if (waterwayToSectorManager.get(seaTransporterManager.getLocation(currentSeaTransporter)).size() > 0){
             mpcInstructionStates.add(new DockMPCIState());
         }
-
+        //check if you're on land with adjacent water locations
+        if (sectorToWaterwayManager.get(seaTransporterShoreManager.getLocation(currentSeaTransporter)).size() > 0){
+            mpcInstructionStates.add(new DepartMPCIState());
+        }
         if(mpcInstructionStates.size() == 0){
             mpcInstructionStates.add(new NoMoveMPCIState());
         }
@@ -141,9 +142,9 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
         currentMPCInstructionState = new SeaTransporterMoveSelectedState(this);
     }
 
-    public void setStateToDockSelected() {
-        currentMPCInstructionState = new DockSelectedMPCIState(this);
-    }
+    public void setStateToDockSelected() {currentMPCInstructionState = new DockSelectedMPCIState(this);}
+
+    public void setStateToDepartSelected() {currentMPCInstructionState = new DepartSelectedMPCIState(this);}
 
     public SeaTransporter getCurrentSeaTransporter() {
         return currentSeaTransporter;
