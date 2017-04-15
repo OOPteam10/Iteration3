@@ -11,7 +11,7 @@ import model.Transporters.Visitor.SeaTransporterVisitor;
 /**
  * Created by hankerins on 4/8/17.
  */
-public  abstract class SeaTransporter extends Transporter<Waterway> {
+public abstract class SeaTransporter extends Transporter<Waterway> {
     private SeaTransporterDropOffAbility stdoAbility;
 
     private WaterwayDropOffAbility waterwayDropOffAbility;

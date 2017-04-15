@@ -99,9 +99,9 @@ public class MoveControlTest {
 
 
         MovePhaseControl mpc = new MovePhaseControl(game);
-        mpc.addDonkeyMPCMode(donkeys);
-        mpc.addRoadTransporterMPCMode(roadTransporters);
-        mpc.addSeaTransporterMPCMode(seaTransportersAtSea);
+        mpc.addDonkeyMPCMode();
+        mpc.addRoadTransporterMPCMode();
+        mpc.addSeaTransporterMPCMode();
 
         while(true){
             debugMenu(mpc, game);
