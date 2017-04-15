@@ -105,12 +105,18 @@ public class Map {
     }
 
     public SectorAdjacencyManager generateSectorAdjacencyManager(){
-        //formatSurfaceMaps();
         return landMap.generateSectorAdjacencyManager();
     }
     public WaterwayAdjacencyManager generateWaterwayAdjacencyManager(){
-        //formatSurfaceMaps();
         return waterwayMap.generateWaterwayAdjacencyManager();
+    }
+
+    public SectorToWaterwayManager generateSectorToWaterwayManager(){
+        return landMap.generateSectorToWaterwayManager(waterwayMap);
+    }
+
+    public WaterwayToSectorManager generateWaterwayToSectorManager(){
+        return waterwayMap.generateWaterwayToSectorManager(landMap);
     }
 
     /*  MOVED THIS TO LANDMAP, WATERWAYMAP.  FORMAT THEM IN MAP, THEN CALL THEIR GENERATE FUNCTIONS

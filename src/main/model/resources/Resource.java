@@ -1,7 +1,6 @@
 package model.resources;
 
 import model.DropOffAbilities.ResourceDropOffAbility;
-import model.Managers.GoodsManager;
 import model.TileSubsystem.Sector;
 import model.structures.producers.Product;
 

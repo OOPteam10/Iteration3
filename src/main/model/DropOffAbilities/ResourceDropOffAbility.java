@@ -1,6 +1,6 @@
 package model.DropOffAbilities;
 
-import model.Managers.GoodsManager;
+import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Resource;
 
@@ -9,11 +9,11 @@ import model.resources.Resource;
  */
 public class ResourceDropOffAbility implements DropOffAbility<Sector> {
     Resource resource;
-    GoodsManager<Sector, Resource> resourceManager;
+    ResourceManager resourceManager;
 
 
 
-    public ResourceDropOffAbility(Resource resource,  GoodsManager<Sector, Resource> resourceManager){
+    public ResourceDropOffAbility(Resource resource,  ResourceManager resourceManager){
         this.resource = resource;
         this.resourceManager = resourceManager;
     }
