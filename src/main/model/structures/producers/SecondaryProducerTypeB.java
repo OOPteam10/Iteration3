@@ -1,5 +1,6 @@
 package model.structures.producers;
 
+import model.Managers.ResourceManager;
 import model.structures.producers.secondary.SecondaryProducer;
 
 import java.util.ArrayList;
@@ -12,6 +13,10 @@ public abstract class SecondaryProducerTypeB<T1, T2> extends SecondaryProducer {
 
     private List<T1> rawResourceA = new ArrayList<>();
     private List<T2> rawResourceB = new ArrayList<>();
+
+    public SecondaryProducerTypeB(ResourceManager resourceManager) {
+        super(resourceManager);
+    }
 
     public void giveResourceA(T1 resource){
         rawResourceA.add(resource);

@@ -1,9 +1,10 @@
 package model.Managers;
 
 import model.structures.producers.Producer;
+import model.structures.producers.Product;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by hankerins on 4/11/17.
@@ -20,6 +21,8 @@ public abstract class ProducerManager<L, P extends Producer> {
     {
         managerMap.put(l, p);
     }
+
+    public abstract void produceAll();
 
     public void removeProducer(L l){
         managerMap.remove(l);

@@ -1,23 +1,28 @@
 package model.structures.producers.secondary.refinement;
 
+import model.Managers.ResourceManager;
+import model.TileSubsystem.Sector;
 import model.structures.producers.SecondaryProducerTypeA;
 import model.resources.CoalBurnerResource;
 import model.resources.Fuel;
 import model.resources.Trunk;
-import model.structures.producers.Product;
 
 /**
  * Created by cduica on 4/8/17.
  */
 public class CoalBurner extends SecondaryProducerTypeA<CoalBurnerResource> {
 
+    public CoalBurner(ResourceManager resourceManager) {
+        super(resourceManager);
+    }
+
     @Override
-    public Product produce() {
+    public void produce(Sector l) {
         if(consumeRawResource()&&consumeRawResource()){
-            return new Fuel();
+            addToResourceManager(l, new Fuel());
+        } else {
+            giveResource(new Trunk());
         }
-        giveResource(new Trunk());
-        return null;
     }
 
 }
