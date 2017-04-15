@@ -2,8 +2,9 @@ package controller.MovePhaseControlSubsystem;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.*;
 import model.Managers.*;
-import model.Transporters.Donkey;
+import model.TileSubsystem.Waterway;
 import model.Transporters.LandTransporter;
+import model.Transporters.RoadTransporter;
 import model.Transporters.SeaTransporter;
 import model.Transporters.Transporter;
 import model.resources.Resource;
@@ -12,66 +13,67 @@ import model.structures.producers.Product;
 import java.util.ArrayList;
 
 /**
- * Created by hankerins on 4/10/17.
- * TODO: remove donkey from list of available donkeys when its picked up
+ * Created by hankerins on 4/15/17.
  */
-public class DonkeyMPCMode implements MovePhaseControlMode {
+public class SeaTransporterMPCMode implements MovePhaseControlMode {
 
     private MPCInstructionState currentMPCInstructionState;
     private ArrayList<MPCInstructionState> mpcInstructionStates = new ArrayList<MPCInstructionState>();
-    private Donkey currentDonkey;
-    private ArrayList<Donkey> donkeys;
-    private LandTransporterManager landTransporterManager;
+    private SeaTransporter currentSeaTransporter;
+    private ArrayList<SeaTransporter> seaTransporters;
+    private SeaTransporterManager seaTransporterManager;
     private SeaTransporterShoreManager seaTransporterShoreManager;
-    private SectorAdjacencyManager sectorAdjacencyManager;
-    private SectorAdjacencyManager roadAdjacencyManager;
+    private WaterwayAdjacencyManager waterwayAdjacencyManager;
+    private WaterwayToSectorManager waterwayToSectorManager;
+    private SectorToWaterwayManager sectorToWaterwayManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
 
-    public DonkeyMPCMode(ArrayList<Donkey> donkeys, MovePhaseControl context){
-        this.donkeys = donkeys;
-        currentDonkey = donkeys.get(0);
-        landTransporterManager = context.getLandTransporterManager();
+    public SeaTransporterMPCMode(ArrayList<SeaTransporter> seaTransporters, MovePhaseControl context){
+        this.seaTransporters = seaTransporters;
+        currentSeaTransporter = seaTransporters.get(0);
+        seaTransporterManager = context.getSeaTransporterManager();
         seaTransporterShoreManager = context.getSeaTransporterShoreManager();
-        sectorAdjacencyManager = context.getSectorAdjacencyManager();
-        roadAdjacencyManager = context.getRoadAdjacencyManager();
+        waterwayAdjacencyManager = context.getWaterwayAdjacencyManager();
+        waterwayToSectorManager = context.getWaterwayToSectorManager();
+        sectorToWaterwayManager = context.getSectorToWaterwayManager();
         resourceManager = context.getResourceManager();
         cargoManager = context.getCargoManager();
         resetCurrentMPCInstructionState();
     }
 
     public void nextTransporter() {
-        int next = (donkeys.indexOf(currentDonkey)+1)
-                % donkeys.size();
-        currentDonkey = donkeys.get(next);
+        int next = (seaTransporters.indexOf(currentSeaTransporter)+1)
+                % seaTransporters.size();
+        currentSeaTransporter = seaTransporters.get(next);
     }
 
     public void previousTransporter() {
-        int previous = (donkeys.indexOf(currentDonkey)-1
-                + donkeys.size()) % donkeys.size();
-        currentDonkey = donkeys.get(previous);
+        int previous = (seaTransporters.indexOf(currentSeaTransporter)-1
+                + seaTransporters.size()) % seaTransporters.size();
+        currentSeaTransporter = seaTransporters.get(previous);
     }
 
     public void resetCurrentMPCInstructionState(){
         mpcInstructionStates.clear();
-        if(sectorAdjacencyManager.getAdjacency(landTransporterManager.getLocation(currentDonkey)) != null){
+
+        if(waterwayAdjacencyManager.getAdjacency(seaTransporterManager.getLocation(currentSeaTransporter)) != null){
             mpcInstructionStates.add(new MoveMPCIState());
         }
-
-        if(resourceManager.getQuantityInArea(landTransporterManager.getLocation(currentDonkey)) > 0){
+        /*if(resourceManager.getQuantityInArea(seaTransporterManager.getLocation(currentSeaTransporter)) > 0){
             mpcInstructionStates.add(new PickUpResourceMPCIState());
-        }
-        if(cargoManager.getQuantityInArea(currentDonkey) > 0){
+        }*/
+        if(cargoManager.getQuantityInArea(currentSeaTransporter) > 0){
             mpcInstructionStates.add(new DropOffMPCIState());
         }
-        ArrayList<LandTransporter> others = landTransporterManager.getNeighbors(currentDonkey);
+        ArrayList<SeaTransporter> others = seaTransporterManager.getNeighbors(currentSeaTransporter);
         if(others.size() > 0){
-            mpcInstructionStates.add(new PickUpLandTransporterMPCIState(others));
+            mpcInstructionStates.add(new PickUpSeaTransporterMPCIState(others));
         }
-        ArrayList<SeaTransporter> dockedBoats = seaTransporterShoreManager.getContentsOfArea(landTransporterManager.getLocation(currentDonkey));
+        /*ArrayList<SeaTransporter> dockedBoats = seaTransporterShoreManager.getContentsOfArea(seaTransporterManager.getLocation(currentSeaTransporter));
         if(dockedBoats.size() > 0){
             mpcInstructionStates.add(new PickUpSeaTransporterMPCIState(dockedBoats));
-        }
+        }*/
         if(mpcInstructionStates.size() == 0){
             mpcInstructionStates.add(new NoMoveMPCIState());
         }
@@ -79,21 +81,19 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     }
 
     public void dropOff(Product product){
-        cargoManager.remove(currentDonkey, product);
-        product.dropOff(landTransporterManager.getLocation(currentDonkey));
+        cargoManager.remove(currentSeaTransporter, product);
+        product.dropOff(seaTransporterManager.getLocation(currentSeaTransporter));
     }
     public void pickUpResource(Resource r){
-        resourceManager.remove(landTransporterManager.getLocation(currentDonkey), r);
-        cargoManager.add(currentDonkey, r);
+       //TODO: implement for Oil Rigs
     }
 
     public void pickUpLandTransporter(LandTransporter lt){
-        landTransporterManager.removeOccupant(lt);
-        cargoManager.add(currentDonkey, lt);
+        //could be used if we merged docked and on sea boat modes
     }
     public void pickUpSeaTransporter(SeaTransporter st){
-        seaTransporterShoreManager.removeOccupant(st);
-        cargoManager.add(currentDonkey, st);
+        seaTransporterManager.removeOccupant(st);
+        cargoManager.add(currentSeaTransporter, st);
     }
 
 
@@ -124,28 +124,21 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     }
 
     public void setStateToMoveSelected() {
-        currentMPCInstructionState = new DonkeyMoveSelectedState(this);
+        currentMPCInstructionState = new SeaTransporterMoveSelectedState(this);
     }
 
-    public Donkey getCurrentDonkey() {
-        return currentDonkey;
+    public SeaTransporter getCurrentSeaTransporter() {
+        return currentSeaTransporter;
     }
 
-    public LandTransporterManager getLandTransporterManager() {
-        return landTransporterManager;
+    public SeaTransporterManager getSeaTransporterManager() {
+        return seaTransporterManager;
     }
 
     public SectorTransporterManager getSectorTransporterManager() {
-        return landTransporterManager;
+        return seaTransporterShoreManager;
     }
 
-    public SectorAdjacencyManager getSectorAdjacencyManager() {
-        return sectorAdjacencyManager;
-    }
-
-    public SectorAdjacencyManager getRoadAdjacencyManager() {
-        return roadAdjacencyManager;
-    }
 
     public MPCInstructionState getCurrentMPCInstructionState() {
         return currentMPCInstructionState;
@@ -166,16 +159,30 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     }
 
     public Transporter getCurrentTransporter(){
-        return currentDonkey;
+        return currentSeaTransporter;
     }
 
+    public SeaTransporterShoreManager getSeaTransporterShoreManager() {
+        return seaTransporterShoreManager;
+    }
+
+    public WaterwayAdjacencyManager getWaterwayAdjacencyManager() {
+        return waterwayAdjacencyManager;
+    }
+
+    public WaterwayToSectorManager getWaterwayToSectorManager() {
+        return waterwayToSectorManager;
+    }
+
+    public SectorToWaterwayManager getSectorToWaterwayManager() {
+        return sectorToWaterwayManager;
+    }
 
     //testing only
     public String toString(){
-        return "Donkey Mode";
+        return "Sea Transporter Mode";
     }
     public int currentIndex(){
-        return donkeys.indexOf(currentDonkey);
+        return seaTransporters.indexOf(currentSeaTransporter);
     }
-
 }

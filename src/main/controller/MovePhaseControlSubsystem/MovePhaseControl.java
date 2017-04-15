@@ -5,6 +5,7 @@ import model.Game;
 import model.Managers.*;
 import model.Transporters.Donkey;
 import model.Transporters.RoadTransporter;
+import model.Transporters.SeaTransporter;
 import view.Camera;
 import view.MapMakerPreview;
 
@@ -31,6 +32,7 @@ public class MovePhaseControl extends ControlHandler {
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
+    private WaterwayAdjacencyManager waterwayAdjacencyManager;
     private SectorToWaterwayManager sectorToWaterwayManager;
     private WaterwayToSectorManager waterwayToSectorManager;
 
@@ -42,6 +44,7 @@ public class MovePhaseControl extends ControlHandler {
         this.roadAdjacencyManager = game.getRoadAdjacencyManager();
         this.resourceManager = game.getResourceManager();
         this.cargoManager = game.getCargoManager();
+        this.waterwayAdjacencyManager = game.getWaterwayAdjacencyManager();
         this.sectorToWaterwayManager = game.getSectorToWaterwayManager();
         this.waterwayToSectorManager = game.getWaterwayToSectorManager();
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
@@ -55,6 +58,10 @@ public class MovePhaseControl extends ControlHandler {
 
     public void addRoadTransporterMPCMode(ArrayList<RoadTransporter> roadTransporters){
         movePhaseControlModes.add(new RoadTransporterMPCMode(roadTransporters, this));
+    }
+
+    public void addSeaTransporterMPCMode(ArrayList<SeaTransporter> seaTransporters){
+        movePhaseControlModes.add(new SeaTransporterMPCMode(seaTransporters, this));
     }
 
     public void nextMode(){
@@ -141,7 +148,13 @@ public class MovePhaseControl extends ControlHandler {
 
     public CargoManager getCargoManager() {return cargoManager;}
 
-//TODO: All Overridden functions call meaningfully named functions
+    public WaterwayAdjacencyManager getWaterwayAdjacencyManager() {return waterwayAdjacencyManager;}
+
+    public SectorToWaterwayManager getSectorToWaterwayManager() {return sectorToWaterwayManager;}
+
+    public WaterwayToSectorManager getWaterwayToSectorManager() {return waterwayToSectorManager;}
+
+    //TODO: All Overridden functions call meaningfully named functions
     //TODO: rename ControlHandler functions to the name of the keypress
     //right now mapped to functions kind of at random just to test
 

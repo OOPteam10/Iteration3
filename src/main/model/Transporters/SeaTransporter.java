@@ -1,6 +1,9 @@
 package model.Transporters;
 
 import model.DropOffAbilities.SeaTransporterDropOffAbility;
+
+import model.DropOffAbilities.WaterwayDropOffAbility;
+
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Waterway;
 import model.Transporters.Visitor.SeaTransporterVisitor;
@@ -10,6 +13,14 @@ import model.Transporters.Visitor.SeaTransporterVisitor;
  */
 public  abstract class SeaTransporter extends Transporter<Waterway> {
     private SeaTransporterDropOffAbility stdoAbility;
+
+    private WaterwayDropOffAbility waterwayDropOffAbility;
+
+    public void setWaterwayDropOffAbility(WaterwayDropOffAbility waterwayDropOffAbility) {this.waterwayDropOffAbility = waterwayDropOffAbility;}
+
+    public void dropOff(Waterway w) {
+        waterwayDropOffAbility.execute(w);
+    }
 
     public void setStdoAbility(SeaTransporterDropOffAbility stdoAbility){
         this.stdoAbility = stdoAbility;
