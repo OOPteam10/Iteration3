@@ -5,6 +5,7 @@ import model.Managers.*;
 
 import model.Transporters.Donkey;
 import model.Transporters.RoadTransporter;
+import view.Camera;
 import view.MapMakerPreview;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  *
  * the Control can hold an arraylist of the currently available modes (this is ok)
  */
-public class MovePhaseControl implements ControlHandler {
+public class MovePhaseControl extends ControlHandler {
 
     private ArrayList<MovePhaseControlMode> movePhaseControlModes;
     MovePhaseControlMode currentMovePhaseControlMode;
@@ -51,12 +52,28 @@ public class MovePhaseControl implements ControlHandler {
         movePhaseControlModes.add(new RoadTransporterMPCMode(roadTransporters, this));
     }
 
-    private void nextMode(){
+    public void nextMode(){
         int next = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)+1)
                 % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(next);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
+
+    @Override
+    public void prevMode() {
+
+    }
+
+    @Override
+    public void up() {
+
+    }
+
+    @Override
+    public void down() {
+
+    }
+
     private void previousMode(){
         int previous = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)-1
                 + movePhaseControlModes.size()) % movePhaseControlModes.size();
@@ -187,9 +204,10 @@ public class MovePhaseControl implements ControlHandler {
     }
 
     @Override
-    public void init(MapMakerPreview preview) {
+    public void init(MapMakerPreview preview, Camera camera) {
 
     }
+
 
     //testing
     public String toString(){

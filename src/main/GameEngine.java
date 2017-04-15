@@ -1,5 +1,5 @@
 import controller.Controller;
-import controller.MapMakerControlSubsystem.ControlAction.ControlAction;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -27,7 +27,7 @@ public class GameEngine extends Application {
     private Controller controller;
 
     private int frameCounter = 0;
-    private Vector<KeyCode> activeKeys;
+
     private Group root;
     private Scene scene;
 
@@ -36,7 +36,6 @@ public class GameEngine extends Application {
          scene = new Scene(root, Color.TRANSPARENT);
 
         //array for active keyCodes
-        activeKeys = new Vector<KeyCode>();
         game = new Game();
         view = new View(game, scene, root);
 
@@ -46,13 +45,15 @@ public class GameEngine extends Application {
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("MapMakerV0.2");
+
         sendEventToController(scene);
+
         new AnimationTimer() {
             @Override
             public void handle(long currentPulse) {
                 frameCounter++;
-                //menus
 
+                //menus
                 if (frameCounter == 2) { //Limit FPS to 30
                     frameCounter = 0;
 
@@ -68,10 +69,11 @@ public class GameEngine extends Application {
     }
 
     public void sendEventToController(Scene scene){
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                controller.keyPressed(event);
+
             }
         });
 
