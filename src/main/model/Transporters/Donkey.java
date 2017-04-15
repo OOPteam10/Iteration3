@@ -1,6 +1,11 @@
 package model.Transporters;
 
 import model.Animal;
+
+import model.Managers.LandTransporterManager;
+
+import model.TransporterControlAbilities.AddDonkeyToControlListAbility;
+import model.TransporterControlAbilities.TransporterAbilityFactory;
 import model.Transporters.Visitor.LandTransporterVisitor;
 
 
@@ -9,7 +14,10 @@ import model.Transporters.Visitor.LandTransporterVisitor;
  */
 public class Donkey extends LandTransporter implements Animal {
 
-
+    @Override
+    public void produceAbility(TransporterAbilityFactory f) {
+        setAbility(f.makeDonkeyAbility(this));
+    }
     /*@Override
     public Donkey reproduce() {
        return new Donkey();
