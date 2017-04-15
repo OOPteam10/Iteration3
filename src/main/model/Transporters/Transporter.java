@@ -2,6 +2,7 @@ package model.Transporters;
 
 
 
+import model.PlayerID;
 import model.structures.producers.Product;
 
 /**
@@ -9,5 +10,7 @@ import model.structures.producers.Product;
  */
 
 public abstract class Transporter<L> implements Product<L> {
+    protected PlayerID playerID;
 
+    public PlayerID getPlayerID() {return playerID;}
 }
