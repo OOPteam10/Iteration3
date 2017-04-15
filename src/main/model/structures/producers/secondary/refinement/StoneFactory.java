@@ -1,20 +1,25 @@
 package model.structures.producers.secondary.refinement;
 
+import model.Managers.ResourceManager;
+import model.TileSubsystem.Sector;
 import model.structures.producers.SecondaryProducerTypeA;
 import model.resources.Clay;
 import model.resources.Stone;
-import model.structures.producers.Product;
 
 /**
  * Created by cduica on 4/8/17.
  */
 public class StoneFactory extends SecondaryProducerTypeA<Clay> {
+
+    public StoneFactory(ResourceManager resourceManager) {
+        super(resourceManager);
+    }
+
     @Override
-    public Product produce() {
+    public void produce(Sector l) {
         if(consumeRawResource()){
-            return new Stone();
+            addToResourceManager(l, new Stone());
         }
-        return null;
     }
 
 }

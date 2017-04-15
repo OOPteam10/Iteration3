@@ -1,6 +1,6 @@
 package model.structures.producers;
 
-import model.Managers.GoodsManager;
+import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Resource;
 import model.structures.Structure;
@@ -10,8 +10,16 @@ import model.structures.Structure;
  */
 public abstract class Producer extends Structure {
 
-    public abstract Product produce();
-    //Some member variables for production limits go here
+    private ResourceManager resourceManager;
 
+    public Producer(ResourceManager resourceManager){
+        this.resourceManager = resourceManager;
+    }
+
+    public abstract void produce(Sector l);
+
+    protected void addToResourceManager( Sector l, Resource r ){
+        resourceManager.add(l, r);
+    }
 
 }

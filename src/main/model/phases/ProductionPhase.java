@@ -2,7 +2,13 @@ package model.phases;
 
 import model.Managers.*;
 import model.PlayerID;
+import model.TileSubsystem.Sector;
+import model.resources.Resource;
+import model.structures.producers.Product;
 import model.structures.producers.primary.PrimaryProducer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by cduica on 4/14/17.

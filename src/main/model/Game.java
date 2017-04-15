@@ -49,7 +49,7 @@ public class Game {
         cargoManager = new CargoManager();
         landPrimaryProducerManager = new LandPrimaryProducerManager();
         landSecondaryProducerManager = new LandSecondaryProducerManager();
-        seaProducerManager = new SeaProducerManager();
+        //seaProducerManager = new SeaProducerManager();
 
         productionPhase = new ProductionPhase(landPrimaryProducerManager, landSecondaryProducerManager,
                 landTransporterManager, seaProducerManager, seaTransporterManager, seaTransporterShoreManager,

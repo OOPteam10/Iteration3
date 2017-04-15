@@ -3,9 +3,7 @@ package model.Managers;
 import model.structures.producers.Producer;
 import model.structures.producers.Product;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,15 +22,7 @@ public abstract class ProducerManager<L, P extends Producer> {
         managerMap.put(l, p);
     }
 
-    public List<Product> produceAll(){
-        //list of produced resources
-        List<Product> produced = new ArrayList<>();
-        //iterate through the producers and smash that mf produce button
-        for(Map.Entry<L, P> e : managerMap.entrySet()){
-            produced.add(e.getValue().produce());
-        }
-        return produced;
-    }
+    public abstract void produceAll();
 
     public void removeProducer(L l){
         managerMap.remove(l);
