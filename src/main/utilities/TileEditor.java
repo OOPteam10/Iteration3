@@ -4,13 +4,7 @@ import controller.MapMakerControlSubsystem.MMCObserver;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Rivers.River;
-import model.TileSubsystem.Terrains.Desert;
-import model.TileSubsystem.Terrains.Sea;
 import model.TileSubsystem.Terrains.Terrain;
-import model.TileSubsystem.Tiles.LandTile;
-import model.TileSubsystem.Tiles.RiverTile;
-import model.TileSubsystem.Tiles.SeaTile;
-import model.TileSubsystem.Tiles.Tile;
 
 import java.util.Vector;
 
@@ -77,17 +71,11 @@ public class TileEditor implements Editor{
 
 
     public boolean mapNotInitialized(){
-        if(map == null){
-            return true;
-        }
-        return false;
+        return map == null;
     }
 
     public boolean locationNotSet(){
-        if(location == null){
-            return true;
-        }
-        return false;
+        return location == null;
     }
 
     @Override
@@ -139,9 +127,7 @@ public class TileEditor implements Editor{
     }
 
     public boolean delete(){
-        if(map.remove(location))
-            return true;
-        else return false;
+        return map.remove(location);
     }
 
     public void centerGravity(){

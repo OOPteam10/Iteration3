@@ -1,7 +1,5 @@
 package model.Managers;
 
-import model.TileSubsystem.Sector;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -46,7 +44,11 @@ public class ListManager<Loc, GoodsType> {
     }
 
     public ArrayList<GoodsType> get(Loc l){
-        return managerMap.get(l);
+        if(managerMap.get(l) != null){
+            return managerMap.get(l);
+        }else {
+            return new ArrayList<GoodsType>();
+        }
     }
 
     public int getQuantityInArea(Loc l){

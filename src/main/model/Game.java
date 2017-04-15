@@ -4,7 +4,6 @@ import model.Managers.*;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Tiles.Tile;
-import model.Transporters.LandTransporter;
 import model.phases.ProductionPhase;
 import utilities.FileManager.FileManager;
 import utilities.TileEditor;
@@ -76,7 +75,7 @@ public class Game {
     public void setDefaultMap(){
         FileManager fileManager = new FileManager();
         try {
-            setMap(fileManager.loadDefaultMap());
+            setMap(FileManager.loadDefaultMap());
         }catch (IOException e){
             System.out.println("No default.txt found");
         }

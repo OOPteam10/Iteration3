@@ -1,7 +1,9 @@
 package controller.MovePhaseControlSubsystem;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.MPCInstructionState;
-import model.Managers.*;
+import model.Managers.CargoManager;
+import model.Managers.ResourceManager;
+import model.Managers.SectorTransporterManager;
 import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
 import model.Transporters.Transporter;

@@ -4,7 +4,6 @@ import model.Managers.SeaTransporterManager;
 import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.WaterwayMap;
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Sector;

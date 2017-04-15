@@ -4,7 +4,6 @@ import controller.MapMakerControl;
 import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.RiverMMCState;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
-import model.TileSubsystem.Terrains.Desert;
 import model.TileSubsystem.Terrains.Woods;
 import utilities.TileEditor;
 

@@ -18,10 +18,6 @@ public class LandTileCreationCommand extends TileCreationCommand {
 
     @Override
     public boolean executeCreation() {
-        if (map.addLandTile(new LandTile(terrain), getLocation())) {
-            return true;
-        } else {
-            return false;
-        }
+        return map.addLandTile(new LandTile(terrain), getLocation());
     }
 }

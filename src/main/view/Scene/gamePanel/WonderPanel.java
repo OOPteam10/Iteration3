@@ -1,15 +1,14 @@
 package view.Scene.gamePanel;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import model.Game;
 import view.Camera;
 import view.Panel;
 import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
-import javafx.scene.image.Image;
 
 import java.awt.*;
 

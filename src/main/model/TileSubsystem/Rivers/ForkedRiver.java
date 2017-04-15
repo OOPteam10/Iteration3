@@ -1,6 +1,5 @@
 package model.TileSubsystem.Rivers;
 
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Visitor.TileVisitor;
 

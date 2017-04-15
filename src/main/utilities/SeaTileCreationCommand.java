@@ -2,8 +2,6 @@ package utilities;
 
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Terrains.Sea;
-import model.TileSubsystem.Terrains.Terrain;
-import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.SeaTile;
 
 /**
@@ -18,10 +16,6 @@ public class SeaTileCreationCommand extends TileCreationCommand {
 
     @Override
     public boolean executeCreation() {
-        if (map.addSeaTile(new SeaTile(Sea.getInstance()), getLocation())) {
-            return true;
-        } else {
-            return false;
-        }
+        return map.addSeaTile(new SeaTile(Sea.getInstance()), getLocation());
     }
 }

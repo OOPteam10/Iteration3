@@ -4,12 +4,8 @@ import controller.MapMakerControl;
 import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.OrientationMMCState;
 import controller.MapMakerControlSubsystem.RiverMMCState;
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
-import model.TileSubsystem.Rivers.NormalRiver;
-import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Rivers.SourceRiver;
-import model.TileSubsystem.Tiles.RiverTile;
 
 import java.util.Vector;
 

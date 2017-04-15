@@ -1,13 +1,14 @@
 package model.Transporters.Visitor;
 
 import javafx.scene.canvas.GraphicsContext;
-import model.MapSubsystem.Location;
+import javafx.scene.image.Image;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
-import model.Transporters.*;
+import model.Transporters.Donkey;
+import model.Transporters.Truck;
+import model.Transporters.Wagon;
 import view.Camera;
 import view.assets.AssetManager;
-import javafx.scene.image.Image;
 
 import java.awt.*;
 
@@ -29,8 +30,6 @@ public class LandTransporterDrawingVisitor implements  LandTransporterVisitor {
         this.sector = sector;
         this.p = p;
         scale = camera.getTransporterScale();
-        
-       
     }
 
     @Override

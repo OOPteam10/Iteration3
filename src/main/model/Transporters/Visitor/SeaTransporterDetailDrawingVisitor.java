@@ -1,12 +1,12 @@
 package model.Transporters.Visitor;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import model.Transporters.Raft;
 import model.Transporters.Rowboat;
 import model.Transporters.Steamship;
 import view.Camera;
 import view.assets.AssetManager;
-import javafx.scene.image.Image;
 
 import java.awt.*;
 

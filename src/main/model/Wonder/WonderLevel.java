@@ -78,14 +78,7 @@ public class WonderLevel {
 
     public boolean isFull(){
 
-        if(capacity == bricks.size()){
-
-            return true;
-
-        }else{
-
-            return false;
-        }
-    };
+        return capacity == bricks.size();
+    }
 
 }

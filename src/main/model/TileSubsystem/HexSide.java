@@ -15,7 +15,7 @@ public enum HexSide {
     private CardinalDirection cd2;
     private int degree;
 
-    private HexSide(CardinalDirection cd1, CardinalDirection cd2, int degree){
+    HexSide(CardinalDirection cd1, CardinalDirection cd2, int degree){
         this.cd1 = cd1;
         this.cd2 = cd2;
         this.degree = degree;

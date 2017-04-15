@@ -1,7 +1,6 @@
 package model.TileSubsystem.Visitor;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.*;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Rivers.SourceRiver;
@@ -13,7 +12,6 @@ import view.Camera;
 import view.assets.AssetManager;
 
 import java.awt.*;
-import java.awt.Image;
 
 /**
  * Created by Karth on 4/10/2017.

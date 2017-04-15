@@ -1,21 +1,14 @@
 import controller.Controller;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Game;
-import view.Camera;
 import view.View;
-
-import javax.naming.ldap.Control;
-import java.util.HashMap;
-import java.util.Vector;
 
 public class GameEngine extends Application {
 

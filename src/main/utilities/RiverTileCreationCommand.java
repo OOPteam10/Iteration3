@@ -3,7 +3,6 @@ package utilities;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Terrains.Terrain;
-import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
 
 /**
@@ -22,10 +21,6 @@ public class RiverTileCreationCommand extends TileCreationCommand {
 
     @Override
     public boolean executeCreation() {
-        if (map.addRiverTile(new RiverTile(terrain, river), getLocation())) {
-            return true;
-        } else {
-            return false;
-        }
+        return map.addRiverTile(new RiverTile(terrain, river), getLocation());
     }
 }

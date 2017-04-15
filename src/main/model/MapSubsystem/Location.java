@@ -1,8 +1,6 @@
 package model.MapSubsystem;
 
 
-import javafx.geometry.Point3D;
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 
 import java.util.ArrayList;

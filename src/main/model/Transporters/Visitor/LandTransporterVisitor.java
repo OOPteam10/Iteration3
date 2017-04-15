@@ -1,7 +1,6 @@
 package model.Transporters.Visitor;
 
 import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
 import model.Transporters.Truck;
 import model.Transporters.Wagon;
 

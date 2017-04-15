@@ -2,6 +2,7 @@ package model.resources;
 
 import model.DropOffAbilities.ResourceDropOffAbility;
 import model.TileSubsystem.Sector;
+import model.resources.Visitor.ResourceVisitor;
 import model.structures.producers.Product;
 
 /**
@@ -19,4 +20,6 @@ public abstract class Resource implements Product<Sector> {
     public void dropOff(Sector s) {
         rdoAbility.execute(s);
     }
+
+    public abstract void accept(ResourceVisitor v);
 }

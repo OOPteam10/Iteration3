@@ -1,10 +1,5 @@
 package utilities;
 
-import model.MapSubsystem.Location;
-import model.MapSubsystem.Map;
-import model.TileSubsystem.Terrains.Sea;
-import model.TileSubsystem.Tiles.SeaTile;
-import model.TileSubsystem.Tiles.Tile;
 import org.junit.Test;
 
 /**

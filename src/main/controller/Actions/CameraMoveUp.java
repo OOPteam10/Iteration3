@@ -1,6 +1,5 @@
 package controller.Actions;
 
-import controller.Action;
 import controller.ControlHandler;
 import view.Camera;
 

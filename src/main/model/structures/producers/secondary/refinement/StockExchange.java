@@ -2,10 +2,10 @@ package model.structures.producers.secondary.refinement;
 
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
-import model.structures.producers.SecondaryProducerTypeB;
 import model.resources.Coin;
 import model.resources.Paper;
 import model.resources.Stock;
+import model.structures.producers.SecondaryProducerTypeB;
 
 /**
  * Created by cduica on 4/8/17.

@@ -1,11 +1,9 @@
 package controller;
 
 import controller.Actions.*;
-import controller.MapMakerControlSubsystem.MMCState;
 import javafx.scene.input.KeyCode;
 import view.Camera;
 import view.MapMakerPreview;
-import view.View;
 
 import java.util.Vector;
 

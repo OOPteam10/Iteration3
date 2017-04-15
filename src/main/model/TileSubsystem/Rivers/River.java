@@ -1,10 +1,7 @@
 package model.TileSubsystem.Rivers;
 
-import model.MapSubsystem.Location;
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Visitor.TileVisitor;
-import model.TileSubsystem.Waterway;
 
 import java.util.ArrayList;
 

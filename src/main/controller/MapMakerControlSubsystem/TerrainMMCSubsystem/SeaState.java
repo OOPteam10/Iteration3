@@ -2,10 +2,7 @@ package controller.MapMakerControlSubsystem.TerrainMMCSubsystem;
 
 import controller.MapMakerControl;
 import controller.MapMakerControlSubsystem.MMCObserver;
-import controller.MapMakerControlSubsystem.RiverMMCState;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
-import model.TileSubsystem.Terrains.Sea;
-import model.TileSubsystem.Tiles.SeaTile;
 import utilities.TileEditor;
 
 import java.util.Vector;

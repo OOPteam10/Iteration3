@@ -6,7 +6,8 @@ import model.TileSubsystem.Terrains.Mountains;
 import model.TileSubsystem.Tiles.LandTile;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by Kevin on 3/29/17.

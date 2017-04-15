@@ -65,6 +65,17 @@ public class Assets {
         loadItem("RAFT", "Assets/Transporters/Raft.png");
         loadItem("ROWBOAT", "Assets/Transporters/ROWBOAT.png");
         loadItem("STEAMSHIP", "Assets/Transporters/Steamship.png");
+        //Load Resources
+        loadItem("BOARD","Assets/Resources/Board.png");
+        loadItem("CLAY","Assets/Resources/Clay.png");
+        loadItem("COIN","Assets/Resources/Coin.png");
+        loadItem("FUEL","Assets/Resources/Fuel.png");
+        loadItem("GOLD","Assets/Resources/Gold.png");
+        loadItem("IRON","Assets/Resources/Iron.png");
+        loadItem("PAPER","Assets/Resources/Paper.png");
+        loadItem("STOCK","Assets/Resources/Stock.png");
+        loadItem("STONE","Assets/Resources/Stone.png");
+        loadItem("TRUNK","Assets/Resources/Trunk.png");
     }
 
     public void loadItem(String name, String path){

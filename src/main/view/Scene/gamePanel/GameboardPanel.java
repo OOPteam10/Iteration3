@@ -1,24 +1,24 @@
 package view.Scene.gamePanel;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
 import model.Managers.LandTransporterManager;
+import model.Managers.ResourceManager;
 import model.Managers.SeaTransporterManager;
+import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
-import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
-import model.TileSubsystem.Waterway;
 import model.Transporters.*;
 import model.Transporters.Visitor.LandTransporterDrawingVisitor;
 import model.Transporters.Visitor.SeaTransporterDrawingVisitor;
-import model.Transporters.Visitor.SeaTransporterVisitor;
+import model.resources.*;
+import model.resources.Visitor.ResourceDrawingVisitor;
 import utilities.TileEditor;
 import view.Camera;
 import view.Panel;
@@ -37,6 +37,7 @@ public class GameboardPanel extends Panel {
     private PanelManager panelManager;
     private Map gameMap;
     private WaterwayMap waterwayMap;
+    private LandMap landMap;
     private HashMap<Location, Tile> gameBoard;
     private AssetManager assets;
     private Camera camera;
@@ -44,6 +45,7 @@ public class GameboardPanel extends Panel {
     private Group root;
     private LandTransporterManager landTransporterManager;
     private SeaTransporterManager seaTransporterManager;
+    private ResourceManager resourceManager;
 
     public GameboardPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
@@ -54,12 +56,13 @@ public class GameboardPanel extends Panel {
         this.panelManager = panelManager;
         landTransporterManager = game.getLandTransporterManager();
         seaTransporterManager = game.getSeaTransporterManager();
+        resourceManager = game.getResourceManager();
         updateGameMap();
-        addTransporters();
+        addEntities();
     }
 
     //TODO: this is a test function, delete it after
-    private void addTransporters() {
+    private void addEntities() {
 //        Donkey dq = new Donkey();
 //        Location l = new Location(0,0,0);
 //        game.getActualMap().formatSurfaceMaps();
@@ -91,11 +94,25 @@ public class GameboardPanel extends Panel {
         seaTransporterManager.add(st1, waterwayMap.getTile(new Location(0,0,0)));
         seaTransporterManager.add(st2, waterwayMap.getTile(new Location(0,1,-1)));
         seaTransporterManager.add(st3, waterwayMap.getTile(new Location(1,1,-2)));
+
+        Gold r1 = new Gold();
+        Board r2 = new Board();
+        Clay r3 = new Clay();
+        Coin r4 = new Coin();
+        Fuel r5 = new Fuel();
+
+        resourceManager.add(gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.NE), r1);
+        resourceManager.add(gameMap.getTile(new Location(0, 0, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE),r2);
+        resourceManager.add(gameMap.getTile(new Location(-1, 0, 1)).getSectorAtCardinalDirection(CardinalDirection.NNE),r3);
+        resourceManager.add(gameMap.getTile(new Location(-1, 1, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE),r4);
+        resourceManager.add(gameMap.getTile(new Location(-1, 3, -2)).getSectorAtCardinalDirection(CardinalDirection.SSE),r5);
+
     }
 
     private void updateGameMap(){
         gameMap = game.getActualMap();
         waterwayMap = gameMap.getWaterwayMap();
+        landMap = gameMap.getLandMap();
         gameBoard = gameMap.getMap();
     }
 
@@ -159,12 +176,27 @@ public class GameboardPanel extends Panel {
         }
     }
 
+    private void drawResources(GraphicsContext gc){
+        for(Location loc:landMap.getSurfaces().keySet()){
+            Point p = new Point();
+            p.x = loc.getX();
+            p.y = loc.getY();
+                for (Sector sector : landMap.getTile(loc).getSectors()) {
+                    for (Resource resource : resourceManager.get(sector)) {
+                        ResourceDrawingVisitor v = new ResourceDrawingVisitor(assets, gc, p, camera, sector);
+                        resource.accept(v);
+                    }
+                }
+        }
+    }
+
     public void draw(GraphicsContext gc, Point screenDimension){
         drawBackground(gc);
         drawGameboard(gc);
         drawTileSelector(gc);
         drawLandTransporters(gc);
         drawSeaTransporters(gc);
+        drawResources(gc);
         updateGameMap();
     }
 

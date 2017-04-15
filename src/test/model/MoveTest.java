@@ -1,12 +1,14 @@
 package model;
 
-import model.Managers.*;
+import model.Managers.Adjacency;
+import model.Managers.LandTransporterManager;
+import model.Managers.SectorAdjacencyManager;
+import model.Managers.WaterwayAdjacencyManager;
 import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
-import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Waterway;
