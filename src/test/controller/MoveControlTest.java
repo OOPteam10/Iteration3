@@ -74,6 +74,7 @@ public class MoveControlTest {
         Raft raft3 = new Raft();
         seaTransportersAtSea.add(raft2);
         seaTransportersAtSea.add(raft3);
+        seaTransportersAtSea.add(raft1);
 
         ltm.add(donkeys.get(0), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
         ltm.add(donkeys.get(1), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
@@ -149,7 +150,7 @@ public class MoveControlTest {
                             System.out.println(l.toString() + " " + s.toString() + " " + seaTransporters.size() + " boats on land");
                         }
 
-                        if(game.getResourceManager().get(s) != null){
+                        if(game.getResourceManager().get(s).size() > 0){
                             System.out.print(l.toString() + " " + s.toString() + " ");
                             for(Resource r: game.getResourceManager().get(s)){
                                 System.out.print(r.toString() + " ");

@@ -26,6 +26,7 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
     private WaterwayAdjacencyManager waterwayAdjacencyManager;
     private WaterwayToSectorManager waterwayToSectorManager;
     private SectorToWaterwayManager sectorToWaterwayManager;
+    private LandTransporterManager landTransporterManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
 
@@ -37,6 +38,7 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
         waterwayAdjacencyManager = context.getWaterwayAdjacencyManager();
         waterwayToSectorManager = context.getWaterwayToSectorManager();
         sectorToWaterwayManager = context.getSectorToWaterwayManager();
+        landTransporterManager = context.getLandTransporterManager();
         resourceManager = context.getResourceManager();
         cargoManager = context.getCargoManager();
         resetCurrentMPCInstructionState();
@@ -60,9 +62,9 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
         if(waterwayAdjacencyManager.getAdjacency(seaTransporterManager.getLocation(currentSeaTransporter)) != null){
             mpcInstructionStates.add(new MoveMPCIState());
         }
-        /*if(resourceManager.getQuantityInArea(seaTransporterManager.getLocation(currentSeaTransporter)) > 0){
+        if(resourceManager.getQuantityInArea(seaTransporterShoreManager.getLocation(currentSeaTransporter)) > 0){
             mpcInstructionStates.add(new PickUpResourceMPCIState());
-        }*/
+        }
         if(cargoManager.getQuantityInArea(currentSeaTransporter) > 0){
             mpcInstructionStates.add(new DropOffMPCIState());
         }
@@ -70,10 +72,21 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
         if(others.size() > 0){
             mpcInstructionStates.add(new PickUpSeaTransporterMPCIState(others));
         }
-        /*ArrayList<SeaTransporter> dockedBoats = seaTransporterShoreManager.getContentsOfArea(seaTransporterManager.getLocation(currentSeaTransporter));
+        ArrayList<LandTransporter> landTransporters = landTransporterManager.getContentsOfArea(seaTransporterShoreManager.getLocation(currentSeaTransporter));
+        if(landTransporters.size() > 0){
+            mpcInstructionStates.add(new PickUpLandTransporterMPCIState(landTransporters));
+        }
+        ArrayList<SeaTransporter> dockedBoats = seaTransporterShoreManager.getNeighbors(currentSeaTransporter);
         if(dockedBoats.size() > 0){
             mpcInstructionStates.add(new PickUpSeaTransporterMPCIState(dockedBoats));
-        }*/
+        }
+        //check if you're in the water with adjacent dock locations
+        //System.out.println("current waterway: " + seaTransporterManager.getLocation(currentSeaTransporter).toString());
+        //mpcInstructionStates.add(new DockMPCIState());
+        if (waterwayToSectorManager.get(seaTransporterManager.getLocation(currentSeaTransporter)).size() > 0){
+            mpcInstructionStates.add(new DockMPCIState());
+        }
+
         if(mpcInstructionStates.size() == 0){
             mpcInstructionStates.add(new NoMoveMPCIState());
         }
@@ -82,17 +95,20 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
 
     public void dropOff(Product product){
         cargoManager.remove(currentSeaTransporter, product);
-        product.dropOff(seaTransporterManager.getLocation(currentSeaTransporter));
+        product.dropOff(seaTransporterShoreManager.getLocation(currentSeaTransporter));
     }
     public void pickUpResource(Resource r){
-       //TODO: implement for Oil Rigs
+        resourceManager.remove(seaTransporterShoreManager.getLocation(currentSeaTransporter), r);
+        cargoManager.add(currentSeaTransporter, r);
     }
 
     public void pickUpLandTransporter(LandTransporter lt){
-        //could be used if we merged docked and on sea boat modes
+        landTransporterManager.removeOccupant(lt);
+        cargoManager.add(currentSeaTransporter, lt);
     }
     public void pickUpSeaTransporter(SeaTransporter st){
         seaTransporterManager.removeOccupant(st);
+        seaTransporterShoreManager.removeOccupant(st);
         cargoManager.add(currentSeaTransporter, st);
     }
 
@@ -115,9 +131,7 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
         currentMPCInstructionState = mpcInstructionStates.get(previous);
     }
 
-    public void cycleLeft() {
-        currentMPCInstructionState.cycleLeft(this);
-    }
+    public void cycleLeft() {currentMPCInstructionState.cycleLeft(this);}
 
     public void cycleRight() {
         currentMPCInstructionState.cycleRight(this);
@@ -125,6 +139,10 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
 
     public void setStateToMoveSelected() {
         currentMPCInstructionState = new SeaTransporterMoveSelectedState(this);
+    }
+
+    public void setStateToDockSelected() {
+        currentMPCInstructionState = new DockSelectedMPCIState(this);
     }
 
     public SeaTransporter getCurrentSeaTransporter() {

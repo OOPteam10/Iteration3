@@ -59,8 +59,8 @@ public class Game {
         productionPhase = new ProductionPhase(landPrimaryProducerManager, landSecondaryProducerManager,
                 landTransporterManager, seaProducerManager, seaTransporterManager, seaTransporterShoreManager,
                 cargoManager, resourceManager);
-        waterwayToSectorManager = new WaterwayToSectorManager();
-        sectorToWaterwayManager = new SectorToWaterwayManager();
+        waterwayToSectorManager = map.generateWaterwayToSectorManager();
+        sectorToWaterwayManager = map.generateSectorToWaterwayManager();
 
     }
 
