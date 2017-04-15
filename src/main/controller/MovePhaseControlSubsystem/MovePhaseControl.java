@@ -3,13 +3,19 @@ package controller.MovePhaseControlSubsystem;
 import controller.ControlHandler;
 import model.Game;
 import model.Managers.*;
+
+import model.TileSubsystem.Sector;
+import model.TileSubsystem.Waterway;
+import model.TransporterControlAbilities.AddTransporterToControlListFactory;
 import model.Transporters.Donkey;
+import model.Transporters.LandTransporter;
 import model.Transporters.RoadTransporter;
 import model.Transporters.SeaTransporter;
 import view.Camera;
 import view.MapMakerPreview;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by hankerins on 4/10/17.
@@ -36,6 +42,10 @@ public class MovePhaseControl extends ControlHandler {
     private SectorToWaterwayManager sectorToWaterwayManager;
     private WaterwayToSectorManager waterwayToSectorManager;
 
+    private ArrayList<Donkey> donkeyList = new ArrayList<Donkey>();
+    private ArrayList<RoadTransporter> roadTransporterList = new ArrayList<RoadTransporter>();
+    private ArrayList<SeaTransporter> seaTransporterList = new ArrayList<SeaTransporter>();
+
     public MovePhaseControl(Game game){
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
@@ -50,18 +60,23 @@ public class MovePhaseControl extends ControlHandler {
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
     }
 
-
-    public void addDonkeyMPCMode(ArrayList<Donkey> donkeys){
-        movePhaseControlModes.add(new DonkeyMPCMode(donkeys, this));
+    public void addDonkeyMPCMode(){
+        clearTransporterLists();
+        configureTransporterLists();
+        movePhaseControlModes.add(new DonkeyMPCMode(donkeyList, this));
         currentMovePhaseControlMode = movePhaseControlModes.get(0);
     }
 
-    public void addRoadTransporterMPCMode(ArrayList<RoadTransporter> roadTransporters){
-        movePhaseControlModes.add(new RoadTransporterMPCMode(roadTransporters, this));
+    public void addRoadTransporterMPCMode(){
+        clearTransporterLists();
+        configureTransporterLists();
+        movePhaseControlModes.add(new RoadTransporterMPCMode(roadTransporterList, this));
     }
 
-    public void addSeaTransporterMPCMode(ArrayList<SeaTransporter> seaTransporters){
-        movePhaseControlModes.add(new SeaTransporterMPCMode(seaTransporters, this));
+    public void addSeaTransporterMPCMode(){
+        clearTransporterLists();
+        configureTransporterLists();
+        movePhaseControlModes.add(new SeaTransporterMPCMode(seaTransporterList, this));
     }
 
     public void nextMode(){
@@ -226,6 +241,34 @@ public class MovePhaseControl extends ControlHandler {
 
     }
 
+    public void addToDonkeyList(Donkey donkey) {
+        donkeyList.add(donkey);
+    }
+
+    public void addToRoadTransporterList(RoadTransporter rt) {
+        roadTransporterList.add(rt);
+    }
+
+    public void addToSeaTransporterList(SeaTransporter st) {
+        seaTransporterList.add(st);
+    }
+
+    public void clearTransporterLists() {
+        donkeyList.clear();
+        roadTransporterList.clear();
+        seaTransporterList.clear();
+    }
+
+    public void configureTransporterLists() {
+        for(LandTransporter lt : landTransporterManager.getManagerMap().keySet()) {
+            lt.produceAbility(new AddTransporterToControlListFactory(this));
+            lt.execute(); // adds to donkey/road transporter list
+        }
+        for (SeaTransporter st : seaTransporterManager.getManagerMap().keySet()) {
+            // add this to the factory
+            seaTransporterList.add(st);
+        }
+    }
 
     //testing
     public String toString(){
