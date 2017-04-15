@@ -125,7 +125,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
         Point sectorDrawingLocation = new Point();
         double x = (camera.offset(p).x+getOffsetX());
         double y = camera.offset(p).y+getOffsetY();
-        double r = 110*camera.getScale();
+        double r = 90*camera.getScale();
 
         x = x+(int) (r* Math.cos(Math.toRadians((CardinalDirectionToDegree(cardinalDirection)))));
         y= y - 1*((int) (r* Math.sin(Math.toRadians((CardinalDirectionToDegree(cardinalDirection))))));
