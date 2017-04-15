@@ -2,6 +2,8 @@ package model.phases;
 
 import model.Managers.*;
 import model.PlayerID;
+import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.Sector;
 
 /**
  * Created by cduica on 4/14/17.
@@ -35,7 +37,7 @@ public class ProductionPhase implements Phase {
     @Override
     public void execute(PlayerID p1, PlayerID p2) {
         iterateLandProducers();
-        iterateSeaProducers();
+        //iterateSeaProducers();
     }
 
     private void iterateLandProducers(){
