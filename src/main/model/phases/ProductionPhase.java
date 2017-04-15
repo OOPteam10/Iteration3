@@ -42,7 +42,7 @@ public class ProductionPhase implements Phase {
     private void iterateLandProducers(){
         //TODO some logic with placing the product
         landPrimaryProducerManager.produceAll();
-        landSecondaryProducerManager.produceAll();
+        //landSecondaryProducerManager.produceAll();
     }
 
     private void iterateSeaProducers(){

@@ -2,39 +2,35 @@ package controller.MovePhaseControlSubsystem;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.*;
 import model.Managers.*;
-import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
-
-import model.Transporters.SeaTransporter;
-import model.Transporters.Transporter;
+import model.Transporters.*;
 import model.resources.Resource;
 import model.structures.producers.Product;
 
 import java.util.ArrayList;
 
 /**
- * Created by hankerins on 4/10/17.
- * TODO: remove donkey from list of available donkeys when its picked up
+ * Created by hankerins on 4/14/17.
+ *
+ * CURRENTLY WE HAVE MIXED INSTANCE COHESION + CRASH WHEN NO INSTRUCTIONS ARE POSSIBLE
+ * ADD A STATE OF NO INSTRUCTION POSSIBLE
+ *
  */
-public class DonkeyMPCMode implements MovePhaseControlMode {
-
+public class RoadTransporterMPCMode implements MovePhaseControlMode {
     private MPCInstructionState currentMPCInstructionState;
     private ArrayList<MPCInstructionState> mpcInstructionStates = new ArrayList<MPCInstructionState>();
-    private Donkey currentDonkey;
-    private ArrayList<Donkey> donkeys;
+    private RoadTransporter currentRoadTransporter;
+    private ArrayList<RoadTransporter> roadTransporters;
     private LandTransporterManager landTransporterManager;
     private SeaTransporterShoreManager seaTransporterShoreManager;
-    private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
 
-    public DonkeyMPCMode(ArrayList<Donkey> donkeys, MovePhaseControl context){
-        this.donkeys = donkeys;
-        currentDonkey = donkeys.get(0);
+    public RoadTransporterMPCMode(ArrayList<RoadTransporter> roadTransporters, MovePhaseControl context){
+        this.roadTransporters = roadTransporters;
+        currentRoadTransporter = roadTransporters.get(0);
         landTransporterManager = context.getLandTransporterManager();
         seaTransporterShoreManager = context.getSeaTransporterShoreManager();
-        sectorAdjacencyManager = context.getSectorAdjacencyManager();
         roadAdjacencyManager = context.getRoadAdjacencyManager();
         resourceManager = context.getResourceManager();
         cargoManager = context.getCargoManager();
@@ -42,55 +38,59 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     }
 
     public void nextTransporter() {
-        int next = (donkeys.indexOf(currentDonkey)+1)
-                % donkeys.size();
-        currentDonkey = donkeys.get(next);
+        int next = (roadTransporters.indexOf(currentRoadTransporter)+1)
+                % roadTransporters.size();
+        currentRoadTransporter = roadTransporters.get(next);
     }
 
     public void previousTransporter() {
-        int previous = (donkeys.indexOf(currentDonkey)-1
-                + donkeys.size()) % donkeys.size();
-        currentDonkey = donkeys.get(previous);
+        int previous = (roadTransporters.indexOf(currentRoadTransporter)-1
+                + roadTransporters.size()) % roadTransporters.size();
+        currentRoadTransporter = roadTransporters.get(previous);
     }
 
     public void resetCurrentMPCInstructionState(){
         mpcInstructionStates.clear();
-        mpcInstructionStates.add(new MoveMPCIState());
-        currentMPCInstructionState = mpcInstructionStates.get(0);
-        if(resourceManager.getQuantityInArea(landTransporterManager.getLocation(currentDonkey)) > 0){
+        if(roadAdjacencyManager.getAdjacency(landTransporterManager.getLocation(currentRoadTransporter)) != null){
+            mpcInstructionStates.add(new MoveMPCIState());
+        }
+        if(resourceManager.getQuantityInArea(landTransporterManager.getLocation(currentRoadTransporter)) > 0){
             mpcInstructionStates.add(new PickUpResourceMPCIState());
         }
-        if(cargoManager.getQuantityInArea(currentDonkey) > 0){
+        if(cargoManager.getQuantityInArea(currentRoadTransporter) > 0){
             mpcInstructionStates.add(new DropOffMPCIState());
         }
-        ArrayList<LandTransporter> others = landTransporterManager.getNeighbors(currentDonkey);
+        ArrayList<LandTransporter> others = landTransporterManager.getNeighbors(currentRoadTransporter);
         if(others.size() > 0){
             mpcInstructionStates.add(new PickUpLandTransporterMPCIState(others));
         }
-        ArrayList<SeaTransporter> dockedBoats = seaTransporterShoreManager.getContentsOfArea(landTransporterManager.getLocation(currentDonkey));
+        ArrayList<SeaTransporter> dockedBoats = seaTransporterShoreManager.getContentsOfArea(landTransporterManager.getLocation(currentRoadTransporter));
         if(dockedBoats.size() > 0){
             mpcInstructionStates.add(new PickUpSeaTransporterMPCIState(dockedBoats));
         }
-
+        if(mpcInstructionStates.size() == 0){
+            mpcInstructionStates.add(new NoMoveMPCIState());
+        }
+        currentMPCInstructionState = mpcInstructionStates.get(0);
     }
 
     public void dropOff(Product product){
-        cargoManager.remove(currentDonkey, product);
-        product.dropOff(landTransporterManager.getLocation(currentDonkey));
+        cargoManager.remove(currentRoadTransporter, product);
+        product.dropOff(landTransporterManager.getLocation(currentRoadTransporter));
     }
     public void pickUpResource(Resource r){
-        resourceManager.remove(landTransporterManager.getLocation(currentDonkey), r);
-        cargoManager.add(currentDonkey, r);
+        resourceManager.remove(landTransporterManager.getLocation(currentRoadTransporter), r);
+        cargoManager.add(currentRoadTransporter, r);
     }
 
     public void pickUpLandTransporter(LandTransporter lt){
         landTransporterManager.removeOccupant(lt);
-        cargoManager.add(currentDonkey, lt);
-        donkeys.remove(lt);
+        cargoManager.add(currentRoadTransporter, lt);
+        roadTransporters.remove(lt);
     }
     public void pickUpSeaTransporter(SeaTransporter st){
         seaTransporterShoreManager.removeOccupant(st);
-        cargoManager.add(currentDonkey, st);
+        cargoManager.add(currentRoadTransporter, st);
     }
 
 
@@ -121,11 +121,11 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     }
 
     public void setStateToMoveSelected() {
-        currentMPCInstructionState = new DonkeyMoveSelectedState(this);
+        currentMPCInstructionState = new RoadTransporterMoveSelectedState(this);
     }
 
-    public Donkey getCurrentDonkey() {
-        return currentDonkey;
+    public RoadTransporter getCurrentRoadTransporter() {
+        return currentRoadTransporter;
     }
 
     public LandTransporterManager getLandTransporterManager() {
@@ -137,7 +137,7 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     }
 
     public SectorAdjacencyManager getSectorAdjacencyManager() {
-        return sectorAdjacencyManager;
+        return roadAdjacencyManager;
     }
 
     public SectorAdjacencyManager getRoadAdjacencyManager() {
@@ -163,16 +163,15 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     }
 
     public Transporter getCurrentTransporter(){
-        return currentDonkey;
+        return currentRoadTransporter;
     }
 
 
     //testing only
     public String toString(){
-        return "Donkey Mode";
+        return "Road Transporter Mode";
     }
     public int currentIndex(){
-        return donkeys.indexOf(currentDonkey);
+        return roadTransporters.indexOf(currentRoadTransporter);
     }
-
 }

@@ -11,10 +11,9 @@ import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
+import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Waterway;
-import model.Transporters.Donkey;
-import model.Transporters.LandTransporter;
-import model.Transporters.Transporter;
+import model.Transporters.*;
 import model.resources.Board;
 import model.resources.Resource;
 import model.resources.Stone;
@@ -39,11 +38,15 @@ public class MoveControlTest {
 
         SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
         LandTransporterManager ltm = game.getLandTransporterManager();
+        SeaTransporterShoreManager stsm = game.getSeaTransporterShoreManager();
         ResourceManager rm = game.getResourceManager();
+
+        SectorAdjacencyManager roadAdjacencyManager = game.getRoadAdjacencyManager();
 
 
         Location SDesert = new Location(0,0,0);
         Location SMountain = new Location(0,-1,1);
+        Location NEOfDesert = new Location(1, 0, -1);
 
 
         //map.formatSurfaceMaps();    //for whatever reason, if this isn't here, then the tile objects in
@@ -54,21 +57,42 @@ public class MoveControlTest {
 
         LandTile lt1 = lm.getTile(SDesert);
         LandTile lt2 = lm.getTile(SMountain);
+        LandTile lt1RoadTarget = lm.getTile(NEOfDesert);
 
         ArrayList<Donkey> donkeys = new ArrayList<Donkey>();
         donkeys.add(new Donkey());
         donkeys.add(new Donkey());
+
+        ArrayList<RoadTransporter> roadTransporters = new ArrayList<RoadTransporter>();
+        roadTransporters.add(new Truck());
+
+        Raft raft = new Raft();
 
         ltm.add(donkeys.get(0), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
         ltm.add(donkeys.get(1), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
         rm.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NNE), new Stone());
         rm.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NNE), new Board());
 
+        ltm.add(roadTransporters.get(0), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
+
+        stsm.add(raft, lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
+
+
+        //making a road
+        SectorAdjacency road1 = new SectorAdjacency();
+        CardinalDirection roadCD1 = CardinalDirection.NE;
+        road1.add(roadCD1, lt1RoadTarget.getSectorAtCardinalDirection(roadCD1.getOppositeSide()));
+        roadAdjacencyManager.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NE), road1);
+        
+
 
 
 
         MovePhaseControl mpc = new MovePhaseControl(ltm,  game.getSeaTransporterManager(),
-                 sam,  game.getRoadAdjacencyManager(), rm,  game.getCargoManager(), donkeys);
+                game.getSeaTransporterShoreManager(), sam,  game.getRoadAdjacencyManager(), rm,
+                game.getCargoManager(), donkeys);
+
+        mpc.addRoadTransporterMPCMode(roadTransporters);
 
         while(true){
             debugMenu(mpc, game);
@@ -109,9 +133,14 @@ public class MoveControlTest {
                 for(Location l: map.getMap().keySet()){
                     for(Sector s: map.getMap().get(l).getSectors()){
                         ArrayList<LandTransporter> landTransporters = game.getLandTransporterManager().getContentsOfArea(s);
+                        ArrayList<SeaTransporter> seaTransporters = game.getSeaTransporterShoreManager().getContentsOfArea(s);
                         if(landTransporters.size() > 0){
                             System.out.println(l.toString() + " " + s.toString() + " " + landTransporters.size() + " transporters on land");
                         }
+                        if(seaTransporters.size() > 0){
+                            System.out.println(l.toString() + " " + s.toString() + " " + seaTransporters.size() + " boats on land");
+                        }
+
                         if(game.getResourceManager().get(s) != null){
                             System.out.print(l.toString() + " " + s.toString() + " ");
                             for(Resource r: game.getResourceManager().get(s)){

@@ -8,4 +8,8 @@ import model.TileSubsystem.Sector;
  */
 public class Clay extends Resource {
 
+    //testing only
+    public String toString(){
+        return "Clay";
+    }
 }

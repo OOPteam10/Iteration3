@@ -3,6 +3,7 @@ package controller.MovePhaseControlSubsystem;
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.MPCInstructionState;
 import model.Managers.*;
 import model.Transporters.LandTransporter;
+import model.Transporters.SeaTransporter;
 import model.Transporters.Transporter;
 import model.resources.Resource;
 import model.structures.producers.Product;
@@ -21,7 +22,7 @@ public interface MovePhaseControlMode {
     void setStateToMoveSelected();
     void resetCurrentMPCInstructionState();
     void dropOff(Product product);
-    void pickUp(Resource r);
+    void pickUpResource(Resource r);
     void pickUpLandTransporter(LandTransporter lt);
     int currentIndex();
     MPCInstructionState getCurrentMPCInstructionState();
@@ -30,5 +31,6 @@ public interface MovePhaseControlMode {
     CargoManager getCargoManager();
     SectorTransporterManager getSectorTransporterManager();
     Transporter getCurrentTransporter();
+    void pickUpSeaTransporter(SeaTransporter st);
 
 }

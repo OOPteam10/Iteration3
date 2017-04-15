@@ -12,9 +12,5 @@ import model.Transporters.SeaTransporter;
  */
 public class SeaTransporterManager extends TransporterManager<SeaTransporter, Waterway> {
 
-    @Override
-    public void add(SeaTransporter o, Waterway waterway) {
-        o.setStdoAbility(new SeaTransporterDropOffAbility(o, this));
-        super.add(o, waterway);
-    }
+
 }

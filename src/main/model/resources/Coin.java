@@ -8,4 +8,10 @@ import model.TileSubsystem.Sector;
 */
 public class Coin extends Resource {
 
+
+    //testing only
+    public String toString(){
+        return "Coins";
+    }
+
 }

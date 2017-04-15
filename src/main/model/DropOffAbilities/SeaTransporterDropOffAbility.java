@@ -1,24 +1,26 @@
 package model.DropOffAbilities;
 
 import model.Managers.SeaTransporterManager;
+import model.Managers.SeaTransporterShoreManager;
+import model.TileSubsystem.Sector;
 import model.TileSubsystem.Waterway;
 import model.Transporters.SeaTransporter;
 
 /**
  * Created by hankerins on 4/12/17.
  */
-public class SeaTransporterDropOffAbility implements DropOffAbility<Waterway> {
+public class SeaTransporterDropOffAbility implements DropOffAbility<Sector> {
     SeaTransporter seaTransporter;
-    SeaTransporterManager seaTransporterManager;
+    SeaTransporterShoreManager seaTransporterShoreManager;
 
 
 
-    public SeaTransporterDropOffAbility(SeaTransporter seaTransporter, SeaTransporterManager seaTransporterManager){
+    public SeaTransporterDropOffAbility(SeaTransporter seaTransporter, SeaTransporterShoreManager seaTransporterShoreManager){
         this.seaTransporter = seaTransporter;
-        this.seaTransporterManager = seaTransporterManager;
+        this.seaTransporterShoreManager = seaTransporterShoreManager;
     }
 
-    public void execute(Waterway w){
-        seaTransporterManager.add(seaTransporter, w);
+    public void execute(Sector s){
+        seaTransporterShoreManager.add(seaTransporter, s);
     }
 }
