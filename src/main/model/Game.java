@@ -5,6 +5,7 @@ import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Tiles.Tile;
 import model.Transporters.LandTransporter;
+import model.phases.ProductionPhase;
 import utilities.FileManager.FileManager;
 import utilities.TileEditor;
 
@@ -22,9 +23,15 @@ public class Game {
     private WaterwayAdjacencyManager waterwayAdjacencyManager;
     private LandTransporterManager landTransporterManager;
     private SeaTransporterManager seaTransporterManager;
+    private SeaTransporterShoreManager seaTransporterShoreManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
+    private LandPrimaryProducerManager landPrimaryProducerManager;
+    private LandSecondaryProducerManager landSecondaryProducerManager;
+    private SeaProducerManager seaProducerManager;
+
+    private ProductionPhase productionPhase;
 
     public Game(){
         map = new Map();
@@ -37,8 +44,16 @@ public class Game {
         waterwayAdjacencyManager = map.generateWaterwayAdjacencyManager();
         landTransporterManager = new LandTransporterManager();
         seaTransporterManager = new SeaTransporterManager();
+        seaTransporterShoreManager = new SeaTransporterShoreManager();
         resourceManager = new ResourceManager();
         cargoManager = new CargoManager();
+        landPrimaryProducerManager = new LandPrimaryProducerManager();
+        landSecondaryProducerManager = new LandSecondaryProducerManager();
+        seaProducerManager = new SeaProducerManager();
+
+        productionPhase = new ProductionPhase(landPrimaryProducerManager, landSecondaryProducerManager,
+                landTransporterManager, seaProducerManager, seaTransporterManager, seaTransporterShoreManager,
+                cargoManager, resourceManager);
     }
 
     public HashMap<Location, Tile> getMap(){//TODO: REFACTOR!
@@ -79,5 +94,21 @@ public class Game {
 
     public SeaTransporterManager getSeaTransporterManager() {
         return seaTransporterManager;
+    }
+
+    public SeaTransporterShoreManager getSeaTransporterShoreManager(){
+        return seaTransporterShoreManager;
+    }
+
+    public LandPrimaryProducerManager getLandPrimaryProducerManager() {
+        return landPrimaryProducerManager;
+    }
+
+    public LandSecondaryProducerManager getLandSecondaryProducerManager() {
+        return landSecondaryProducerManager;
+    }
+
+    public SeaProducerManager getSeaProducerManager() {
+        return seaProducerManager;
     }
 }
