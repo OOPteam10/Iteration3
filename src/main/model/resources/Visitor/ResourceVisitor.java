@@ -11,4 +11,5 @@ public interface ResourceVisitor {
     void visitStock();
     void visitStone();
     void visitTrunk();
+
 }

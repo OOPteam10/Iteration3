@@ -1,8 +1,18 @@
 package utilities.FileManager;
 
+import model.Game;
 import model.Goose;
+import model.Managers.CargoManager;
 import model.Transporters.Donkey;
+import model.Transporters.Truck;
+import model.Transporters.Wagon;
 import model.resources.*;
+import model.structures.producers.Product;
+import model.structures.producers.Visitor.ProductFileVisitor;
+import model.structures.producers.Visitor.ProductVisitor;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Doug on 4/9/2017.
@@ -56,9 +66,62 @@ public class FileInfoFactory {
         return new ResourceFileInfo("Board");
     }
 
-    //Transporters
+    //Land Transporters
 
-    public static TransporterFileInfo generateFileInfo(Donkey d) { return new TransporterFileInfo("Donkey", "#GET_DONKEY_USERID"); }
+    public static TransporterFileInfo generateFileInfo(Donkey d, CargoManager manager) {
+        ArrayList<FileInfo> cargo = new ArrayList<>();
+        TransporterFileInfo donkeyInfo = new TransporterFileInfo("Donkey", d.getPlayerID());
+        ProductFileVisitor visitor = new ProductFileVisitor();
+        if (manager.get(d) != null) {
+            for (Product p : manager.get(d)) {
+                p.accept(visitor);
+                cargo.add(visitor.getFileInfo());
+            }
+        }
+        for (FileInfo c: cargo) {
+            donkeyInfo.addCargo(c);
+        }
+
+        return donkeyInfo;
+    }
+
+    public static TransporterFileInfo generateFileInfo(Wagon wagon, CargoManager manager) {
+        ArrayList<FileInfo> cargo = new ArrayList<>();
+        TransporterFileInfo wagonInfo = new TransporterFileInfo("Wagon", wagon.getPlayerID());
+        ProductFileVisitor visitor = new ProductFileVisitor();
+        if (manager.get(wagon) != null) {
+            for (Product p: manager.get(wagon)) {
+                p.accept(visitor);
+                cargo.add(visitor.getFileInfo());
+            }
+        }
+        for (FileInfo c: cargo) {
+            wagonInfo.addCargo(c);
+        }
+
+        return wagonInfo;
+    }
+
+    public static TransporterFileInfo generateFileInfo(Truck truck, CargoManager manager) {
+        ArrayList<FileInfo> cargo = new ArrayList<>();
+        TransporterFileInfo truckInfo = new TransporterFileInfo("Truck", truck.getPlayerID());
+        ProductFileVisitor visitor = new ProductFileVisitor();
+        if (manager.get(truck) != null) {
+            for (Product p: manager.get(truck)) {
+                p.accept(visitor);
+                cargo.add(visitor.getFileInfo());
+            }
+        }
+        for (FileInfo c: cargo) {
+            truckInfo.addCargo(c);
+        }
+
+        return truckInfo;
+    }
+
+
+    //Sea Transporters
+
 
     //Goose
 

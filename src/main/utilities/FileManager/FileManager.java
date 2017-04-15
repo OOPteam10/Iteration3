@@ -1,18 +1,25 @@
 package utilities.FileManager;
 
 import javafx.stage.FileChooser;
+import model.Game;
 import model.MapSubsystem.Location;
+import model.MapSubsystem.Map;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Rivers.SourceRiver;
+import model.TileSubsystem.Sector;
 import model.TileSubsystem.Terrains.*;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileFileVisitor;
+import model.TileSubsystem.Waterway;
+import model.Transporters.LandTransporter;
+import model.Transporters.SeaTransporter;
+import model.Transporters.Visitor.LandTransporterFileVisitor;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,6 +29,80 @@ import java.util.HashMap;
  * Created by doug0_000 on 4/9/2017.
  */
 public class FileManager {
+
+
+        /*
+         |---------------|
+         |Save Game Stuff|
+         |---------------|
+        */
+
+
+        public static void saveGameManager(Game g) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Game");
+            fileChooser.setInitialDirectory(new File("Assets/Saves"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Txt Files","*.txt"));
+            File saveGame = fileChooser.showSaveDialog(null);
+            if(saveGame!=null){
+                saveGame(saveGame, g);
+            }
+        }
+
+
+        public static void saveGame(File saveGame, Game g) {
+            try {
+                BufferedWriter writer = new BufferedWriter(new PrintWriter(saveGame));
+                for (Location l: g.getMap().keySet()) {
+                    tile_write(l, writer, g);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        public static void tile_write(Location loc, BufferedWriter writer, Game g) throws IOException {
+            TileFileVisitor tf = new TileFileVisitor();
+
+            g.getMap().get(loc).accept(tf);
+            writer.write(location_print(loc) + tf.getTileInfo().toFileFormat());
+            writer.newLine();
+            for (Sector s: g.getMap().get(loc).getSectors()) {
+                writer.write("BEGIN SECTOR");
+                writer.newLine();
+                landTransporter_write(s, writer, g);
+                //#TODO: write structures on sector
+                //#TODO: write geese
+            }
+
+            //#TODO: write water transporters
+
+        }
+
+        public static void landTransporter_write(Sector s, BufferedWriter bf, Game g) throws IOException {
+            LandTransporterFileVisitor visitor = new LandTransporterFileVisitor(g.getCargoManager());
+
+            int numTransporters =  s.getTransporters(g.getLandTransporterManager()).size();
+
+            bf.write("BEGIN LAND TRANSPORTER " + numTransporters);
+            for (LandTransporter transporter : s.getTransporters(g.getLandTransporterManager())) {
+                transporter.accept(visitor);
+                TransporterFileInfo info = (TransporterFileInfo) visitor.getFileInfo();
+                bf.write(info.toFileFormat());
+                bf.newLine();
+            }
+        }
+
+        public static void seaTransporter_write(Waterway w, BufferedWriter bf, Game g) throws IOException {
+
+        }
+
+        /*
+        |--------------|
+        |MapMaker Stuff|
+        |--------------|
+         */
 
         public static void saveMap(HashMap<Location, Tile> map){
             FileChooser fileChooser = new FileChooser();
