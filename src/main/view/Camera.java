@@ -107,4 +107,16 @@ public class Camera {
         //System.out.println((double)screenDimension.y/screenHeight);
         return (double)screenDimension.y/screenHeight;
     }
+
+    public double getTransporterScale(){
+        return getScale()*0.15;
+    }
+
+    public int getTileWidth(){
+        return this.HEX_W;
+    }
+
+    public int getTileHeight(){
+        return this.HEX_H;
+    }
 }

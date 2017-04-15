@@ -73,7 +73,7 @@ public class LandTransporterDetailDrawingVisitor implements LandTransporterVisit
         x = x+(int) (r* Math.cos(Math.toRadians((CardinalDirectionToDegree(cardinalDirection)))));
         y= y - 1*((int) (r* Math.sin(Math.toRadians((CardinalDirectionToDegree(cardinalDirection))))));
 
-        sectorDrawingLocation.x = (int) x - (int)(img.getWidth()*scale/2);
+        sectorDrawingLocation.x = (int) x - (int)(img.getHeight()*scale/2);
         sectorDrawingLocation.y = (int) y - (int)(img.getHeight()*scale/2);
 
 //        System.out.println(sector.getHalfEdges().get(sector.getHalfEdges().size()/2));

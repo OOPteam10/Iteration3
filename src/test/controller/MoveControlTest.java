@@ -11,6 +11,7 @@ import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
+import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Waterway;
 import model.Transporters.*;
@@ -38,6 +39,7 @@ public class MoveControlTest {
 
         SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
         LandTransporterManager ltm = game.getLandTransporterManager();
+        SeaTransporterManager stm = game.getSeaTransporterManager();
         SeaTransporterShoreManager stsm = game.getSeaTransporterShoreManager();
         ResourceManager rm = game.getResourceManager();
 
@@ -58,7 +60,7 @@ public class MoveControlTest {
         LandTile lt1 = lm.getTile(SDesert);
         LandTile lt2 = lm.getTile(SMountain);
         LandTile lt1RoadTarget = lm.getTile(NEOfDesert);
-
+        Waterway wy1 = wm.getTile(SDesert);
         ArrayList<Donkey> donkeys = new ArrayList<Donkey>();
         donkeys.add(new Donkey());
         donkeys.add(new Donkey());
@@ -67,6 +69,7 @@ public class MoveControlTest {
         roadTransporters.add(new Truck());
 
         Raft raft = new Raft();
+        stm.add(raft, wy1);
 
         ltm.add(donkeys.get(0), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
         ltm.add(donkeys.get(1), lt1.getSectorAtCardinalDirection(CardinalDirection.NNE));
