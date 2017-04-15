@@ -141,6 +141,18 @@ public class MapMakerControl extends ControlHandler {
 
     }
 
+    //TODO
+    @Override
+    public void up() {
+
+    }
+
+    //TODO
+    @Override
+    public void down() {
+
+    }
+
     public void delete(){
         TileEditor.getInstance().delete();
         for(int i =0;i<mmcObservers.size();i++){

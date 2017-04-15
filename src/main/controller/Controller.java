@@ -33,6 +33,7 @@ public class Controller {
         //init with the MapMakerControl state
         controlHandler = MapMakerControl.getInstance();
         controlHandler.init(view.getMapMakerPreview());
+        setCurrentKLSet(controlHandler);
 
         //TODO remove commented ou tin future
         // controlMap = new KeyMapControls();
@@ -41,12 +42,8 @@ public class Controller {
         camera = view.getCamera();
     }
 
-    /*
-    public void setActionMap(HashMap<KeyCode, ControlAction> actionMap){
-
-        this.actionMap = actionMap;
-    }
-    */
+   
+    public void setCurrentKLSet(ControlHandler controlHandler){currentKLSet = controlHandler.getKLSet();}
 
     public ControlHandler getControlHandler() {
         return controlHandler;
@@ -57,6 +54,7 @@ public class Controller {
     }
 
     public void executeCode(KeyCode code){
+
 
         for(int i =0; i <currentKLSet.size();i++) {
 
@@ -71,66 +69,10 @@ public class Controller {
 
 
     public void keyReleased(KeyEvent e){
-
-    }
-
-    public void keyPressed(KeyEvent e){
         KeyCode key = e.getCode();
         executeCode(key);
     }
 
-    /*
-    public void right(){
-
-        controlHandler.right();
-    }
-    public void left(){
-
-        controlHandler.left();
-    }
-    public void select(){
-
-        controlHandler.select();
-    }
-
-    public void centerGravity(){
-
-        controlHandler.centerGravity();
-    }
-
-    public void moveN(){
-
-        controlHandler.moveN();
-    }
-    public void moveNE(){
-
-        controlHandler.moveNE();
-    }
-    public void moveNW(){
-
-        controlHandler.moveNW();
-    }
-    public void moveS(){
-
-        controlHandler.moveS();
-    }
-    public void moveSE(){
-
-        controlHandler.moveSE();
-    }
-    public void moveSW() {
-
-        controlHandler.moveSW();
-    }
-    public void delete(){
-
-        controlHandler.delete();
-    }
-    public void reset(){
-
-        controlHandler.reset();
-    }
-    */
 
     public void moveMapUp(){
         camera.moveUpMap();
@@ -151,5 +93,8 @@ public class Controller {
     public void cameraZoomIn(){camera.zoomIn();}
 
     public void cameraZoomOut(){camera.zoomOut();}
+
+
+
 
 }

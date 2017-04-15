@@ -30,6 +30,11 @@ public abstract class  ControlHandler {
 
     }
 
+    public Vector<KeyListener> getKLSet(){
+        return kLSet;
+    }
+
+
     /*public void addToKLSet(KeyListener keyListener){
         kLSet.add(keyListener);
     }
@@ -52,6 +57,10 @@ public abstract class  ControlHandler {
     public abstract void nextMode();
     public abstract void prevMode();
 
+    //upAndDown
+    public abstract void up();
+    public abstract void down();
+
     //utilities
     public abstract void delete();
     public abstract void reset();
@@ -60,6 +69,7 @@ public abstract class  ControlHandler {
     //initialisers
     //TODO try to remove it
     public abstract void init(MapMakerPreview preview);
+
 
 
 }
