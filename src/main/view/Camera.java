@@ -111,6 +111,7 @@ public class Camera {
     public double getTransporterScale(){
         return getScale()*0.15;
     }
+    public double getResourceScale(){return getScale()*0.15;}
 
     public int getTileWidth(){
         return this.HEX_W;

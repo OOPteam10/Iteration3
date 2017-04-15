@@ -1,5 +1,9 @@
 package model.resources;
 
+import model.Managers.GoodsManager;
+import model.TileSubsystem.Sector;
+import model.resources.Visitor.ResourceVisitor;
+
 /**
  * Created by cduica on 4/9/17.
  */
@@ -10,4 +14,8 @@ public class Trunk extends Resource implements PaperMillResource, CoalBurnerReso
         return "Trunk";
     }
 
+    @Override
+    public void accept(ResourceVisitor v) {
+        v.visitTrunk();
+    }
 }

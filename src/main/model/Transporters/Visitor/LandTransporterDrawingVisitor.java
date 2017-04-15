@@ -29,8 +29,6 @@ public class LandTransporterDrawingVisitor implements  LandTransporterVisitor {
         this.sector = sector;
         this.p = p;
         scale = camera.getTransporterScale();
-        
-       
     }
 
     @Override
