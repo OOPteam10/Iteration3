@@ -2,10 +2,11 @@ package view.Scene.gamePanel;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.scene.image.Image;
 import model.Game;
 import view.Camera;
 import view.Panel;
@@ -18,7 +19,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javafx.scene.control.Button;
 /**
  * Created by Karth on 4/8/2017.
  */

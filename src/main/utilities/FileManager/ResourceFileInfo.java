@@ -1,7 +1,5 @@
 package utilities.FileManager;
 
-import model.resources.Resource;
-
 /**
  * Created by Doug on 4/9/2017.
  */

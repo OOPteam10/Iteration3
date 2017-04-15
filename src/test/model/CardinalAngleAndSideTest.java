@@ -1,11 +1,10 @@
 package model;
 
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.NormalRiver;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 /**
  * Created by hankerins on 3/27/17.

@@ -8,14 +8,14 @@ import java.util.Vector;
  * Created by rishabh on 26/03/17.
  */
 public interface MMCState {
-    public void left(Vector<MMCObserver> mmcObservers);
-    public void right(Vector<MMCObserver> mmcObservers);
-    public void select(MapMakerControl context);
+    void left(Vector<MMCObserver> mmcObservers);
+    void right(Vector<MMCObserver> mmcObservers);
+    void select(MapMakerControl context);
 
     //For testing
-    public void printSubState();
-    public String toString();
-    public void reset(MapMakerControl context);
+    void printSubState();
+    String toString();
+    void reset(MapMakerControl context);
 
 
 }

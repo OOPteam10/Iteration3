@@ -1,7 +1,6 @@
 package model.TileSubsystem.Visitor;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.*;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Rivers.SourceRiver;
@@ -13,7 +12,6 @@ import view.Camera;
 import view.assets.AssetManager;
 
 import java.awt.*;
-import java.awt.Image;
 
 /**
  * Created by Karth on 4/10/2017.
@@ -89,7 +87,7 @@ public class TileDetailDrawingVisitor implements TileVisitor {
     @Override
     public void visitDesert(Desert terrain) {
         javafx.scene.image.Image img = assets.getImage("DESERT_TILE");
-        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleY() * img.getWidth(),
                 camera.getBackgroundScaleY() * img.getHeight());
     }
 
@@ -97,7 +95,7 @@ public class TileDetailDrawingVisitor implements TileVisitor {
     public void visitMountains(Mountains terrain) {
         // do something with this, draw over current constructed tile
         javafx.scene.image.Image img = assets.getImage("MOUNTAIN_TILE");
-        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleY() * img.getWidth(),
                 camera.getBackgroundScaleY() * img.getHeight());
     }
 
@@ -105,7 +103,7 @@ public class TileDetailDrawingVisitor implements TileVisitor {
     public void visitPasture(Pasture terrain) {
         // do something with this, draw over current constructed tile
         javafx.scene.image.Image img = assets.getImage("GRASS_TILE");
-        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleY() * img.getWidth(),
                 camera.getBackgroundScaleY() * img.getHeight());
     }
 
@@ -113,7 +111,7 @@ public class TileDetailDrawingVisitor implements TileVisitor {
     public void visitRock(Rock terrain) {
         // do something with this, draw over current constructed tile
         javafx.scene.image.Image img = assets.getImage("ROCK_TILE");
-        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleY() * img.getWidth(),
                 camera.getBackgroundScaleY() * img.getHeight());
     }
 
@@ -121,14 +119,14 @@ public class TileDetailDrawingVisitor implements TileVisitor {
     public void visitSea(Sea terrain) {
         // do something with this, draw over current constructed tile
         javafx.scene.image.Image img = assets.getImage("SEA_TILE");
-        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleY() * img.getWidth(),
                 camera.getBackgroundScaleY() * img.getHeight());
     }
 
     @Override
     public void visitWoods(Woods woods) {
         javafx.scene.image.Image img = assets.getImage("WOOD_TILE");
-        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleX() * img.getWidth(),
+        gc.drawImage(img, p.x, p.y,camera.getBackgroundScaleY() * img.getWidth(),
                 camera.getBackgroundScaleY() * img.getHeight());
     }
 
@@ -137,9 +135,9 @@ public class TileDetailDrawingVisitor implements TileVisitor {
 
     private void drawRotatedImage(javafx.scene.image.Image image, double angle, double tlpx, double tlpy) {
         gc.save(); // saves the current state on stack, including the current transform
-        camera.rotate(gc, angle, tlpx + image.getWidth()*camera.getBackgroundScaleX() / 2, 
+        camera.rotate(gc, angle, tlpx + image.getWidth()*camera.getBackgroundScaleY() / 2,
                 tlpy + image.getHeight()*camera.getBackgroundScaleY() / 2);
-        gc.drawImage(image, tlpx, tlpy, camera.getBackgroundScaleX() * image.getWidth(),
+        gc.drawImage(image, tlpx, tlpy, camera.getBackgroundScaleY() * image.getWidth(),
                 camera.getBackgroundScaleY() * image.getHeight());
         gc.restore(); // back to original state (before rotation)
     }

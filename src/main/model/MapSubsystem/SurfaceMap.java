@@ -12,7 +12,7 @@ public abstract class SurfaceMap<T> {
         surfaces.put(l, t);
     }
 
-    protected HashMap<Location, T> getSurfaces(){
+    public HashMap<Location, T> getSurfaces(){
         return surfaces;
     }
 

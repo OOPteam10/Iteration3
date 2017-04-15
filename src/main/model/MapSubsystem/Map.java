@@ -1,10 +1,10 @@
 package model.MapSubsystem;
 
-import com.sun.org.apache.bcel.internal.generic.LAND;
-import model.Managers.*;
-import model.TileSubsystem.CardinalDirection;
+import model.Managers.SectorAdjacencyManager;
+import model.Managers.SectorToWaterwayManager;
+import model.Managers.WaterwayAdjacencyManager;
+import model.Managers.WaterwayToSectorManager;
 import model.TileSubsystem.HexSide;
-import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.SeaTile;
@@ -12,11 +12,8 @@ import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.LandTileValidationVisitor;
 import model.TileSubsystem.Visitor.RiverTileValidationVisitor;
 import model.TileSubsystem.Visitor.TileVisitor;
-import model.TileSubsystem.Waterway;
 
 import java.util.HashMap;
-import java.util.Map.*;
-import java.lang.Math;
 
 import static java.lang.Math.abs;
 
@@ -105,12 +102,18 @@ public class Map {
     }
 
     public SectorAdjacencyManager generateSectorAdjacencyManager(){
-        formatSurfaceMaps();
         return landMap.generateSectorAdjacencyManager();
     }
     public WaterwayAdjacencyManager generateWaterwayAdjacencyManager(){
-        formatSurfaceMaps();
         return waterwayMap.generateWaterwayAdjacencyManager();
+    }
+
+    public SectorToWaterwayManager generateSectorToWaterwayManager(){
+        return landMap.generateSectorToWaterwayManager(waterwayMap);
+    }
+
+    public WaterwayToSectorManager generateWaterwayToSectorManager(){
+        return waterwayMap.generateWaterwayToSectorManager(landMap);
     }
 
     /*  MOVED THIS TO LANDMAP, WATERWAYMAP.  FORMAT THEM IN MAP, THEN CALL THEIR GENERATE FUNCTIONS
@@ -165,9 +168,7 @@ public class Map {
     }
 
     public boolean remove(Location location) {
-        if (tiles.remove(location) == null)
-            return false;
-        else return true;
+        return tiles.remove(location) != null;
     }
 
     public boolean validateLandTilePlacement(LandTile landTile, Location location) {

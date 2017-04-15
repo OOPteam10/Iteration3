@@ -5,7 +5,6 @@ import model.MapSubsystem.Map;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.ForkedRiver;
-import model.TileSubsystem.Rivers.NormalRiver;
 import model.TileSubsystem.Terrains.Mountains;
 import model.TileSubsystem.Tiles.RiverTile;
 import org.junit.Test;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 /**

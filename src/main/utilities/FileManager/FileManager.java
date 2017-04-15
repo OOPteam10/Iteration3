@@ -13,7 +13,6 @@ import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileFileVisitor;
-import model.resources.Resource;
 
 import java.io.*;
 import java.util.ArrayList;

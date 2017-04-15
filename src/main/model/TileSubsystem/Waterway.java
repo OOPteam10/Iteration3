@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by hankerins on 4/8/17.
  */
 public interface Waterway {
-    public abstract ArrayList<HexSide> getWaterwaySides();
-    public abstract boolean contains(HexSide hs);
-    public ArrayList<SeaTransporter> getSeaTransporters(SeaTransporterManager stm);
+    ArrayList<HexSide> getWaterwaySides();
+    boolean contains(HexSide hs);
+    ArrayList<SeaTransporter> getSeaTransporters(SeaTransporterManager stm);
 }

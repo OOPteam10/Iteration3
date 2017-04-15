@@ -1,9 +1,6 @@
 package model.MapSubsystem;
 
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
-
-import java.util.*;
 
 /**
  * Created by allisonaguirre on 3/28/17.

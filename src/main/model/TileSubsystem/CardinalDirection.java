@@ -1,7 +1,5 @@
 package model.TileSubsystem;
 
-import javax.smartcardio.Card;
-
 /**
  * Created by hankerins on 3/26/17.
  */
@@ -21,7 +19,7 @@ public enum CardinalDirection {
 
     private final int degree;
 
-    private CardinalDirection(int degree){
+    CardinalDirection(int degree){
         this.degree = degree;
     }
 
@@ -57,5 +55,9 @@ public enum CardinalDirection {
             opp = opp.next();
         }
         return opp;
+    }
+
+    public int getDegree(){
+        return degree;
     }
 }

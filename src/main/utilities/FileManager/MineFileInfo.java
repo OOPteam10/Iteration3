@@ -1,7 +1,5 @@
 package utilities.FileManager;
 
-import model.resources.Resource;
-
 import java.util.ArrayList;
 
 /**

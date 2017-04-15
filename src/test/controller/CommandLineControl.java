@@ -2,7 +2,6 @@ package controller;
 
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
-import model.TileSubsystem.Tiles.Tile;
 import utilities.TileEditor;
 
 import java.util.Scanner;

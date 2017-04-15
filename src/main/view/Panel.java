@@ -1,7 +1,6 @@
 package view;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.Light;
 import model.Game;
 import view.assets.AssetManager;
 

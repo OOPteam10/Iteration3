@@ -1,48 +1,69 @@
 package controller;
 
+import controller.Actions.*;
 import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.MMCState;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
-import controller.MapMakerControlSubsystem.TerrainMMCSubsystem.DesertState;
+import javafx.scene.input.KeyCode;
 import model.MapSubsystem.Location;
-import model.MapSubsystem.Map;
-import model.TileSubsystem.Rivers.River;
-import model.TileSubsystem.Terrains.Desert;
-import model.TileSubsystem.Terrains.Terrain;
-import model.TileSubsystem.Tiles.Tile;
 import utilities.TileEditor;
+import view.Camera;
 import view.MapMakerPreview;
-import view.View;
 
 import java.util.Vector;
 
 /**
  * Created by rishabh on 26/03/17.
  */
-public class MapMakerControl implements ControlHandler{
+public class MapMakerControl extends ControlHandler {
 
     //represents state of MapMakerControl
     private MMCState mmcState;
 
-
+    //list of observers
     private Vector<MMCObserver> mmcObservers;
+
 
     //singleton functionality
     private static MapMakerControl instance = new MapMakerControl();
+
     public static MapMakerControl getInstance(){return instance;}
 
 
     //onInit
-    public void init(MapMakerPreview preview){
+    public void init(MapMakerPreview preview, Camera camera){
+
+        //camera functionality
+        setCamera(camera);
+        addCameraActions();
+
         mmcObservers.add(preview);
     }
 
 
-
     //constructor
     private MapMakerControl(){
+
+
         mmcState = TerrainMMCState.getInstance();
         mmcObservers =  new Vector<MMCObserver>();
+
+        // ADDING ACTIONS SPECIFIC TO MAPMAKERCONTROL
+
+        addAction(new CycleLeft(this), new KeyListener(KeyCode.LEFT));
+        addAction(new CycleRight(this), new KeyListener(KeyCode.RIGHT));
+        addAction(new Delete(this), new KeyListener(KeyCode.X));
+        addAction(new Reset(this), new KeyListener(KeyCode.C));
+        addAction(new MoveNorth(this), new KeyListener(KeyCode.W));
+        addAction(new MoveNW(this), new KeyListener(KeyCode.Q));
+        addAction(new MoveNE(this), new KeyListener(KeyCode.E));
+        addAction(new MoveSouth(this), new KeyListener(KeyCode.S));
+        addAction(new MoveSW(this), new KeyListener(KeyCode.A));
+        addAction(new MoveSE(this), new KeyListener(KeyCode.D));
+        addAction(new Select(this), new KeyListener(KeyCode.ENTER));
+
+       // NOTE : ACTIONS NEXTMODE AND PREVMODE ARE NOT NEEDED FOR MMC
+
         TileEditor.getInstance().setLocation(new Location(0,0,0));
     }
 
@@ -66,10 +87,7 @@ public class MapMakerControl implements ControlHandler{
     }
 
 
- /*   public void select(Controller controller){
-        controller.getControlHandler().getMmcState().select(this);
-    }
-*/
+
     public void select(){
         mmcState.select(this);
     }
@@ -117,6 +135,31 @@ public class MapMakerControl implements ControlHandler{
             mmcObservers.get(i).updateCursorSE();
         }
     }
+
+    //TODO
+    @Override
+    public void nextMode() {
+
+    }
+
+    //TODO
+    @Override
+    public void prevMode() {
+
+    }
+
+    //TODO
+    @Override
+    public void up() {
+
+    }
+
+    //TODO
+    @Override
+    public void down() {
+
+    }
+
     public void delete(){
         TileEditor.getInstance().delete();
         for(int i =0;i<mmcObservers.size();i++){

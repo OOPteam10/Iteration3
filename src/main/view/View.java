@@ -1,12 +1,10 @@
 package view;
 
-import controller.MapMakerControlSubsystem.MMCObserver;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
-import utilities.TileEditor;
 import view.assets.AssetManager;
 
 import java.awt.*;

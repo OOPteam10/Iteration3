@@ -3,6 +3,7 @@ package view.Scene;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.Game;
@@ -12,7 +13,7 @@ import view.PanelManager;
 import view.Scene.gamePanel.*;
 import view.ViewEnum;
 import view.assets.AssetManager;
-import javafx.scene.image.Image;
+
 import java.awt.*;
 
 /**

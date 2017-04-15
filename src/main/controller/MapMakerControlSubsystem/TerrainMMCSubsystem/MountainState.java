@@ -5,7 +5,6 @@ import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.RiverMMCState;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
 import model.TileSubsystem.Terrains.Mountains;
-import model.TileSubsystem.Terrains.Pasture;
 import utilities.TileEditor;
 
 import java.util.Vector;

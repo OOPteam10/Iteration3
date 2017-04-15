@@ -1,7 +1,6 @@
 package model;
 
 import model.Managers.Adjacency;
-import model.Managers.SectorAdjacency;
 import model.Managers.SectorAdjacencyManager;
 import model.Managers.WaterwayAdjacencyManager;
 import model.MapSubsystem.LandMap;
@@ -10,11 +9,8 @@ import model.MapSubsystem.Map;
 import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
-import model.TileSubsystem.Rivers.NormalRiver;
-import model.TileSubsystem.Rivers.River;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
-import model.TileSubsystem.Tiles.RiverTile;
 import model.TileSubsystem.Waterway;
 import org.junit.Test;
 
@@ -29,14 +25,11 @@ public class DefaultMapTest {
     {
 
         Game game = new Game();
-        game.setDefaultMap();
         Map map = game.getActualMap();
-        map.formatSurfaceMaps();
-        LandMap lm = map.getLandMap();
-        WaterwayMap wm = map.getWaterwayMap();
 
-        SectorAdjacencyManager sam = map.generateSectorAdjacencyManager();
-        WaterwayAdjacencyManager wam = map.generateWaterwayAdjacencyManager();
+
+        SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
+        WaterwayAdjacencyManager wam = game.getWaterwayAdjacencyManager();
 
         //System.out.println(wm.toString());
         //WaterwayMap is created correctly
@@ -46,6 +39,9 @@ public class DefaultMapTest {
         Location SDesert = new Location(0,0,0);
         Location SMountain = new Location(0,-1,1);
         Location CENTERSea = new Location(0, 1, -1);
+
+        LandMap lm = map.getLandMap();
+        WaterwayMap wm = map.getWaterwayMap();
 
         LandTile lt1 = lm.getTile(SDesert);
         Waterway w1 = wm.getTile(SDesert);

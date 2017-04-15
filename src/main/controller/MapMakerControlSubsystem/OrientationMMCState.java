@@ -1,12 +1,7 @@
 package controller.MapMakerControlSubsystem;
 
 import controller.MapMakerControl;
-import controller.MapMakerControlSubsystem.TerrainMMCSubsystem.DesertState;
-import controller.MapMakerControlSubsystem.TerrainMMCSubsystem.TerrainMMCSubState;
-import model.TileSubsystem.CardinalDirection;
-import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.River;
-import model.TileSubsystem.Tiles.RiverTile;
 import utilities.TileEditor;
 
 import java.util.Vector;
@@ -62,7 +57,8 @@ public class OrientationMMCState implements MMCState {
     //For testing
     public void printSubState(){
         System.out.println("offset " + offset + "\n");
-    };
+    }
+
     //for testing
     public String toString(){
         return "orientation";

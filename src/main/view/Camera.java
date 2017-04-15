@@ -2,7 +2,6 @@ package view;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
-import javafx.scene.image.Image;
 
 import java.awt.*;
 
@@ -106,5 +105,18 @@ public class Camera {
     public double getBackgroundScaleY(){
         //System.out.println((double)screenDimension.y/screenHeight);
         return (double)screenDimension.y/screenHeight;
+    }
+
+    public double getTransporterScale(){
+        return getScale()*0.15;
+    }
+    public double getResourceScale(){return getScale()*0.08;}
+
+    public int getTileWidth(){
+        return HEX_W;
+    }
+
+    public int getTileHeight(){
+        return HEX_H;
     }
 }

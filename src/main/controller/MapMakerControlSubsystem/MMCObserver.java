@@ -6,36 +6,36 @@ package controller.MapMakerControlSubsystem;
 public interface MMCObserver {
 
     //move cursor around
-    public void updateCursorN();
-    public void updateCursorNE();
-    public void updateCursorNW();
-    public void updateCursorS();
-    public void updateCursorSE();
-    public void updateCursorSW();
+    void updateCursorN();
+    void updateCursorNE();
+    void updateCursorNW();
+    void updateCursorS();
+    void updateCursorSE();
+    void updateCursorSW();
 
     //terrain types
-    public void updateTerrainToDesert();
-    public void updateTerrainToMountain();
-    public void updateTerrainToPasture();
-    public void updateTerrainToRock();
-    public void updateTerrainToSea();
-    public void updateTerrainToWoods();
+    void updateTerrainToDesert();
+    void updateTerrainToMountain();
+    void updateTerrainToPasture();
+    void updateTerrainToRock();
+    void updateTerrainToSea();
+    void updateTerrainToWoods();
 
     //river types
-    public void updateRiverToFork();
-    public void updateRiverToNone();
-    public void updateRiverToShape1();
-    public void updateRiverToShape2();
-    public void updateRiverToShape3();
-    public void updateRiverToSource();
+    void updateRiverToFork();
+    void updateRiverToNone();
+    void updateRiverToShape1();
+    void updateRiverToShape2();
+    void updateRiverToShape3();
+    void updateRiverToSource();
 
     //rotate rivers
-    public void rotateLeft();
-    public void rotateRight();
+    void rotateLeft();
+    void rotateRight();
 
     //select
-    public void terrainSelected();
-    public void riverSelected();
-    public void placeTile();
+    void terrainSelected();
+    void riverSelected();
+    void placeTile();
 
 }

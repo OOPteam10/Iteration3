@@ -1,8 +1,6 @@
 package model.Managers;
 
-import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
-import model.TileSubsystem.Sector;
 import model.TileSubsystem.Waterway;
 
 /**
