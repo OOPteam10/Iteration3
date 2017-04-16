@@ -1,6 +1,7 @@
 package model.Abilities.buildAbilities;
 
 import model.Game;
+import model.ManagerSupplier;
 import model.Managers.LandProducerManager;
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
@@ -26,10 +27,10 @@ public class BuildStockExchangeAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, Game game) {
+    public void execute(Sector s, ManagerSupplier ms) {
         for (Stone stone : stoneArrayList) {
-            game.getResourceManager().remove(s, stone);
+            ms.getResourceManager().remove(s, stone);
         }
-        game.getLandSecondaryProducerManager().add(s, new StockExchange(game.getResourceManager()));
+        ms.getLandSecondaryProducerManager().add(s, new StockExchange(ms.getResourceManager()));
     }
 }

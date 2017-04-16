@@ -1,6 +1,7 @@
 package model.Abilities.buildAbilities;
 
 import model.Game;
+import model.ManagerSupplier;
 import model.Managers.LandProducerManager;
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
@@ -29,11 +30,11 @@ public class BuildMintAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, Game game) {
+    public void execute(Sector s, ManagerSupplier ms) {
         for (Board board : boardArrayList) {
-            game.getResourceManager().remove(s, board);
+            ms.getResourceManager().remove(s, board);
         }
 
-        game.getLandSecondaryProducerManager().add(s, new Mint(game.getResourceManager()));
+        ms.getLandSecondaryProducerManager().add(s, new Mint(ms.getResourceManager()));
     }
 }

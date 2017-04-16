@@ -29,4 +29,6 @@ public interface ManagerSupplier {
     public WaterwayToSectorManager getWaterwayToSectorManager();
 
     public SectorToWaterwayManager getSectorToWaterwayManager();
+
+    public ResourceManager getResourceManager();
 }
