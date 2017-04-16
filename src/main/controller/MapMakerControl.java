@@ -4,7 +4,9 @@ import controller.Actions.*;
 import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.MMCState;
 import controller.MapMakerControlSubsystem.TerrainMMCState;
+import controller.MovePhaseControlSubsystem.MovePhaseControl;
 import javafx.scene.input.KeyCode;
+import model.Game;
 import model.MapSubsystem.Location;
 import utilities.TileEditor;
 import view.Camera;
@@ -20,9 +22,9 @@ public class MapMakerControl extends ControlHandler {
     //represents state of MapMakerControl
     private MMCState mmcState;
 
-    //list of observers
-    private Vector<MMCObserver> mmcObservers;
 
+    //mmcobservers
+    Vector<MMCObserver> mmcObservers = new Vector<MMCObserver>();
 
     //singleton functionality
     private static MapMakerControl instance = new MapMakerControl();
@@ -31,36 +33,27 @@ public class MapMakerControl extends ControlHandler {
 
 
     //onInit
-    public void init(MapMakerPreview preview, Camera camera){
+    public void init(Controller controller, Game game, MapMakerPreview preview){
 
         //camera functionality
-        setCamera(camera);
-        addCameraActions();
+        setGame(game);
+        setController(controller);
 
         mmcObservers.add(preview);
-    }
 
+    }
 
     //constructor
     private MapMakerControl(){
 
 
         mmcState = TerrainMMCState.getInstance();
-        mmcObservers =  new Vector<MMCObserver>();
+
 
         // ADDING ACTIONS SPECIFIC TO MAPMAKERCONTROL
 
-        addAction(new CycleLeft(this), new KeyListener(KeyCode.LEFT));
-        addAction(new CycleRight(this), new KeyListener(KeyCode.RIGHT));
         addAction(new Delete(this), new KeyListener(KeyCode.X));
         addAction(new Reset(this), new KeyListener(KeyCode.C));
-        addAction(new MoveNorth(this), new KeyListener(KeyCode.W));
-        addAction(new MoveNW(this), new KeyListener(KeyCode.Q));
-        addAction(new MoveNE(this), new KeyListener(KeyCode.E));
-        addAction(new MoveSouth(this), new KeyListener(KeyCode.S));
-        addAction(new MoveSW(this), new KeyListener(KeyCode.A));
-        addAction(new MoveSE(this), new KeyListener(KeyCode.D));
-        addAction(new Select(this), new KeyListener(KeyCode.ENTER));
 
        // NOTE : ACTIONS NEXTMODE AND PREVMODE ARE NOT NEEDED FOR MMC
 
@@ -69,12 +62,10 @@ public class MapMakerControl extends ControlHandler {
 
     public MMCState getMmcState() {return mmcState;}
     public void setMmcState(MMCState mmcState) {this.mmcState = mmcState;}
-
-
-    public Vector<MMCObserver> getMmcObservers(){ return mmcObservers;}
-
+    public Vector<MMCObserver> getMmcObservers(){return mmcObservers;}
 
     public void left(){
+        System.out.println(mmcObservers.size() + ", "+ mmcObservers);
         mmcState.left(mmcObservers);
         //TODO get rid of print
         printState();
@@ -87,53 +78,15 @@ public class MapMakerControl extends ControlHandler {
     }
 
 
-
     public void select(){
         mmcState.select(this);
+        printState();
     }
 
-    public void moveNW(){
 
-        TileEditor.getInstance().moveNW();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorNW();
-        }
-    }
-    public void moveN(){
-
-        TileEditor.getInstance().moveN();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorN();
-        }
-    }
-    public void moveNE(){
-
-        TileEditor.getInstance().moveNE();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorNE();
-        }
-    }
-
-    public void moveSW(){
-
-        TileEditor.getInstance().moveSW();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorSW();
-        }
-    }
-    public void moveS(){
-
-        TileEditor.getInstance().moveS();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorS();
-        }
-    }
-    public void moveSE(){
-
-        TileEditor.getInstance().moveSE();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorSE();
-        }
+    @Override
+    public void endTurn() {
+        getController().changeState(new MovePhaseControl( getController(),getGame()));
     }
 
     //TODO
@@ -163,7 +116,7 @@ public class MapMakerControl extends ControlHandler {
     public void delete(){
         TileEditor.getInstance().delete();
         for(int i =0;i<mmcObservers.size();i++){
-            //mmcObservers.get(i).placeTile();
+            mmcObservers.get(i).placeTile();
         }
 
     }
@@ -185,4 +138,7 @@ public class MapMakerControl extends ControlHandler {
                 "State: " + mmcState.toString() + "Substate: ");
         mmcState.printSubState();
     }
+
+
+
 }

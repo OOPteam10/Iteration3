@@ -1,6 +1,9 @@
 package controller;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControl;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.*;
 import model.Game;
 import model.Managers.*;
 import model.MapSubsystem.LandMap;
@@ -17,6 +20,14 @@ import model.resources.Resource;
 import model.resources.Stone;
 import model.structures.producers.Product;
 
+import org.junit.Test;
+import view.Camera;
+
+
+import view.View;
+
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,7 +41,17 @@ public class MoveControlTest {
         Game game = new Game();
         Map map = game.getActualMap();
 
+        Group root;
+        Scene scene;
 
+
+        root = new Group();
+        scene = new Scene(root, javafx.scene.paint.Color.TRANSPARENT);
+
+
+        View view = new View(game, scene, root);
+
+        Controller controller = new Controller(game, view);
         SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
         WaterwayAdjacencyManager wam = game.getWaterwayAdjacencyManager();
         LandTransporterManager ltm = game.getLandTransporterManager();
@@ -93,15 +114,17 @@ public class MoveControlTest {
         CardinalDirection roadCD1 = CardinalDirection.NE;
         road1.add(roadCD1, lt1RoadTarget.getSectorAtCardinalDirection(roadCD1.getOppositeSide()));
         roadAdjacencyManager.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NE), road1);
-        
 
 
 
 
-        MovePhaseControl mpc = new MovePhaseControl(game);
+
+        MovePhaseControl mpc = new MovePhaseControl(controller,game);
         mpc.addDonkeyMPCMode();
         mpc.addRoadTransporterMPCMode();
         mpc.addSeaTransporterMPCMode();
+
+
 
         while(true){
             debugMenu(mpc, game);
