@@ -23,6 +23,9 @@ public class MapMakerControl extends ControlHandler {
     private MMCState mmcState;
 
 
+    //mmcobservers
+    Vector<MMCObserver> mmcObservers = new Vector<MMCObserver>();
+
     //singleton functionality
     private static MapMakerControl instance = new MapMakerControl();
 
@@ -36,7 +39,7 @@ public class MapMakerControl extends ControlHandler {
         setGame(game);
         setController(controller);
         setCamera(camera);
-        setPreview(preview);
+        mmcObservers.add(preview);
 
     }
 
@@ -59,15 +62,17 @@ public class MapMakerControl extends ControlHandler {
 
     public MMCState getMmcState() {return mmcState;}
     public void setMmcState(MMCState mmcState) {this.mmcState = mmcState;}
+    public Vector<MMCObserver> getMmcObservers(){return mmcObservers;}
 
     public void left(){
-        mmcState.left(getMmcObservers());
+        System.out.println(mmcObservers.size() + ", "+ mmcObservers);
+        mmcState.left(mmcObservers);
         //TODO get rid of print
         printState();
 
     }
     public void right(){
-        mmcState.right(getMmcObservers());
+        mmcState.right(mmcObservers);
         //TODO get rid of print
         printState();
     }
@@ -81,7 +86,7 @@ public class MapMakerControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-        getController().changeState(new MovePhaseControl( getController(),getGame(),getPreview(),getCamera()));
+        getController().changeState(new MovePhaseControl( getController(),getGame(),getCamera()));
     }
 
     //TODO
@@ -110,15 +115,15 @@ public class MapMakerControl extends ControlHandler {
 
     public void delete(){
         TileEditor.getInstance().delete();
-        for(int i =0;i<getMmcObservers().size();i++){
-            //mmcObservers.get(i).placeTile();
+        for(int i =0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).placeTile();
         }
 
     }
     public void reset(){
         mmcState.reset(this);
-        for(int i =0;i<getMmcObservers().size();i++){
-            getMmcObservers().get(i).placeTile();
+        for(int i =0;i<mmcObservers.size();i++){
+            mmcObservers.get(i).placeTile();
         }
     }
 
@@ -134,54 +139,6 @@ public class MapMakerControl extends ControlHandler {
         mmcState.printSubState();
     }
 
-
-
-    //TODO delete if not required
-      /*
-    public void moveNW(){
-
-        TileEditor.getInstance().moveNW();
-        for(int i =0;i<getMmcObservers().size();i++){
-            getMmcObservers().get(i).updateCursorNW();
-        }
-    }
-    public void moveN(){
-
-        TileEditor.getInstance().moveN();
-        for(int i =0;i<getMmcObservers().size();i++){
-            getMmcObservers().get(i).updateCursorN();
-        }
-    }
-    public void moveNE(){
-
-        TileEditor.getInstance().moveNE();
-        for(int i =0;i<getMmcObservers().size();i++){
-            getMmcObservers().get(i).updateCursorNE();
-        }
-    }
-
-    public void moveSW(){
-
-        TileEditor.getInstance().moveSW();
-        for(int i =0;i<getMmcObservers().size();i++){
-            getMmcObservers().get(i).updateCursorSW();
-        }
-    }
-    public void moveS(){
-
-        TileEditor.getInstance().moveS();
-        for(int i =0;i<getMmcObservers().size();i++){
-            getMmcObservers().get(i).updateCursorS();
-        }
-    }
-    public void moveSE(){
-
-        TileEditor.getInstance().moveSE();
-        for(int i =0;i<getMmcObservers().size();i++){
-            getMmcObservers().get(i).updateCursorSE();
-        }
-    }
-*/
 
 
 }

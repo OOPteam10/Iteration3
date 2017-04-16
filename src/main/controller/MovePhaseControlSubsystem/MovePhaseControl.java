@@ -44,14 +44,17 @@ public class MovePhaseControl extends ControlHandler {
     private WaterwayToSectorManager waterwayToSectorManager;
 
 
+
     private ArrayList<Donkey> donkeyList = new ArrayList<Donkey>();
     private ArrayList<RoadTransporter> roadTransporterList = new ArrayList<RoadTransporter>();
     private ArrayList<SeaTransporter> seaTransporterList = new ArrayList<SeaTransporter>();
 
 
 
-    public MovePhaseControl(Controller controller, Game game, MapMakerPreview mapMakerPreview, Camera camera){
-        super(controller,game,mapMakerPreview,camera);
+   
+
+    public MovePhaseControl(Controller controller, Game game,  Camera camera){
+            super(controller,game,camera);
 
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();

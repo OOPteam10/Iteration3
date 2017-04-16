@@ -12,6 +12,7 @@ public class MapMakerPreview implements MMCObserver{
     //MMCObserver methods
     @Override
     public void updateTerrainToDesert() {
+        System.out.println("in MMpREVIEW UPDATE TERRAIN TO DESERT");
         panelManager.updateTerrainPreview("DESERT_TILE");
     }
 

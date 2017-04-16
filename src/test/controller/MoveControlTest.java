@@ -114,7 +114,7 @@ public class MoveControlTest {
         CardinalDirection roadCD1 = CardinalDirection.NE;
         road1.add(roadCD1, lt1RoadTarget.getSectorAtCardinalDirection(roadCD1.getOppositeSide()));
         roadAdjacencyManager.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NE), road1);
-        
+
 
 
 
@@ -122,6 +122,8 @@ public class MoveControlTest {
         mpc.addDonkeyMPCMode();
         mpc.addRoadTransporterMPCMode();
         mpc.addSeaTransporterMPCMode();
+
+
 
         while(true){
             debugMenu(mpc, game);

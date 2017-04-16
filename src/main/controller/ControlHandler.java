@@ -25,18 +25,15 @@ public abstract class  ControlHandler {
     private Vector<Action> actions = new Vector<Action>() ;
     private Vector<KeyListener> kLSet = new Vector<KeyListener>();
     private Camera camera;
-    private MapMakerPreview preview;
     private Game game;
-    private Vector<MMCObserver> mmcObservers =  new Vector<MMCObserver>();
 
 
-    public ControlHandler(Controller controller, Game game, MapMakerPreview preview, Camera camera) {
+
+    public ControlHandler(Controller controller, Game game, Camera camera){
 
         this.camera = camera;
         this.controller = controller;
         this.game = game;
-        this.preview = preview;
-        mmcObservers.add(preview);
         addCommonActions();
 
     }
@@ -93,21 +90,15 @@ public abstract class  ControlHandler {
     public void setCamera(Camera camera){
         this.camera = camera;
     }
-    public Vector<MMCObserver> getMmcObservers(){
-        return mmcObservers;
-    }
+
     public Game getGame(){
         return game;
     }
-    public MapMakerPreview getPreview(){
-        return preview;
-    }
+
     public Camera getCamera(){
         return camera;
     }
-    public void setPreview(MapMakerPreview preview) {
-        this.preview = preview;
-    }
+
 
     public void setGame(Game game) {
         this.game = game;
@@ -117,10 +108,10 @@ public abstract class  ControlHandler {
         return kLSet;
     }
 
-    public void moveMapUp(Camera camera){
-        System.out.println("camera up");camera.moveUpMap();
-    }
 
+
+    public void moveMapUp(Camera camera){System.out.println("camera up");camera.moveUpMap();
+    }
     public void moveMapDown(Camera camera){
         camera.moveDownMap();
     }
@@ -143,45 +134,33 @@ public abstract class  ControlHandler {
     public void moveNW(){
 
         TileEditor.getInstance().moveNW();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorNW();
-        }
+
     }
     public void moveN(){
 
         TileEditor.getInstance().moveN();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorN();
-        }
+
     }
     public void moveNE(){
 
         TileEditor.getInstance().moveNE();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorNE();
-        }
+
     }
 
     public void moveSW(){
 
         TileEditor.getInstance().moveSW();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorSW();
-        }
+
     }
     public void moveS(){
 
         TileEditor.getInstance().moveS();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorS();
-        }
+
     }
     public void moveSE(){
 
         TileEditor.getInstance().moveSE();
-        for(int i =0;i<mmcObservers.size();i++){
-            mmcObservers.get(i).updateCursorSE();
-        }
+
     }
 
     //abstract methods
