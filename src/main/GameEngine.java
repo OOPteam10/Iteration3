@@ -32,7 +32,7 @@ public class GameEngine extends Application {
         game = new Game();
         view = new View(game, scene, root);
 
-        controller  = new Controller(view);
+        controller  = new Controller(game,view);
     }
 
     @Override
