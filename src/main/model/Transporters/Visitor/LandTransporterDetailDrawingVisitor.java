@@ -16,7 +16,7 @@ import java.awt.*;
  * Created by Karth on 4/12/2017.
  */
 public class LandTransporterDetailDrawingVisitor implements LandTransporterVisitor {
-    private final static double scale = 0.13;
+    private final static double scale = 0.2;
 
     private AssetManager assets;
     private GraphicsContext gc;
