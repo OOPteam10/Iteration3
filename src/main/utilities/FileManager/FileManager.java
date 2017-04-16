@@ -22,6 +22,8 @@ import model.Transporters.SeaTransporter;
 import model.Transporters.Visitor.LandTransporterFileVisitor;
 import model.Transporters.Visitor.SeaTransporterFileVisitor;
 import model.Transporters.Visitor.SeaTransporterVisitor;
+import model.resources.Resource;
+import model.resources.Visitor.ResourceFileVisitor;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -74,6 +76,8 @@ public class FileManager {
                 writer.write("BEGIN SECTOR");
                 writer.newLine();
                 landTransporter_write(s, writer, g);
+                resource_write(s, writer, g);
+                dockedSeaTransporter_write(s, writer, g);
                 //#TODO: write structures on sector
                 //#TODO: write geese
                 writer.write("END SECTOR");
@@ -86,28 +90,75 @@ public class FileManager {
             writer.newLine();
         }
 
-        public static void landTransporter_write(Sector s, BufferedWriter bf, Game g) throws IOException {
+        private static void dockedSeaTransporter_write(Sector s, BufferedWriter writer, Game g) throws IOException {
+            ArrayList<SeaTransporter> seaThings = g.getSeaTransporterShoreManager().getContentsOfArea(s);
+
+            if (seaThings.size() == 0) {
+                return;
+            }
+
+            SeaTransporterFileVisitor visitor = new SeaTransporterFileVisitor(g.getCargoManager());
+
+            writer.write("BEGIN DOCKED SEA TRANSPORTER " + seaThings.size());
+            writer.newLine();
+
+            for (SeaTransporter transporter :  seaThings){
+                transporter.accept(visitor);
+                writer.write(visitor.getInfo().toFileFormat());
+                writer.newLine();
+            }
+
+        }
+
+        private static void resource_write(Sector s, BufferedWriter writer, Game g) throws IOException {
+            ResourceFileVisitor visitor = new ResourceFileVisitor();
+
+            int numResources = g.getResourceManager().get(s).size();
+
+            if (numResources == 0) {
+                return;
+            }
+
+            writer.write("BEGIN RESOURCE " + numResources);
+            writer.newLine();
+
+            for (Resource r: g.getResourceManager().get(s)) {
+                r.accept(visitor);
+                ResourceFileInfo info = visitor.getInfo();
+                writer.write(info.toFileFormat());
+                writer.newLine();
+            }
+        }
+
+        private static void landTransporter_write(Sector s, BufferedWriter bf, Game g) throws IOException {
             LandTransporterFileVisitor visitor = new LandTransporterFileVisitor(g.getCargoManager());
 
             int numTransporters =  s.getTransporters(g.getLandTransporterManager()).size();
 
+            if (numTransporters == 0) {
+                return;
+            }
+
             bf.write("BEGIN LAND TRANSPORTER " + numTransporters);
             bf.newLine();
-            for (LandTransporter transporter : s.getTransporters(g.getLandTransporterManager())) {
+            for (LandTransporter transporter : g.getLandTransporterManager().getContentsOfArea(s) ) {
                 transporter.accept(visitor);
                 TransporterFileInfo info = (TransporterFileInfo) visitor.getFileInfo();
                 bf.write(info.toFileFormat());
                 bf.newLine();
             }
-            bf.write("END LAND TRANSPORTER");
-            bf.newLine();
         }
 
-        public static void seaTransporter_write(Location loc, BufferedWriter bf, Game g) throws IOException {
+        private static void seaTransporter_write(Location loc, BufferedWriter bf, Game g) throws IOException {
             if (g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager()).size() > 0) {
                 SeaTransporterFileVisitor visitor = new SeaTransporterFileVisitor(g.getCargoManager());
 
                 int numSeaTransporters = g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager()).size();
+
+                if (numSeaTransporters == 0) {
+                    return;
+                }
+
                 bf.write("BEGIN SEA TRANSPORTER " + numSeaTransporters);
                 bf.newLine();
 
@@ -116,8 +167,6 @@ public class FileManager {
                     bf.write(visitor.getInfo().toFileFormat());
                     bf.newLine();
                 }
-                bf.write("END SEA TRANSPORTER");
-                bf.newLine();
             }
         }
 
