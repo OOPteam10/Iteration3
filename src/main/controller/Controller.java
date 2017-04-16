@@ -86,6 +86,9 @@ public class Controller {
         this.controlHandler = controlHandler;
         setCurrentKLSet(controlHandler);
         addCameraActions(camera);
+
+        //this method needs to change the model's phase as well
+
     }
 
     //basic getter setters
