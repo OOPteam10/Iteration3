@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import model.Game;
+import model.Managers.LandPrimaryProducerManager;
 import model.Managers.LandTransporterManager;
 import model.Managers.ResourceManager;
 import model.Managers.SeaTransporterManager;
@@ -20,6 +21,9 @@ import model.Transporters.Visitor.LandTransporterDetailDrawingVisitor;
 import model.Transporters.Visitor.SeaTransporterDetailDrawingVisitor;
 import model.resources.Resource;
 import model.resources.Visitor.ResourceDetailDrawingVisitor;
+import model.structures.producers.Visitor.PrimaryProducerDetailDrawingVisitor;
+import model.structures.producers.Visitor.PrimaryProducerDrawingVisitor;
+import model.structures.producers.primary.PrimaryProducer;
 import utilities.TileEditor;
 import view.Camera;
 import view.Panel;
@@ -44,6 +48,7 @@ public class TileDetailPanel extends Panel {
     private Game game;
     private Group root;
     private LandTransporterManager landTransporterManager;
+    private LandPrimaryProducerManager landPrimaryProducerManager;
     private SeaTransporterManager seaTransporterManager;
     private ResourceManager resourceManager;
     private WaterwayMap waterwayMap;
@@ -58,6 +63,7 @@ public class TileDetailPanel extends Panel {
         this.panelManager = panelManager;
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
+        this.landPrimaryProducerManager = game.getLandPrimaryProducerManager();
         this.waterwayMap = gameMap.getWaterwayMap();
         updateGameMap();
     }
@@ -86,6 +92,7 @@ public class TileDetailPanel extends Panel {
             gameBoard.get(loc).accept(tileDrawingVisitor);
             drawLandTransporterDetail(gc);
             drawSeaTransporterDetail(gc);
+            drawPrimaryProducerDetail(gc);
             drawResourceDetail(gc);
         } catch (NullPointerException e){
             Image img = assets.getImage("EMPTY_HEX_GRID");
@@ -120,6 +127,18 @@ public class TileDetailPanel extends Panel {
             for(Resource resource:resourceManager.get(sector)){
                 ResourceDetailDrawingVisitor v = new ResourceDetailDrawingVisitor(assets,gc,camera,sector);
                 resource.accept(v);
+            }
+        }
+    }
+
+    private void drawPrimaryProducerDetail(GraphicsContext gc){
+        Location loc = TileEditor.getInstance().getLocation();
+        for(Sector sector:landMap.getTile(loc).getSectors()){
+            if(landPrimaryProducerManager.getProducer(sector)!=null){
+                if(landPrimaryProducerManager.getProducer(sector)!=null) {
+                    PrimaryProducerDetailDrawingVisitor v = new PrimaryProducerDetailDrawingVisitor(assets, gc, camera, sector);
+                    landPrimaryProducerManager.getProducer(sector).accept(v);
+                }
             }
         }
     }
