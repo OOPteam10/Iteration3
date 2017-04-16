@@ -1,6 +1,9 @@
 package controller;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControl;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.*;
 import model.Game;
 import model.Managers.*;
 import model.MapSubsystem.LandMap;
@@ -21,6 +24,7 @@ import model.resources.Stone;
 import model.structures.producers.Product;
 import org.junit.Test;
 import view.Camera;
+import view.View;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -38,7 +42,17 @@ public class MoveControlTest {
         Game game = new Game();
         Map map = game.getActualMap();
 
-        Camera camera = new Camera(new Point(1600,900), 1600,900);
+        Group root;
+        Scene scene;
+
+
+        root = new Group();
+        scene = new Scene(root, javafx.scene.paint.Color.TRANSPARENT);
+
+
+        View view = new View(game, scene, root);
+
+        Controller controller = new Controller(game, view);
         SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
         LandTransporterManager ltm = game.getLandTransporterManager();
         SeaTransporterManager stm = game.getSeaTransporterManager();
@@ -97,7 +111,7 @@ public class MoveControlTest {
 
 
 
-        MovePhaseControl mpc = new MovePhaseControl();
+        MovePhaseControl mpc = new MovePhaseControl(controller,game,view.getMapMakerPreview(),view.getCamera());
         mpc.addDonkeyMPCMode(donkeys);
         mpc.addRoadTransporterMPCMode(roadTransporters);
 

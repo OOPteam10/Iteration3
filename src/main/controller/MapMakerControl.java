@@ -75,6 +75,7 @@ public class MapMakerControl extends ControlHandler {
 
     public void select(){
         mmcState.select(this);
+        printState();
     }
 
 

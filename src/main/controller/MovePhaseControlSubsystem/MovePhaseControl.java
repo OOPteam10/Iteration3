@@ -198,9 +198,11 @@ public class MovePhaseControl extends ControlHandler {
     }
 
     @Override
-    public void init(MapMakerPreview preview, Camera camera) {
+    public void init(Controller controller, Game game, MapMakerPreview preview, Camera camera) {
 
     }
+
+
 
 
     //testing

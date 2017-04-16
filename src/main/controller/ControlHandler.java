@@ -30,7 +30,8 @@ public abstract class  ControlHandler {
 
 
     public ControlHandler(Controller controller, Game game, MapMakerPreview preview, Camera camera) {
-        setCamera(camera);
+
+        this.camera = camera;
         this.controller = controller;
         this.game = game;
         this.preview = preview;
@@ -116,7 +117,7 @@ public abstract class  ControlHandler {
     }
 
     public void moveMapUp(Camera camera){
-        camera.moveUpMap();
+        System.out.println("camera up");camera.moveUpMap();
     }
 
     public void moveMapDown(Camera camera){
