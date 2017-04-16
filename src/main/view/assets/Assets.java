@@ -1,7 +1,6 @@
 package view.assets;
 
 import javafx.scene.image.Image;
-import org.mockito.internal.matchers.Null;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -76,7 +75,25 @@ public class Assets {
         loadItem("PAPER","Assets/Resources/Paper.png");
         loadItem("STOCK","Assets/Resources/stock.png");
         loadItem("STONE","Assets/Resources/Stone.png");
-        loadItem("TRUNK","Assets/Resources/Trunks.png");
+        loadItem("TRUNK","Assets/Resources/Trunk.png");
+        //Load Primary Producers
+        loadItem("CLAY_PIT", "Assets/Producers/PrimaryProducers/Claypit.png");
+        loadItem("MINE", "Assets/Producers/PrimaryProducers/Mine.png");
+        loadItem("OIL_RIG", "Assets/Producers/PrimaryProducers/OilRig.png");
+        loadItem("QUARRY", "Assets/Producers/PrimaryProducers/Quarry.png");
+        loadItem("WOOD_CUTTER", "Assets/Producers/PrimaryProducers/WoodCutter.png");
+        //Load Secondary Producers
+        loadItem("COAL_BURNER", "Assets/Producers/SecondaryProducers/Coalburner.png");
+        loadItem("MINT", "Assets/Producers/SecondaryProducers/Mint.png");
+        loadItem("PAPER_MILL", "Assets/Producers/SecondaryProducers/Papermill.png");
+        loadItem("RAFT_FACTORY", "Assets/Producers/SecondaryProducers/RaftFactory.png");
+        loadItem("ROWBOAT_FACTORY", "Assets/Producers/SecondaryProducers/RowboatFactory.png");
+        loadItem("SAWMILL", "Assets/Producers/SecondaryProducers/Sawmill.png");
+        loadItem("STEAMER_FACTORY", "Assets/Producers/SecondaryProducers/SteamerFactory.png");
+        loadItem("STOCK_EXCHANGE", "Assets/Producers/SecondaryProducers/StockExchange.png");
+        loadItem("STONE_FACTORY", "Assets/Producers/SecondaryProducers/StoneFactory.png");
+        loadItem("TRUCK_FACTORY", "Assets/Producers/SecondaryProducers/TruckFactory.png");
+        loadItem("WAGON_FACTORY", "Assets/Producers/SecondaryProducers/WagonFactory.png");
     }
 
     public void loadItem(String name, String path){
