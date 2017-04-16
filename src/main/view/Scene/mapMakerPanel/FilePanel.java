@@ -98,6 +98,7 @@ public class FilePanel extends view.Panel {
 
     private void startGame() {
         camera.centerBoardInGame();
+        camera.setScaleDefault();
         panelManager.setMode(ViewEnum.MAIN_GAME);
     }
 
