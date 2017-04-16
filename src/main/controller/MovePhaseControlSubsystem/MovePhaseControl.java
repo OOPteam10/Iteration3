@@ -229,7 +229,7 @@ public class MovePhaseControl extends ControlHandler {
     }
 
     @Override
-    public void init(MapMakerPreview preview, Camera camera) {
+    public void init(Controller controller, Game game, MapMakerPreview preview, Camera camera) {
 
     }
 
@@ -261,6 +261,8 @@ public class MovePhaseControl extends ControlHandler {
             seaTransporterList.add(st);
         }
     }
+
+
 
     //testing
     public String toString(){
