@@ -1,11 +1,11 @@
 package controller.BuildPhaseControlSubsystem;
 
 import controller.ControlHandler;
-import model.Abilities.buildAbilities.BuildAbility;
-import model.Abilities.buildAbilities.LandProducerBuildAbility;
-import model.Abilities.buildAbilities.LogisticalStructureBuildAbility;
+import model.Abilities.buildAbilities.BuildRoadAbility;
+import model.Abilities.buildAbilities.LandBuildAbility;
 import model.ManagerSupplier;
 import model.Managers.*;
+import model.TileSubsystem.Sector;
 import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
 
@@ -16,9 +16,8 @@ import java.util.ArrayList;
  */
 public class BuildPhaseControl extends ControlHandler {
 
-    private ArrayList<LandProducerBuildAbility> producerBuildAbilities;
-    LandProducerBuildAbility currentProducerBuildAbility;
-
+    private ArrayList<LandBuildAbility> landBuildAbilities = new ArrayList<LandBuildAbility>();
+    private LandBuildAbility currentAbility;
 
     private ArrayList<LandTransporter> landTransporters = new ArrayList<LandTransporter>();
     private ArrayList<SeaTransporter> seaTransporters = new ArrayList<SeaTransporter>();
@@ -29,9 +28,9 @@ public class BuildPhaseControl extends ControlHandler {
     private ManagerSupplier managerSupplier;
 
 
-    private int currentTransporterIndex;
-    private int currentBuildAbilityIndex;
-    private BuildPhaseControlStrategy buildPhaseControlStrategy;
+    private int currentTransporterIndex = 0;
+    private BPCTransporterStrategy buildPhaseControlStrategy;
+
 
     public BuildPhaseControl(LandTransporterManager ltm, SeaTransporterShoreManager stsm, ResourceManager rm, ManagerSupplier ms){
         landTransporterManager = ltm;
@@ -41,11 +40,20 @@ public class BuildPhaseControl extends ControlHandler {
 
         landTransporters.addAll(ltm.getAll());
         seaTransporters.addAll(stsm.getAll());
-        currentTransporterIndex = 0;
         buildPhaseControlStrategy = new LandTransporterBPCStrategy();
         nextTransporter();
-        producerBuildAbilities = rm.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this));
-        currentProducerBuildAbility = producerBuildAbilities.get(0);
+        landBuildAbilities.addAll(rm.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this)));
+
+        //ugly logic to get road directions
+        ArrayList<Sector> adjacentSectors = ms.getSectorAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
+        ArrayList<Sector> toRemove = ms.getRoadAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
+        for(Sector s: toRemove){
+            adjacentSectors.remove(s);
+        }
+        for(Sector s: adjacentSectors){
+            landBuildAbilities.add(new BuildRoadAbility(s));
+        }
+        currentAbility = landBuildAbilities.get(0);
     }
 
     public void nextTransporter(){
@@ -56,19 +64,29 @@ public class BuildPhaseControl extends ControlHandler {
         buildPhaseControlStrategy.prevTransporter(this);
     }
 
+    public void nextAbility(){
+        int next = (landBuildAbilities.indexOf(currentAbility)+1) % landBuildAbilities.size();
+        currentAbility = landBuildAbilities.get(next);
+    }
+
+    public void prevAbility(){
+        int previous = (landBuildAbilities.indexOf(currentAbility)-1 + landBuildAbilities.size()) % landBuildAbilities.size();
+        currentAbility = landBuildAbilities.get(previous);
+    }
+
     @Override
     public void left() {
-        prevTransporter();
+        prevAbility();
     }
 
     @Override
     public void right() {
-        nextTransporter();
+        nextAbility();
     }
 
     @Override
     public void select() {
-        //currentProducerBuildAbility.execute(buildPhaseControlStrategy.getCurrentSector(this), sec//HOW TO KNOW WHICH MANAGER?);
+        currentAbility.execute(buildPhaseControlStrategy.getCurrentSector(this), managerSupplier);
     }
 
     @Override
@@ -113,12 +131,12 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void up() {
-
+        prevTransporter();
     }
 
     @Override
     public void down() {
-
+        nextTransporter();
     }
 
     @Override
@@ -170,7 +188,7 @@ public class BuildPhaseControl extends ControlHandler {
         this.currentTransporterIndex = currentTransporterIndex;
     }
 
-    public void setBuildPhaseControlStrategy(BuildPhaseControlStrategy buildPhaseControlStrategy) {
+    public void setBuildPhaseControlStrategy(BPCTransporterStrategy buildPhaseControlStrategy) {
         this.buildPhaseControlStrategy = buildPhaseControlStrategy;
     }
 }
