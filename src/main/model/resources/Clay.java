@@ -15,7 +15,7 @@ public class Clay extends Resource {
 
     @Override
     public void accept(ResourceVisitor v) {
-        v.visitClay();
+        v.visitClay(this);
     }
 
     @Override

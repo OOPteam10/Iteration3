@@ -2,11 +2,16 @@ package model.Abilities.buildAbilities;
 
 import model.Managers.LandProducerManager;
 import model.TileSubsystem.Sector;
+import model.resources.Fuel;
+import model.resources.Iron;
 
 /**
  * Created by allisonaguirre on 4/11/17.
  */
 public class BuildMineShaftAbility extends LandProducerBuildAbility {
+    public BuildMineShaftAbility(Iron i, Fuel f) {
+
+    }
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
 

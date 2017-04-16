@@ -13,8 +13,8 @@ import model.structures.producers.Product;
  */
 public abstract class Resource implements Product<Sector> {
 
-    ResourceDropOffAbility rdoAbility;
-    WaterwayDiscardAbility waterwayDiscardAbility;
+    private ResourceDropOffAbility rdoAbility;
+    private WaterwayDiscardAbility waterwayDiscardAbility;
 
     public void setRdoAbility(ResourceDropOffAbility rdoAbility) {
         this.rdoAbility = rdoAbility;

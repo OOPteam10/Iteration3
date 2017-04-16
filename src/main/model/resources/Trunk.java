@@ -15,7 +15,7 @@ public class Trunk extends Resource implements PaperMillResource, CoalBurnerReso
 
     @Override
     public void accept(ResourceVisitor v) {
-        v.visitTrunk();
+        v.visitTrunk(this);
     }
 
     @Override
