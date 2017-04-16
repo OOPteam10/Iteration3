@@ -1,4 +1,4 @@
-package model.Abilities;
+package model.Abilities.buildAbilities;
 
 import model.Managers.LandProducerManager;
 import model.TileSubsystem.Sector;

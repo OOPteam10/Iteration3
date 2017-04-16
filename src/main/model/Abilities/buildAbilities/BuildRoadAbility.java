@@ -1,18 +1,18 @@
-package model.Abilities;
+package model.Abilities.buildAbilities;
 
 import model.Managers.SectorAdjacencyManager;
-import model.TileSubsystem.HexSide;
+import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 
 /**
  * Created by allisonaguirre on 4/11/17.
  */
-public class BuildWallAbility extends LogisticalStructureBuildAbility {
-    private HexSide hexSide;
+public class BuildRoadAbility extends LogisticalStructureBuildAbility {
+    private CardinalDirection CD;
 
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
-
+        // tell list to add build road
     }
 
     @Override

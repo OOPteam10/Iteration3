@@ -1,4 +1,4 @@
-package model.Abilities;
+package model.Abilities.buildAbilities;
 
 import model.Managers.LandProducerManager;
 import model.TileSubsystem.Sector;
@@ -6,7 +6,7 @@ import model.TileSubsystem.Sector;
 /**
  * Created by allisonaguirre on 4/11/17.
  */
-public class BuildMintAbility extends LandProducerBuildAbility {
+public class BuildQuarryAbility extends LandProducerBuildAbility {
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
 

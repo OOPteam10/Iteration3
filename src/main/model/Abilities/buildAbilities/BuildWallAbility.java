@@ -1,4 +1,4 @@
-package model.Abilities;
+package model.Abilities.buildAbilities;
 
 import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.HexSide;
@@ -7,7 +7,7 @@ import model.TileSubsystem.Sector;
 /**
  * Created by allisonaguirre on 4/11/17.
  */
-public class BuildBridgeAbility extends LogisticalStructureBuildAbility {
+public class BuildWallAbility extends LogisticalStructureBuildAbility {
     private HexSide hexSide;
 
     @Override
