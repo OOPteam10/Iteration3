@@ -7,6 +7,7 @@ import model.Managers.LandTransporterManager;
 import model.TransporterControlAbilities.AddDonkeyToControlListAbility;
 import model.TransporterControlAbilities.TransporterAbilityFactory;
 import model.Transporters.Visitor.LandTransporterVisitor;
+import model.structures.producers.Visitor.ProductVisitor;
 
 
 /**
@@ -29,4 +30,8 @@ public class Donkey extends LandTransporter implements Animal {
         v.visitDonkey(this);
     }
 
+    @Override
+    public void accept(ProductVisitor v) {
+        v.visitDonkey(this);
+    }
 }
