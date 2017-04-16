@@ -18,6 +18,7 @@ public class TransporterFileInfo extends FileInfo{
     public TransporterFileInfo(String transporter, PlayerID ownerID) {
         this.transporter = transporter;
         this.ownerID = ownerID;
+        cargo = new ArrayList<>();
     }
 
     public TransporterFileInfo(String transporter, PlayerID ownerID, ArrayList<FileInfo> cargo) {
@@ -28,10 +29,19 @@ public class TransporterFileInfo extends FileInfo{
 
     @Override
     public String toFileFormat() {
-        if (cargo.isEmpty()) {
-            return transporter + " " + ownerID;
+
+        String id;
+        if (ownerID == null) {
+            id = "";
         } else {
-            String out = transporter + " " + ownerID + " (";
+            id = " " + ownerID.toString();
+        }
+
+
+        if (cargo == null || cargo.isEmpty()) {
+            return transporter + id;
+        } else {
+            String out = transporter + id + " (";
             String spacer = "";
 
             for (FileInfo f: cargo) {
@@ -48,5 +58,9 @@ public class TransporterFileInfo extends FileInfo{
 
     public void addCargo(FileInfo f) {
         cargo.add(f);
+    }
+
+    public int getCargoSize() {
+        return cargo.size();
     }
 }

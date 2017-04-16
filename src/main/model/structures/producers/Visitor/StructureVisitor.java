@@ -22,7 +22,7 @@ public interface StructureVisitor {
     void visitStoneQuarry();
     void visitWoodCutter();
     void visitBridge();
-    void visitNeutralWall(); 
+    void visitNeutralWall();
     void visitOwnedWall();
     void visitRoad();
 }
