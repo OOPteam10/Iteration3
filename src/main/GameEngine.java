@@ -32,7 +32,7 @@ public class GameEngine extends Application {
         game = new Game();
         view = new View(game, scene, root);
 
-        controller  = new Controller(view);
+        controller  = new Controller(game,view);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class GameEngine extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-
+                controller.keyReleased(event);
             }
         });
 
@@ -74,7 +74,7 @@ public class GameEngine extends Application {
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                controller.keyReleased(event);
+
             }
         });
     }

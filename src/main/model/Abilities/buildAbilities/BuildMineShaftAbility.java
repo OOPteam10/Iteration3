@@ -1,6 +1,9 @@
 package model.Abilities.buildAbilities;
 
+import model.Game;
+import model.ManagerSupplier;
 import model.Managers.LandProducerManager;
+import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Fuel;
 import model.resources.Iron;
@@ -18,7 +21,7 @@ public class BuildMineShaftAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, LandProducerManager lom) {
+    public void execute(Sector s, ManagerSupplier ms) {
 
     }
 }

@@ -1,5 +1,6 @@
 package model.phases;
 
+import model.Game;
 import model.Managers.*;
 import model.PlayerID;
 
@@ -37,6 +38,12 @@ public class MovementPhase implements Phase {
 
     @Override
     public void execute(PlayerID p1, PlayerID p2) {
+        execute(p1);
+        execute(p2);
+    }
+
+    @Override
+    public void execute(PlayerID playerID) {
 
     }
 }

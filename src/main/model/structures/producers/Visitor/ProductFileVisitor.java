@@ -1,6 +1,5 @@
 package model.structures.producers.Visitor;
 
-import com.sun.rowset.internal.Row;
 import model.Goose;
 import model.Transporters.*;
 import utilities.FileManager.FileInfo;

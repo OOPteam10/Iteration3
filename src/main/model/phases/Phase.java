@@ -1,5 +1,6 @@
 package model.phases;
 
+import model.Game;
 import model.PlayerID;
 
 /**
@@ -7,4 +8,5 @@ import model.PlayerID;
  */
 public interface Phase {
     void execute(PlayerID p1, PlayerID p2);
+    void execute(PlayerID playerID);
 }

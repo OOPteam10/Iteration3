@@ -2,8 +2,11 @@ package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.DonkeyMPCMode;
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import model.Managers.Adjacency;
 import model.Managers.LandTransporterManager;
+import model.Managers.SectorAdjacency;
 import model.Managers.SectorAdjacencyManager;
+import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
 

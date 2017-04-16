@@ -12,6 +12,7 @@ public class MapMakerPreview implements MMCObserver{
     //MMCObserver methods
     @Override
     public void updateTerrainToDesert() {
+        System.out.println("in MMpREVIEW UPDATE TERRAIN TO DESERT");
         panelManager.updateTerrainPreview("DESERT_TILE");
     }
 
@@ -68,36 +69,6 @@ public class MapMakerPreview implements MMCObserver{
     @Override
     public void updateRiverToSource() {
         panelManager.updateRiverPreview("SOURCE_RIVER");
-    }
-
-    @Override
-    public void updateCursorN() {
-
-    }
-
-    @Override
-    public void updateCursorNE() {
-
-    }
-
-    @Override
-    public void updateCursorNW() {
-
-    }
-
-    @Override
-    public void updateCursorS() {
-
-    }
-
-    @Override
-    public void updateCursorSE() {
-
-    }
-
-    @Override
-    public void updateCursorSW() {
-
     }
 
     @Override

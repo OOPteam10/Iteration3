@@ -1,10 +1,24 @@
 package controller;
 
 
+
+
+
+import controller.Actions.CycleLeft;
+
+import controller.Actions.*;
+
+import controller.MovePhaseControlSubsystem.MovePhaseControl;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import model.Game;
 import view.Camera;
 import view.View;
+
+
+import java.util.HashMap;
+import java.util.ResourceBundle;
 
 import java.util.Vector;
 
@@ -16,41 +30,29 @@ public class Controller {
     //represents the top level state of Controller
     private ControlHandler controlHandler;
 
-    //TODO remove commented out in future
-    /*
-    private HashMap<KeyCode, ControlAction> actionMap;
-    private KeyMapControls controlMap;
-    */
     private Camera camera;
+    private Game game;
 
     //new KeyMapping
     private Vector<KeyListener> currentKLSet = new Vector<KeyListener>();
 
 
-    public Controller(View view){
+    public Controller(Game game,View view){
 
         //camera
         camera = view.getCamera();
-
+        this.game = game;
         //init with the MapMakerControl state
-
+        MapMakerControl.getInstance().init(this,game,view.getMapMakerPreview());
         controlHandler = MapMakerControl.getInstance();
-        controlHandler.init(view.getMapMakerPreview(),camera);
+        addCameraActions(camera);
+        //camera actions
+
         setCurrentKLSet(controlHandler);
 
 
     }
 
-
-    public void setCurrentKLSet(ControlHandler controlHandler){currentKLSet = controlHandler.getKLSet();}
-
-    public ControlHandler getControlHandler() {
-        return controlHandler;
-    }
-
-    public void setControlHandler(ControlHandler controlHandler) {
-        this.controlHandler = controlHandler;
-    }
 
     public void executeCode(KeyCode code){
 
@@ -65,15 +67,35 @@ public class Controller {
         }
     }
 
+    public void addCameraActions(Camera camera){
+
+        controlHandler.addAction(new ZoomIn(controlHandler,camera), new KeyListener(KeyCode.EQUALS));
+        controlHandler.addAction(new ZoomOut(controlHandler,camera), new KeyListener(KeyCode.MINUS));
+        controlHandler.addAction(new CameraMoveUp(controlHandler,camera), new KeyListener(KeyCode.I));
+        controlHandler.addAction(new CameraMoveDown(controlHandler, camera), new KeyListener(KeyCode.K));
+        controlHandler.addAction(new CameraMoveRight(controlHandler, camera), new KeyListener(KeyCode.L));
+        controlHandler.addAction(new CameraMoveLeft(controlHandler, camera), new KeyListener(KeyCode.J));
+    }
 
     public void keyReleased(KeyEvent e){
         KeyCode key = e.getCode();
         executeCode(key);
     }
 
+    public void changeState(ControlHandler controlHandler){
+        this.controlHandler = controlHandler;
+        setCurrentKLSet(controlHandler);
+        addCameraActions(camera);
 
+        //this method needs to change the model's phase as well
 
+    }
 
+    //basic getter setters
+    public void setCurrentKLSet(ControlHandler controlHandler){currentKLSet = controlHandler.getKLSet();}
+    public ControlHandler getControlHandler() {
+        return controlHandler;
+    }
 
 
 }

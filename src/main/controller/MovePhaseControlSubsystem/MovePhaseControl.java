@@ -1,6 +1,7 @@
 package controller.MovePhaseControlSubsystem;
 
 import controller.ControlHandler;
+import controller.Controller;
 import model.Game;
 import model.Managers.*;
 
@@ -42,11 +43,21 @@ public class MovePhaseControl extends ControlHandler {
     private SectorToWaterwayManager sectorToWaterwayManager;
     private WaterwayToSectorManager waterwayToSectorManager;
 
+
+
+
     private ArrayList<Donkey> donkeyList = new ArrayList<Donkey>();
     private ArrayList<RoadTransporter> roadTransporterList = new ArrayList<RoadTransporter>();
     private ArrayList<SeaTransporter> seaTransporterList = new ArrayList<SeaTransporter>();
 
-    public MovePhaseControl(Game game){
+
+
+   
+
+
+    public MovePhaseControl(Controller controller, Game game){
+        super(controller,game);
+
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
         this.seaTransporterShoreManager = game.getSeaTransporterShoreManager();
@@ -79,29 +90,16 @@ public class MovePhaseControl extends ControlHandler {
         movePhaseControlModes.add(new SeaTransporterMPCMode(seaTransporterList, this));
     }
 
-    public void nextMode(){
+    private void nextMoveMode(){
         int next = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)+1)
                 % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(next);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
 
-    @Override
-    public void prevMode() {
 
-    }
 
-    @Override
-    public void up() {
-
-    }
-
-    @Override
-    public void down() {
-
-    }
-
-    private void previousMode(){
+    private void previousMoveMode(){
         int previous = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)-1
                 + movePhaseControlModes.size()) % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(previous);
@@ -173,14 +171,36 @@ public class MovePhaseControl extends ControlHandler {
     //TODO: rename ControlHandler functions to the name of the keypress
     //right now mapped to functions kind of at random just to test
 
+
+    @Override
+    public void prevMode() {
+        previousMoveMode();
+    }
+    @Override
+    public void nextMode(){
+        nextMoveMode();
+    }
+
+
+    @Override
+    public void up() {
+        nextTransporter();
+    }
+
+    @Override
+    public void down() {
+        previousTransporter();
+    }
+
+
     @Override
     public void left() {
-        previousMode();
+       cycleLeft();
     }
 
     @Override
     public void right() {
-        nextMode();
+        cycleRight();
     }
 
     @Override
@@ -190,36 +210,7 @@ public class MovePhaseControl extends ControlHandler {
 
     }
 
-    @Override
-    public void moveNW() {
-        cycleLeft();
 
-    }
-
-    @Override
-    public void moveN() {
-        cycleRight();
-    }
-
-    @Override
-    public void moveNE() {
-
-    }
-
-    @Override
-    public void moveSW() {
-        previousTransporter();
-    }
-
-    @Override
-    public void moveS() {
-        nextTransporter();
-    }
-
-    @Override
-    public void moveSE() {
-
-    }
 
     @Override
     public void delete() {
@@ -237,9 +228,12 @@ public class MovePhaseControl extends ControlHandler {
     }
 
     @Override
-    public void init(MapMakerPreview preview, Camera camera) {
+    public void endTurn() {
+        // will change the controller's state to next phase
 
     }
+
+
 
     public void addToDonkeyList(Donkey donkey) {
         donkeyList.add(donkey);
@@ -269,6 +263,8 @@ public class MovePhaseControl extends ControlHandler {
             seaTransporterList.add(st);
         }
     }
+
+
 
     //testing
     public String toString(){
