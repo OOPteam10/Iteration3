@@ -47,7 +47,7 @@ public class GameEngine extends Application {
                 frameCounter++;
 
                 //menus
-                if (frameCounter == 2) { //Limit FPS to 30
+                if (frameCounter == 1) { //Limit FPS to 30
                     frameCounter = 0;
 
                     view.renderGame();
