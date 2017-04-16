@@ -3,7 +3,11 @@ package controller;
 
 
 
+
 import controller.Actions.CycleLeft;
+
+import controller.Actions.*;
+
 import controller.MovePhaseControlSubsystem.MovePhaseControl;
 
 import javafx.scene.input.KeyCode;
@@ -39,8 +43,11 @@ public class Controller {
         camera = view.getCamera();
         this.game = game;
         //init with the MapMakerControl state
+        MapMakerControl.getInstance().init(this,game,view.getMapMakerPreview());
         controlHandler = MapMakerControl.getInstance();
-        controlHandler.init(this,game,view.getMapMakerPreview(),camera);
+        addCameraActions(camera);
+        //camera actions
+
         setCurrentKLSet(controlHandler);
 
 
@@ -60,6 +67,15 @@ public class Controller {
         }
     }
 
+    public void addCameraActions(Camera camera){
+
+        controlHandler.addAction(new ZoomIn(controlHandler,camera), new KeyListener(KeyCode.EQUALS));
+        controlHandler.addAction(new ZoomOut(controlHandler,camera), new KeyListener(KeyCode.MINUS));
+        controlHandler.addAction(new CameraMoveUp(controlHandler,camera), new KeyListener(KeyCode.I));
+        controlHandler.addAction(new CameraMoveDown(controlHandler, camera), new KeyListener(KeyCode.K));
+        controlHandler.addAction(new CameraMoveRight(controlHandler, camera), new KeyListener(KeyCode.L));
+        controlHandler.addAction(new CameraMoveLeft(controlHandler, camera), new KeyListener(KeyCode.J));
+    }
 
     public void keyReleased(KeyEvent e){
         KeyCode key = e.getCode();
@@ -69,6 +85,7 @@ public class Controller {
     public void changeState(ControlHandler controlHandler){
         this.controlHandler = controlHandler;
         setCurrentKLSet(controlHandler);
+        addCameraActions(camera);
     }
 
     //basic getter setters

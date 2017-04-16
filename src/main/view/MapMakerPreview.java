@@ -72,36 +72,6 @@ public class MapMakerPreview implements MMCObserver{
     }
 
     @Override
-    public void updateCursorN() {
-
-    }
-
-    @Override
-    public void updateCursorNE() {
-
-    }
-
-    @Override
-    public void updateCursorNW() {
-
-    }
-
-    @Override
-    public void updateCursorS() {
-
-    }
-
-    @Override
-    public void updateCursorSE() {
-
-    }
-
-    @Override
-    public void updateCursorSW() {
-
-    }
-
-    @Override
     public void placeTile(){
         panelManager.updateTerrainPreview("DESERT_TILE");
         panelManager.updateRiverPreview("NORMAL_RIVER_60");

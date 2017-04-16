@@ -33,12 +33,12 @@ public class MapMakerControl extends ControlHandler {
 
 
     //onInit
-    public void init(Controller controller, Game game, MapMakerPreview preview, Camera camera){
+    public void init(Controller controller, Game game, MapMakerPreview preview){
 
         //camera functionality
         setGame(game);
         setController(controller);
-        setCamera(camera);
+
         mmcObservers.add(preview);
 
     }
@@ -86,7 +86,7 @@ public class MapMakerControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-        getController().changeState(new MovePhaseControl( getController(),getGame(),getCamera()));
+        getController().changeState(new MovePhaseControl( getController(),getGame()));
     }
 
     //TODO

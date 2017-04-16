@@ -118,7 +118,8 @@ public class MoveControlTest {
 
 
 
-        MovePhaseControl mpc = new MovePhaseControl(controller,game,view.getMapMakerPreview(),view.getCamera());
+
+        MovePhaseControl mpc = new MovePhaseControl(controller,game);
         mpc.addDonkeyMPCMode();
         mpc.addRoadTransporterMPCMode();
         mpc.addSeaTransporterMPCMode();

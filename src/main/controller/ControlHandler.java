@@ -24,14 +24,14 @@ public abstract class  ControlHandler {
     private Controller controller;
     private Vector<Action> actions = new Vector<Action>() ;
     private Vector<KeyListener> kLSet = new Vector<KeyListener>();
-    private Camera camera;
+
     private Game game;
 
 
 
-    public ControlHandler(Controller controller, Game game, Camera camera){
+    public ControlHandler(Controller controller, Game game){
 
-        this.camera = camera;
+
         this.controller = controller;
         this.game = game;
         addCommonActions();
@@ -57,13 +57,7 @@ public abstract class  ControlHandler {
         addAction(new CycleRight(this), new KeyListener(KeyCode.RIGHT));
         addAction(new EndTurn(this), new KeyListener(KeyCode.P));
 
-        //camera actions
-        addAction(new ZoomIn(this,camera), new KeyListener(KeyCode.EQUALS));
-        addAction(new ZoomOut(this, camera), new KeyListener(KeyCode.MINUS));
-        addAction(new CameraMoveUp(this,camera), new KeyListener(KeyCode.I));
-        addAction(new CameraMoveDown(this, camera), new KeyListener(KeyCode.K));
-        addAction(new CameraMoveRight(this, camera), new KeyListener(KeyCode.L));
-        addAction(new CameraMoveLeft(this, camera), new KeyListener(KeyCode.J));
+
 
     }
 
@@ -87,17 +81,12 @@ public abstract class  ControlHandler {
     public Controller getController(){
         return controller;
     }
-    public void setCamera(Camera camera){
-        this.camera = camera;
-    }
+
 
     public Game getGame(){
         return game;
     }
 
-    public Camera getCamera(){
-        return camera;
-    }
 
 
     public void setGame(Game game) {
@@ -183,9 +172,7 @@ public abstract class  ControlHandler {
     public abstract void centerGravity();
     public abstract void endTurn();
 
-    //initialisers
-    //TODO try to remove it
-    public abstract void init(Controller controller,Game game,MapMakerPreview preview, Camera camera);
+
 
 
 

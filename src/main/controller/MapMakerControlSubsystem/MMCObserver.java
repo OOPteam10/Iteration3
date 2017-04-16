@@ -5,13 +5,6 @@ package controller.MapMakerControlSubsystem;
  */
 public interface MMCObserver {
 
-    //move cursor around
-    void updateCursorN();
-    void updateCursorNE();
-    void updateCursorNW();
-    void updateCursorS();
-    void updateCursorSE();
-    void updateCursorSW();
 
     //terrain types
     void updateTerrainToDesert();

@@ -45,6 +45,7 @@ public class MovePhaseControl extends ControlHandler {
 
 
 
+
     private ArrayList<Donkey> donkeyList = new ArrayList<Donkey>();
     private ArrayList<RoadTransporter> roadTransporterList = new ArrayList<RoadTransporter>();
     private ArrayList<SeaTransporter> seaTransporterList = new ArrayList<SeaTransporter>();
@@ -53,8 +54,9 @@ public class MovePhaseControl extends ControlHandler {
 
    
 
-    public MovePhaseControl(Controller controller, Game game,  Camera camera){
-            super(controller,game,camera);
+
+    public MovePhaseControl(Controller controller, Game game){
+        super(controller,game);
 
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
@@ -231,10 +233,7 @@ public class MovePhaseControl extends ControlHandler {
 
     }
 
-    @Override
-    public void init(Controller controller, Game game, MapMakerPreview preview, Camera camera) {
 
-    }
 
     public void addToDonkeyList(Donkey donkey) {
         donkeyList.add(donkey);
