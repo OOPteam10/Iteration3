@@ -147,4 +147,11 @@ public class Game {
         currentPhase = phases.get(1);
     }
 
+    public Phase getCurrentPhase(){
+        return currentPhase;
+    }
+
+    public ArrayList<Phase> getPhases(){
+        return phases;
+    }
 }

@@ -59,11 +59,11 @@ public class FilePanel extends view.Panel {
         });
         setUpButton(startGameButton, getAssets().getImage("START_GAME_BUTTON"));
         startGameButton.setOnAction(event->startGame());
-
     }
 
     public void draw(GraphicsContext gc, Point screenDimension){
         setPositions(screenDimension);
+        if(isGameStarted()){startGame();}
     }
 
     private void setUpButton(Button button, Image image){
@@ -99,6 +99,10 @@ public class FilePanel extends view.Panel {
     private void startGame() {
         camera.centerBoardInGame();
         panelManager.setMode(ViewEnum.MAIN_GAME);
+    }
+
+    public boolean isGameStarted(){
+        return game.getCurrentPhase() == game.getPhases().get(1);
     }
 
     public void hideGUIElements(){root.getChildren().remove(filePanelLayout);}
