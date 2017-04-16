@@ -138,9 +138,10 @@ public class BuildPhaseControl extends ControlHandler {
     }
 
     @Override
-    public void init(MapMakerPreview preview, Camera camera) {
+    public void endTurn() {
 
     }
+
 
     public ArrayList<LandTransporter> getLandTransporters() {
         return landTransporters;
