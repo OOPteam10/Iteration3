@@ -1,5 +1,6 @@
 package model.phases;
 
+import model.Game;
 import model.Managers.CargoManager;
 import model.Managers.LandTransporterManager;
 import model.Managers.ResourceManager;
@@ -27,7 +28,14 @@ public class WonderPhase implements Phase{
     }
 
     @Override
-    public void execute(PlayerID p1, PlayerID p2) {
+    public void execute(PlayerID p1, PlayerID p2, Game context) {
+        execute(p1);
+        execute(p2);
+        context.startNextPhase();  //TODO: different strategies for this line if the game is over or not
+    }
+
+    @Override
+    public void execute(PlayerID playerID) {
 
     }
 }

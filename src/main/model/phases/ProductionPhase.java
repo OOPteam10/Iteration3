@@ -1,5 +1,6 @@
 package model.phases;
 
+import model.Game;
 import model.Managers.*;
 import model.PlayerID;
 import model.TileSubsystem.CardinalDirection;
@@ -38,9 +39,12 @@ public class ProductionPhase implements Phase {
     }
 
     @Override
-    public void execute(PlayerID p1, PlayerID p2) {
+    public void execute(PlayerID p1, PlayerID p2, Game context) {
         iterateLandProducers();
         //iterateSeaProducers();
+        execute(p1);
+        execute(p2);
+        context.startNextPhase();
     }
 
     private void iterateLandProducers(){
@@ -51,6 +55,11 @@ public class ProductionPhase implements Phase {
 
     private void iterateSeaProducers(){
         seaProducerManager.produceAll();
+    }
+
+    @Override
+    public void execute(PlayerID playerID) {
+
     }
 
 }
