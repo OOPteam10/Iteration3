@@ -142,4 +142,9 @@ public class Game {
         currentPhase.execute(player1, player2);
     }
 
+    //for testing purposes
+    public void startGame(){
+        currentPhase = phases.get(1);
+    }
+
 }

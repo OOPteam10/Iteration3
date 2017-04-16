@@ -86,6 +86,8 @@ public class MapMakerControl extends ControlHandler {
 
     @Override
     public void endTurn() {
+        //for testing movement controls
+        getGame().startGame();
         getController().changeState(new MovePhaseControl( getController(),getGame()));
     }
 

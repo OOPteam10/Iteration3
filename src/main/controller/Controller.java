@@ -85,6 +85,8 @@ public class Controller {
     public void changeState(ControlHandler controlHandler){
         this.controlHandler = controlHandler;
         setCurrentKLSet(controlHandler);
+
+        //this gets added to the controller's current KLSet, no need to add it seperately in controlHandlers
         addCameraActions(camera);
 
         //this method needs to change the model's phase as well
