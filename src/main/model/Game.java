@@ -33,7 +33,7 @@ public class Game {
     private LandSecondaryProducerManager landSecondaryProducerManager;
     private SeaProducerManager seaProducerManager;
 
-    private ArrayList<Phase> phases;
+    private ArrayList<Phase> phases = new ArrayList<Phase>();
     private Phase currentPhase;
 
     private ProductionPhase productionPhase;
@@ -56,6 +56,8 @@ public class Game {
         seaTransporterShoreManager = new SeaTransporterShoreManager();
         resourceManager = new ResourceManager();
         cargoManager = new CargoManager();
+        waterwayToSectorManager = map.generateWaterwayToSectorManager();
+        sectorToWaterwayManager = map.generateSectorToWaterwayManager();
 
         landPrimaryProducerManager = new LandPrimaryProducerManager();
         landSecondaryProducerManager = new LandSecondaryProducerManager();
@@ -72,8 +74,7 @@ public class Game {
         phases.add( new WonderPhase(landTransporterManager, resourceManager, seaTransporterShoreManager, cargoManager) );
 
         currentPhase = phases.get(0);
-        waterwayToSectorManager = map.generateWaterwayToSectorManager();
-        sectorToWaterwayManager = map.generateSectorToWaterwayManager();
+
 
     }
 
@@ -138,7 +139,7 @@ public class Game {
     public void startNextPhase(){
         int next = (phases.indexOf(currentPhase)+1) % phases.size();
         currentPhase = phases.get(next);
-        currentPhase.execute(player1, player2, this);
+        currentPhase.execute(player1, player2);
     }
 
 }

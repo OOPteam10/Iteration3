@@ -45,10 +45,9 @@ public class BuildingPhase implements Phase {
     }
 
     @Override
-    public void execute(PlayerID p1, PlayerID p2, Game context) {
+    public void execute(PlayerID p1, PlayerID p2) {
         execute(p1);
         execute(p2);
-        context.startNextPhase();
     }
 
     @Override
