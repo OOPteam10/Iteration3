@@ -24,4 +24,14 @@ public class Mint extends SecondaryProducerTypeB<Gold, Fuel> {
         }
     }
 
+    @Override
+    public void visitGold(Gold gold){
+
+    }
+
+    @Override
+    public void visitFuel(Fuel fuel){
+
+    }
+
 }

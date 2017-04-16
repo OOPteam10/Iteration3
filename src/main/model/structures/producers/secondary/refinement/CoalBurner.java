@@ -2,6 +2,7 @@ package model.structures.producers.secondary.refinement;
 
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
+import model.resources.Board;
 import model.resources.CoalBurnerResource;
 import model.resources.Fuel;
 import model.resources.Trunk;
@@ -23,6 +24,16 @@ public class CoalBurner extends SecondaryProducerTypeA<CoalBurnerResource> {
         } else {
             giveResource(new Trunk());
         }
+    }
+
+    @Override
+    public void visitBoard(Board board){
+
+    }
+
+    @Override
+    public void visitTrunk(Trunk trunk){
+
     }
 
 }

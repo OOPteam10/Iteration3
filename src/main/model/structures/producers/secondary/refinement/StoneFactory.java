@@ -22,4 +22,9 @@ public class StoneFactory extends SecondaryProducerTypeA<Clay> {
         }
     }
 
+    @Override
+    public void visitClay(Clay clay){
+
+    }
+
 }
