@@ -23,4 +23,9 @@ public class SawMill extends SecondaryProducerTypeA<Trunk> {
         }
     }
 
+    @Override
+    public void visitTrunk(Trunk trunk){
+
+    }
+
 }

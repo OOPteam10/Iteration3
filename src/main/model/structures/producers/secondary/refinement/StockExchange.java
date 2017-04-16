@@ -24,4 +24,14 @@ public class StockExchange extends SecondaryProducerTypeB<Coin, Paper> {
 
     }
 
+    @Override
+    public void visitCoin(Coin coin){
+
+    }
+
+    @Override
+    public void visitPaper(Paper paper){
+
+    }
+
 }

@@ -30,4 +30,5 @@ public abstract class SecondaryProducerTypeA<T> extends SecondaryProducer {
         rawResources.remove(rawResources.size() - 1);
         return true;
     }
+
 }

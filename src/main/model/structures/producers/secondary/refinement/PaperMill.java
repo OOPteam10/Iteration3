@@ -2,6 +2,7 @@ package model.structures.producers.secondary.refinement;
 
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
+import model.resources.Board;
 import model.resources.Paper;
 import model.resources.PaperMillResource;
 import model.resources.Trunk;
@@ -24,6 +25,16 @@ public class PaperMill extends SecondaryProducerTypeA<PaperMillResource> {
         } else {
             giveResource(new Trunk());
         }
+    }
+
+    @Override
+    public void visitBoard(Board board){
+
+    }
+
+    @Override
+    public void visitTrunk(Trunk trunk){
+
     }
 
 }
