@@ -76,10 +76,14 @@ public class FileManager {
                 landTransporter_write(s, writer, g);
                 //#TODO: write structures on sector
                 //#TODO: write geese
+                writer.write("END SECTOR");
+                writer.newLine();
             }
 
             seaTransporter_write(loc, writer, g);
 
+            writer.write("END TILE");
+            writer.newLine();
         }
 
         public static void landTransporter_write(Sector s, BufferedWriter bf, Game g) throws IOException {
@@ -88,12 +92,15 @@ public class FileManager {
             int numTransporters =  s.getTransporters(g.getLandTransporterManager()).size();
 
             bf.write("BEGIN LAND TRANSPORTER " + numTransporters);
+            bf.newLine();
             for (LandTransporter transporter : s.getTransporters(g.getLandTransporterManager())) {
                 transporter.accept(visitor);
                 TransporterFileInfo info = (TransporterFileInfo) visitor.getFileInfo();
                 bf.write(info.toFileFormat());
                 bf.newLine();
             }
+            bf.write("END LAND TRANSPORTER");
+            bf.newLine();
         }
 
         public static void seaTransporter_write(Location loc, BufferedWriter bf, Game g) throws IOException {
@@ -101,7 +108,7 @@ public class FileManager {
                 SeaTransporterFileVisitor visitor = new SeaTransporterFileVisitor(g.getCargoManager());
 
                 int numSeaTransporters = g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager()).size();
-                bf.write("BEGIN WATER TRANSPORTER " + numSeaTransporters);
+                bf.write("BEGIN SEA TRANSPORTER " + numSeaTransporters);
                 bf.newLine();
 
                 for (SeaTransporter transporter : g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager())) {
@@ -109,6 +116,8 @@ public class FileManager {
                     bf.write(visitor.getInfo().toFileFormat());
                     bf.newLine();
                 }
+                bf.write("END SEA TRANSPORTER");
+                bf.newLine();
             }
         }
 

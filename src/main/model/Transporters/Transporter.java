@@ -16,6 +16,11 @@ public abstract class Transporter<L> implements Product<L> {
     protected PlayerID playerID;
 
     public PlayerID getPlayerID() {return playerID;}
+
+    public void setPlayerID(PlayerID p) {
+        this.playerID = p;
+    }
+
     private TransporterAbility attcAbility;
 
     public void produceAbility(TransporterAbilityFactory f) {
