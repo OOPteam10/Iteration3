@@ -47,7 +47,7 @@ public class GameEngine extends Application {
                 frameCounter++;
 
                 //menus
-                if (frameCounter == 2) { //Limit FPS to 30
+                if (frameCounter == 1) { //Limit FPS to 30
                     frameCounter = 0;
 
                     view.renderGame();
@@ -66,7 +66,7 @@ public class GameEngine extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-
+                controller.keyReleased(event);
             }
         });
 
@@ -74,7 +74,7 @@ public class GameEngine extends Application {
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                controller.keyReleased(event);
+
             }
         });
     }

@@ -3,13 +3,11 @@ package controller.BuildPhaseControlSubsystem;
 import controller.ControlHandler;
 import model.Abilities.buildAbilities.BuildAbility;
 import model.Abilities.buildAbilities.LandProducerBuildAbility;
+import model.Abilities.buildAbilities.LogisticalStructureBuildAbility;
+import model.ManagerSupplier;
 import model.Managers.*;
-import model.TileSubsystem.Sector;
 import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
-import model.Transporters.Transporter;
-import view.Camera;
-import view.MapMakerPreview;
 
 import java.util.ArrayList;
 
@@ -18,8 +16,9 @@ import java.util.ArrayList;
  */
 public class BuildPhaseControl extends ControlHandler {
 
-    private ArrayList<LandProducerBuildAbility> buildAbilities;
-    LandProducerBuildAbility currentBuildAbility;
+    private ArrayList<LandProducerBuildAbility> producerBuildAbilities;
+    LandProducerBuildAbility currentProducerBuildAbility;
+
 
     private ArrayList<LandTransporter> landTransporters = new ArrayList<LandTransporter>();
     private ArrayList<SeaTransporter> seaTransporters = new ArrayList<SeaTransporter>();
@@ -27,26 +26,26 @@ public class BuildPhaseControl extends ControlHandler {
     private LandTransporterManager landTransporterManager;
     private SeaTransporterShoreManager seaTransporterShoreManager;
     private ResourceManager resourceManager;
-    private LandPrimaryProducerManager landPrimaryProducerManager;
-    private LandSecondaryProducerManager landSecondaryProducerManager;
+    private ManagerSupplier managerSupplier;
 
-    private int currentIndex;
+
+    private int currentTransporterIndex;
+    private int currentBuildAbilityIndex;
     private BuildPhaseControlStrategy buildPhaseControlStrategy;
 
-    public BuildPhaseControl(LandTransporterManager ltm, SeaTransporterShoreManager stsm, ResourceManager rm,
-                             LandPrimaryProducerManager lppm, LandSecondaryProducerManager lspm){
+    public BuildPhaseControl(LandTransporterManager ltm, SeaTransporterShoreManager stsm, ResourceManager rm, ManagerSupplier ms){
         landTransporterManager = ltm;
         seaTransporterShoreManager = stsm;
         resourceManager = rm;
-        landPrimaryProducerManager = lppm;
-        landSecondaryProducerManager = lspm;
+        managerSupplier = ms;
+
         landTransporters.addAll(ltm.getAll());
         seaTransporters.addAll(stsm.getAll());
-        currentIndex = 0;
+        currentTransporterIndex = 0;
         buildPhaseControlStrategy = new LandTransporterBPCStrategy();
         nextTransporter();
-        buildAbilities = rm.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this));
-        currentBuildAbility = buildAbilities.get(0);
+        producerBuildAbilities = rm.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this));
+        currentProducerBuildAbility = producerBuildAbilities.get(0);
     }
 
     public void nextTransporter(){
@@ -69,7 +68,7 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void select() {
-        //currentBuildAbility.execute(buildPhaseControlStrategy.getCurrentSector(this), sec//HOW TO KNOW WHICH MANAGER?);
+        //currentProducerBuildAbility.execute(buildPhaseControlStrategy.getCurrentSector(this), sec//HOW TO KNOW WHICH MANAGER?);
     }
 
     @Override
@@ -151,8 +150,8 @@ public class BuildPhaseControl extends ControlHandler {
         return seaTransporters;
     }
 
-    public int getCurrentIndex() {
-        return currentIndex;
+    public int getCurrentTransporterIndex() {
+        return currentTransporterIndex;
     }
 
     public LandTransporterManager getLandTransporterManager() {
@@ -167,8 +166,8 @@ public class BuildPhaseControl extends ControlHandler {
         return resourceManager;
     }
 
-    public void setCurrentIndex(int currentIndex) {
-        this.currentIndex = currentIndex;
+    public void setCurrentTransporterIndex(int currentTransporterIndex) {
+        this.currentTransporterIndex = currentTransporterIndex;
     }
 
     public void setBuildPhaseControlStrategy(BuildPhaseControlStrategy buildPhaseControlStrategy) {

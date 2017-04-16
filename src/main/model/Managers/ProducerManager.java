@@ -10,7 +10,7 @@ import java.util.HashMap;
 public abstract class ProducerManager<L, P extends Producer> {
     private HashMap<L, P> managerMap = new HashMap<L, P>();
 
-    protected HashMap<L, P> getManagerMap() {
+    public HashMap<L, P> getManagerMap() {
         return managerMap;
     }
 

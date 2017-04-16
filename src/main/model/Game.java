@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Created by cduica on 3/22/17.
  */
-public class Game {
+public class Game implements ManagerSupplier {
 
     private Map map;
     private PlayerID player1;
@@ -142,4 +142,16 @@ public class Game {
         currentPhase.execute(player1, player2);
     }
 
+    //for testing purposes
+    public void startGame(){
+        currentPhase = phases.get(1);
+    }
+
+    public Phase getCurrentPhase(){
+        return currentPhase;
+    }
+
+    public ArrayList<Phase> getPhases(){
+        return phases;
+    }
 }

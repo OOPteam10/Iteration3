@@ -9,30 +9,30 @@ import model.Transporters.SeaTransporter;
 public class SeaTransporterBPCStrategy implements BuildPhaseControlStrategy<SeaTransporter> {
     @Override
     public void nextTransporter(BuildPhaseControl context) {
-        int next = (context.getCurrentIndex()+1);
+        int next = (context.getCurrentTransporterIndex()+1);
         if(next >= context.getSeaTransporters().size()){
-            context.setCurrentIndex(0);
+            context.setCurrentTransporterIndex(0);
             context.setBuildPhaseControlStrategy(new LandTransporterBPCStrategy());
         }
         else{
-            context.setCurrentIndex(next);
+            context.setCurrentTransporterIndex(next);
         }
     }
 
     @Override
     public void prevTransporter(BuildPhaseControl context) {
-        int prev = (context.getCurrentIndex()-1);
+        int prev = (context.getCurrentTransporterIndex()-1);
         if(prev < 0){
-            context.setCurrentIndex(context.getLandTransporters().size()-1);
+            context.setCurrentTransporterIndex(context.getLandTransporters().size()-1);
             context.setBuildPhaseControlStrategy(new LandTransporterBPCStrategy());
         }
         else{
-            context.setCurrentIndex(prev);
+            context.setCurrentTransporterIndex(prev);
         }
     }
 
     @Override
     public Sector getCurrentSector(BuildPhaseControl context) {
-        return context.getSeaTransporterShoreManager().getLocation(context.getSeaTransporters().get(context.getCurrentIndex()));
+        return context.getSeaTransporterShoreManager().getLocation(context.getSeaTransporters().get(context.getCurrentTransporterIndex()));
     }
 }

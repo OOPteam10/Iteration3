@@ -1,6 +1,7 @@
 package model.Abilities.buildAbilities;
 
 import model.Game;
+import model.ManagerSupplier;
 import model.Managers.LandProducerManager;
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
@@ -20,7 +21,7 @@ public class BuildTruckFactoryAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, Game game) {
+    public void execute(Sector s, ManagerSupplier ms) {
 
     }
 }

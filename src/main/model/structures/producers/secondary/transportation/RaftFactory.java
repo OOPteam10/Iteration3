@@ -5,6 +5,7 @@ import model.Managers.TransporterManager;
 import model.TileSubsystem.Sector;
 import model.resources.Trunk;
 import model.structures.producers.SecondaryProducerTypeA;
+import model.structures.producers.Visitor.SecondaryProducerVisitor;
 
 /**
  * Created by cduica on 4/8/17.
@@ -21,5 +22,10 @@ public class RaftFactory extends SecondaryProducerTypeA<Trunk> {
     @Override
     public void produce(Sector l) {
 
+    }
+
+    @Override
+    public void accept(SecondaryProducerVisitor v) {
+        v.visitRaftFactory(this);
     }
 }

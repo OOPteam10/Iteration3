@@ -1,6 +1,7 @@
 package model.Abilities.buildAbilities;
 
 import model.Game;
+import model.ManagerSupplier;
 import model.Managers.LandProducerManager;
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
@@ -26,10 +27,10 @@ public class BuildQuarryAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, Game game) {
+    public void execute(Sector s, ManagerSupplier ms) {
         for (Board b : boardArrayList) {
-            game.getResourceManager().remove(s, b);
+            ms.getResourceManager().remove(s, b);
         }
-        game.getLandPrimaryProducerManager().add(s, new StoneQuarry(game.getResourceManager()));
+        ms.getLandPrimaryProducerManager().add(s, new StoneQuarry(ms.getResourceManager()));
     }
 }

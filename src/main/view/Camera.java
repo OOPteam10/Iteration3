@@ -44,6 +44,11 @@ public class Camera {
         cameraOffsetY = cameraOffsetY + (int)(y*HEX_H*scale);
     }
 
+    private void setCameraCenter(){
+        cameraOffsetX = 150+(int)(-1*HEX_W*scale);
+        cameraOffsetY = -250;
+    }
+
     private Point getPixelLocation(Point p) {
         Point pixelLocation = new Point();
 
@@ -94,7 +99,10 @@ public class Camera {
     }
 
     public void centerBoardInGame(){
-        setCameraOffset(-1, 0);
+        setCameraCenter();
+    }
+    public void setScaleDefault(){
+        this.scale = 0.3;
     }
 
     public double getBackgroundScaleX(){
@@ -108,6 +116,10 @@ public class Camera {
     }
 
     public double getTransporterScale(){
+        return getScale()*0.15;
+    }
+
+    public double getProducerScale(){
         return getScale()*0.15;
     }
     public double getResourceScale(){return getScale()*0.08;}

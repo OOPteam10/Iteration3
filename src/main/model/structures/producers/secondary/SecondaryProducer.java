@@ -2,6 +2,7 @@ package model.structures.producers.secondary;
 
 import model.Managers.ResourceManager;
 import model.structures.producers.Producer;
+import model.structures.producers.Visitor.SecondaryProducerVisitor;
 
 /**
  * Created by cduica on 4/8/17.
@@ -14,4 +15,5 @@ public abstract class SecondaryProducer extends Producer {
         super(resourceManager);
     }
 
+    public abstract void accept(SecondaryProducerVisitor v);
 }

@@ -4,6 +4,8 @@ import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Resource;
 import model.structures.Structure;
+import model.structures.producers.Visitor.PrimaryProducerVisitor;
+import model.structures.producers.primary.PrimaryProducer;
 
 /**
  * Created by cduica on 4/8/17.
@@ -21,5 +23,4 @@ public abstract class Producer extends Structure {
     protected void addToResourceManager( Sector l, Resource r ){
         resourceManager.add(l, r);
     }
-
 }

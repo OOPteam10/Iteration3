@@ -3,9 +3,7 @@ package view.Scene.gamePanel;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
-import model.Managers.LandTransporterManager;
-import model.Managers.ResourceManager;
-import model.Managers.SeaTransporterManager;
+import model.Managers.*;
 import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
@@ -19,6 +17,10 @@ import model.Transporters.Visitor.LandTransporterDrawingVisitor;
 import model.Transporters.Visitor.SeaTransporterDrawingVisitor;
 import model.resources.*;
 import model.resources.Visitor.ResourceDrawingVisitor;
+import model.structures.producers.Producer;
+import model.structures.producers.Visitor.PrimaryProducerDrawingVisitor;
+import model.structures.producers.primary.PrimaryProducer;
+import model.structures.producers.primary.WoodCutter;
 import utilities.TileEditor;
 import view.Camera;
 import view.Panel;
@@ -45,6 +47,7 @@ public class GameboardPanel extends Panel {
     private Group root;
     private LandTransporterManager landTransporterManager;
     private SeaTransporterManager seaTransporterManager;
+    private LandPrimaryProducerManager landPrimaryProducerManager;
     private ResourceManager resourceManager;
 
     public GameboardPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
@@ -57,6 +60,7 @@ public class GameboardPanel extends Panel {
         landTransporterManager = game.getLandTransporterManager();
         seaTransporterManager = game.getSeaTransporterManager();
         resourceManager = game.getResourceManager();
+        landPrimaryProducerManager = game.getLandPrimaryProducerManager();
         updateGameMap();
         addEntities();
     }
@@ -106,6 +110,9 @@ public class GameboardPanel extends Panel {
         resourceManager.add(gameMap.getTile(new Location(-1, 0, 1)).getSectorAtCardinalDirection(CardinalDirection.NNE),r3);
         resourceManager.add(gameMap.getTile(new Location(-1, 1, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE),r4);
         resourceManager.add(gameMap.getTile(new Location(-1, 3, -2)).getSectorAtCardinalDirection(CardinalDirection.SSE),r5);
+
+        WoodCutter woodCutter = new WoodCutter(resourceManager);
+        landPrimaryProducerManager.add(gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.NE), woodCutter);
 
     }
 
@@ -190,12 +197,27 @@ public class GameboardPanel extends Panel {
         }
     }
 
+    private void drawPrimaryProducers(GraphicsContext gc){
+        for(Location loc:landMap.getSurfaces().keySet()){
+            Point p = new Point();
+            p.x = loc.getX();
+            p.y = loc.getY();
+            for(Sector sector:landMap.getTile(loc).getSectors()){
+                PrimaryProducerDrawingVisitor v = new PrimaryProducerDrawingVisitor(assets, gc, p, camera, sector);
+                if(landPrimaryProducerManager.getProducer(sector) != null) {
+                    landPrimaryProducerManager.getProducer(sector).accept(v);
+                }
+            }
+        }
+    }
+
     public void draw(GraphicsContext gc, Point screenDimension){
         drawBackground(gc);
         drawGameboard(gc);
         drawTileSelector(gc);
         drawLandTransporters(gc);
         drawSeaTransporters(gc);
+        drawPrimaryProducers(gc);
         drawResources(gc);
         updateGameMap();
     }
