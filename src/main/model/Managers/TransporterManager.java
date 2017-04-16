@@ -32,6 +32,14 @@ public abstract class TransporterManager<Obj extends Transporter, Loc>{
         return managerMap.containsKey(o);
     }
 
+    public ArrayList<Obj> getAll(){
+        ArrayList<Obj> all = new ArrayList<Obj>();
+        for(Obj o: managerMap.keySet()){
+            all.add(o);
+        }
+        return all;
+    }
+
     public ArrayList<Obj> getContentsOfArea(Loc l){
         ArrayList<Obj> contents = new ArrayList<Obj>();
         for (Obj o: managerMap.keySet()){

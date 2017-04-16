@@ -4,11 +4,12 @@ import model.Managers.*;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Tiles.Tile;
-import model.phases.ProductionPhase;
+import model.phases.*;
 import utilities.FileManager.FileManager;
 import utilities.TileEditor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -17,7 +18,8 @@ import java.util.HashMap;
 public class Game {
 
     private Map map;
-    //private Player player
+    private PlayerID player1;
+    private PlayerID player2;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private WaterwayAdjacencyManager waterwayAdjacencyManager;
     private LandTransporterManager landTransporterManager;
@@ -30,6 +32,9 @@ public class Game {
     private LandPrimaryProducerManager landPrimaryProducerManager;
     private LandSecondaryProducerManager landSecondaryProducerManager;
     private SeaProducerManager seaProducerManager;
+
+    private ArrayList<Phase> phases = new ArrayList<Phase>();
+    private Phase currentPhase;
 
     private ProductionPhase productionPhase;
 
@@ -51,16 +56,25 @@ public class Game {
         seaTransporterShoreManager = new SeaTransporterShoreManager();
         resourceManager = new ResourceManager();
         cargoManager = new CargoManager();
+        waterwayToSectorManager = map.generateWaterwayToSectorManager();
+        sectorToWaterwayManager = map.generateSectorToWaterwayManager();
 
         landPrimaryProducerManager = new LandPrimaryProducerManager();
         landSecondaryProducerManager = new LandSecondaryProducerManager();
         //seaProducerManager = new SeaProducerManager();
 
-        productionPhase = new ProductionPhase(landPrimaryProducerManager, landSecondaryProducerManager,
+        phases.add( new ProductionPhase(landPrimaryProducerManager, landSecondaryProducerManager,
                 landTransporterManager, seaProducerManager, seaTransporterManager, seaTransporterShoreManager,
-                cargoManager, resourceManager);
-        waterwayToSectorManager = map.generateWaterwayToSectorManager();
-        sectorToWaterwayManager = map.generateSectorToWaterwayManager();
+                cargoManager, resourceManager) );
+        phases.add( new MovementPhase(landTransporterManager, seaTransporterManager, seaTransporterShoreManager,
+                resourceManager, cargoManager, sectorAdjacencyManager, roadAdjacencyManager, waterwayAdjacencyManager) );
+        phases.add( new BuildingPhase(landPrimaryProducerManager, landSecondaryProducerManager, landTransporterManager,
+                seaProducerManager, seaTransporterManager, seaTransporterShoreManager, cargoManager, resourceManager,
+                sectorAdjacencyManager, roadAdjacencyManager, waterwayAdjacencyManager) );
+        phases.add( new WonderPhase(landTransporterManager, resourceManager, seaTransporterShoreManager, cargoManager) );
+
+        currentPhase = phases.get(0);
+
 
     }
 
@@ -104,9 +118,6 @@ public class Game {
         return seaTransporterManager;
     }
 
-
-
-
     public LandPrimaryProducerManager getLandPrimaryProducerManager() {
         return landPrimaryProducerManager;
     }
@@ -124,5 +135,11 @@ public class Game {
     public WaterwayToSectorManager getWaterwayToSectorManager() {return waterwayToSectorManager;}
 
     public SectorToWaterwayManager getSectorToWaterwayManager() {return sectorToWaterwayManager;}
+
+    public void startNextPhase(){
+        int next = (phases.indexOf(currentPhase)+1) % phases.size();
+        currentPhase = phases.get(next);
+        currentPhase.execute(player1, player2);
+    }
 
 }
