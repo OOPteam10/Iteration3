@@ -1,6 +1,7 @@
 package controller.MovePhaseControlSubsystem;
 
 import controller.ControlHandler;
+import controller.Controller;
 import model.Game;
 import model.Managers.*;
 
@@ -35,7 +36,8 @@ public class MovePhaseControl extends ControlHandler {
     private SectorToWaterwayManager sectorToWaterwayManager;
     private WaterwayToSectorManager waterwayToSectorManager;
 
-    public MovePhaseControl(Game game){
+    public MovePhaseControl(Controller controller, Game game, MapMakerPreview mapMakerPreview, Camera camera){
+        super(controller,game,mapMakerPreview,camera);
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
         this.seaTransporterShoreManager = game.getSeaTransporterShoreManager();
@@ -58,29 +60,16 @@ public class MovePhaseControl extends ControlHandler {
         movePhaseControlModes.add(new RoadTransporterMPCMode(roadTransporters, this));
     }
 
-    public void nextMode(){
+    private void nextMoveMode(){
         int next = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)+1)
                 % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(next);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
 
-    @Override
-    public void prevMode() {
 
-    }
 
-    @Override
-    public void up() {
-
-    }
-
-    @Override
-    public void down() {
-
-    }
-
-    private void previousMode(){
+    private void previousMoveMode(){
         int previous = (movePhaseControlModes.indexOf(currentMovePhaseControlMode)-1
                 + movePhaseControlModes.size()) % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(previous);
@@ -146,14 +135,36 @@ public class MovePhaseControl extends ControlHandler {
     //TODO: rename ControlHandler functions to the name of the keypress
     //right now mapped to functions kind of at random just to test
 
+
+    @Override
+    public void prevMode() {
+        previousMoveMode();
+    }
+    @Override
+    public void nextMode(){
+        nextMoveMode();
+    }
+
+
+    @Override
+    public void up() {
+        nextTransporter();
+    }
+
+    @Override
+    public void down() {
+        previousTransporter();
+    }
+
+
     @Override
     public void left() {
-        previousMode();
+       cycleLeft();
     }
 
     @Override
     public void right() {
-        nextMode();
+        cycleRight();
     }
 
     @Override
@@ -163,36 +174,7 @@ public class MovePhaseControl extends ControlHandler {
 
     }
 
-    @Override
-    public void moveNW() {
-        cycleLeft();
 
-    }
-
-    @Override
-    public void moveN() {
-        cycleRight();
-    }
-
-    @Override
-    public void moveNE() {
-
-    }
-
-    @Override
-    public void moveSW() {
-        previousTransporter();
-    }
-
-    @Override
-    public void moveS() {
-        nextTransporter();
-    }
-
-    @Override
-    public void moveSE() {
-
-    }
 
     @Override
     public void delete() {
@@ -206,6 +188,12 @@ public class MovePhaseControl extends ControlHandler {
 
     @Override
     public void centerGravity() {
+
+    }
+
+    @Override
+    public void endTurn() {
+        // will change the controller's state to next phase
 
     }
 

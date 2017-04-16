@@ -20,7 +20,9 @@ import model.resources.Resource;
 import model.resources.Stone;
 import model.structures.producers.Product;
 import org.junit.Test;
+import view.Camera;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,7 +38,7 @@ public class MoveControlTest {
         Game game = new Game();
         Map map = game.getActualMap();
 
-
+        Camera camera = new Camera(new Point(1600,900), 1600,900);
         SectorAdjacencyManager sam = game.getSectorAdjacencyManager();
         LandTransporterManager ltm = game.getLandTransporterManager();
         SeaTransporterManager stm = game.getSeaTransporterManager();
@@ -95,7 +97,7 @@ public class MoveControlTest {
 
 
 
-        MovePhaseControl mpc = new MovePhaseControl(game);
+        MovePhaseControl mpc = new MovePhaseControl();
         mpc.addDonkeyMPCMode(donkeys);
         mpc.addRoadTransporterMPCMode(roadTransporters);
 

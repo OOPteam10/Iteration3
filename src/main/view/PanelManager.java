@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
@@ -22,7 +23,7 @@ public class PanelManager {
     private ArrayList<Panel> panels;
     private Camera camera;
 
-    public PanelManager(Game game, AssetManager assets, Group group, GraphicsContext gc, Camera camera){
+    public PanelManager(Game game,  AssetManager assets, Group group, GraphicsContext gc, Camera camera){
         currentViewMode = ViewEnum.INTRO_SCENE;
 
         this.game = game;
