@@ -8,19 +8,21 @@ import model.resources.Resource;
 import model.resources.Visitor.*;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by hankerins on 4/12/17.
  */
-public class ResourceManager extends ListManager<Sector, Resource> {
+public class ResourceManager extends ListManager<Sector, Resource>{
     ArrayList<LandProducerBuildAbility> landProducerBuildAbilities = new ArrayList<>();
+    HashMap<Resource, Sector> resources = new HashMap<Resource, Sector>();
 
     @Override
     public void add(Sector l, Resource r) {
         r.setRdoAbility(new ResourceDropOffAbility(r, this));
         r.setWaterwayDiscardAbility(new WaterwayDiscardAbility());
         super.add(l, r);
+        resources.put(r, l);
     }
 
     private void determineLandProducerBuildAbilities(Sector s) {
@@ -48,16 +50,16 @@ public class ResourceManager extends ListManager<Sector, Resource> {
     }
 
     public ArrayList<LandProducerBuildAbilityVisitor> populateProducerAbilityVisitors(ArrayList<LandProducerBuildAbilityVisitor> visitors) {
-        visitors.add(new BuildBigMineAbilityVisitor());
+//        visitors.add(new BuildBigMineAbilityVisitor());
         visitors.add(new BuildClayPitAbilityVisitor());
         visitors.add(new BuildCoalBurnerAbilityVisitor());
-        visitors.add(new BuildMineAbilityVisitor());
-        visitors.add(new BuildMineShaftAbilityVisitor());
+//        visitors.add(new BuildMineAbilityVisitor());
+//        visitors.add(new BuildMineShaftAbilityVisitor());
         visitors.add(new BuildMintAbilityVisitor());
         visitors.add(new BuildPapermillAbilityVisitor());
         visitors.add(new BuildQuarryAbilityVisitor());
         visitors.add(new BuildSawmillAbilityVisitor());
-        visitors.add(new BuildSpecialtyMineAbilityVisitor());
+//        visitors.add(new BuildSpecialtyMineAbilityVisitor());
         visitors.add(new BuildStockExchangeAbilityVisitor());
         visitors.add(new BuildStoneFactoryAbilityVisitor());
         visitors.add(new BuildTruckFactoryAbilityVisitor());
@@ -65,4 +67,5 @@ public class ResourceManager extends ListManager<Sector, Resource> {
         visitors.add(new BuildWoodcutterAbilityVisitor());
         return visitors;
     }
+
 }

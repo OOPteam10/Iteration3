@@ -1,6 +1,8 @@
 package model.Abilities.buildAbilities;
 
+import model.Game;
 import model.Managers.LandProducerManager;
+import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 
 /**
@@ -13,7 +15,7 @@ public class BuildRaftFactoryAbility extends WaterwayAdjacentSectorBuildAbility 
     }
 
     @Override
-    public void execute(Sector s, LandProducerManager lom) {
+    public void execute(Sector s, Game game) {
 
     }
 }

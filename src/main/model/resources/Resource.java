@@ -8,11 +8,13 @@ import model.TileSubsystem.Waterway;
 
 import model.structures.producers.Product;
 
+import java.util.ArrayList;
+
+
 /**
  * Created by cduica on 4/8/17.
  */
 public abstract class Resource implements Product<Sector> {
-
     private ResourceDropOffAbility rdoAbility;
     private WaterwayDiscardAbility waterwayDiscardAbility;
 
