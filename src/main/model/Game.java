@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Created by cduica on 3/22/17.
  */
-public class Game {
+public class Game implements ManagerSupplier {
 
     private Map map;
     private PlayerID player1;

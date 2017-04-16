@@ -1,6 +1,7 @@
 package model.Abilities.buildAbilities;
 
 import model.Game;
+import model.ManagerSupplier;
 import model.Managers.LandProducerManager;
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
