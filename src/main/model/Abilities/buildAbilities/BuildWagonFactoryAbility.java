@@ -1,6 +1,7 @@
 package model.Abilities.buildAbilities;
 
 import model.Game;
+import model.ManagerSupplier;
 import model.Managers.LandProducerManager;
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
@@ -29,13 +30,13 @@ public class BuildWagonFactoryAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, Game game) {
+    public void execute(Sector s, ManagerSupplier ms) {
         for (Board b : boardArrayList) {
-            game.getResourceManager().remove(s, b);
+            ms.getResourceManager().remove(s, b);
         }
         for (Stone stone : stoneArrayList) {
-            game.getResourceManager().remove(s, stone);
+            ms.getResourceManager().remove(s, stone);
         }
-        game.getLandSecondaryProducerManager().add(s, new WagonFactory(game.getResourceManager(), game.getLandTransporterManager()));
+        ms.getLandSecondaryProducerManager().add(s, new WagonFactory(ms.getResourceManager(), ms.getLandTransporterManager()));
     }
 }

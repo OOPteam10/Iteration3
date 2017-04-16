@@ -1,6 +1,7 @@
 package model.Abilities.buildAbilities;
 
 import model.Game;
+import model.ManagerSupplier;
 import model.Managers.LandProducerManager;
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
@@ -29,14 +30,14 @@ public class BuildPapermillAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, Game game) {
+    public void execute(Sector s, ManagerSupplier ms) {
         for (Board board : boardArrayList) {
-            game.getResourceManager().remove(s, board);
+            ms.getResourceManager().remove(s, board);
         }
         for (Stone stone : stoneArrayList) {
-            game.getResourceManager().remove(s, stone);
+            ms.getResourceManager().remove(s, stone);
         }
 
-        game.getLandSecondaryProducerManager().add(s, new PaperMill(game.getResourceManager()));
+        ms.getLandSecondaryProducerManager().add(s, new PaperMill(ms.getResourceManager()));
     }
 }
