@@ -16,7 +16,7 @@ public class SeaTransporterDetailDrawingVisitor implements SeaTransporterVisitor
     private Camera camera;
     private Point p;
 
-    private double scale = 0.13;
+    private double scale = 0.2;
     private int offsetX;
     private int offsetY;
 
@@ -56,8 +56,8 @@ public class SeaTransporterDetailDrawingVisitor implements SeaTransporterVisitor
         double x = 1383*camera.getBackgroundScaleX();
         double y = 689*camera.getBackgroundScaleY();
 
-        sectorDrawingLocation.x = (int) (x*0.995) - (int)(img.getHeight()*scale/2);
-        sectorDrawingLocation.y = (int) (y*0.995) - (int)(img.getHeight()*scale/2);
+        sectorDrawingLocation.x = (int) x - (int)(img.getHeight()*scale/2);
+        sectorDrawingLocation.y = (int) y - (int)(img.getHeight()*scale/2);
 
 //        System.out.println(sector.getHalfEdges().get(sector.getHalfEdges().size()/2));
 //        System.out.println(sectorDrawingLocation.x);
