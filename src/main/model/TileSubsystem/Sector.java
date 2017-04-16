@@ -1,7 +1,10 @@
 package model.TileSubsystem;
 
+import model.Abilities.buildAbilities.LandProducerBuildAbility;
 import model.Managers.LandTransporterManager;
+import model.Managers.ResourceManager;
 import model.Transporters.LandTransporter;
+import model.resources.Visitor.BuildClayPitAbilityVisitor;
 
 import java.util.ArrayList;
 
@@ -10,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Sector {
     ArrayList<CardinalDirection> halfEdges = new ArrayList<CardinalDirection>();
+
     public Sector(CardinalDirection start, CardinalDirection finish){
         halfEdges.add(start);
         while (start != finish){
@@ -39,4 +43,4 @@ public class Sector {
     public ArrayList<LandTransporter> getTransporters(LandTransporterManager ltm){
         return ltm.getContentsOfArea(this);
     }
-}
+ }

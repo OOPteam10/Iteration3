@@ -15,7 +15,7 @@ public class Gold extends Resource {
 
     @Override
     public void accept(ResourceVisitor v) {
-        v.visitGold();
+        v.visitGold(this);
     }
 
     @Override

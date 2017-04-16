@@ -16,7 +16,7 @@ public class Board extends Resource implements PaperMillResource, CoalBurnerReso
 
     @Override
     public void accept(ResourceVisitor v) {
-        v.visitBoard();
+        v.visitBoard(this);
     }
 
     @Override

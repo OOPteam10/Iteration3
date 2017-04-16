@@ -15,7 +15,7 @@ public class Fuel extends Resource {
 
     @Override
     public void accept(ResourceVisitor v) {
-        v.visitFuel();
+        v.visitFuel(this);
     }
 
     @Override

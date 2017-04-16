@@ -15,7 +15,7 @@ public class Iron extends Resource {
 
     @Override
     public void accept(ResourceVisitor v) {
-        v.visitIron();
+        v.visitIron(this);
     }
 
     @Override
