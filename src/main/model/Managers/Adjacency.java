@@ -32,6 +32,18 @@ public abstract class Adjacency<Dir, AdjLoc> {
         return arr;
     }
 
+    public Dir getDirectionOfAdjacentLoc(AdjLoc al){
+
+        for(Dir d: managerMap.keySet()){
+            if(managerMap.get(d) == al){
+
+                return d;
+            }
+        }
+
+        return null;
+    }
+
     public boolean containsKey(Dir d){
         return managerMap.containsKey(d);
     }

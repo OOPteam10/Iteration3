@@ -17,7 +17,7 @@ public class BuildBridgeAbility extends LogisticalStructureBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, SectorAdjacencyManager sam) {
+    public void execute(Sector sector1, Sector sector2, SectorAdjacencyManager sam, SectorAdjacencyManager bam) {
 
     }
 }
