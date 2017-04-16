@@ -1,6 +1,7 @@
 package view.assets;
 
 import javafx.scene.image.Image;
+import org.mockito.internal.matchers.Null;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -66,29 +67,33 @@ public class Assets {
         loadItem("ROWBOAT", "Assets/Transporters/ROWBOAT.png");
         loadItem("STEAMSHIP", "Assets/Transporters/Steamship.png");
         //Load Resources
-        loadItem("BOARD","Assets/Resources/Board.png");
+        loadItem("BOARD","Assets/Resources/Boards.png");
         loadItem("CLAY","Assets/Resources/Clay.png");
         loadItem("COIN","Assets/Resources/Coin.png");
         loadItem("FUEL","Assets/Resources/Fuel.png");
         loadItem("GOLD","Assets/Resources/Gold.png");
         loadItem("IRON","Assets/Resources/Iron.png");
         loadItem("PAPER","Assets/Resources/Paper.png");
-        loadItem("STOCK","Assets/Resources/Stock.png");
+        loadItem("STOCK","Assets/Resources/stock.png");
         loadItem("STONE","Assets/Resources/Stone.png");
-        loadItem("TRUNK","Assets/Resources/Trunk.png");
+        loadItem("TRUNK","Assets/Resources/Trunks.png");
     }
 
     public void loadItem(String name, String path){
-        File file = new File(path);
-        String localUrl = "";
-        try{
-            localUrl = file.toURI().toURL().toString();
-        }catch(MalformedURLException e){
-            System.out.println("Invalid image file: "+ name + " " + path);
-            e.printStackTrace();
+        try {
+            File file = new File(path);
+            String localUrl = "";
+            try {
+                localUrl = file.toURI().toURL().toString();
+            } catch (MalformedURLException e) {
+                System.out.println("Invalid image file: " + name + " " + path);
+                e.printStackTrace();
+            }
+            assets.put(name, new Image(localUrl));
+            System.out.println("Loaded item: " + name);
+        } catch (NullPointerException e){
+            System.out.println();
         }
-        assets.put(name, new Image(localUrl));
-        System.out.println("Loaded item: " + name);
     }
 
     public Image getImage(String imageName){return assets.get(imageName);}

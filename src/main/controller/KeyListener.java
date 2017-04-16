@@ -11,12 +11,12 @@ public class KeyListener {
     private KeyCode keyCode;
 
 
-    KeyListener(KeyCode keyCode){
+    public KeyListener(KeyCode keyCode){
 
         this.keyCode = keyCode;
     }
 
-    KeyListener(KeyCode keyCode, Action action){
+    public KeyListener(KeyCode keyCode, Action action){
         this.keyCode = keyCode;
         this.action = action;
     }

@@ -13,6 +13,6 @@ public class Down extends Action {
     }
     @Override
     public void perform() {
-
+        getControlHandler().down();
     }
 }
