@@ -44,7 +44,6 @@ public class MoveControlTest {
         SectorToWaterwayManager stwm = map.generateSectorToWaterwayManager();
 
 
-
         Location SDesert = new Location(0,0,0);
         Location SMountain = new Location(0,-1,1);
         Location NEOfDesert = new Location(1, 0, -1);
