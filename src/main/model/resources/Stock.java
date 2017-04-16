@@ -15,7 +15,7 @@ public class Stock extends Resource {
 
     @Override
     public void accept(ResourceVisitor v) {
-        v.visitStock();
+        v.visitStock(this);
     }
 
     @Override

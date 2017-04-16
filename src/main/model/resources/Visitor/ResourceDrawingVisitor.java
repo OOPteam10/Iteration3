@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
+import model.resources.*;
 import view.Camera;
 import view.assets.AssetManager;
 
@@ -32,7 +33,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
 
 
     @Override
-    public void visitBoard() {
+    public void visitBoard(Board board) {
         Image img = assets.getImage("BOARD");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -40,7 +41,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitClay() {
+    public void visitClay(Clay clay) {
         Image img = assets.getImage("CLAY");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -48,7 +49,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitCoin() {
+    public void visitCoin(Coin coin) {
         Image img = assets.getImage("COIN");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -56,7 +57,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitFuel() {
+    public void visitFuel(Fuel fuel) {
         Image img = assets.getImage("FUEL");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -64,7 +65,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitGold() {
+    public void visitGold(Gold gold) {
         Image img = assets.getImage("GOLD");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -72,7 +73,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitIron() {
+    public void visitIron(Iron iron) {
         Image img = assets.getImage("IRON");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -80,7 +81,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitPaper() {
+    public void visitPaper(Paper paper) {
         Image img = assets.getImage("PAPER");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -88,7 +89,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitStock() {
+    public void visitStock(Stock stock) {
         Image img = assets.getImage("STOCK");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -96,7 +97,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitStone() {
+    public void visitStone(Stone stone) {
         Image img = assets.getImage("STONE");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,
@@ -104,7 +105,7 @@ public class ResourceDrawingVisitor implements ResourceVisitor {
     }
 
     @Override
-    public void visitTrunk() {
+    public void visitTrunk(Trunk trunk) {
         Image img = assets.getImage("TRUNK");
         Point drawingPoint = findDrawingPoint(sector.getHalfEdges().get(sector.getHalfEdges().size()/2),img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,

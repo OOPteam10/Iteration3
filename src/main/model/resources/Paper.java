@@ -16,7 +16,7 @@ public class Paper extends Resource {
 
     @Override
     public void accept(ResourceVisitor v) {
-        v.visitPaper();
+        v.visitPaper(this);
     }
 
     @Override
