@@ -1,16 +1,22 @@
 package model.Abilities.buildAbilities;
 
+import model.Game;
 import model.Managers.LandProducerManager;
+import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Board;
+import model.structures.producers.primary.WoodCutter;
+
+import java.util.ArrayList;
 
 /**
  * Created by allisonaguirre on 4/11/17.
  */
 public class BuildWoodcutterAbility extends LandProducerBuildAbility {
+    private ArrayList<Board> boardArrayList = new ArrayList<>();
 
     public BuildWoodcutterAbility(Board b) {
-
+        boardArrayList.add(b);
     }
 
     @Override
@@ -19,7 +25,10 @@ public class BuildWoodcutterAbility extends LandProducerBuildAbility {
     }
 
     @Override
-    public void execute(Sector s, LandProducerManager lom) {
-
+    public void execute(Sector s, Game game) {
+        for (Board b : boardArrayList) {
+            game.getResourceManager().remove(s, b);
+        }
+        game.getLandPrimaryProducerManager().add(s, new WoodCutter(game.getResourceManager()));
     }
 }

@@ -23,6 +23,7 @@ public class NoResearchRequirementsTest {
         LandTransporterManager ltm = game.getLandTransporterManager();
         SeaTransporterManager stm = game.getSeaTransporterManager();
         SeaTransporterShoreManager stsm = game.getSeaTransporterShoreManager();
+        game.getLandPrimaryProducerManager();
         ResourceManager rm = game.getResourceManager();
 
         Location SDesert = new Location(0,0,0);
@@ -37,7 +38,16 @@ public class NoResearchRequirementsTest {
 
         rm.add(lt1.getSectors().get(0), new Board());
         rm.add(lt1.getSectors().get(0), new Stone());
+        System.out.println("Resources: " + rm.get(lt1.getSectors().get(0)));
+        System.out.println("Structures: " + game.getLandPrimaryProducerManager().getProducer(lt1.getSectors().get(0)));
+        System.out.println("Structures: " + game.getLandSecondaryProducerManager().getProducer(lt1.getSectors().get(0)));
 
-        System.out.println(rm.getLandProducerBuildAbilities(lt1.getSectors().get(0)));
+        System.out.println("Abilities: " + rm.getLandProducerBuildAbilities(lt1.getSectors().get(0)));
+        rm.getLandProducerBuildAbilities(lt1.getSectors().get(0)).get(0).execute(lt1.getSectors().get(0), game);
+
+        System.out.println("Resources: " + rm.get(lt1.getSectors().get(0)));
+        System.out.println("Structures: " + game.getLandPrimaryProducerManager().getProducer(lt1.getSectors().get(0)));
+        System.out.println("Structures: " + game.getLandSecondaryProducerManager().getProducer(lt1.getSectors().get(0)));
+
     }
 }
