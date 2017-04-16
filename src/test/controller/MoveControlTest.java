@@ -114,11 +114,6 @@ public class MoveControlTest {
         CardinalDirection roadCD1 = CardinalDirection.NE;
         road1.add(roadCD1, lt1RoadTarget.getSectorAtCardinalDirection(roadCD1.getOppositeSide()));
         roadAdjacencyManager.add(lt1.getSectorAtCardinalDirection(CardinalDirection.NE), road1);
-
-
-
-
-
         MovePhaseControl mpc = new MovePhaseControl(controller,game);
         mpc.addDonkeyMPCMode();
         mpc.addRoadTransporterMPCMode();
