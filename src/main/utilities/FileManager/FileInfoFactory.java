@@ -3,9 +3,7 @@ package utilities.FileManager;
 import model.Game;
 import model.Goose;
 import model.Managers.CargoManager;
-import model.Transporters.Donkey;
-import model.Transporters.Truck;
-import model.Transporters.Wagon;
+import model.Transporters.*;
 import model.resources.*;
 import model.structures.producers.Product;
 import model.structures.producers.Visitor.ProductFileVisitor;
@@ -122,6 +120,56 @@ public class FileInfoFactory {
 
     //Sea Transporters
 
+    public static TransporterFileInfo generateFileInfo(Raft r, CargoManager manager) {
+        ArrayList<FileInfo> cargo = new ArrayList<>();
+        TransporterFileInfo raftInfo = new TransporterFileInfo("Raft", r.getPlayerID());
+        ProductFileVisitor visitor = new ProductFileVisitor();
+        if (manager.get(r) != null) {
+            for (Product p : manager.get(r)) {
+                p.accept(visitor);
+                cargo.add(visitor.getFileInfo());
+            }
+        }
+        for (FileInfo c: cargo) {
+            raftInfo.addCargo(c);
+        }
+
+        return raftInfo;
+    }
+
+    public static TransporterFileInfo generateFileInfo(Rowboat r, CargoManager manager) {
+        ArrayList<FileInfo> cargo = new ArrayList<>();
+        TransporterFileInfo rowboatInfo = new TransporterFileInfo("Rowboat", r.getPlayerID());
+        ProductFileVisitor visitor = new ProductFileVisitor();
+        if (manager.get(r) != null) {
+            for (Product p : manager.get(r)) {
+                p.accept(visitor);
+                cargo.add(visitor.getFileInfo());
+            }
+        }
+        for (FileInfo c: cargo) {
+            rowboatInfo.addCargo(c);
+        }
+
+        return rowboatInfo;
+    }
+
+    public static TransporterFileInfo generateFileInfo(Steamship s, CargoManager manager) {
+        ArrayList<FileInfo> cargo = new ArrayList<>();
+        TransporterFileInfo steamshipInfo = new TransporterFileInfo("Steamship", s.getPlayerID());
+        ProductFileVisitor visitor = new ProductFileVisitor();
+        if (manager.get(s) != null) {
+            for (Product p : manager.get(s)) {
+                p.accept(visitor);
+                cargo.add(visitor.getFileInfo());
+            }
+        }
+        for (FileInfo c: cargo) {
+            steamshipInfo.addCargo(c);
+        }
+
+        return steamshipInfo;
+    }
 
     //Goose
 

@@ -20,6 +20,8 @@ import model.TileSubsystem.Waterway;
 import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
 import model.Transporters.Visitor.LandTransporterFileVisitor;
+import model.Transporters.Visitor.SeaTransporterFileVisitor;
+import model.Transporters.Visitor.SeaTransporterVisitor;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -76,7 +78,7 @@ public class FileManager {
                 //#TODO: write geese
             }
 
-            //#TODO: write water transporters
+            seaTransporter_write(loc, writer, g);
 
         }
 
@@ -94,8 +96,20 @@ public class FileManager {
             }
         }
 
-        public static void seaTransporter_write(Waterway w, BufferedWriter bf, Game g) throws IOException {
+        public static void seaTransporter_write(Location loc, BufferedWriter bf, Game g) throws IOException {
+            if (g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager()).size() > 0) {
+                SeaTransporterFileVisitor visitor = new SeaTransporterFileVisitor(g.getCargoManager());
 
+                int numSeaTransporters = g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager()).size();
+                bf.write("BEGIN WATER TRANSPORTER " + numSeaTransporters);
+                bf.newLine();
+
+                for (SeaTransporter transporter : g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager())) {
+                    transporter.accept(visitor);
+                    bf.write(visitor.getInfo().toFileFormat());
+                    bf.newLine();
+                }
+            }
         }
 
         /*
