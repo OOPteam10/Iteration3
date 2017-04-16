@@ -91,6 +91,7 @@ public class IntroPanel extends Panel {
 
     private void startGame(){
         camera.centerBoardInGame();
+        camera.setScaleDefault();
         panelManager.setMode(ViewEnum.MAIN_GAME);
     }
 
@@ -99,6 +100,9 @@ public class IntroPanel extends Panel {
     }
 
     private void startMapMaker(){
+        camera.centerBoardInGame();
+        camera.moveLeftMap();
+        camera.setScaleDefault();
         panelManager.setMode(ViewEnum.MAP_MAKER);
     }
 
