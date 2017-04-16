@@ -6,7 +6,7 @@ import model.Transporters.LandTransporter;
 /**
  * Created by hankerins on 4/16/17.
  */
-public class LandTransporterBPCStrategy implements BPCTransporterStrategy<LandTransporter> {
+public class LandTransporterBPCStrategy implements BPCTransporterStrategy {
     @Override
     public void nextTransporter(BuildPhaseControl context) {
         int next = (context.getCurrentTransporterIndex()+1);
