@@ -26,12 +26,12 @@ public class Mint extends SecondaryProducerTypeB<Gold, Fuel> {
 
     @Override
     public void visitGold(Gold gold){
-
+        giveResourceA(gold);
     }
 
     @Override
     public void visitFuel(Fuel fuel){
-
+        giveResourceB(fuel);
     }
 
 }

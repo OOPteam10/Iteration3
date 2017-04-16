@@ -29,12 +29,14 @@ public class PaperMill extends SecondaryProducerTypeA<PaperMillResource> {
 
     @Override
     public void visitBoard(Board board){
-
+        giveResource(board);
+        removeFromResourceManager(board);
     }
 
     @Override
     public void visitTrunk(Trunk trunk){
-
+        giveResource(trunk);
+        removeFromResourceManager(trunk);
     }
 
 }

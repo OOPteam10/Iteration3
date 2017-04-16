@@ -28,12 +28,14 @@ public class CoalBurner extends SecondaryProducerTypeA<CoalBurnerResource> {
 
     @Override
     public void visitBoard(Board board){
-
+        giveResource(board);
+        removeFromResourceManager(board);
     }
 
     @Override
     public void visitTrunk(Trunk trunk){
-
+        giveResource(trunk);
+        removeFromResourceManager(trunk);
     }
 
 }

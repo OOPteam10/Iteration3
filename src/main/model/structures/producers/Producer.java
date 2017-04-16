@@ -22,4 +22,8 @@ public abstract class Producer extends Structure {
         resourceManager.add(l, r);
     }
 
+    protected void removeFromResourceManager( Resource r ){
+        resourceManager.remove(r);
+    }
+
 }
