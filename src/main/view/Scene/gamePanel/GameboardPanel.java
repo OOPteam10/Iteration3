@@ -4,17 +4,20 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
 import model.Managers.*;
+import model.Managers.Visitor.RoadDrawingVisitor;
 import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.MapSubsystem.WaterwayMap;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
+import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDrawingVisitor;
 import model.Transporters.*;
 import model.Transporters.Visitor.LandTransporterDrawingVisitor;
 import model.Transporters.Visitor.SeaTransporterDrawingVisitor;
+import model.Transporters.Visitor.SeaTransporterShoreDrawingVisitor;
 import model.resources.*;
 import model.resources.Visitor.ResourceDrawingVisitor;
 import model.structures.producers.Producer;
@@ -31,6 +34,7 @@ import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
+import javax.smartcardio.Card;
 import java.awt.*;
 import java.util.HashMap;
 
@@ -52,7 +56,9 @@ public class GameboardPanel extends Panel {
     private SeaTransporterManager seaTransporterManager;
     private LandPrimaryProducerManager landPrimaryProducerManager;
     private LandSecondaryProducerManager landSecondaryProducerManager;
+    private SeaTransporterShoreManager seaTransporterShoreManager;
     private ResourceManager resourceManager;
+    private SectorAdjacencyManager roadAdjacencyManager;
 
     public GameboardPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
@@ -66,6 +72,8 @@ public class GameboardPanel extends Panel {
         resourceManager = game.getResourceManager();
         landPrimaryProducerManager = game.getLandPrimaryProducerManager();
         landSecondaryProducerManager = game.getLandSecondaryProducerManager();
+        seaTransporterShoreManager = game.getSeaTransporterShoreManager();
+        roadAdjacencyManager = game.getRoadAdjacencyManager();
         updateGameMap();
         addEntities();
     }
@@ -99,10 +107,12 @@ public class GameboardPanel extends Panel {
         Raft st1 = new Raft();
         Steamship st2 = new Steamship();
         Rowboat st3 = new Rowboat();
+        Steamship st4 = new Steamship();
 
         seaTransporterManager.add(st1, waterwayMap.getTile(new Location(0,0,0)));
         seaTransporterManager.add(st2, waterwayMap.getTile(new Location(0,1,-1)));
         seaTransporterManager.add(st3, waterwayMap.getTile(new Location(1,1,-2)));
+        seaTransporterShoreManager.add(st4, gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.ENE));
 
         Gold r1 = new Gold();
         Board r2 = new Board();
@@ -151,8 +161,6 @@ public class GameboardPanel extends Panel {
         landSecondaryProducerManager.add(gameMap.getTile(new Location(-1,2,-1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp9);
         landSecondaryProducerManager.add(gameMap.getTile(new Location(0,2,-2)).getSectorAtCardinalDirection(CardinalDirection.NE), sp10);
         landSecondaryProducerManager.add(gameMap.getTile(new Location(-2,2,0)).getSectorAtCardinalDirection(CardinalDirection.NE), sp11);
-
-
 
     }
 
@@ -216,7 +224,7 @@ public class GameboardPanel extends Panel {
             Point p = new Point();
             p.x = loc.getX();
             p.y = loc.getY();
-            for(SeaTransporter transporter:waterwayMap.getTile(loc).getSeaTransporters(seaTransporterManager)){
+            for(SeaTransporter transporter: seaTransporterManager.getContentsOfArea(waterwayMap.getTile(loc))){
                 SeaTransporterDrawingVisitor v = new SeaTransporterDrawingVisitor(assets, gc, p, camera);
                 transporter.accept(v);
             }
@@ -237,6 +245,23 @@ public class GameboardPanel extends Panel {
         }
     }
 
+    private void drawRoad(GraphicsContext gc){
+        for(Location loc:landMap.getSurfaces().keySet()){
+            Point p = new Point();
+            p.x = loc.getX();
+            p.y = loc.getY();
+            for (Sector sector : landMap.getTile(loc).getSectors()) {
+                Adjacency<CardinalDirection, Sector> adj = roadAdjacencyManager.getAdjacency(sector);
+                if(adj != null){
+                    for(CardinalDirection cd: adj.getDirections()){
+                        RoadDrawingVisitor v = new RoadDrawingVisitor(assets, gc, p, camera, cd.getDegree());
+                        adj.accept(v);
+                    }
+                }
+            }
+        }
+    }
+
     private void drawPrimaryProducers(GraphicsContext gc){
         for(Location loc:landMap.getSurfaces().keySet()){
             Point p = new Point();
@@ -246,6 +271,20 @@ public class GameboardPanel extends Panel {
                 PrimaryProducerDrawingVisitor v = new PrimaryProducerDrawingVisitor(assets, gc, p, camera, sector);
                 if(landPrimaryProducerManager.getProducer(sector) != null) {
                     landPrimaryProducerManager.getProducer(sector).accept(v);
+                }
+            }
+        }
+    }
+
+    private void drawSeaTransporterOnShore(GraphicsContext gc){
+        for(Location loc:landMap.getSurfaces().keySet()){
+            Point p = new Point();
+            p.x = loc.getX();
+            p.y = loc.getY();
+            for(Sector sector:landMap.getTile(loc).getSectors()){
+                for(SeaTransporter transporter:seaTransporterShoreManager.getContentsOfArea(sector)){
+                    SeaTransporterShoreDrawingVisitor v = new SeaTransporterShoreDrawingVisitor(assets, gc, p, camera, sector);
+                    transporter.accept(v);
                 }
             }
         }
@@ -269,8 +308,10 @@ public class GameboardPanel extends Panel {
         drawBackground(gc);
         drawGameboard(gc);
         drawTileSelector(gc);
+        drawRoad(gc);
         drawLandTransporters(gc);
         drawSeaTransporters(gc);
+        drawSeaTransporterOnShore(gc);
         drawPrimaryProducers(gc);
         drawSecondaryProducer(gc);
         drawResources(gc);
