@@ -36,7 +36,6 @@ public class Wonder {
         levels.add(new WonderLevel(4,3));
         levels.add(new WonderLevel(5,4));
         levels.add(new WonderLevel(6,5));
-        levels.add(new WonderLevel(7,3));
 
         levelIterator = levels.listIterator(0);
 
@@ -139,5 +138,9 @@ public class Wonder {
 
     public int getBrickPrice(){
         return brickPrice;
+    }
+
+    public LinkedList<WonderLevel> getLevels() {
+        return levels;
     }
 }
