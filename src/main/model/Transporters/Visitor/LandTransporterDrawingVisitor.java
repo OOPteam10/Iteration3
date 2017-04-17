@@ -87,7 +87,6 @@ public class LandTransporterDrawingVisitor implements  LandTransporterVisitor {
 //        System.out.println(sector.getHalfEdges().get(sector.getHalfEdges().size()/2));
 //        System.out.println(sectorDrawingLocation.x);
 //        System.out.println(sectorDrawingLocation.y);
-
         return sectorDrawingLocation;
     }
 

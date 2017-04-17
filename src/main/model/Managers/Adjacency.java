@@ -1,13 +1,20 @@
 package model.Managers;
 
+import model.Managers.Visitor.RoadDrawingVisitor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by hankerins on 4/9/17.
  */
 public abstract class Adjacency<Dir, AdjLoc> {
     private HashMap<Dir, AdjLoc> managerMap = new HashMap<Dir, AdjLoc>();
+
+    public Set<Dir> getDirections(){
+        return managerMap.keySet();
+    }
 
     protected HashMap<Dir, AdjLoc> getManagerMap() {
         return managerMap;
@@ -18,6 +25,9 @@ public abstract class Adjacency<Dir, AdjLoc> {
         managerMap.put(dir, loc);
     }
 
+    public void accept(RoadDrawingVisitor v){
+        v.visitRoad();
+    }
 
     public AdjLoc getAdjacent(Dir d)
     {

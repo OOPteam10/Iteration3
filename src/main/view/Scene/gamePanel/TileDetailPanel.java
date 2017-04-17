@@ -16,6 +16,7 @@ import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
 import model.Transporters.Visitor.LandTransporterDetailDrawingVisitor;
 import model.Transporters.Visitor.SeaTransporterDetailDrawingVisitor;
+import model.Transporters.Visitor.SeaTransporterShoreDetailDrawingVisitor;
 import model.resources.Resource;
 import model.resources.Visitor.ResourceDetailDrawingVisitor;
 import model.structures.producers.Visitor.PrimaryProducerDetailDrawingVisitor;
@@ -49,6 +50,7 @@ public class TileDetailPanel extends Panel {
     private LandPrimaryProducerManager landPrimaryProducerManager;
     private LandSecondaryProducerManager landSecondaryProducerManager;
     private SeaTransporterManager seaTransporterManager;
+    private SeaTransporterShoreManager seaTransporterShoreManager;
     private ResourceManager resourceManager;
     private WaterwayMap waterwayMap;
 
@@ -64,6 +66,7 @@ public class TileDetailPanel extends Panel {
         this.seaTransporterManager = game.getSeaTransporterManager();
         this.landPrimaryProducerManager = game.getLandPrimaryProducerManager();
         this.landSecondaryProducerManager = game.getLandSecondaryProducerManager();
+        this.seaTransporterShoreManager = game.getSeaTransporterShoreManager();
         this.waterwayMap = gameMap.getWaterwayMap();
         updateGameMap();
     }
@@ -92,6 +95,7 @@ public class TileDetailPanel extends Panel {
             gameBoard.get(loc).accept(tileDrawingVisitor);
             drawLandTransporterDetail(gc);
             drawSeaTransporterDetail(gc);
+            drawSeaTransporterOnShoreDetail(gc);
             drawPrimaryProducerDetail(gc);
             drawSecondaryProducerDetail(gc);
             drawResourceDetail(gc);
@@ -150,6 +154,16 @@ public class TileDetailPanel extends Panel {
                     SecondaryProducerDetailDrawingVisitor v = new SecondaryProducerDetailDrawingVisitor(assets,gc,camera,sector);
                     landSecondaryProducerManager.getProducer(sector).accept(v);
                 }
+            }
+        }
+    }
+
+    private void drawSeaTransporterOnShoreDetail(GraphicsContext gc){
+        Location loc = TileEditor.getInstance().getLocation();
+        for(Sector sector:landMap.getTile(loc).getSectors()){
+            for(SeaTransporter transporter:seaTransporterShoreManager.getContentsOfArea(sector)){
+                SeaTransporterShoreDetailDrawingVisitor v = new SeaTransporterShoreDetailDrawingVisitor(assets, gc, camera,sector);
+                transporter.accept(v);
             }
         }
     }
