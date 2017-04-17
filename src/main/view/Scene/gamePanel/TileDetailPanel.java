@@ -139,7 +139,7 @@ public class TileDetailPanel extends Panel {
 
     private void drawSeaTransporterDetail(GraphicsContext gc){
         Location loc = TileEditor.getInstance().getLocation();
-        for(SeaTransporter transporter:waterwayMap.getTile(loc).getSeaTransporters(seaTransporterManager)){
+        for(SeaTransporter transporter:seaTransporterManager.getContentsOfArea(waterwayMap.getTile(loc))){
             SeaTransporterDetailDrawingVisitor v = new SeaTransporterDetailDrawingVisitor(assets, gc, camera);
             transporter.accept(v);
         }

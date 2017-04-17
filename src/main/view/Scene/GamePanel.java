@@ -26,6 +26,7 @@ public class GamePanel extends Panel {
     private WonderPanel wonderPanel;
     private GameFilePanel gameFilePanel;
     private AnchorPane gamePanelLayout;
+    private ControlStatePanel controlStatePanel;
 
     private Game game;
     private AssetManager assets;
@@ -60,6 +61,7 @@ public class GamePanel extends Panel {
         tileDetailPanel = new TileDetailPanel(game, assets, gameMode, root, camera, panelManager);
         wonderPanel = new WonderPanel(game, assets, gameMode, root, camera, panelManager);
         gameFilePanel = new GameFilePanel(game, assets, gameMode, root, camera, panelManager);
+        controlStatePanel = new ControlStatePanel(game, assets, gameMode, root, camera, panelManager);
         gamePanelLayout = new AnchorPane();
         setUpButton(wonderButton, assets.getImage("WONDER_BUTTON"));
         wonderButton.setOnAction(event -> toggleWonderPanel());
@@ -102,6 +104,7 @@ public class GamePanel extends Panel {
         researchPanel.draw(gc, screenDimension);
         tileDetailPanel.draw(gc,screenDimension);
         gameFilePanel.draw(gc, screenDimension);
+        controlStatePanel.draw(gc, screenDimension);
         wonderPanel.draw(gc, screenDimension);
         drawBorder(gc);
     }
@@ -112,6 +115,7 @@ public class GamePanel extends Panel {
         researchPanel.showGUIElements();
         tileDetailPanel.showGUIElements();
         wonderPanel.showGUIElements();
+        controlStatePanel.showGUIElements();
         gameFilePanel.showGUIElements();
     }
 
@@ -120,6 +124,7 @@ public class GamePanel extends Panel {
         researchPanel.hideGUIElements();
         tileDetailPanel.hideGUIElements();
         wonderPanel.hideGUIElements();
+        controlStatePanel.showGUIElements();
         gameFilePanel.hideGUIElements();
 
         root.getChildren().remove(gamePanelLayout);

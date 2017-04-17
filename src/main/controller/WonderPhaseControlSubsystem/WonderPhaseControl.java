@@ -34,10 +34,11 @@ public class WonderPhaseControl extends ControlHandler {
     private Wonder wonder;
     private PlayerID player1;
     private PlayerID player2;
+    private Game game;
 
     public WonderPhaseControl(Controller controller, Game game){
         super(controller,game);
-
+        this.game = game;
         this.landTransporterManager = game.getLandTransporterManager();
         this.resourceManager = game.getResourceManager();
         this.cargoManager = game.getCargoManager();
@@ -123,10 +124,12 @@ public class WonderPhaseControl extends ControlHandler {
         wonder.addNeutralBrick();
         getGame().executeProductionPhase();
         getController().nextHandler();
+        game.setControlState(1);
     }
 
     //testing only
     public String toString(){
+
         String s = "";
         s += ("How Many Bricks to Buy: " + brickNumber +
                 "");

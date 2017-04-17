@@ -48,7 +48,6 @@ public class SeaTransporterDetailDrawingVisitor implements SeaTransporterVisitor
         Point drawingPoint = findDrawingPoint(img);
         gc.drawImage(img, drawingPoint.x, drawingPoint.y,img.getWidth()*scale,
                 img.getHeight()*scale);
-
     }
 
     private Point findDrawingPoint(Image img){

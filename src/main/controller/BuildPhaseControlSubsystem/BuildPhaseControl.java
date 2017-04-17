@@ -37,6 +37,7 @@ public class BuildPhaseControl extends ControlHandler {
     private SeaTransporterShoreManager seaTransporterShoreManager;
     private ResourceManager resourceManager;
     private ManagerSupplier managerSupplier;
+    private Game game;
 
 
     private int currentTransporterIndex = 0;
@@ -49,7 +50,7 @@ public class BuildPhaseControl extends ControlHandler {
         seaTransporterShoreManager = ms.getSeaTransporterShoreManager();
         resourceManager = ms.getResourceManager();
         managerSupplier = ms;
-
+        this.game = ms;
         landTransporters.addAll(landTransporterManager.getAll());
         seaTransporters.addAll(seaTransporterShoreManager.getAll());
         buildPhaseControlStrategy = new LandTransporterBPCStrategy();
@@ -210,7 +211,7 @@ public class BuildPhaseControl extends ControlHandler {
     public void endTurn() {
 
         //TODO: move this to end of wonder phase
-
+        game.setControlState(3);
         getController().nextHandler();
 
     }
@@ -251,6 +252,7 @@ public class BuildPhaseControl extends ControlHandler {
     //testing only
     public String toString(){
         String s = "";
+        game.setCurrentTransporter(buildPhaseControlStrategy.getCurrentTransporter(this));
         s += ("Transporter: " + buildPhaseControlStrategy.getCurrentTransporter(this).toString() +
                 " Ability: " + currentAbility.toString());
         return s;

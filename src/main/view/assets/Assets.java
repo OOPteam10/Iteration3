@@ -100,6 +100,14 @@ public class Assets {
 
         //Load Brick
         loadItem("RED_BRICK","Assets/RedBrick.png");
+
+        //Load Phase Indicator
+        loadItem("MOVE_PHASE", "Assets/ControlState/MovePhase.png");
+        loadItem("BUILD_PHASE", "Assets/ControlState/BuildPhase.png");
+        loadItem("PRODUCTION_PHASE", "Assets/ControlState/ProductionPhase.png");
+        loadItem("WONDER_PHASE", "Assets/ControlState/WonderPhase.png");
+        loadItem("PHASE_INDICATOR", "Assets/ControlState/PhaseIndicator.png");
+        loadItem("UNIT_INDICATOR", "Assets/UnitIndicator.png");
     }
 
     public void loadItem(String name, String path){
