@@ -4,25 +4,23 @@ package controller;
 
 
 
-import controller.Actions.CycleLeft;
-
 import controller.Actions.*;
 
 import controller.BuildPhaseControlSubsystem.BuildPhaseControl;
-import controller.MovePhaseControlSubsystem.MovePhaseControl;
 
+import controller.MovePhaseControlSubsystem.MovePhaseControl;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import controller.WonderPhaseControlSubsystem.WonderPhaseControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.Game;
-import model.phases.WonderPhase;
 import view.Camera;
+import view.MapMakerPreview;
+import view.MovementPhasePreview;
 import view.View;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
 
 import java.util.Vector;
 
@@ -50,13 +48,23 @@ public class Controller {
         this.game = game;
         //init with the MapMakerControl state
         MapMakerControl.getInstance().init(this,game,view.getMapMakerPreview());
+        Vector<MovePhaseControlObserver> movePhaseControlObservers = new Vector<MovePhaseControlObserver>();
+
+
         controlHandler = MapMakerControl.getInstance();
         addCameraActions(camera);
         //camera actions
 
+        MovementPhasePreview movementPhasePreview = view.getMovementPhasePreview();
+        movePhaseControlObservers.add(movementPhasePreview);
         setCurrentKLSet(controlHandler);
 
-        controlHandlers.add(new MovePhaseControl(this,game));
+        MovePhaseControl mpc = new MovePhaseControl(this,game,movePhaseControlObservers);
+        mpc.addDonkeyMPCMode();
+        mpc.addRoadTransporterMPCMode();
+        mpc.addSeaTransporterMPCMode();
+
+        controlHandlers.add(mpc);
         controlHandlers.add(new BuildPhaseControl(this,game));
         controlHandlers.add(new WonderPhaseControl(this,game));
     }

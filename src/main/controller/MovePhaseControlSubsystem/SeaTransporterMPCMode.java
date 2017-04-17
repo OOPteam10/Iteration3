@@ -2,15 +2,14 @@ package controller.MovePhaseControlSubsystem;
 
 import controller.MovePhaseControlSubsystem.MPCInstructionSubsystem.*;
 import model.Managers.*;
-import model.TileSubsystem.Waterway;
 import model.Transporters.LandTransporter;
-import model.Transporters.RoadTransporter;
 import model.Transporters.SeaTransporter;
 import model.Transporters.Transporter;
 import model.resources.Resource;
 import model.structures.producers.Product;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/15/17.
@@ -44,16 +43,22 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
         resetCurrentMPCInstructionState();
     }
 
-    public void nextTransporter() {
+    public void nextTransporter(Vector<MovePhaseControlObserver> observers) {
         int next = (seaTransporters.indexOf(currentSeaTransporter)+1)
                 % seaTransporters.size();
         currentSeaTransporter = seaTransporters.get(next);
+        for(MovePhaseControlObserver observer: observers){
+            observer.highlightCurrentSeaTransporter(currentSeaTransporter);
+        }
     }
 
-    public void previousTransporter() {
+    public void previousTransporter(Vector<MovePhaseControlObserver> observers) {
         int previous = (seaTransporters.indexOf(currentSeaTransporter)-1
                 + seaTransporters.size()) % seaTransporters.size();
         currentSeaTransporter = seaTransporters.get(previous);
+        for(MovePhaseControlObserver observer: observers){
+            observer.highlightCurrentSeaTransporter(currentSeaTransporter);
+        }
     }
 
     public void resetCurrentMPCInstructionState(){
@@ -120,6 +125,13 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
         seaTransporterManager.removeOccupant(st);
         seaTransporterShoreManager.removeOccupant(st);
         cargoManager.add(currentSeaTransporter, st);
+    }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> movePhaseControlObservers) {
+        for(MovePhaseControlObserver observer : movePhaseControlObservers){
+            observer.updateModeToSeaTransporter();
+        }
     }
 
 

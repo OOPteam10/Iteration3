@@ -24,9 +24,11 @@ import model.Transporters.RoadTransporter;
 import model.Transporters.SeaTransporter;
 import view.Camera;
 import view.MapMakerPreview;
+import view.MovementPhasePreview;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/10/17.
@@ -54,15 +56,14 @@ public class MovePhaseControl extends ControlHandler {
     private ArrayList<Donkey> donkeyList = new ArrayList<Donkey>();
     private ArrayList<RoadTransporter> roadTransporterList = new ArrayList<RoadTransporter>();
     private ArrayList<SeaTransporter> seaTransporterList = new ArrayList<SeaTransporter>();
-
+    private Vector<MovePhaseControlObserver> observers = new Vector<MovePhaseControlObserver>();
 
 
    
 
 
-    public MovePhaseControl(Controller controller, Game game){
+    public MovePhaseControl(Controller controller, Game game, Vector<MovePhaseControlObserver> observers){
         super(controller,game);
-
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
         this.seaTransporterShoreManager = game.getSeaTransporterShoreManager();
@@ -114,6 +115,7 @@ public class MovePhaseControl extends ControlHandler {
                 % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(next);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
+        currentMovePhaseControlMode.notifyObservers(observers);
     }
 
 
@@ -123,31 +125,35 @@ public class MovePhaseControl extends ControlHandler {
                 + movePhaseControlModes.size()) % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(previous);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
+        currentMovePhaseControlMode.notifyObservers(observers);
     }
 
     private void nextTransporter(){
 
-        currentMovePhaseControlMode.nextTransporter();
+        currentMovePhaseControlMode.nextTransporter(observers);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
 
     private void previousTransporter(){
-        currentMovePhaseControlMode.previousTransporter();
+        currentMovePhaseControlMode.previousTransporter(observers);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
     }
 
     public void resetMPCInstructionStates(){
         for(MovePhaseControlMode mpcm: movePhaseControlModes){
             mpcm.resetCurrentMPCInstructionState();
+            currentMovePhaseControlMode.notifyObservers(observers);
         }
     }
 
     private void cycleLeft(){
         currentMovePhaseControlMode.cycleLeft();
+        currentMovePhaseControlMode.notifyObservers(observers);
     } //changes instruction or target
 
     private void cycleRight(){
         currentMovePhaseControlMode.cycleRight();
+        currentMovePhaseControlMode.notifyObservers(observers);
     } //changes instruction or target
 
     public ArrayList<MovePhaseControlMode> getMovePhaseControlModes() {
@@ -296,8 +302,6 @@ public class MovePhaseControl extends ControlHandler {
             seaTransporterList.add(st);
         }
     }
-
-
 
     //testing
     public String toString(){

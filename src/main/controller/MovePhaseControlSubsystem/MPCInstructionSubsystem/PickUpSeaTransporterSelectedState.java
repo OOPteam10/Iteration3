@@ -1,14 +1,16 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import model.Transporters.SeaTransporter;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/14/17.
  */
-public class PickUpSeaTransporterSelectedState implements MPCInstructionState {
+public class PickUpSeaTransporterSelectedState implements MPCInstructionState<MovePhaseControlMode> {
     private ArrayList<SeaTransporter> transporters;
     private SeaTransporter currentTransporter;
 
@@ -33,6 +35,12 @@ public class PickUpSeaTransporterSelectedState implements MPCInstructionState {
     public void select(MovePhaseControlMode context) {
         context.pickUpSeaTransporter(currentTransporter);
         context.resetCurrentMPCInstructionState();
+    }
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> observers) {
+        for(MovePhaseControlObserver observer : observers ){
+            observer.highlightCurrentSeaTransporter(currentTransporter);
+        }
     }
 
     //testing only

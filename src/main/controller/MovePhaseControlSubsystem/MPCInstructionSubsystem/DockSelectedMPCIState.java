@@ -1,6 +1,7 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import controller.MovePhaseControlSubsystem.SeaTransporterMPCMode;
 import model.Managers.SeaTransporterManager;
 import model.Managers.SeaTransporterShoreManager;
@@ -10,6 +11,7 @@ import model.TileSubsystem.Waterway;
 import model.Transporters.SeaTransporter;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/15/17.
@@ -53,6 +55,13 @@ public class DockSelectedMPCIState implements SeaTransporterMPCIState {
         seaTransporterManager.removeOccupant(currentSeaTransporter);
         seaTransporterShoreManager.add(currentSeaTransporter, targetSector);
         context.resetCurrentMPCInstructionState();
+    }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> observers) {
+        for(MovePhaseControlObserver observer : observers ){
+            observer.highlightCurrentSector(targetSector);
+        }
     }
 
     //testing only

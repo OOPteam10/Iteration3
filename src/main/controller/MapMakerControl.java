@@ -38,7 +38,6 @@ public class MapMakerControl extends ControlHandler {
         //camera functionality
         setGame(game);
         setController(controller);
-
         mmcObservers.add(preview);
 
     }

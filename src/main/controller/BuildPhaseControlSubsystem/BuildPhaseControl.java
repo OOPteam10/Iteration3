@@ -18,6 +18,7 @@ import model.Managers.*;
 import model.TileSubsystem.Sector;
 import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
+import view.MovementPhasePreview;
 
 import java.util.ArrayList;
 
