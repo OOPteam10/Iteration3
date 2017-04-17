@@ -2,16 +2,13 @@ package model.structures.producers.secondary.refinement;
 
 import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
-import model.resources.Board;
-import model.resources.Paper;
-import model.resources.PaperMillResource;
-import model.resources.Trunk;
+import model.resources.*;
 import model.structures.producers.SecondaryProducerTypeA;
 
 /**
  * Created by cduica on 4/8/17.
  */
-public class PaperMill extends SecondaryProducerTypeA<PaperMillResource> {
+public class PaperMill extends SecondaryProducerTypeA<Resource> {
 
     public PaperMill(ResourceManager resourceManager) {
         super(resourceManager);
@@ -30,13 +27,11 @@ public class PaperMill extends SecondaryProducerTypeA<PaperMillResource> {
     @Override
     public void visitBoard(Board board){
         giveResource(board);
-        removeFromResourceManager(board);
     }
 
     @Override
     public void visitTrunk(Trunk trunk){
         giveResource(trunk);
-        removeFromResourceManager(trunk);
     }
 
 }

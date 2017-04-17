@@ -5,15 +5,20 @@ import model.TileSubsystem.Sector;
 import model.resources.Resource;
 import model.structures.Structure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by cduica on 4/8/17.
  */
 public abstract class Producer extends Structure {
 
     private ResourceManager resourceManager;
+    private List<Resource> forRemoval;
 
     public Producer(ResourceManager resourceManager){
         this.resourceManager = resourceManager;
+        this.forRemoval = new ArrayList<>();
     }
 
     public abstract void produce(Sector l);

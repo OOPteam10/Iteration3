@@ -21,16 +21,16 @@ public class ProducerResourceVisitorTest {
     public void shouldAddResourcesToProducer(){
         ResourceManager resourceManager = new ResourceManager();
         Sector s = new Sector(CardinalDirection.NE, CardinalDirection.NNE);
-        Sector s2 = new Sector(CardinalDirection.NE, CardinalDirection.ENE);
-        Board toRemove = new Board();
-        resourceManager.add(s, new Trunk());
-        resourceManager.add(s, new Trunk());
+        Trunk t = new Trunk();
+        resourceManager.add(s, t);
         SawMill sawMill = new SawMill(resourceManager);
         List<Resource> resources = resourceManager.get(s);
         for(Resource r: resources){
             r.accept(sawMill);
         }
+        //resourceManager.remove(t);
         sawMill.produce(s);
+        //assert(resourceManager.get(s).get(0) instanceof Board);
     }
 
 }
