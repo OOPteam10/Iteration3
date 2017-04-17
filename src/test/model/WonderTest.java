@@ -151,44 +151,6 @@ public class WonderTest {
         assertEquals(54, wonder.calculateScore(player1));
         assertEquals(52, wonder.calculateScore(player2));
 
-        // LEVEL 4
-
-        // row 13,  player2: 5, player1: 5
-        wonder.addPlayerBrick(player2);
-        wonder.addPlayerBrick(player2);
-        wonder.addNeutralBrick();
-        wonder.addNeutralBrick();
-        wonder.addNeutralBrick();
-        wonder.addPlayerBrick(player1);
-        wonder.addPlayerBrick(player1);
-
-        assertEquals(59, wonder.calculateScore(player1));
-        assertEquals(57, wonder.calculateScore(player2));
-
-        // row 14,  player2: 7, player1: 2
-        wonder.addPlayerBrick(player2);
-        wonder.addPlayerBrick(player2);
-        wonder.addPlayerBrick(player2);
-        wonder.addPlayerBrick(player2);
-        wonder.addPlayerBrick(player2);
-        wonder.addPlayerBrick(player1);
-        wonder.addPlayerBrick(player1);
-
-        assertEquals(61, wonder.calculateScore(player1));
-        assertEquals(64, wonder.calculateScore(player2));
-
-        // row 15,  player2: 3, player1: 6
-        wonder.addPlayerBrick(player2);
-        wonder.addPlayerBrick(player2);
-        wonder.addNeutralBrick();
-        wonder.addPlayerBrick(player1);
-        wonder.addPlayerBrick(player1);
-        wonder.addPlayerBrick(player1);
-        wonder.addPlayerBrick(player1);
-
-        assertEquals(67, wonder.calculateScore(player1));
-        assertEquals(67, wonder.calculateScore(player2));
-
         // wonder is full, can't add anymore bricks
         assertEquals(false, wonder.addNeutralBrick());
     }
