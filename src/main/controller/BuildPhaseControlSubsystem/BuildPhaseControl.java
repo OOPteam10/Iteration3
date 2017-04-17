@@ -6,6 +6,7 @@ import controller.ControlHandler;
 import controller.Controller;
 import controller.KeyListener;
 import controller.MovePhaseControlSubsystem.MovePhaseControl;
+import controller.WonderPhaseControlSubsystem.WonderPhaseControl;
 import javafx.scene.input.KeyCode;
 import model.Abilities.buildAbilities.BuildRoadAbility;
 import model.Abilities.buildAbilities.LandBuildAbility;
@@ -206,7 +207,7 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-        getController().changeState(new MovePhaseControl( getController(),getGame()));
+        getController().changeState(new WonderPhaseControl(getController(),getGame()));
     }
 
 

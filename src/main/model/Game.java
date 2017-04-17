@@ -4,6 +4,7 @@ import model.Managers.*;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Tiles.Tile;
+import model.Wonder.Wonder;
 import model.phases.*;
 import utilities.FileManager.FileManager;
 import utilities.TileEditor;
@@ -20,6 +21,7 @@ public class Game implements ManagerSupplier {
     private Map map;
     private PlayerID player1;
     private PlayerID player2;
+    private Wonder wonder;
     private SectorAdjacencyManager sectorAdjacencyManager;
     private WaterwayAdjacencyManager waterwayAdjacencyManager;
     private LandTransporterManager landTransporterManager;
@@ -44,6 +46,10 @@ public class Game implements ManagerSupplier {
 
     public Game(){
         map = new Map();
+        player1 = new PlayerID();
+        player2 = new PlayerID();
+        wonder = new Wonder();
+
         //instantiate tile editor
         TileEditor.getInstance().init(map);
         setDefaultMap();
@@ -153,5 +159,17 @@ public class Game implements ManagerSupplier {
 
     public ArrayList<Phase> getPhases(){
         return phases;
+    }
+
+    public Wonder getWonder(){
+        return wonder;
+    }
+
+    public PlayerID getPlayer1() {
+        return player1;
+    }
+
+    public PlayerID getPlayer2() {
+        return player2;
     }
 }
