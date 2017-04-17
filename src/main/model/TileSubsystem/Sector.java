@@ -6,7 +6,9 @@ import model.Managers.ResourceManager;
 import model.Transporters.LandTransporter;
 import model.resources.Visitor.BuildClayPitAbilityVisitor;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by hankerins on 3/26/17.
@@ -20,6 +22,10 @@ public class Sector {
             start = start.next();
             halfEdges.add(start);
         }
+    }
+
+    public Sector(ArrayList<CardinalDirection> halfEdges) {
+        this.halfEdges = halfEdges;
     }
 
     public boolean contains(CardinalDirection cd){

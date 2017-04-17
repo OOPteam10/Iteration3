@@ -2,9 +2,7 @@ package utilities.FileManager;
 
 import javafx.stage.FileChooser;
 import model.Game;
-import model.Managers.Adjacency;
-import model.Managers.AdjacencyManager;
-import model.Managers.SectorAdjacencyManager;
+import model.Managers.*;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.CardinalDirection;
@@ -21,22 +19,29 @@ import model.TileSubsystem.Tiles.SeaTile;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileFileVisitor;
 import model.TileSubsystem.Waterway;
-import model.Transporters.LandTransporter;
-import model.Transporters.SeaTransporter;
+import model.Transporters.*;
 import model.Transporters.Visitor.LandTransporterFileVisitor;
 import model.Transporters.Visitor.SeaTransporterFileVisitor;
 import model.Transporters.Visitor.SeaTransporterVisitor;
-import model.resources.Resource;
+import model.resources.*;
 import model.resources.Visitor.ResourceFileVisitor;
 import model.structures.producers.Producer;
+import model.structures.producers.Product;
 import model.structures.producers.Visitor.PrimaryProducerFileVisitor;
 import model.structures.producers.Visitor.SecondaryProducerFileVisitor;
+import model.structures.producers.primary.ClayPit;
 import model.structures.producers.primary.PrimaryProducer;
+import model.structures.producers.primary.StoneQuarry;
+import model.structures.producers.primary.WoodCutter;
+import model.structures.producers.primary.mine.NormalMine;
 import model.structures.producers.secondary.SecondaryProducer;
+import model.structures.producers.secondary.refinement.*;
+import model.structures.producers.secondary.transportation.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 /**
  * Created by doug0_000 on 4/9/2017.
@@ -61,6 +66,281 @@ public class FileManager {
             if(saveGame!=null){
                 saveGame(saveGame, g);
             }
+        }
+
+        public static Game loadGameManager() throws IOException {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Map");
+            fileChooser.setInitialDirectory(new File("Assets/Saves"));
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Txt Files", "*.txt"));
+            File newGame = fileChooser.showOpenDialog(null);
+            if(newGame!= null){
+                return loadGame(newGame);
+            } else {
+                return null;
+            }
+        }
+
+        public static Game loadGame(File f) throws IOException {
+            Game game = new Game();
+            HashMap<Location, Tile> tiles = new HashMap<>();
+            SectorAdjacencyManager roadAdjacencyManager = new SectorAdjacencyManager();
+            LandTransporterManager landTransporterManager = new LandTransporterManager();
+            SeaTransporterManager seaTransporterManager = new SeaTransporterManager();
+            SeaTransporterShoreManager seaTransporterShoreManager = new SeaTransporterShoreManager();
+            ResourceManager resourceManager = new ResourceManager();
+            CargoManager cargoManager = new CargoManager();
+            LandPrimaryProducerManager landPrimaryProducerManager = new LandPrimaryProducerManager();
+            LandSecondaryProducerManager landSecondaryProducerManager = new LandSecondaryProducerManager();
+
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+
+            String in = reader.readLine();
+
+            while (in != null) {
+                if (in.substring(0,1).equals("(")) {
+                    readTile(game, reader, tiles, roadAdjacencyManager, landTransporterManager, seaTransporterManager, seaTransporterShoreManager,
+                            resourceManager, landPrimaryProducerManager, landSecondaryProducerManager, cargoManager, in);
+                }
+                in = reader.readLine();
+            }
+
+            return game;
+        }
+
+        private static void readTile(Game game, BufferedReader reader, HashMap<Location, Tile> tiles, SectorAdjacencyManager roadAdjacencyManager,
+                                     LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
+                                     SeaTransporterShoreManager seaTransporterShoreManager, ResourceManager resourceManager,
+                                     LandPrimaryProducerManager landPrimaryProducerManager, LandSecondaryProducerManager landSecondaryProducerManager,
+                                     CargoManager cargoManager, String tileString) throws IOException {
+
+            Tile currentTile = parseTile(tileString);
+            Location loc = parseLocation(tileString);
+            tiles.put(loc, currentTile);
+
+            String in = reader.readLine();
+            while (!in.equals("END TILE")) {
+                if (in.substring(0,12).equals("BEGIN SECTOR")) {
+                    currentTile.setSectors(parseSectors(in, roadAdjacencyManager, landTransporterManager, seaTransporterManager, seaTransporterShoreManager, resourceManager,
+                            landPrimaryProducerManager, landSecondaryProducerManager,cargoManager, loc, currentTile, reader));
+                }
+            }
+        }
+
+        private static ArrayList<Sector> parseSectors(String sectorString, SectorAdjacencyManager roadAdjacencyManager,
+                                                 LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
+                                                 SeaTransporterShoreManager seaTransporterShoreManager, ResourceManager resourceManager,
+                                                 LandPrimaryProducerManager landPrimaryProducerManager,
+                                                 LandSecondaryProducerManager landSecondaryProducerManager,
+                                                      CargoManager cargoManager, Location loc, Tile t, BufferedReader reader) throws IOException {
+            ArrayList<Sector> sectors = new ArrayList<>();
+            Sector currentSector = parseSingleSector(sectorString);
+            sectors.add(currentSector);
+
+            String in = reader.readLine();
+            while (!in.equals("END TILE")) {
+                 if (in.equals("END SECTOR")) {
+                    in = reader.readLine();
+                } else if (in.equals("BEGIN PRODUCER")) {
+                    Producer newProducer = parseProducer(reader.readLine(), resourceManager, seaTransporterShoreManager, landTransporterManager);
+
+                    if (newProducer instanceof PrimaryProducer) { //i am so sorry dave :( its okay tho because im loading?
+                        landPrimaryProducerManager.add(currentSector, (PrimaryProducer) newProducer);
+                    } else if (newProducer instanceof  SecondaryProducer) {
+                        landSecondaryProducerManager.add(currentSector, (SecondaryProducer) newProducer);
+                    }
+                    in = reader.readLine();
+                } else if (in.substring(0,10).equals("BEGIN ROAD")) {
+                    int numRoad = Integer.parseInt(in.substring(12));
+                    for (int i = 0; i < numRoad; i++) {
+                        parseRoadAdjacency(reader.readLine(), roadAdjacencyManager, currentSector);
+                    }
+                    in = reader.readLine();
+                } else if (in.substring(0,12).equals("BEGIN SECTOR")) {
+                     currentSector = parseSingleSector(in);
+                     in = reader.readLine();
+                 } else if (in.substring(0,14).equals("BEGIN RESOURCE")) {
+                     int numResources = Integer.parseInt(in.substring(16));
+                     for (int i=0; i<numResources; i++) {
+                        Resource newResource = parseResource(reader.readLine());
+                        resourceManager.add(currentSector, newResource);
+                     }
+                     in = reader.readLine();
+                } else if (in.substring(0,22).equals("BEGIN LAND TRANSPORTER")) {
+                    int numTransporters = Integer.parseInt(in.substring(24));
+                    for (int i=0; i<numTransporters; i++) {
+                        LandTransporter newTransporter = landTransporterParse(reader.readLine(), cargoManager);
+                    }
+                    in = reader.readLine();
+                } else if (in.substring(0,21).equals("BEGIN SEA TRANSPORTER")) {
+                     //TODO
+                 } else if (in.substring(0,28).equals("BEGIN DOCKED SEA TRANSPORTER")) {
+                     //TODO
+                 } else {
+                    System.out.println("Could not understand this line like damn, it was " + in);
+                    in = reader.readLine();
+                }
+            }
+
+            return sectors;
+        }
+
+        private static void parseRoadAdjacency(String s, SectorAdjacencyManager roadAdjacencyManager, Sector currentSector) {
+            String[] split = s.split(" ");
+            CardinalDirection direction = CardinalDirection.valueOf(split[0]);
+            Sector dest = parseSingleSector(s.substring(s.indexOf('(')));
+            roadAdjacencyManager.addNewAdjacency(currentSector, direction, dest);
+        }
+
+        private static LandTransporter landTransporterParse(String s, CargoManager cargoManager) {
+            ArrayList<Product> cargo = new ArrayList<>();
+            LandTransporter out;
+            if (s.contains("(")) {
+                cargo = cargoParse(s.substring(s.indexOf('(')+1,s.indexOf(')')));
+            }
+            switch (s) {
+                case "Donkey":
+                    out = new Donkey();
+                    break;
+                case "Truck":
+                    out = new Truck();
+                    break;
+                case "Wagon":
+                    out = new Wagon();
+                    break;
+                default:
+                    System.out.println("Could not convert " + s + " to a Land transporter");
+                    return null;
+            }
+
+            cargoManager.add(out, cargo);
+            return out;
+        }
+
+        private static ArrayList<Product> cargoParse(String cargo) {
+            ArrayList<Product> out = new ArrayList<>();
+            String[] cargos = cargo.split(" ");
+            for (String s:cargos) {
+                out.add(productParse(s));
+            }
+            return out;
+        }
+
+        private static Product productParse(String s) {
+            switch (s) {
+                case "Board":
+                    return new Board();
+                case "Clay":
+                    return new Clay();
+                case "Coin":
+                    return new Coin();
+                case "Fuel":
+                    return new Fuel();
+                case "Gold":
+                    return new Gold();
+                case "Iron":
+                    return new Iron();
+                case "Paper":
+                    return new Paper();
+                case "Stock":
+                    return new Stock();
+                case "Stone":
+                    return new Stone();
+                case "Trunk":
+                    return new Trunk();
+                case "Donkey":
+                    return new Donkey();
+                case "Raft":
+                    return new Raft();
+                case "Rowboat":
+                    return new Rowboat();
+                case "Steamship":
+                    return new Steamship();
+                case "Truck":
+                    return new Truck();
+                case "Wagon":
+                    return new Wagon();
+                default:
+                    System.out.println("Could not convert " + s + " to a product");
+                    return null;
+            }
+        }
+
+        private static Producer parseProducer(String producerString, ResourceManager resourceManager, SeaTransporterShoreManager seaTransporterShoreManager,
+                                              LandTransporterManager landTransporterManager) {
+            switch (producerString) {
+                case "ClayPit":
+                    return new ClayPit(resourceManager);
+                case "StoneQuarry":
+                    return new StoneQuarry(resourceManager);
+                case "WoodCutter":
+                    return new WoodCutter(resourceManager);
+                case "CoalBurner":
+                    return new CoalBurner(resourceManager);
+                case "Mint":
+                    return new Mint(resourceManager);
+                case "PaperMill":
+                    return new PaperMill(resourceManager);
+                case "SawMill":
+                    return new SawMill(resourceManager);
+                case "StockExchange":
+                    return new StockExchange(resourceManager);
+                case "StoneFactory":
+                    return new StoneFactory(resourceManager);
+                case "RaftFactory":
+                    return new RaftFactory(resourceManager, seaTransporterShoreManager);
+                case "RowboatFactory":
+                    return new RowboatFactory(resourceManager, seaTransporterShoreManager);
+                case "SteamerFactor":
+                    return new SteamerFactory(resourceManager, seaTransporterShoreManager);
+                case "TruckFactory":
+                    return new TruckFactory(resourceManager, landTransporterManager);
+                case "WagonFactory":
+                    return new WagonFactory(resourceManager, landTransporterManager);
+                default:
+                    System.out.println("Could not convert " + producerString + " to a Producer");
+                    return null;
+            }
+        }
+
+        private static Resource parseResource(String resourceString) {
+            switch (resourceString) {
+                case "Board":
+                    return new Board();
+                case "Clay":
+                    return new Clay();
+                case "Coin":
+                    return new Coin();
+                case "Fuel":
+                    return new Fuel();
+                case "Gold":
+                    return new Gold();
+                case "Iron":
+                    return new Iron();
+                case "Paper":
+                    return new Paper();
+                case "Stock":
+                    return new Stock();
+                case "Stone":
+                    return new Stone();
+                case "Trunk":
+                    return new Trunk();
+                default:
+                    System.out.println("Could not convert " + resourceString + " to a resource");
+                    return null;
+            }
+        }
+
+        private static Sector parseSingleSector(String sectorString) {
+            String edges = sectorString.substring(sectorString.indexOf('(')+1, sectorString.indexOf(')'));
+            String[] edgeArr = edges.split(" ");
+            ArrayList<CardinalDirection> halfEdges = new ArrayList<>();
+
+            for (String s: edgeArr) {
+                halfEdges.add(CardinalDirection.valueOf(s));
+            }
+
+            return new Sector(halfEdges);
         }
 
 
@@ -121,7 +401,7 @@ public class FileManager {
                 }
                 writer.write("BEGIN ROAD " + numDirections);
                 writer.newLine();
-                
+
                 for (CardinalDirection c: adjacents.getDirectionList()) {
                     writer.write(c.name() + " " + adjacents.getAdjacent(c).toString());
                 }

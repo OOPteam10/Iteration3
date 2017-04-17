@@ -55,5 +55,6 @@ public abstract class Tile {
     public CardinalDirection[] getHalfEdges() {return halfEdges;}
     public ArrayList<Sector> getSectors() {return sectors;}
     public HexSide[] getSides() {return sides;}
+    public void setSectors(ArrayList<Sector> sectors) {this.sectors = sectors; }
 
 }
