@@ -6,13 +6,15 @@ import model.Transporters.LandTransporter;
 /**
  * Created by hankerins on 4/16/17.
  */
-public class LandTransporterBPCStrategy implements BPCTransporterStrategy {
+public class LandTransporterBPCStrategy implements BPCTransporterStrategy<LandTransporter> {
     @Override
     public void nextTransporter(BuildPhaseControl context) {
         int next = (context.getCurrentTransporterIndex()+1);
-        if(next >= context.getLandTransporters().size()){
+        if(next >= context.getLandTransporters().size()) {
             context.setCurrentTransporterIndex(0);
-            context.setBuildPhaseControlStrategy(new SeaTransporterBPCStrategy());
+            if (context.getSeaTransporters().size() > 0) {
+                context.setBuildPhaseControlStrategy(new SeaTransporterBPCStrategy());
+            }
         }
         else{
             context.setCurrentTransporterIndex(next);
@@ -23,8 +25,11 @@ public class LandTransporterBPCStrategy implements BPCTransporterStrategy {
     public void prevTransporter(BuildPhaseControl context) {
         int prev = (context.getCurrentTransporterIndex()-1);
         if(prev < 0){
-            context.setCurrentTransporterIndex(context.getSeaTransporters().size()-1);
-            context.setBuildPhaseControlStrategy(new SeaTransporterBPCStrategy());
+            if (context.getSeaTransporters().size() > 0) {
+                context.setCurrentTransporterIndex(context.getSeaTransporters().size()-1);
+                context.setBuildPhaseControlStrategy(new SeaTransporterBPCStrategy());
+            }
+            else context.setCurrentTransporterIndex(context.getLandTransporters().size()-1);
         }
         else{
             context.setCurrentTransporterIndex(prev);
@@ -33,6 +38,10 @@ public class LandTransporterBPCStrategy implements BPCTransporterStrategy {
 
     @Override
     public Sector getCurrentSector(BuildPhaseControl context) {
-        return context.getLandTransporterManager().getLocation(context.getLandTransporters().get(context.getCurrentTransporterIndex()));
+        return context.getLandTransporterManager().getLocation(getCurrentTransporter(context));
+    }
+
+    public LandTransporter getCurrentTransporter(BuildPhaseControl context){
+        return  context.getLandTransporters().get(context.getCurrentTransporterIndex());
     }
 }

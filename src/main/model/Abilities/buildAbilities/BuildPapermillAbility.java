@@ -1,13 +1,10 @@
 package model.Abilities.buildAbilities;
 
-import model.Game;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.ManagerSupplier;
-import model.Managers.LandProducerManager;
-import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Board;
 import model.resources.Stone;
-import model.structures.producers.secondary.refinement.Mint;
 import model.structures.producers.secondary.refinement.PaperMill;
 
 import java.util.ArrayList;
@@ -26,7 +23,7 @@ public class BuildPapermillAbility extends LandProducerBuildAbility {
 
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
-
+        list.addBuildPaperMill(this);
     }
 
     @Override
@@ -39,5 +36,9 @@ public class BuildPapermillAbility extends LandProducerBuildAbility {
         }
 
         ms.getLandSecondaryProducerManager().add(s, new PaperMill(ms.getResourceManager()));
+    }
+
+    public String toString(){
+        return "Build Papermill";
     }
 }

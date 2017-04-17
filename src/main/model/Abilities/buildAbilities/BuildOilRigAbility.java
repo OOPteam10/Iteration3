@@ -1,6 +1,6 @@
 package model.Abilities.buildAbilities;
 
-import model.Managers.ResourceManager;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.Managers.SeaProducerManager;
 import model.TileSubsystem.Tiles.SeaTile;
 import model.resources.Board;
@@ -22,5 +22,8 @@ public class BuildOilRigAbility extends SeaBuildAbility {
     @Override
     public void execute(SeaTile s, SeaProducerManager spm) {
 
+    }
+    public String toString(){
+        return "Build Oil Rig";
     }
 }

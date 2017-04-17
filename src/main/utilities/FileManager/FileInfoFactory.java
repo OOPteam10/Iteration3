@@ -1,13 +1,19 @@
 package utilities.FileManager;
 
-import model.Game;
 import model.Goose;
 import model.Managers.CargoManager;
 import model.Transporters.*;
 import model.resources.*;
+import model.structures.LogisticalStructures.*;
 import model.structures.producers.Product;
 import model.structures.producers.Visitor.ProductFileVisitor;
-import model.structures.producers.Visitor.ProductVisitor;
+import model.structures.producers.primary.ClayPit;
+import model.structures.producers.primary.OilRig;
+import model.structures.producers.primary.StoneQuarry;
+import model.structures.producers.primary.WoodCutter;
+import model.structures.producers.primary.mine.Mine;
+import model.structures.producers.secondary.refinement.*;
+import model.structures.producers.secondary.transportation.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -174,5 +180,90 @@ public class FileInfoFactory {
     //Goose
 
     public static GooseFileInfo generateFileInfo(Goose g) {return new GooseFileInfo(); }
+
+    //Producers
+
+    public static ProducerFileInfo generateFileInfo(ClayPit c) {
+        return new ProducerFileInfo("ClayPit");
+    }
+
+    public static ProducerFileInfo generateFileInfo(OilRig o) {
+        return new ProducerFileInfo("OilRig");
+    }
+
+    public static ProducerFileInfo generateFileInfo(StoneQuarry s) {
+        return new ProducerFileInfo("StoneQuarry");
+    }
+
+    public static ProducerFileInfo generateFileInfo(WoodCutter w) {
+        return new ProducerFileInfo("WoodCutter");
+    }
+
+    public static MineFileInfo generateFileInfo(Mine m) {
+        return new MineFileInfo();
+    }
+
+    public static ProducerFileInfo generateFileInfo(RaftFactory r) {
+        return new ProducerFileInfo("RaftFactory");
+    }
+
+    public static ProducerFileInfo generateFileInfo(RowboatFactory r) {
+        return new ProducerFileInfo("RowboatFactory");
+    }
+
+    public static ProducerFileInfo generateFileInfo(SteamerFactory s) {
+        return new ProducerFileInfo("SteamerFactory");
+    }
+
+    public static ProducerFileInfo generateFileInfo(TruckFactory t) {
+        return new ProducerFileInfo("TruckFactory");
+    }
+
+    public static ProducerFileInfo generateFileInfo(WagonFactory w) {
+        return new ProducerFileInfo("WagonFactory");
+    }
+
+    public static ProducerFileInfo generateFileInfo(CoalBurner c) {
+        return new ProducerFileInfo("CoalBurner");
+    }
+
+    public static ProducerFileInfo generateFileInfo(Mint m) {
+        return new ProducerFileInfo("Mint");
+    }
+
+    public static ProducerFileInfo generateFileInfo(PaperMill p) {
+        return new ProducerFileInfo("PaperMill");
+    }
+
+    public static ProducerFileInfo generateFileInfo(SawMill s) {
+        return new ProducerFileInfo("SawMill");
+    }
+
+    public static ProducerFileInfo generateFileInfo(StockExchange s) {
+        return new ProducerFileInfo("StockExchange");
+    }
+
+    public static ProducerFileInfo generateFileInfo(StoneFactory s) {
+        return new ProducerFileInfo("StoneFactory");
+    }
+
+    //Logistical Structures
+
+    public static LogisticalStructureFileInfo generateFileInfo(Bridge b) {
+        return new LogisticalStructureFileInfo("Bridge");
+    }
+
+    public static LogisticalStructureFileInfo generateFileInfo(NeutralWall n) {
+        return new LogisticalStructureFileInfo("NeutralWall");
+    }
+
+    public static LogisticalStructureFileInfo generateFileInfo(Road r) {
+        return new LogisticalStructureFileInfo("Road");
+    }
+
+    public static LogisticalStructureFileInfo generateFileInfo(OwnedWall o) {
+        return new LogisticalStructureFileInfo("OwnedWall");
+    }
+
 }
 

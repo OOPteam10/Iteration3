@@ -1,7 +1,6 @@
 package model.Abilities.buildAbilities;
 
-import model.Managers.Adjacency;
-import model.Managers.SectorAdjacency;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
@@ -35,5 +34,9 @@ public class BuildRoadAbility extends LogisticalStructureBuildAbility {
         // Tell destination sector it has a road to starting sector
         roadManager.addNewAdjacency(getTargetSector(), CD2, startingSector);
 
+    }
+
+    public String toString(){
+        return ("Build Road " + getTargetSector().toString());
     }
 }

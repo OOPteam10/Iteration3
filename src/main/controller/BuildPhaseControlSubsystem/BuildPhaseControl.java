@@ -1,8 +1,15 @@
 package controller.BuildPhaseControlSubsystem;
 
+import controller.Actions.NextMode;
+import controller.Actions.PrevMode;
 import controller.ControlHandler;
+import controller.Controller;
+import controller.KeyListener;
+import controller.MovePhaseControlSubsystem.MovePhaseControl;
+import javafx.scene.input.KeyCode;
 import model.Abilities.buildAbilities.BuildRoadAbility;
 import model.Abilities.buildAbilities.LandBuildAbility;
+import model.Game;
 import model.ManagerSupplier;
 import model.Managers.*;
 import model.TileSubsystem.Sector;
@@ -32,36 +39,41 @@ public class BuildPhaseControl extends ControlHandler {
     private BPCTransporterStrategy buildPhaseControlStrategy;
 
 
-    public BuildPhaseControl(LandTransporterManager ltm, SeaTransporterShoreManager stsm, ResourceManager rm, ManagerSupplier ms){
-        landTransporterManager = ltm;
-        seaTransporterShoreManager = stsm;
-        resourceManager = rm;
+    public BuildPhaseControl(Controller controller, Game ms){
+        super(controller, ms);
+        landTransporterManager = ms.getLandTransporterManager();
+        seaTransporterShoreManager = ms.getSeaTransporterShoreManager();
+        resourceManager = ms.getResourceManager();
         managerSupplier = ms;
 
-        landTransporters.addAll(ltm.getAll());
-        seaTransporters.addAll(stsm.getAll());
+        landTransporters.addAll(landTransporterManager.getAll());
+        seaTransporters.addAll(seaTransporterShoreManager.getAll());
         buildPhaseControlStrategy = new LandTransporterBPCStrategy();
         nextTransporter();
-        landBuildAbilities.addAll(rm.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this)));
+        resetAbilities();
 
-        //ugly logic to get road directions
-        ArrayList<Sector> adjacentSectors = ms.getSectorAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
-        ArrayList<Sector> toRemove = ms.getRoadAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
-        for(Sector s: toRemove){
-            adjacentSectors.remove(s);
-        }
-        for(Sector s: adjacentSectors){
-            landBuildAbilities.add(new BuildRoadAbility(s));
-        }
-        currentAbility = landBuildAbilities.get(0);
+        addAction(new NextMode(this), new KeyListener(KeyCode.M));
+        addAction(new PrevMode(this), new KeyListener(KeyCode.N));
     }
 
     public void nextTransporter(){
         buildPhaseControlStrategy.nextTransporter(this);
+        resetAbilities();
+    }
+    private void nextTransporter(int i){
+        buildPhaseControlStrategy.nextTransporter(this);
+        resetRecursion(i);
     }
 
     public void prevTransporter(){
         buildPhaseControlStrategy.prevTransporter(this);
+        resetAbilities();
+
+    }
+    private void prevTransporter(int i){
+        buildPhaseControlStrategy.prevTransporter(this);
+        resetRecursion(i);
+
     }
 
     public void nextAbility(){
@@ -74,19 +86,53 @@ public class BuildPhaseControl extends ControlHandler {
         currentAbility = landBuildAbilities.get(previous);
     }
 
+    public void resetAbilities(){
+        resetRecursion(0);
+    }
+    private void resetRecursion(int i){
+        if (i > 10){
+            endTurn();
+            return;
+        }
+        landBuildAbilities.clear();
+        // TODO: pass in PlayerAbilityAvailabilityObject to get the actual shit
+        landBuildAbilities.addAll(resourceManager.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this), null));
+
+        //ugly logic to get road directions
+        ArrayList<Sector> adjacentSectors = managerSupplier.getSectorAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
+        ArrayList<Sector> toRemove = managerSupplier.getRoadAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
+        for(Sector s: toRemove){
+            adjacentSectors.remove(s);
+            adjacentSectors.remove(s);
+        }
+        for(Sector s: adjacentSectors){
+            landBuildAbilities.add(new BuildRoadAbility(s));
+        }
+        if(landBuildAbilities.size() == 0){
+            System.out.print("before: " + i);
+            i++;
+            nextTransporter(i);
+        }else
+        currentAbility = landBuildAbilities.get(0);
+    }
+
     @Override
     public void left() {
         prevAbility();
+        System.out.println(toString());
     }
 
     @Override
     public void right() {
         nextAbility();
+        System.out.println(toString());
     }
 
     @Override
     public void select() {
         currentAbility.execute(buildPhaseControlStrategy.getCurrentSector(this), managerSupplier);
+        resetAbilities();
+        System.out.println(toString());
     }
 
     @Override
@@ -121,22 +167,24 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void nextMode() {
-
+        nextTransporter();
+        System.out.println(toString());
     }
 
     @Override
     public void prevMode() {
-
+        prevTransporter();
+        System.out.println(toString());
     }
 
     @Override
     public void up() {
-        prevTransporter();
+
     }
 
     @Override
     public void down() {
-        nextTransporter();
+
     }
 
     @Override
@@ -156,7 +204,7 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-
+        getController().changeState(new MovePhaseControl( getController(),getGame()));
     }
 
 
@@ -190,5 +238,13 @@ public class BuildPhaseControl extends ControlHandler {
 
     public void setBuildPhaseControlStrategy(BPCTransporterStrategy buildPhaseControlStrategy) {
         this.buildPhaseControlStrategy = buildPhaseControlStrategy;
+    }
+
+    //testing only
+    public String toString(){
+        String s = "";
+        s += ("Transporter: " + buildPhaseControlStrategy.getCurrentTransporter(this).toString() +
+                " Ability: " + currentAbility.toString());
+        return s;
     }
 }

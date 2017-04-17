@@ -1,9 +1,7 @@
 package model.Abilities.buildAbilities;
 
-import model.Game;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.ManagerSupplier;
-import model.Managers.LandProducerManager;
-import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Board;
 import model.resources.Stone;
@@ -26,7 +24,7 @@ public class BuildWagonFactoryAbility extends LandProducerBuildAbility {
 
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
-
+        list.addWagonFactory(this);
     }
 
     @Override
@@ -38,5 +36,9 @@ public class BuildWagonFactoryAbility extends LandProducerBuildAbility {
             ms.getResourceManager().remove(s, stone);
         }
         ms.getLandSecondaryProducerManager().add(s, new WagonFactory(ms.getResourceManager(), ms.getLandTransporterManager()));
+    }
+
+    public String toString(){
+        return "Build Wagon Factory";
     }
 }

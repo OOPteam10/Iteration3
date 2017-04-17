@@ -1,6 +1,6 @@
 package model.Abilities.buildAbilities;
 
-import model.Managers.ResourceManager;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
@@ -22,5 +22,8 @@ public class BuildBridgeAbility extends LogisticalStructureBuildAbility {
     @Override
     public void execute(Sector sector1, SectorAdjacencyManager sam, SectorAdjacencyManager bam) {
 
+    }
+    public String toString(){
+        return "Build Bridge";
     }
 }

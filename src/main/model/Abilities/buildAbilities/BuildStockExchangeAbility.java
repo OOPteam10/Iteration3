@@ -1,9 +1,7 @@
 package model.Abilities.buildAbilities;
 
-import model.Game;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.ManagerSupplier;
-import model.Managers.LandProducerManager;
-import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Stone;
 import model.structures.producers.secondary.refinement.StockExchange;
@@ -23,7 +21,7 @@ public class BuildStockExchangeAbility extends LandProducerBuildAbility {
     }
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
-
+        list.addBuildStockExchange(this);
     }
 
     @Override
@@ -32,5 +30,8 @@ public class BuildStockExchangeAbility extends LandProducerBuildAbility {
             ms.getResourceManager().remove(s, stone);
         }
         ms.getLandSecondaryProducerManager().add(s, new StockExchange(ms.getResourceManager()));
+    }
+    public String toString(){
+        return "Build Stock Exchange";
     }
 }

@@ -22,7 +22,11 @@ public abstract class AdjacencyManager<Loc, Dir, AdjLoc> {
         return managerMap.get(l);
     }
     public ArrayList<AdjLoc> getAdjacencyList(Loc l){
-        return managerMap.get(l).getAdjacencyList();
+        if(managerMap.get(l) != null){
+            return managerMap.get(l).getAdjacencyList();
+
+        }
+        else return new ArrayList<AdjLoc>();
     }
 
     public Dir getDirectionOfAdjacentLoc(Loc l, AdjLoc al){

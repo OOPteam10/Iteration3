@@ -1,12 +1,9 @@
 package model.Abilities.buildAbilities;
 
-import model.Game;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.ManagerSupplier;
-import model.Managers.LandProducerManager;
-import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Board;
-import model.structures.producers.primary.ClayPit;
 import model.structures.producers.secondary.refinement.CoalBurner;
 
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ public class BuildCoalBurnerAbility extends LandProducerBuildAbility {
     }
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
-
+        list.addBuildCoalBurner(this);
     }
 
     @Override
@@ -33,5 +30,8 @@ public class BuildCoalBurnerAbility extends LandProducerBuildAbility {
             ms.getResourceManager().remove(s, board);
         }
         ms.getLandSecondaryProducerManager().add(s, new CoalBurner(ms.getResourceManager()));
+    }
+    public String toString(){
+        return "Build Coal Burner";
     }
 }

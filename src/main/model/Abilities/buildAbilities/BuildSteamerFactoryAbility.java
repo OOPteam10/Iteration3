@@ -1,9 +1,7 @@
 package model.Abilities.buildAbilities;
 
-import model.Game;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.ManagerSupplier;
-import model.Managers.LandProducerManager;
-import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 
 /**
@@ -18,5 +16,8 @@ public class BuildSteamerFactoryAbility extends WaterwayAdjacentSectorBuildAbili
     @Override
     public void execute(Sector s, ManagerSupplier ms) {
 
+    }
+    public String toString(){
+        return "Build Steamer Factory";
     }
 }
