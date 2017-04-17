@@ -1,9 +1,13 @@
 package controller.MovePhaseControlSubsystem;
 
+
 import controller.Actions.Down;
 import controller.Actions.NextMode;
 import controller.Actions.PrevMode;
 import controller.Actions.Up;
+
+import controller.BuildPhaseControlSubsystem.BuildPhaseControl;
+
 import controller.ControlHandler;
 import controller.Controller;
 import controller.KeyListener;
@@ -70,11 +74,16 @@ public class MovePhaseControl extends ControlHandler {
         this.sectorToWaterwayManager = game.getSectorToWaterwayManager();
         this.waterwayToSectorManager = game.getWaterwayToSectorManager();
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
-        addAction(new NextMode(this), new KeyListener(KeyCode.M));
-        addAction(new PrevMode(this), new KeyListener(KeyCode.N));
+
+        //addAction(new NextMode(this), new KeyListener(KeyCode.M));
+        //addAction(new PrevMode(this), new KeyListener(KeyCode.N));
         addAction(new Up(this), new KeyListener(KeyCode.UP));
         addAction(new Down(this), new KeyListener(KeyCode.DOWN));
 
+
+
+
+        //TODO: DELETE THIS HARDCODING, ONLY ADD MODES WHEN THEY EXIST
 
         addDonkeyMPCMode();
         addRoadTransporterMPCMode();
@@ -182,7 +191,10 @@ public class MovePhaseControl extends ControlHandler {
     //right now mapped to functions kind of at random just to test
 
 
-    //TODO remove all print statements from the overrident methods 
+
+    //TODO: DELETE PRINT STATEMENTS
+
+
     @Override
     public void prevMode() {
 
@@ -230,7 +242,6 @@ public class MovePhaseControl extends ControlHandler {
         currentMovePhaseControlMode.select();
         System.out.println(toString());
 
-
     }
 
 
@@ -252,8 +263,7 @@ public class MovePhaseControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-        // will change the controller's state to next phase
-
+        getController().changeState(new BuildPhaseControl( getController(),getGame()));
     }
 
 

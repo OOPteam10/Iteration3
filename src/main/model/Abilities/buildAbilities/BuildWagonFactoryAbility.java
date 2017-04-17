@@ -39,4 +39,8 @@ public class BuildWagonFactoryAbility extends LandProducerBuildAbility {
         }
         ms.getLandSecondaryProducerManager().add(s, new WagonFactory(ms.getResourceManager(), ms.getLandTransporterManager()));
     }
+
+    public String toString(){
+        return "Build Wagon Factory";
+    }
 }

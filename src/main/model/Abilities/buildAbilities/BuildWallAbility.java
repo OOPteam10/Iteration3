@@ -23,4 +23,8 @@ public class BuildWallAbility extends LogisticalStructureBuildAbility {
     public void execute(Sector startingSector, SectorAdjacencyManager sam, SectorAdjacencyManager bridgeManager) {
 
     }
+
+    public String toString(){
+        return "Build Wall";
+    }
 }

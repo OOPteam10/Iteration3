@@ -36,4 +36,8 @@ public class BuildRoadAbility extends LogisticalStructureBuildAbility {
         roadManager.addNewAdjacency(getTargetSector(), CD2, startingSector);
 
     }
+
+    public String toString(){
+        return ("Build Road " + getTargetSector().toString());
+    }
 }

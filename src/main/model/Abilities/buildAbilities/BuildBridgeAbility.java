@@ -23,4 +23,7 @@ public class BuildBridgeAbility extends LogisticalStructureBuildAbility {
     public void execute(Sector sector1, SectorAdjacencyManager sam, SectorAdjacencyManager bam) {
 
     }
+    public String toString(){
+        return "Build Bridge";
+    }
 }

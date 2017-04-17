@@ -19,4 +19,7 @@ public class BuildRowboatFactoryAbility extends WaterwayAdjacentSectorBuildAbili
     public void execute(Sector s, ManagerSupplier ms) {
 
     }
+    public String toString(){
+        return "Build Rowboat Factory";
+    }
 }

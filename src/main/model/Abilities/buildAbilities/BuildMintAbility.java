@@ -37,4 +37,7 @@ public class BuildMintAbility extends LandProducerBuildAbility {
 
         ms.getLandSecondaryProducerManager().add(s, new Mint(ms.getResourceManager()));
     }
+    public String toString(){
+        return "Build Mint";
+    }
 }
