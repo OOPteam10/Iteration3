@@ -10,6 +10,7 @@ import model.resources.Resource;
 import model.structures.producers.Product;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/10/17.
@@ -40,16 +41,22 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
         resetCurrentMPCInstructionState();
     }
 
-    public void nextTransporter() {
+    public void nextTransporter(Vector<MovePhaseControlObserver> observers) {
         int next = (donkeys.indexOf(currentDonkey)+1)
                 % donkeys.size();
         currentDonkey = donkeys.get(next);
+        for(MovePhaseControlObserver observer: observers){
+            observer.highlightCurrentDonkey(currentDonkey);
+        }
     }
 
-    public void previousTransporter() {
+    public void previousTransporter(Vector<MovePhaseControlObserver> observers) {
         int previous = (donkeys.indexOf(currentDonkey)-1
                 + donkeys.size()) % donkeys.size();
         currentDonkey = donkeys.get(previous);
+        for(MovePhaseControlObserver observer: observers){
+            observer.highlightCurrentDonkey(currentDonkey);
+        }
     }
 
     public void resetCurrentMPCInstructionState(){
@@ -94,6 +101,13 @@ public class DonkeyMPCMode implements MovePhaseControlMode {
     public void pickUpSeaTransporter(SeaTransporter st){
         seaTransporterShoreManager.removeOccupant(st);
         cargoManager.add(currentDonkey, st);
+    }
+
+    @Override
+    public void notifyObserver(Vector<MovePhaseControlObserver> movePhaseControlObservers) {
+        for(MovePhaseControlObserver observer : movePhaseControlObservers){
+            observer.updateModeToDonkey();
+        }
     }
 
 

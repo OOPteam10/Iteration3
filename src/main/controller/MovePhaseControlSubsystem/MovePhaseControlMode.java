@@ -10,12 +10,14 @@ import model.Transporters.Transporter;
 import model.resources.Resource;
 import model.structures.producers.Product;
 
+import java.util.Vector;
+
 /**
  * Created by hankerins on 4/10/17.
  */
 public interface MovePhaseControlMode {
-    void nextTransporter();
-    void previousTransporter();
+    void nextTransporter(Vector<MovePhaseControlObserver> observers);
+    void previousTransporter(Vector<MovePhaseControlObserver> observers);
     void select();
     void nextInstruction();
     void previousInstruction();
@@ -34,5 +36,6 @@ public interface MovePhaseControlMode {
     SectorTransporterManager getSectorTransporterManager();
     Transporter getCurrentTransporter();
     void pickUpSeaTransporter(SeaTransporter st);
+    void notifyObserver(Vector<MovePhaseControlObserver> observers);
 
 }

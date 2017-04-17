@@ -1,6 +1,7 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import controller.MovePhaseControlSubsystem.RoadTransporterMPCMode;
 import controller.MovePhaseControlSubsystem.SeaTransporterMPCMode;
 import model.Managers.SeaTransporterManager;
@@ -9,11 +10,12 @@ import model.TileSubsystem.Waterway;
 import model.Transporters.SeaTransporter;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/15/17.
  */
-public class SeaTransporterMoveSelectedState implements MPCInstructionState {
+public class SeaTransporterMoveSelectedState implements MPCInstructionState<MovePhaseControlMode> {
     private ArrayList<Waterway> adjacentWaterways;
     private Waterway currentWaterway;
     private Waterway targetWaterway;
@@ -49,6 +51,15 @@ public class SeaTransporterMoveSelectedState implements MPCInstructionState {
         seaTransporterManager.move(currentSeaTransporter, targetWaterway);
         context.resetCurrentMPCInstructionState();
     }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> observers) {
+        for(MovePhaseControlObserver observer : observers ){
+            observer.highlightCurrentWaterway(targetWaterway);
+        }
+    }
+
+
 
     //testing only
     public String toString(){
