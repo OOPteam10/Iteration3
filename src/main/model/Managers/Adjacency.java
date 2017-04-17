@@ -32,6 +32,17 @@ public abstract class Adjacency<Dir, AdjLoc> {
         return arr;
     }
 
+    public ArrayList<Dir> getDirectionList(){
+
+        ArrayList<Dir> arr = new ArrayList<Dir>();
+
+        for(Dir d: managerMap.keySet()){
+            arr.add(d);
+        }
+
+        return arr;
+    }
+
     public Dir getDirectionOfAdjacentLoc(AdjLoc al){
 
         for(Dir d: managerMap.keySet()){

@@ -2,8 +2,12 @@ package utilities.FileManager;
 
 import javafx.stage.FileChooser;
 import model.Game;
+import model.Managers.Adjacency;
+import model.Managers.AdjacencyManager;
+import model.Managers.SectorAdjacencyManager;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
+import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Rivers.ForkedRiver;
 import model.TileSubsystem.Rivers.NormalRiver;
@@ -92,6 +96,7 @@ public class FileManager {
                 secondaryLandProducer_write(s, writer, g);
                 //#TODO: write sea structures (OIL RIGS BOIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII)
                 //#TODO: write logistical structures on sector
+                road_write(s, writer, g);
                 //#TODO: write geese
                 writer.write("END SECTOR");
                 writer.newLine();
@@ -102,6 +107,25 @@ public class FileManager {
 
             writer.write("END TILE");
             writer.newLine();
+        }
+
+        private static void road_write(Sector s, BufferedWriter writer, Game g) throws IOException {
+            SectorAdjacencyManager roadManager = g.getRoadAdjacencyManager();
+            Adjacency<CardinalDirection, Sector> adjacents = roadManager.getAdjacency(s);
+
+            if (adjacents != null) {
+                int numDirections = adjacents.getDirectionList().size();
+                if (numDirections == 0) {
+                    //I don't know if this is necessary
+                    return;
+                }
+                writer.write("BEGIN ROAD " + numDirections);
+                writer.newLine();
+                
+                for (CardinalDirection c: adjacents.getDirectionList()) {
+                    writer.write(c.name() + " " + adjacents.getAdjacent(c).toString());
+                }
+            }
         }
 
         private static void secondaryLandProducer_write(Sector s, BufferedWriter writer, Game g) throws IOException {
