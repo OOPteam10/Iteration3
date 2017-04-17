@@ -1,19 +1,18 @@
 package utilities.FileManager;
 
-import model.Game;
 import model.Goose;
 import model.Managers.CargoManager;
 import model.Transporters.*;
 import model.resources.*;
-import model.structures.producers.Producer;
+import model.structures.LogisticalStructures.*;
 import model.structures.producers.Product;
 import model.structures.producers.Visitor.ProductFileVisitor;
-import model.structures.producers.Visitor.ProductVisitor;
 import model.structures.producers.primary.ClayPit;
 import model.structures.producers.primary.OilRig;
 import model.structures.producers.primary.StoneQuarry;
 import model.structures.producers.primary.WoodCutter;
 import model.structures.producers.primary.mine.Mine;
+import model.structures.producers.secondary.refinement.*;
 import model.structures.producers.secondary.transportation.*;
 
 import java.io.File;
@@ -222,6 +221,48 @@ public class FileInfoFactory {
 
     public static ProducerFileInfo generateFileInfo(WagonFactory w) {
         return new ProducerFileInfo("WagonFactory");
+    }
+
+    public static ProducerFileInfo generateFileInfo(CoalBurner c) {
+        return new ProducerFileInfo("CoalBurner");
+    }
+
+    public static ProducerFileInfo generateFileInfo(Mint m) {
+        return new ProducerFileInfo("Mint");
+    }
+
+    public static ProducerFileInfo generateFileInfo(PaperMill p) {
+        return new ProducerFileInfo("PaperMill");
+    }
+
+    public static ProducerFileInfo generateFileInfo(SawMill s) {
+        return new ProducerFileInfo("SawMill");
+    }
+
+    public static ProducerFileInfo generateFileInfo(StockExchange s) {
+        return new ProducerFileInfo("StockExchange");
+    }
+
+    public static ProducerFileInfo generateFileInfo(StoneFactory s) {
+        return new ProducerFileInfo("StoneFactory");
+    }
+
+    //Logistical Structures
+
+    public static LogisticalStructureFileInfo generateFileInfo(Bridge b) {
+        return new LogisticalStructureFileInfo("Bridge");
+    }
+
+    public static LogisticalStructureFileInfo generateFileInfo(NeutralWall n) {
+        return new LogisticalStructureFileInfo("NeutralWall");
+    }
+
+    public static LogisticalStructureFileInfo generateFileInfo(Road r) {
+        return new LogisticalStructureFileInfo("Road");
+    }
+
+    public static LogisticalStructureFileInfo generateFileInfo(OwnedWall o) {
+        return new LogisticalStructureFileInfo("OwnedWall");
     }
 
 }
