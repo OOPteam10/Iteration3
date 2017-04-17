@@ -1,6 +1,7 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import controller.MovePhaseControlSubsystem.RoadTransporterMPCMode;
 import model.Managers.LandTransporterManager;
 import model.Managers.SectorAdjacencyManager;
@@ -8,11 +9,12 @@ import model.TileSubsystem.Sector;
 import model.Transporters.RoadTransporter;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/14/17.
  */
-public class RoadTransporterMoveSelectedState implements MPCInstructionState {
+public class RoadTransporterMoveSelectedState implements MPCInstructionState<MovePhaseControlMode> {
     private ArrayList<Sector> adjacentSectors;
     private Sector currentSector;
     private Sector targetSector;
@@ -47,6 +49,13 @@ public class RoadTransporterMoveSelectedState implements MPCInstructionState {
     public void select(MovePhaseControlMode context) {
         landTransporterManager.move(currentRoadTransporter, targetSector);
         context.resetCurrentMPCInstructionState();
+    }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> observers) {
+        for(MovePhaseControlObserver observer : observers ){
+            observer.highlightCurrentSector(targetSector);
+        }
     }
 
     //testing only

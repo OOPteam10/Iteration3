@@ -18,6 +18,7 @@ import model.Managers.*;
 import model.TileSubsystem.Sector;
 import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
+import view.MovementPhasePreview;
 
 import java.util.ArrayList;
 
@@ -207,7 +208,11 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-        getController().changeState(new WonderPhaseControl(getController(),getGame()));
+
+        //TODO: move this to end of wonder phase
+
+        getController().nextHandler();
+
     }
 
 

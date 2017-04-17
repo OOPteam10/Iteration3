@@ -1,10 +1,12 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import controller.MovePhaseControlSubsystem.SeaTransporterMPCMode;
 import model.structures.producers.Product;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/16/17.
@@ -35,6 +37,13 @@ public class WaterwayDropOffSelectedState implements SeaTransporterMPCIState {
     public void select(SeaTransporterMPCMode context) {
         context.waterwayDropOff(currentProduct);
         context.resetCurrentMPCInstructionState();
+    }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> observers) {
+        for(MovePhaseControlObserver observer : observers ){
+            observer.highlightCurrentProduct(currentProduct);
+        }
     }
 
     //testing only

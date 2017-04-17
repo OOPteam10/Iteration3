@@ -138,17 +138,18 @@ public class GameboardPanel extends Panel {
 
 
 
-        RaftFactory sp1 = new RaftFactory(resourceManager,landTransporterManager);
+        RaftFactory sp1 = new RaftFactory(resourceManager,seaTransporterShoreManager);
         CoalBurner sp2 = new CoalBurner(resourceManager);
         Mint sp3 = new Mint(resourceManager);
-        RowboatFactory sp4 = new RowboatFactory(resourceManager, landTransporterManager);
+        RowboatFactory sp4 = new RowboatFactory(resourceManager, seaTransporterShoreManager);
         SawMill sp5 = new SawMill(resourceManager);
-        SteamerFactory sp6 = new SteamerFactory(resourceManager, landTransporterManager);
+        SteamerFactory sp6 = new SteamerFactory(resourceManager, seaTransporterShoreManager);
         StockExchange sp7 = new StockExchange(resourceManager);
         StoneFactory sp8 = new StoneFactory(resourceManager);
         TruckFactory sp9 = new TruckFactory(resourceManager, landTransporterManager);
         WagonFactory sp10 = new WagonFactory(resourceManager, landTransporterManager);
         PaperMill sp11 = new PaperMill(resourceManager);
+
 
         landSecondaryProducerManager.add(gameMap.getTile(new Location(-1,0,1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp1);
         landSecondaryProducerManager.add(gameMap.getTile(new Location(1,-1,0)).getSectorAtCardinalDirection(CardinalDirection.NE), sp2);

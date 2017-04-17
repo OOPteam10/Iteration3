@@ -49,6 +49,11 @@ public class ProductionPhase implements Phase {
         execute(p2);
     }
 
+    @Override
+    public void execute() {
+        iterateLandProducers();
+    }
+
     private void iterateLandProducers(){
         //TODO some logic with placing the product
         landPrimaryProducerManager.produceAll();

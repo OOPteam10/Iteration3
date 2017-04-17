@@ -10,6 +10,7 @@ import model.resources.Resource;
 import model.structures.producers.Product;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/14/17.
@@ -38,16 +39,22 @@ public class RoadTransporterMPCMode implements MovePhaseControlMode {
         resetCurrentMPCInstructionState();
     }
 
-    public void nextTransporter() {
+    public void nextTransporter(Vector<MovePhaseControlObserver> observers) {
         int next = (roadTransporters.indexOf(currentRoadTransporter)+1)
                 % roadTransporters.size();
         currentRoadTransporter = roadTransporters.get(next);
+        for(MovePhaseControlObserver observer: observers){
+            observer.highlightCurrentRoadTransporter(currentRoadTransporter);
+        }
     }
 
-    public void previousTransporter() {
+    public void previousTransporter(Vector<MovePhaseControlObserver> observers) {
         int previous = (roadTransporters.indexOf(currentRoadTransporter)-1
                 + roadTransporters.size()) % roadTransporters.size();
         currentRoadTransporter = roadTransporters.get(previous);
+        for(MovePhaseControlObserver observer: observers){
+            observer.highlightCurrentRoadTransporter(currentRoadTransporter);
+        }
     }
 
     public void resetCurrentMPCInstructionState(){
@@ -92,6 +99,13 @@ public class RoadTransporterMPCMode implements MovePhaseControlMode {
     public void pickUpSeaTransporter(SeaTransporter st){
         seaTransporterShoreManager.removeOccupant(st);
         cargoManager.add(currentRoadTransporter, st);
+    }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> movePhaseControlObservers) {
+        for(MovePhaseControlObserver observer : movePhaseControlObservers){
+            observer.updateModeToRoadTransporter();
+        }
     }
 
 

@@ -5,11 +5,13 @@ import controller.Actions.*;
 import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.MMCState;
 
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import javafx.scene.input.KeyCode;
 import model.Game;
 import utilities.TileEditor;
 import view.Camera;
 import view.MapMakerPreview;
+import view.MovementPhasePreview;
 
 import java.util.Vector;
 
@@ -24,17 +26,14 @@ public abstract class  ControlHandler {
     private Controller controller;
     private Vector<Action> actions = new Vector<Action>() ;
     private Vector<KeyListener> kLSet = new Vector<KeyListener>();
-
     private Game game;
 
-
-
     public ControlHandler(Controller controller, Game game){
-
 
         this.controller = controller;
         this.game = game;
         addCommonActions();
+
 
     }
 
@@ -42,7 +41,6 @@ public abstract class  ControlHandler {
     public ControlHandler() {
         addCommonActions();
     }
-
 
     public void addCommonActions(){
 
@@ -60,9 +58,6 @@ public abstract class  ControlHandler {
         //my attempt to add actions
         //addAction(new Up(this), new KeyListener(KeyCode.UP));
         //addAction(new Down(this), new KeyListener(KeyCode.DOWN));
-
-
-
 
     }
 
@@ -87,11 +82,9 @@ public abstract class  ControlHandler {
         return controller;
     }
 
-
     public Game getGame(){
         return game;
     }
-
 
 
     public void setGame(Game game) {

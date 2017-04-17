@@ -1,14 +1,16 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import model.Transporters.LandTransporter;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/13/17.
  */
-public class PickUpLandTransporterMPCIState implements MPCInstructionState {
+public class PickUpLandTransporterMPCIState implements MPCInstructionState<MovePhaseControlMode> {
 
     private ArrayList<LandTransporter> landTransporters;
 
@@ -26,6 +28,13 @@ public class PickUpLandTransporterMPCIState implements MPCInstructionState {
 
     public void select(MovePhaseControlMode context) {
         context.setCurrentMPCInstructionState(new PickUpLandTransporterSelectedState(context, landTransporters));
+    }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> observers) {
+        for(MovePhaseControlObserver observer : observers ){
+            observer.updateInstructionToPickUpLandTransporter();
+        }
     }
 
     //testing only
