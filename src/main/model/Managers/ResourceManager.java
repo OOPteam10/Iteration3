@@ -6,6 +6,7 @@ import model.DropOffAbilities.WaterwayDiscardAbility;
 import model.TileSubsystem.Sector;
 import model.resources.Resource;
 import model.resources.Visitor.*;
+import model.structures.producers.secondary.SecondaryProducer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,12 +34,20 @@ public class ResourceManager extends ListManager<Sector, Resource>{
     }
 
     private void addVisitorBuildAbility(LandProducerBuildAbilityVisitor v, Sector s) {
-        for (Resource r : super.getManagerMap().get(s)) {
+        for (Resource r : getManagerMap().get(s)) {
             r.accept(v);
         }
         LandProducerBuildAbility landProducerBuildAbility = v.makeAbility();
         if (landProducerBuildAbility != null) {
             landProducerBuildAbilities.add(landProducerBuildAbility);
+        }
+    }
+
+    public void addProducerResourceVisitor(SecondaryProducer v, Sector s){
+        if(getManagerMap().get(s)!=null) {
+            for (Resource r : getManagerMap().get(s)) {
+                r.accept(v);
+            }
         }
     }
 
