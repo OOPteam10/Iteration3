@@ -207,7 +207,11 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-        getController().changeState(new WonderPhaseControl(getController(),getGame()));
+
+        //TODO: move this to end of wonder phase
+
+        getController().nextHandler();
+
     }
 
 

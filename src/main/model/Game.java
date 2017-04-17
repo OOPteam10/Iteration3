@@ -38,8 +38,6 @@ public class Game implements ManagerSupplier {
     private ArrayList<Phase> phases = new ArrayList<Phase>();
     private Phase currentPhase;
 
-    private ProductionPhase productionPhase;
-
     private WaterwayToSectorManager waterwayToSectorManager;
     private SectorToWaterwayManager sectorToWaterwayManager;
 
@@ -80,7 +78,6 @@ public class Game implements ManagerSupplier {
         phases.add( new WonderPhase(landTransporterManager, resourceManager, seaTransporterShoreManager, cargoManager) );
 
         currentPhase = phases.get(0);
-
 
     }
 
@@ -149,8 +146,11 @@ public class Game implements ManagerSupplier {
     }
 
     //for testing purposes
+
+    public void executeProductionPhase(){currentPhase.execute();} //only makes sense while we aren't changing phases
+
     public void startGame(){
-        currentPhase = phases.get(1);
+        currentPhase = phases.get(0);
     }
 
     public Phase getCurrentPhase(){

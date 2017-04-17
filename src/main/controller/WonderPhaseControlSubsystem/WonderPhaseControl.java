@@ -121,7 +121,8 @@ public class WonderPhaseControl extends ControlHandler {
     public void endTurn() {
 
         wonder.addNeutralBrick();
-        getController().changeState(new MovePhaseControl( getController(),getGame()));
+        getGame().executeProductionPhase();
+        getController().nextHandler();
     }
 
     //testing only

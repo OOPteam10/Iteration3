@@ -263,7 +263,7 @@ public class MovePhaseControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-        getController().changeState(new BuildPhaseControl( getController(),getGame()));
+        getController().nextHandler();
     }
 
 
