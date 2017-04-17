@@ -82,7 +82,6 @@ public class FileManager {
         }
 
         public static Game loadGame(File f) throws IOException {
-            Game game = new Game();
             HashMap<Location, Tile> tiles = new HashMap<>();
             SectorAdjacencyManager roadAdjacencyManager = new SectorAdjacencyManager();
             LandTransporterManager landTransporterManager = new LandTransporterManager();
@@ -99,16 +98,17 @@ public class FileManager {
 
             while (in != null) {
                 if (in.substring(0,1).equals("(")) {
-                    readTile(game, reader, tiles, roadAdjacencyManager, landTransporterManager, seaTransporterManager, seaTransporterShoreManager,
+                    readTile(reader, tiles, roadAdjacencyManager, landTransporterManager, seaTransporterManager, seaTransporterShoreManager,
                             resourceManager, landPrimaryProducerManager, landSecondaryProducerManager, cargoManager, in);
                 }
                 in = reader.readLine();
             }
 
-            return game;
+            return new Game(roadAdjacencyManager, landTransporterManager, seaTransporterManager, seaTransporterShoreManager,
+                    resourceManager, cargoManager, landPrimaryProducerManager, landSecondaryProducerManager, new Map(tiles));
         }
 
-        private static void readTile(Game game, BufferedReader reader, HashMap<Location, Tile> tiles, SectorAdjacencyManager roadAdjacencyManager,
+        private static void readTile(BufferedReader reader, HashMap<Location, Tile> tiles, SectorAdjacencyManager roadAdjacencyManager,
                                      LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
                                      SeaTransporterShoreManager seaTransporterShoreManager, ResourceManager resourceManager,
                                      LandPrimaryProducerManager landPrimaryProducerManager, LandSecondaryProducerManager landSecondaryProducerManager,
@@ -150,32 +150,37 @@ public class FileManager {
                         landSecondaryProducerManager.add(currentSector, (SecondaryProducer) newProducer);
                     }
                     in = reader.readLine();
-                } else if (in.substring(0,10).equals("BEGIN ROAD")) {
+                } else if (in.contains("BEGIN ROAD")) {
                     int numRoad = Integer.parseInt(in.substring(12));
                     for (int i = 0; i < numRoad; i++) {
                         parseRoadAdjacency(reader.readLine(), roadAdjacencyManager, currentSector);
                     }
                     in = reader.readLine();
-                } else if (in.substring(0,12).equals("BEGIN SECTOR")) {
+                } else if (in.contains("BEGIN SECTOR")) {
                      currentSector = parseSingleSector(in);
                      in = reader.readLine();
-                 } else if (in.substring(0,14).equals("BEGIN RESOURCE")) {
+                 } else if (in.contains("BEGIN RESOURCE")) {
                      int numResources = Integer.parseInt(in.substring(16));
                      for (int i=0; i<numResources; i++) {
                         Resource newResource = parseResource(reader.readLine());
                         resourceManager.add(currentSector, newResource);
                      }
                      in = reader.readLine();
-                } else if (in.substring(0,22).equals("BEGIN LAND TRANSPORTER")) {
+                } else if (in.contains("BEGIN LAND TRANSPORTER")) {
                     int numTransporters = Integer.parseInt(in.substring(24));
                     for (int i=0; i<numTransporters; i++) {
                         LandTransporter newTransporter = landTransporterParse(reader.readLine(), cargoManager);
+                        landTransporterManager.add(newTransporter, currentSector);
                     }
                     in = reader.readLine();
-                } else if (in.substring(0,21).equals("BEGIN SEA TRANSPORTER")) {
-                     //TODO
-                 } else if (in.substring(0,28).equals("BEGIN DOCKED SEA TRANSPORTER")) {
-                     //TODO
+                } else if (in.contains("BEGIN SEA TRANSPORTER")) {
+                     int numTransporters = Integer.parseInt(in.substring(23));
+                     for (int i=0; i<numTransporters; i++) {
+                         String s = reader.readLine();
+                     }
+                 } else if (in.contains("BEGIN DOCKED SEA TRANSPORTER")) {
+                     SeaTransporter newtransporter = parseDockedSeaTransporter(reader.readLine(), cargoManager);
+                     seaTransporterShoreManager.add(newtransporter, currentSector);
                  } else {
                     System.out.println("Could not understand this line like damn, it was " + in);
                     in = reader.readLine();
@@ -183,6 +188,31 @@ public class FileManager {
             }
 
             return sectors;
+        }
+
+        private static SeaTransporter parseDockedSeaTransporter(String s, CargoManager cargoManager) {
+            ArrayList<Product> cargo = new ArrayList<>();
+            SeaTransporter out;
+            if (s.contains("(")) {
+                cargo = cargoParse(s.substring(s.indexOf('(')+1,s.indexOf(')')));
+            }
+            switch (s) {
+                case "Raft":
+                    out = new Raft();
+                    break;
+                case "Rowboat":
+                    out = new Rowboat();
+                    break;
+                case "Steamship":
+                    out = new Steamship();
+                    break;
+                default:
+                    System.out.println("Could not convert " + s + " to a Land transporter");
+                    return null;
+            }
+
+            cargoManager.add(out, cargo);
+            return out;
         }
 
         private static void parseRoadAdjacency(String s, SectorAdjacencyManager roadAdjacencyManager, Sector currentSector) {

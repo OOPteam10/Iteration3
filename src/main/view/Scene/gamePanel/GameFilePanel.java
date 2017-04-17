@@ -69,13 +69,10 @@ public class GameFilePanel extends Panel {
     }
 
     private void loadGame(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Load Game");
-        fileChooser.setInitialDirectory(new File("Assets/Saves"));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Txt Files", "*.txt"));
-        File newgame = fileChooser.showOpenDialog(null);
-        if(newgame!= null){
-
+        try {
+            this.game = FileManager.loadGameManager();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -84,7 +81,7 @@ public class GameFilePanel extends Panel {
     }
 
     private void restartGame(){
-
+        this.game = new Game();
     }
 
     private void setPosition(Point screenDimension){

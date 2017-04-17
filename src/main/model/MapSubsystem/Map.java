@@ -29,6 +29,10 @@ public class Map {
         tiles = new HashMap<Location, Tile>();
     }
 
+    public Map(HashMap<Location, Tile> tiles) {
+        this.tiles = tiles;
+    }
+
     public boolean addLandTile(LandTile tile, Location location) {
         boolean valid;
         valid = validateLandTilePlacement(tile, location) ;

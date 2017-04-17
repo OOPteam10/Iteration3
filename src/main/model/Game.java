@@ -4,6 +4,7 @@ import model.Managers.*;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.TileSubsystem.Tiles.Tile;
+import model.Transporters.LandTransporter;
 import model.Wonder.Wonder;
 import model.phases.*;
 import utilities.FileManager.FileManager;
@@ -79,6 +80,39 @@ public class Game implements ManagerSupplier {
 
         currentPhase = phases.get(0);
 
+    }
+
+    public Game(SectorAdjacencyManager roadAdjacencyManager, LandTransporterManager landTransporterManager, SeaTransporterManager seaTransporterManager,
+                SeaTransporterShoreManager seaTransporterShoreManager, ResourceManager resourceManager, CargoManager cargoManager,
+                LandPrimaryProducerManager landPrimaryProducerManager, LandSecondaryProducerManager landSecondaryProducerManager, Map map) {
+        this.map = map;
+        player1 = new PlayerID();
+        player2 = new PlayerID();
+        wonder = new Wonder();
+        this.roadAdjacencyManager = roadAdjacencyManager;
+        this.landTransporterManager = landTransporterManager;
+        this.seaTransporterManager = seaTransporterManager;
+        this.seaTransporterShoreManager = seaTransporterShoreManager;
+        this.resourceManager = resourceManager;
+        this.cargoManager = cargoManager;
+
+        this.map.formatSurfaceMaps();
+        sectorAdjacencyManager = this.map.generateSectorAdjacencyManager();
+        waterwayAdjacencyManager = this.map.generateWaterwayAdjacencyManager();
+        waterwayToSectorManager = this.map.generateWaterwayToSectorManager();
+        sectorToWaterwayManager = this.map.generateSectorToWaterwayManager();
+
+        phases.add( new ProductionPhase(landPrimaryProducerManager, landSecondaryProducerManager,
+                landTransporterManager, seaProducerManager, seaTransporterManager, seaTransporterShoreManager,
+                cargoManager, resourceManager) );
+        phases.add( new MovementPhase(landTransporterManager, seaTransporterManager, seaTransporterShoreManager,
+                resourceManager, cargoManager, sectorAdjacencyManager, roadAdjacencyManager, waterwayAdjacencyManager) );
+        phases.add( new BuildingPhase(landPrimaryProducerManager, landSecondaryProducerManager, landTransporterManager,
+                seaProducerManager, seaTransporterManager, seaTransporterShoreManager, cargoManager, resourceManager,
+                sectorAdjacencyManager, roadAdjacencyManager, waterwayAdjacencyManager) );
+        phases.add( new WonderPhase(landTransporterManager, resourceManager, seaTransporterShoreManager, cargoManager) );
+
+        currentPhase = phases.get(0);
     }
 
     public HashMap<Location, Tile> getMap(){//TODO: REFACTOR!
