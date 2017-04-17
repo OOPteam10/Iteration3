@@ -97,6 +97,9 @@ public class Assets {
 
         //Load Road
         loadItem("ROAD","Assets/Road.png");
+
+        //Load Brick
+        loadItem("RED_BRICK","Assets/RedBrick.png");
     }
 
     public void loadItem(String name, String path){
