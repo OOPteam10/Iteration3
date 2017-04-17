@@ -8,10 +8,7 @@ import model.TileSubsystem.Tiles.Tile;
 
 public class PlayerID {
 
-    Tile homeTile;
+    public PlayerID(){
 
-    public PlayerID(Tile startingTile){
-
-        homeTile = startingTile;
     }
 }

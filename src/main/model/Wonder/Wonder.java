@@ -52,6 +52,14 @@ public class Wonder {
         currentLevel = levelIterator.next();
     }
 
+    public void buyBricks(int num, PlayerID playerID){
+
+        for(int i = 0; i < num; i++){
+
+            addPlayerBrick(playerID);
+        }
+    }
+
     public int calculateScore(PlayerID playerID){
 
         int totalScore = 0;
