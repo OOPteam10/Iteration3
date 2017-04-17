@@ -44,4 +44,5 @@ public interface MovePhaseControlObserver {
     public void updateInstructionToPickUpResource();
 
 
+    void updateInstructionToWaterwayDropOff();
 }

@@ -43,8 +43,8 @@ public class BuildPhaseControl extends ControlHandler {
     private BPCTransporterStrategy buildPhaseControlStrategy;
 
 
-    public BuildPhaseControl(Controller controller, Game ms, MovementPhasePreview preview){
-        super(controller, ms, preview);
+    public BuildPhaseControl(Controller controller, Game ms){
+        super(controller, ms);
         landTransporterManager = ms.getLandTransporterManager();
         seaTransporterShoreManager = ms.getSeaTransporterShoreManager();
         resourceManager = ms.getResourceManager();

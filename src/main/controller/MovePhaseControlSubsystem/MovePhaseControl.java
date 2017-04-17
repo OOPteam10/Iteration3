@@ -62,9 +62,8 @@ public class MovePhaseControl extends ControlHandler {
    
 
 
-    public MovePhaseControl(Controller controller, Game game, MovementPhasePreview preview){
-        super(controller,game,preview);
-
+    public MovePhaseControl(Controller controller, Game game, Vector<MovePhaseControlObserver> observers){
+        super(controller,game);
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
         this.seaTransporterShoreManager = game.getSeaTransporterShoreManager();
@@ -76,7 +75,6 @@ public class MovePhaseControl extends ControlHandler {
         this.sectorToWaterwayManager = game.getSectorToWaterwayManager();
         this.waterwayToSectorManager = game.getWaterwayToSectorManager();
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
-        this.observers = observers;
 
         addAction(new NextMode(this), new KeyListener(KeyCode.M));
         addAction(new PrevMode(this), new KeyListener(KeyCode.N));
@@ -117,7 +115,7 @@ public class MovePhaseControl extends ControlHandler {
                 % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(next);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
-        currentMovePhaseControlMode.notifyObserver(observers);
+        currentMovePhaseControlMode.notifyObservers(observers);
     }
 
 
@@ -127,7 +125,7 @@ public class MovePhaseControl extends ControlHandler {
                 + movePhaseControlModes.size()) % movePhaseControlModes.size();
         currentMovePhaseControlMode = movePhaseControlModes.get(previous);
         currentMovePhaseControlMode.resetCurrentMPCInstructionState();
-        currentMovePhaseControlMode.notifyObserver(observers);
+        currentMovePhaseControlMode.notifyObservers(observers);
     }
 
     private void nextTransporter(){
@@ -144,15 +142,18 @@ public class MovePhaseControl extends ControlHandler {
     public void resetMPCInstructionStates(){
         for(MovePhaseControlMode mpcm: movePhaseControlModes){
             mpcm.resetCurrentMPCInstructionState();
+            currentMovePhaseControlMode.notifyObservers(observers);
         }
     }
 
     private void cycleLeft(){
         currentMovePhaseControlMode.cycleLeft();
+        currentMovePhaseControlMode.notifyObservers(observers);
     } //changes instruction or target
 
     private void cycleRight(){
         currentMovePhaseControlMode.cycleRight();
+        currentMovePhaseControlMode.notifyObservers(observers);
     } //changes instruction or target
 
     public ArrayList<MovePhaseControlMode> getMovePhaseControlModes() {

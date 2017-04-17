@@ -102,7 +102,7 @@ public class RoadTransporterMPCMode implements MovePhaseControlMode {
     }
 
     @Override
-    public void notifyObserver(Vector<MovePhaseControlObserver> movePhaseControlObservers) {
+    public void notifyObservers(Vector<MovePhaseControlObserver> movePhaseControlObservers) {
         for(MovePhaseControlObserver observer : movePhaseControlObservers){
             observer.updateModeToRoadTransporter();
         }

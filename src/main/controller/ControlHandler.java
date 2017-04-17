@@ -26,15 +26,14 @@ public abstract class  ControlHandler {
     private Controller controller;
     private Vector<Action> actions = new Vector<Action>() ;
     private Vector<KeyListener> kLSet = new Vector<KeyListener>();
-    private MovementPhasePreview movementPhasePreview;
     private Game game;
 
-    public ControlHandler(Controller controller, Game game, MovementPhasePreview movementPhasePreview){
+    public ControlHandler(Controller controller, Game game){
 
         this.controller = controller;
         this.game = game;
         addCommonActions();
-        this.movementPhasePreview = movementPhasePreview;
+
 
     }
 
@@ -60,9 +59,6 @@ public abstract class  ControlHandler {
         //addAction(new Up(this), new KeyListener(KeyCode.UP));
         //addAction(new Down(this), new KeyListener(KeyCode.DOWN));
 
-
-
-
     }
 
     public void addAction(Action action, KeyListener keyListener){
@@ -85,12 +81,10 @@ public abstract class  ControlHandler {
     public Controller getController(){
         return controller;
     }
-    public MovementPhasePreview getMovementPhasePreview(){ return movementPhasePreview;}
 
     public Game getGame(){
         return game;
     }
-
 
 
     public void setGame(Game game) {

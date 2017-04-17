@@ -108,4 +108,9 @@ public class MovementPhasePreview implements MovePhaseControlObserver {
     public void updateInstructionToPickUpResource() {
 
     }
+
+    @Override
+    public void updateInstructionToWaterwayDropOff() {
+        
+    }
 }

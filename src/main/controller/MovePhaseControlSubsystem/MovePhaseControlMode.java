@@ -36,6 +36,6 @@ public interface MovePhaseControlMode {
     SectorTransporterManager getSectorTransporterManager();
     Transporter getCurrentTransporter();
     void pickUpSeaTransporter(SeaTransporter st);
-    void notifyObserver(Vector<MovePhaseControlObserver> observers);
+    void notifyObservers(Vector<MovePhaseControlObserver> observers);
 
 }
