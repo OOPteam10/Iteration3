@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import model.Game;
+import utilities.FileManager.FileManager;
 import view.Camera;
 import view.Panel;
 import view.PanelManager;
@@ -64,14 +65,7 @@ public class GameFilePanel extends Panel {
     }
 
     private void saveGame(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Game");
-        fileChooser.setInitialDirectory(new File("Assets/Saves"));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Txt Files","*.txt"));
-        File saveGame = fileChooser.showSaveDialog(null);
-        if(saveGame!=null){
-            saveFile(saveGame);
-        }
+        FileManager.saveGameManager(game);
     }
 
     private void loadGame(){

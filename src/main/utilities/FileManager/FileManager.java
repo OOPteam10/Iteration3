@@ -22,6 +22,13 @@ import model.Transporters.SeaTransporter;
 import model.Transporters.Visitor.LandTransporterFileVisitor;
 import model.Transporters.Visitor.SeaTransporterFileVisitor;
 import model.Transporters.Visitor.SeaTransporterVisitor;
+import model.resources.Resource;
+import model.resources.Visitor.ResourceFileVisitor;
+import model.structures.producers.Producer;
+import model.structures.producers.Visitor.PrimaryProducerFileVisitor;
+import model.structures.producers.Visitor.SecondaryProducerFileVisitor;
+import model.structures.producers.primary.PrimaryProducer;
+import model.structures.producers.secondary.SecondaryProducer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -41,6 +48,7 @@ public class FileManager {
 
 
         public static void saveGameManager(Game g) {
+            System.out.println("Got to manager");
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Game");
             fileChooser.setInitialDirectory(new File("Assets/Saves"));
@@ -54,10 +62,12 @@ public class FileManager {
 
         public static void saveGame(File saveGame, Game g) {
             try {
+                System.out.println("Got to actual");
                 BufferedWriter writer = new BufferedWriter(new PrintWriter(saveGame));
                 for (Location l: g.getMap().keySet()) {
                     tile_write(l, writer, g);
                 }
+                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -65,19 +75,27 @@ public class FileManager {
 
 
         public static void tile_write(Location loc, BufferedWriter writer, Game g) throws IOException {
+            System.out.println("Got to tileSaver");
             TileFileVisitor tf = new TileFileVisitor();
 
             g.getMap().get(loc).accept(tf);
-            writer.write(location_print(loc) + tf.getTileInfo().toFileFormat());
+            writer.write(location_print(loc) + " " +  tf.getTileInfo().toFileFormat());
             writer.newLine();
             for (Sector s: g.getMap().get(loc).getSectors()) {
-                writer.write("BEGIN SECTOR");
+                System.out.println("got to sector");
+                writer.write("BEGIN SECTOR " + s.toString());
                 writer.newLine();
                 landTransporter_write(s, writer, g);
-                //#TODO: write structures on sector
+                resource_write(s, writer, g);
+                dockedSeaTransporter_write(s, writer, g);
+                primaryLandProducer_write(s, writer, g);
+                secondaryLandProducer_write(s, writer, g);
+                //#TODO: write sea structures (OIL RIGS BOIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII)
+                //#TODO: write logistical structures on sector
                 //#TODO: write geese
                 writer.write("END SECTOR");
                 writer.newLine();
+
             }
 
             seaTransporter_write(loc, writer, g);
@@ -86,28 +104,103 @@ public class FileManager {
             writer.newLine();
         }
 
-        public static void landTransporter_write(Sector s, BufferedWriter bf, Game g) throws IOException {
+        private static void secondaryLandProducer_write(Sector s, BufferedWriter writer, Game g) throws IOException {
+            SecondaryProducer producer = g.getLandSecondaryProducerManager().getProducer(s);
+            if (producer != null) {
+                writer.write("BEGIN PRODUCER");
+                writer.newLine();
+
+                SecondaryProducerFileVisitor visitor = new SecondaryProducerFileVisitor();
+                producer.accept(visitor);
+
+                writer.write(visitor.getInfo().toFileFormat());
+                writer.newLine();
+            }
+        }
+
+        private static void primaryLandProducer_write(Sector s, BufferedWriter writer, Game g) throws IOException {
+            PrimaryProducer producer = g.getLandPrimaryProducerManager().getProducer(s);
+            if (producer != null) {
+                writer.write("BEGIN PRODUCER");
+                writer.newLine();
+
+                PrimaryProducerFileVisitor visitor = new PrimaryProducerFileVisitor();
+                producer.accept(visitor);
+
+                writer.write(visitor.getInfo().toFileFormat());
+                writer.newLine();
+            }
+        }
+
+        private static void dockedSeaTransporter_write(Sector s, BufferedWriter writer, Game g) throws IOException {
+            ArrayList<SeaTransporter> seaThings = g.getSeaTransporterShoreManager().getContentsOfArea(s);
+
+            if (seaThings.size() == 0) {
+                return;
+            }
+
+            SeaTransporterFileVisitor visitor = new SeaTransporterFileVisitor(g.getCargoManager());
+
+            writer.write("BEGIN DOCKED SEA TRANSPORTER " + seaThings.size());
+            writer.newLine();
+
+            for (SeaTransporter transporter :  seaThings){
+                transporter.accept(visitor);
+                writer.write(visitor.getInfo().toFileFormat());
+                writer.newLine();
+            }
+
+        }
+
+        private static void resource_write(Sector s, BufferedWriter writer, Game g) throws IOException {
+            ResourceFileVisitor visitor = new ResourceFileVisitor();
+
+            int numResources = g.getResourceManager().get(s).size();
+
+            if (numResources == 0) {
+                return;
+            }
+
+            writer.write("BEGIN RESOURCE " + numResources);
+            writer.newLine();
+
+            for (Resource r: g.getResourceManager().get(s)) {
+                r.accept(visitor);
+                ResourceFileInfo info = visitor.getInfo();
+                writer.write(info.toFileFormat());
+                writer.newLine();
+            }
+        }
+
+        private static void landTransporter_write(Sector s, BufferedWriter bf, Game g) throws IOException {
             LandTransporterFileVisitor visitor = new LandTransporterFileVisitor(g.getCargoManager());
 
             int numTransporters =  s.getTransporters(g.getLandTransporterManager()).size();
 
+            if (numTransporters == 0) {
+                return;
+            }
+
             bf.write("BEGIN LAND TRANSPORTER " + numTransporters);
             bf.newLine();
-            for (LandTransporter transporter : s.getTransporters(g.getLandTransporterManager())) {
+            for (LandTransporter transporter : g.getLandTransporterManager().getContentsOfArea(s) ) {
                 transporter.accept(visitor);
                 TransporterFileInfo info = (TransporterFileInfo) visitor.getFileInfo();
                 bf.write(info.toFileFormat());
                 bf.newLine();
             }
-            bf.write("END LAND TRANSPORTER");
-            bf.newLine();
         }
 
-        public static void seaTransporter_write(Location loc, BufferedWriter bf, Game g) throws IOException {
+        private static void seaTransporter_write(Location loc, BufferedWriter bf, Game g) throws IOException {
             if (g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager()).size() > 0) {
                 SeaTransporterFileVisitor visitor = new SeaTransporterFileVisitor(g.getCargoManager());
 
                 int numSeaTransporters = g.getActualMap().getWaterwayMap().getTile(loc).getSeaTransporters(g.getSeaTransporterManager()).size();
+
+                if (numSeaTransporters == 0) {
+                    return;
+                }
+
                 bf.write("BEGIN SEA TRANSPORTER " + numSeaTransporters);
                 bf.newLine();
 
@@ -116,8 +209,6 @@ public class FileManager {
                     bf.write(visitor.getInfo().toFileFormat());
                     bf.newLine();
                 }
-                bf.write("END SEA TRANSPORTER");
-                bf.newLine();
             }
         }
 

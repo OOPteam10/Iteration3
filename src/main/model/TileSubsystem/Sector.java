@@ -30,11 +30,13 @@ public class Sector {
         return halfEdges;
     }
 
-    //for testing only
+    //for testing (EDIT: and saving) only
     public String toString(){
-        String s = "Sector(";
+        String spacer = "";
+        String s = "(";
         for(CardinalDirection cd: halfEdges){
-            s += (cd.name() + " ");
+            s += (spacer + cd.name());
+            spacer = " ";
         }
         s += ")";
         return s;

@@ -13,6 +13,11 @@ public class MineFileInfo extends ProducerFileInfo {
         this.producer = "Mine";
     }
 
+    public MineFileInfo() {
+        this.remainingProduct = new ArrayList<>();
+        this.producer = "Mine";
+    }
+
     public ArrayList<ResourceFileInfo> getRemainingProduct() {
         return remainingProduct;
     }
