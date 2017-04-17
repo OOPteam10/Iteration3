@@ -137,6 +137,10 @@ public class Wonder {
 
     }
 
+    public int getCount(){
+        return count;
+    }
+
     public int getBrickPrice(){
         return brickPrice;
     }
