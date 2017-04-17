@@ -27,10 +27,7 @@ public abstract class  ControlHandler {
 
     private Game game;
 
-
-
     public ControlHandler(Controller controller, Game game){
-
 
         this.controller = controller;
         this.game = game;
@@ -42,7 +39,6 @@ public abstract class  ControlHandler {
     public ControlHandler() {
         addCommonActions();
     }
-
 
     public void addCommonActions(){
 
