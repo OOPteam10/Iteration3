@@ -5,6 +5,7 @@ import model.ManagerSupplier;
 import model.TileSubsystem.Sector;
 import model.resources.Board;
 import model.resources.Stone;
+import model.structures.producers.primary.mine.BigMine;
 
 import java.util.ArrayList;
 
@@ -12,8 +13,8 @@ import java.util.ArrayList;
  * Created by allisonaguirre on 4/11/17.
  */
 public class BuildBigMineAbility extends LandProducerBuildAbility {
-    ArrayList<Board> boardArrayList = new ArrayList<>();
-    ArrayList<Stone> stoneArrayList = new ArrayList<>();
+    private ArrayList<Board> boardArrayList = new ArrayList<>();
+    private ArrayList<Stone> stoneArrayList = new ArrayList<>();
 
     public BuildBigMineAbility(Board b0, Board b1, Board b2, Stone s) {
         boardArrayList.add(b0);
@@ -24,15 +25,21 @@ public class BuildBigMineAbility extends LandProducerBuildAbility {
 
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
-        list.addBigMine(this);
+        list.addBuildNormalMine(this);
     }
 
     @Override
     public void execute(Sector s, ManagerSupplier ms) {
-        // TODO
-    }
+        for (Board board : boardArrayList) {
+            ms.getResourceManager().remove(s, board);
+        }
 
+        for (Stone stone : stoneArrayList) {
+            ms.getResourceManager().remove(s, stone);
+        }
+        ms.getLandPrimaryProducerManager().add(s, new BigMine(ms.getResourceManager()));
+    }
     public String toString(){
-        return "Build Big Mine";
+        return "Build Mine";
     }
 }
