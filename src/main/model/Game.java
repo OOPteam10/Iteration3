@@ -3,9 +3,13 @@ package model;
 import model.Managers.*;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
+import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.Tile;
+import model.TileSubsystem.Waterway;
+import model.Transporters.Transporter;
 import model.Wonder.Wonder;
 import model.phases.*;
+import model.structures.producers.Visitor.ProductVisitor;
 import utilities.FileManager.FileManager;
 import utilities.TileEditor;
 
@@ -30,6 +34,7 @@ public class Game implements ManagerSupplier {
     private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private CargoManager cargoManager;
+    private Transporter currentTransporter;
 
     private LandPrimaryProducerManager landPrimaryProducerManager;
     private LandSecondaryProducerManager landSecondaryProducerManager;
@@ -41,6 +46,8 @@ public class Game implements ManagerSupplier {
     private WaterwayToSectorManager waterwayToSectorManager;
     private SectorToWaterwayManager sectorToWaterwayManager;
 
+    //This is non-oop
+    private int controlState;
 
     public Game(){
         map = new Map();
@@ -48,6 +55,24 @@ public class Game implements ManagerSupplier {
         player2 = new PlayerID();
         wonder = new Wonder();
 
+        currentTransporter = new Transporter() {
+            @Override
+            public void dropOff(Sector s) {
+
+            }
+
+            @Override
+            public void dropOff(Waterway w) {
+
+            }
+
+            @Override
+            public void accept(ProductVisitor v) {
+
+            }
+        };
+
+        controlState = 0;
         //instantiate tile editor
         TileEditor.getInstance().init(map);
         setDefaultMap();
@@ -172,4 +197,12 @@ public class Game implements ManagerSupplier {
     public PlayerID getPlayer2() {
         return player2;
     }
+
+    public void setControlState(int controlState){this.controlState = controlState;}
+
+    public int getControlState(){return this.controlState;}
+
+    public void setCurrentTransporter(Transporter transporter){this.currentTransporter = transporter;}
+
+    public Transporter getCurrentTransporter(){return this.currentTransporter;}
 }

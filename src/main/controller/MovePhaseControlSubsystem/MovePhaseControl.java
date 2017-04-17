@@ -57,13 +57,11 @@ public class MovePhaseControl extends ControlHandler {
     private ArrayList<RoadTransporter> roadTransporterList = new ArrayList<RoadTransporter>();
     private ArrayList<SeaTransporter> seaTransporterList = new ArrayList<SeaTransporter>();
     private Vector<MovePhaseControlObserver> observers = new Vector<MovePhaseControlObserver>();
-
-
-   
-
+    private Game game;
 
     public MovePhaseControl(Controller controller, Game game, Vector<MovePhaseControlObserver> observers){
         super(controller,game);
+        this.game = game;
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
         this.seaTransporterShoreManager = game.getSeaTransporterShoreManager();
@@ -269,6 +267,7 @@ public class MovePhaseControl extends ControlHandler {
 
     @Override
     public void endTurn() {
+        game.setControlState(2);
         getController().nextHandler();
     }
 
@@ -310,4 +309,6 @@ public class MovePhaseControl extends ControlHandler {
                 " Instruction: " + currentMovePhaseControlMode.getCurrentMPCInstructionState().toString());
         return s;
     }
+
+
 }

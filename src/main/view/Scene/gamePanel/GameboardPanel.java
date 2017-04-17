@@ -59,6 +59,7 @@ public class GameboardPanel extends Panel {
     private SeaTransporterShoreManager seaTransporterShoreManager;
     private ResourceManager resourceManager;
     private SectorAdjacencyManager roadAdjacencyManager;
+    private Transporter currentTransporter;
 
     public GameboardPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
         super(game, assets, gameMode);
@@ -74,6 +75,7 @@ public class GameboardPanel extends Panel {
         landSecondaryProducerManager = game.getLandSecondaryProducerManager();
         seaTransporterShoreManager = game.getSeaTransporterShoreManager();
         roadAdjacencyManager = game.getRoadAdjacencyManager();
+        currentTransporter = game.getCurrentTransporter();
         updateGameMap();
         addEntities();
     }
@@ -108,10 +110,12 @@ public class GameboardPanel extends Panel {
         Steamship st2 = new Steamship();
         Rowboat st3 = new Rowboat();
         Steamship st4 = new Steamship();
+        Steamship st5 = new Steamship();
 
         seaTransporterManager.add(st1, waterwayMap.getTile(new Location(0,0,0)));
         seaTransporterManager.add(st2, waterwayMap.getTile(new Location(0,1,-1)));
         seaTransporterManager.add(st3, waterwayMap.getTile(new Location(1,1,-2)));
+        seaTransporterManager.add(st5, waterwayMap.getTile(new Location(-1,1,0)));
         seaTransporterShoreManager.add(st4, gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.ENE));
 
         Gold r1 = new Gold();
