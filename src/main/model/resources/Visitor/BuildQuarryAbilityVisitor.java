@@ -1,6 +1,6 @@
 package model.resources.Visitor;
 
-import model.Abilities.buildAbilities.BuildQuarryAbility;
+import model.Abilities.buildAbilities.BuildStoneQuarryAbility;
 import model.Abilities.buildAbilities.LandProducerBuildAbility;
 import model.resources.Board;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class BuildQuarryAbilityVisitor extends  LandProducerBuildAbilityVisitor {
     private ArrayList<Board> boardArrayList = new ArrayList<Board>();
-    private BuildQuarryAbility buildQuarryAbility;
+    private BuildStoneQuarryAbility buildQuarryAbility;
 
     @Override
     public void visitBoard(Board board) {
@@ -21,7 +21,7 @@ public class BuildQuarryAbilityVisitor extends  LandProducerBuildAbilityVisitor 
     @Override
     public void consume() {
         if (boardArrayList.size() >= 2) {
-            buildQuarryAbility = new BuildQuarryAbility(boardArrayList.get(0), boardArrayList.get(1));
+            buildQuarryAbility = new BuildStoneQuarryAbility(boardArrayList.get(0), boardArrayList.get(1));
         }
     }
 

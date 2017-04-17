@@ -1,9 +1,7 @@
 package model.Abilities.buildAbilities;
 
-import model.Game;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.ManagerSupplier;
-import model.Managers.LandProducerManager;
-import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Board;
 import model.resources.Stone;
@@ -11,15 +9,15 @@ import model.resources.Stone;
 /**
  * Created by allisonaguirre on 4/11/17.
  */
-public class BuildMineAbility extends LandProducerBuildAbility {
+public class BuildNormalMineAbility extends LandProducerBuildAbility {
 
-    public BuildMineAbility(Board b0, Board b1, Board b2, Stone s) {
+    public BuildNormalMineAbility(Board b0, Board b1, Board b2, Stone s) {
 
     }
 
     @Override
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
-
+        list.addBuildNormalMine(this);
     }
 
     @Override

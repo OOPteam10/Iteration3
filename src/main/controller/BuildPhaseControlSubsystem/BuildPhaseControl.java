@@ -72,7 +72,8 @@ public class BuildPhaseControl extends ControlHandler {
 
     public void resetAbilities(){
         landBuildAbilities.clear();
-        landBuildAbilities.addAll(resourceManager.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this)));
+        // TODO: pass in PlayerAbilityAvailabilityObject to get the actual shit
+        landBuildAbilities.addAll(resourceManager.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this), null));
 
         //ugly logic to get road directions
         ArrayList<Sector> adjacentSectors = managerSupplier.getSectorAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
