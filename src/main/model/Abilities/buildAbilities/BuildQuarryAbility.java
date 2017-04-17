@@ -33,4 +33,7 @@ public class BuildQuarryAbility extends LandProducerBuildAbility {
         }
         ms.getLandPrimaryProducerManager().add(s, new StoneQuarry(ms.getResourceManager()));
     }
+    public String toString(){
+        return "Build Quarry";
+    }
 }

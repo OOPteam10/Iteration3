@@ -35,7 +35,7 @@ public class ResourceManager extends ListManager<Sector, Resource>{
     }
 
     private void addVisitorBuildAbility(LandProducerBuildAbilityVisitor v, Sector s) {
-        for (Resource r : super.getManagerMap().get(s)) {
+        for (Resource r : get(s)) {
             r.accept(v);
         }
         LandProducerBuildAbility landProducerBuildAbility = v.makeAbility();
@@ -45,6 +45,7 @@ public class ResourceManager extends ListManager<Sector, Resource>{
     }
 
     public ArrayList<LandProducerBuildAbility> getLandProducerBuildAbilities(Sector s) {
+        landProducerBuildAbilities.clear();
         determineLandProducerBuildAbilities(s);
         return landProducerBuildAbilities;
     }

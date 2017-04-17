@@ -40,4 +40,8 @@ public class BuildPapermillAbility extends LandProducerBuildAbility {
 
         ms.getLandSecondaryProducerManager().add(s, new PaperMill(ms.getResourceManager()));
     }
+
+    public String toString(){
+        return "Build Papermill";
+    }
 }

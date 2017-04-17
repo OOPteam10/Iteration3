@@ -32,4 +32,8 @@ public class BuildStoneFactoryAbility extends LandProducerBuildAbility {
         }
         ms.getLandSecondaryProducerManager().add(s, new StoneFactory(ms.getResourceManager()));
     }
+
+    public String toString(){
+        return "Build Stone Factory";
+    }
 }

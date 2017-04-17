@@ -23,4 +23,7 @@ public class BuildOilRigAbility extends SeaBuildAbility {
     public void execute(SeaTile s, SeaProducerManager spm) {
 
     }
+    public String toString(){
+        return "Build Oil Rig";
+    }
 }

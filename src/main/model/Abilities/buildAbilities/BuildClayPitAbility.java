@@ -35,4 +35,7 @@ public class BuildClayPitAbility extends WaterwayAdjacentSectorBuildAbility {
         }
         ms.getLandPrimaryProducerManager().add(s, new ClayPit(ms.getResourceManager()));
     }
+    public String toString(){
+        return "Build Clay Pit";
+    }
 }

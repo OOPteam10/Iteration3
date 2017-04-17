@@ -33,4 +33,8 @@ public class BuildBigMineAbility extends LandProducerBuildAbility {
     public void execute(Sector s, ManagerSupplier ms) {
 
     }
+
+    public String toString(){
+        return "Build Big Mine";
+    }
 }
