@@ -19,8 +19,11 @@ import model.resources.*;
 import model.resources.Visitor.ResourceDrawingVisitor;
 import model.structures.producers.Producer;
 import model.structures.producers.Visitor.PrimaryProducerDrawingVisitor;
-import model.structures.producers.primary.PrimaryProducer;
-import model.structures.producers.primary.WoodCutter;
+import model.structures.producers.Visitor.SecondaryProducerDrawingVisitor;
+import model.structures.producers.primary.*;
+import model.structures.producers.primary.mine.Mine;
+import model.structures.producers.secondary.refinement.*;
+import model.structures.producers.secondary.transportation.*;
 import utilities.TileEditor;
 import view.Camera;
 import view.Panel;
@@ -48,6 +51,7 @@ public class GameboardPanel extends Panel {
     private LandTransporterManager landTransporterManager;
     private SeaTransporterManager seaTransporterManager;
     private LandPrimaryProducerManager landPrimaryProducerManager;
+    private LandSecondaryProducerManager landSecondaryProducerManager;
     private ResourceManager resourceManager;
 
     public GameboardPanel(Game game, AssetManager assets, ViewEnum gameMode, Group root, Camera camera, PanelManager panelManager){
@@ -61,6 +65,7 @@ public class GameboardPanel extends Panel {
         seaTransporterManager = game.getSeaTransporterManager();
         resourceManager = game.getResourceManager();
         landPrimaryProducerManager = game.getLandPrimaryProducerManager();
+        landSecondaryProducerManager = game.getLandSecondaryProducerManager();
         updateGameMap();
         addEntities();
     }
@@ -111,8 +116,43 @@ public class GameboardPanel extends Panel {
         resourceManager.add(gameMap.getTile(new Location(-1, 1, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE),r4);
         resourceManager.add(gameMap.getTile(new Location(-1, 3, -2)).getSectorAtCardinalDirection(CardinalDirection.SSE),r5);
 
-        WoodCutter woodCutter = new WoodCutter(resourceManager);
-        landPrimaryProducerManager.add(gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.NE), woodCutter);
+        ClayPit pp1 = new ClayPit(resourceManager);
+        OilRig pp2 = new OilRig(resourceManager);
+        StoneQuarry pp3 = new StoneQuarry(resourceManager);
+        WoodCutter pp4 = new WoodCutter(resourceManager);
+        //Mine
+        landPrimaryProducerManager.add(gameMap.getTile(new Location(1,2,-3)).getSectorAtCardinalDirection(CardinalDirection.NE), pp1);
+        landPrimaryProducerManager.add(gameMap.getTile(new Location(0,0,0)).getSectorAtCardinalDirection(CardinalDirection.NE), pp2);
+        landPrimaryProducerManager.add(gameMap.getTile(new Location(1,0,-1)).getSectorAtCardinalDirection(CardinalDirection.NE), pp3);
+        landPrimaryProducerManager.add(gameMap.getTile(new Location(-1,0,1)).getSectorAtCardinalDirection(CardinalDirection.NE), pp4);
+
+
+
+        RaftFactory sp1 = new RaftFactory(resourceManager,landTransporterManager);
+        CoalBurner sp2 = new CoalBurner(resourceManager);
+        Mint sp3 = new Mint(resourceManager);
+        RowboatFactory sp4 = new RowboatFactory(resourceManager, landTransporterManager);
+        SawMill sp5 = new SawMill(resourceManager);
+        SteamerFactory sp6 = new SteamerFactory(resourceManager, landTransporterManager);
+        StockExchange sp7 = new StockExchange(resourceManager);
+        StoneFactory sp8 = new StoneFactory(resourceManager);
+        TruckFactory sp9 = new TruckFactory(resourceManager, landTransporterManager);
+        WagonFactory sp10 = new WagonFactory(resourceManager, landTransporterManager);
+        PaperMill sp11 = new PaperMill(resourceManager);
+
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(-1,0,1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp1);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(1,-1,0)).getSectorAtCardinalDirection(CardinalDirection.NE), sp2);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(2,-1,-1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp3);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(3,-1,-2)).getSectorAtCardinalDirection(CardinalDirection.NE), sp4);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(4,-3,-1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp5);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(-3,4,-1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp6);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(-4,4,0)).getSectorAtCardinalDirection(CardinalDirection.NE), sp7);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(-2,4,-2)).getSectorAtCardinalDirection(CardinalDirection.NE), sp8);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(-1,2,-1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp9);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(0,2,-2)).getSectorAtCardinalDirection(CardinalDirection.NE), sp10);
+        landSecondaryProducerManager.add(gameMap.getTile(new Location(-2,2,0)).getSectorAtCardinalDirection(CardinalDirection.NE), sp11);
+
+
 
     }
 
@@ -211,6 +251,20 @@ public class GameboardPanel extends Panel {
         }
     }
 
+    private void drawSecondaryProducer(GraphicsContext gc){
+        for(Location loc:landMap.getSurfaces().keySet()){
+            Point p = new Point();
+            p.x = loc.getX();
+            p.y = loc.getY();
+            for(Sector sector:landMap.getTile(loc).getSectors()){
+                SecondaryProducerDrawingVisitor v = new SecondaryProducerDrawingVisitor(assets, gc, p, camera, sector);
+                if(landSecondaryProducerManager.getProducer(sector)!=null){
+                    landSecondaryProducerManager.getProducer(sector).accept(v);
+                }
+            }
+        }
+    }
+
     public void draw(GraphicsContext gc, Point screenDimension){
         drawBackground(gc);
         drawGameboard(gc);
@@ -218,6 +272,7 @@ public class GameboardPanel extends Panel {
         drawLandTransporters(gc);
         drawSeaTransporters(gc);
         drawPrimaryProducers(gc);
+        drawSecondaryProducer(gc);
         drawResources(gc);
         updateGameMap();
     }

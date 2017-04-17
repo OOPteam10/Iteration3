@@ -88,7 +88,7 @@ public class Assets {
         loadItem("PAPER_MILL", "Assets/Producers/SecondaryProducers/Papermill.png");
         loadItem("RAFT_FACTORY", "Assets/Producers/SecondaryProducers/RaftFactory.png");
         loadItem("ROWBOAT_FACTORY", "Assets/Producers/SecondaryProducers/RowboatFactory.png");
-        loadItem("SAWMILL", "Assets/Producers/SecondaryProducers/Sawmill.png");
+        loadItem("SAW_MILL", "Assets/Producers/SecondaryProducers/Sawmill.png");
         loadItem("STEAMER_FACTORY", "Assets/Producers/SecondaryProducers/SteamerFactory.png");
         loadItem("STOCK_EXCHANGE", "Assets/Producers/SecondaryProducers/StockExchange.png");
         loadItem("STONE_FACTORY", "Assets/Producers/SecondaryProducers/StoneFactory.png");

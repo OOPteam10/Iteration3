@@ -1,13 +1,11 @@
 package view.Scene.gamePanel;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import model.Game;
-import model.Managers.LandPrimaryProducerManager;
-import model.Managers.LandTransporterManager;
-import model.Managers.ResourceManager;
-import model.Managers.SeaTransporterManager;
+import model.Managers.*;
 import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
@@ -23,6 +21,7 @@ import model.resources.Resource;
 import model.resources.Visitor.ResourceDetailDrawingVisitor;
 import model.structures.producers.Visitor.PrimaryProducerDetailDrawingVisitor;
 import model.structures.producers.Visitor.PrimaryProducerDrawingVisitor;
+import model.structures.producers.Visitor.SecondaryProducerDetailDrawingVisitor;
 import model.structures.producers.primary.PrimaryProducer;
 import utilities.TileEditor;
 import view.Camera;
@@ -49,6 +48,7 @@ public class TileDetailPanel extends Panel {
     private Group root;
     private LandTransporterManager landTransporterManager;
     private LandPrimaryProducerManager landPrimaryProducerManager;
+    private LandSecondaryProducerManager landSecondaryProducerManager;
     private SeaTransporterManager seaTransporterManager;
     private ResourceManager resourceManager;
     private WaterwayMap waterwayMap;
@@ -64,6 +64,7 @@ public class TileDetailPanel extends Panel {
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
         this.landPrimaryProducerManager = game.getLandPrimaryProducerManager();
+        this.landSecondaryProducerManager = game.getLandSecondaryProducerManager();
         this.waterwayMap = gameMap.getWaterwayMap();
         updateGameMap();
     }
@@ -93,6 +94,7 @@ public class TileDetailPanel extends Panel {
             drawLandTransporterDetail(gc);
             drawSeaTransporterDetail(gc);
             drawPrimaryProducerDetail(gc);
+            drawSecondaryProducerDetail(gc);
             drawResourceDetail(gc);
         } catch (NullPointerException e){
             Image img = assets.getImage("EMPTY_HEX_GRID");
@@ -135,9 +137,19 @@ public class TileDetailPanel extends Panel {
         Location loc = TileEditor.getInstance().getLocation();
         for(Sector sector:landMap.getTile(loc).getSectors()){
             if(landPrimaryProducerManager.getProducer(sector)!=null){
-                if(landPrimaryProducerManager.getProducer(sector)!=null) {
                     PrimaryProducerDetailDrawingVisitor v = new PrimaryProducerDetailDrawingVisitor(assets, gc, camera, sector);
                     landPrimaryProducerManager.getProducer(sector).accept(v);
+            }
+        }
+    }
+
+    private void drawSecondaryProducerDetail(GraphicsContext gc){
+        Location loc = TileEditor.getInstance().getLocation();
+        for(Sector sector:landMap.getTile(loc).getSectors()){
+            if(landSecondaryProducerManager.getProducer(sector)!= null){
+                if(landSecondaryProducerManager.getProducer(sector)!=null){
+                    SecondaryProducerDetailDrawingVisitor v = new SecondaryProducerDetailDrawingVisitor(assets,gc,camera,sector);
+                    landSecondaryProducerManager.getProducer(sector).accept(v);
                 }
             }
         }
