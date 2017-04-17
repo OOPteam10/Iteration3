@@ -13,10 +13,12 @@ public class WonderLevel {
     private ArrayList<Brick> bricks = new ArrayList<>();
     private int rowSize;
     private int capacity;
+    private int numRows;
 
     WonderLevel(int rowSize, int numRows){
 
         this.rowSize = rowSize;
+        this.numRows = numRows;
         capacity = rowSize * numRows;
     }
 
@@ -74,6 +76,14 @@ public class WonderLevel {
 
     public int getCapacity(){
         return capacity;
+    }
+
+    public int getRowSize(){
+        return rowSize;
+    }
+
+    public int getNumRows(){
+        return numRows;
     }
 
     public boolean isFull(){
