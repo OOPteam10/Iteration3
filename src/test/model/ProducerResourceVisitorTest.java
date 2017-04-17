@@ -28,9 +28,8 @@ public class ProducerResourceVisitorTest {
         for(Resource r: resources){
             r.accept(sawMill);
         }
-        //resourceManager.remove(t);
         sawMill.produce(s);
-        //assert(resourceManager.get(s).get(0) instanceof Board);
+        assert(resourceManager.get(s).get(0) instanceof Board);
     }
 
 }

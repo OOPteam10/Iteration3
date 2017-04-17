@@ -6,6 +6,7 @@ import model.TileSubsystem.Sector;
 import model.resources.Board;
 import model.resources.Resource;
 import model.structures.producers.SecondaryProducerTypeB;
+import model.structures.producers.Visitor.SecondaryProducerVisitor;
 
 /**
  * Created by cduica on 4/8/17.
@@ -22,5 +23,10 @@ public class WagonFactory extends SecondaryProducerTypeB<Board, Resource> {
     @Override
     public void produce(Sector l) {
 
+    }
+
+    @Override
+    public void accept(SecondaryProducerVisitor v) {
+        v.visitWagonFactory(this);
     }
 }

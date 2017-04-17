@@ -6,7 +6,7 @@ import model.Transporters.SeaTransporter;
 /**
  * Created by hankerins on 4/16/17.
  */
-public class SeaTransporterBPCStrategy implements BuildPhaseControlStrategy<SeaTransporter> {
+public class SeaTransporterBPCStrategy implements BPCTransporterStrategy {
     @Override
     public void nextTransporter(BuildPhaseControl context) {
         int next = (context.getCurrentTransporterIndex()+1);

@@ -142,4 +142,16 @@ public class Game implements ManagerSupplier {
         currentPhase.execute(player1, player2);
     }
 
+    //for testing purposes
+    public void startGame(){
+        currentPhase = phases.get(1);
+    }
+
+    public Phase getCurrentPhase(){
+        return currentPhase;
+    }
+
+    public ArrayList<Phase> getPhases(){
+        return phases;
+    }
 }

@@ -4,6 +4,7 @@ import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.*;
 import model.structures.producers.SecondaryProducerTypeA;
+import model.structures.producers.Visitor.SecondaryProducerVisitor;
 
 /**
  * Created by cduica on 4/8/17.
@@ -12,6 +13,11 @@ public class PaperMill extends SecondaryProducerTypeA<Resource> {
 
     public PaperMill(ResourceManager resourceManager) {
         super(resourceManager);
+    }
+
+    @Override
+    public void accept(SecondaryProducerVisitor v) {
+        v.visitPaperMill(this);
     }
 
     @Override

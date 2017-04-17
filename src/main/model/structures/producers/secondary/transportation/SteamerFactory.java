@@ -6,6 +6,7 @@ import model.TileSubsystem.Sector;
 import model.resources.Fuel;
 import model.resources.Iron;
 import model.structures.producers.SecondaryProducerTypeB;
+import model.structures.producers.Visitor.SecondaryProducerVisitor;
 
 /**
  * Created by cduica on 4/8/17.
@@ -22,5 +23,10 @@ public class SteamerFactory extends SecondaryProducerTypeB<Iron, Fuel>{
     @Override
     public void produce(Sector l) {
 
+    }
+
+    @Override
+    public void accept(SecondaryProducerVisitor v) {
+        v.visitSteamerFactory(this);
     }
 }

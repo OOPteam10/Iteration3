@@ -1,7 +1,13 @@
 package controller.MovePhaseControlSubsystem;
 
+import controller.Actions.Down;
+import controller.Actions.NextMode;
+import controller.Actions.PrevMode;
+import controller.Actions.Up;
 import controller.ControlHandler;
 import controller.Controller;
+import controller.KeyListener;
+import javafx.scene.input.KeyCode;
 import model.Game;
 import model.Managers.*;
 
@@ -31,7 +37,6 @@ public class MovePhaseControl extends ControlHandler {
 
     private ArrayList<MovePhaseControlMode> movePhaseControlModes;
     MovePhaseControlMode currentMovePhaseControlMode;
-
     private LandTransporterManager landTransporterManager;
     private SeaTransporterManager seaTransporterManager;
     private SeaTransporterShoreManager seaTransporterShoreManager;
@@ -42,10 +47,6 @@ public class MovePhaseControl extends ControlHandler {
     private WaterwayAdjacencyManager waterwayAdjacencyManager;
     private SectorToWaterwayManager sectorToWaterwayManager;
     private WaterwayToSectorManager waterwayToSectorManager;
-
-
-
-
     private ArrayList<Donkey> donkeyList = new ArrayList<Donkey>();
     private ArrayList<RoadTransporter> roadTransporterList = new ArrayList<RoadTransporter>();
     private ArrayList<SeaTransporter> seaTransporterList = new ArrayList<SeaTransporter>();
@@ -69,6 +70,15 @@ public class MovePhaseControl extends ControlHandler {
         this.sectorToWaterwayManager = game.getSectorToWaterwayManager();
         this.waterwayToSectorManager = game.getWaterwayToSectorManager();
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
+        addAction(new NextMode(this), new KeyListener(KeyCode.M));
+        addAction(new PrevMode(this), new KeyListener(KeyCode.N));
+        addAction(new Up(this), new KeyListener(KeyCode.UP));
+        addAction(new Down(this), new KeyListener(KeyCode.DOWN));
+
+
+        addDonkeyMPCMode();
+        addRoadTransporterMPCMode();
+        addSeaTransporterMPCMode();
     }
 
     public void addDonkeyMPCMode(){
@@ -172,41 +182,54 @@ public class MovePhaseControl extends ControlHandler {
     //right now mapped to functions kind of at random just to test
 
 
+    //TODO remove all print statements from the overrident methods 
     @Override
     public void prevMode() {
+
         previousMoveMode();
+        System.out.println(toString());
     }
     @Override
     public void nextMode(){
+
         nextMoveMode();
+        System.out.println(toString());
     }
 
 
     @Override
     public void up() {
+
         nextTransporter();
+        System.out.println(toString());
     }
 
     @Override
     public void down() {
+
         previousTransporter();
+        System.out.println(toString());
     }
 
 
     @Override
     public void left() {
        cycleLeft();
+        System.out.println(toString());
     }
 
     @Override
     public void right() {
         cycleRight();
+        System.out.println(toString());
     }
 
     @Override
     public void select() {
 
         currentMovePhaseControlMode.select();
+        System.out.println(toString());
+
 
     }
 

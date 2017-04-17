@@ -4,6 +4,8 @@ import model.Managers.ResourceManager;
 import model.TileSubsystem.Sector;
 import model.resources.Resource;
 import model.structures.Structure;
+import model.structures.producers.Visitor.PrimaryProducerVisitor;
+import model.structures.producers.primary.PrimaryProducer;
 
 import java.util.ArrayList;
 import java.util.List;

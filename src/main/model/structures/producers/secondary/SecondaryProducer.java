@@ -4,6 +4,7 @@ import model.Managers.ResourceManager;
 import model.resources.*;
 import model.resources.Visitor.ResourceVisitor;
 import model.structures.producers.Producer;
+import model.structures.producers.Visitor.SecondaryProducerVisitor;
 
 /**
  * Created by cduica on 4/8/17.
@@ -65,4 +66,6 @@ public abstract class SecondaryProducer extends Producer implements ResourceVisi
     public void visitTrunk(Trunk trunk) {
 
     }
+
+    public abstract void accept(SecondaryProducerVisitor v);
 }

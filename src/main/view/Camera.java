@@ -118,6 +118,10 @@ public class Camera {
     public double getTransporterScale(){
         return getScale()*0.15;
     }
+
+    public double getProducerScale(){
+        return getScale()*0.08;
+    }
     public double getResourceScale(){return getScale()*0.08;}
 
     public int getTileWidth(){
