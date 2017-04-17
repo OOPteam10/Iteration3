@@ -5,11 +5,13 @@ import controller.Actions.*;
 import controller.MapMakerControlSubsystem.MMCObserver;
 import controller.MapMakerControlSubsystem.MMCState;
 
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import javafx.scene.input.KeyCode;
 import model.Game;
 import utilities.TileEditor;
 import view.Camera;
 import view.MapMakerPreview;
+import view.MovementPhasePreview;
 
 import java.util.Vector;
 
@@ -24,14 +26,15 @@ public abstract class  ControlHandler {
     private Controller controller;
     private Vector<Action> actions = new Vector<Action>() ;
     private Vector<KeyListener> kLSet = new Vector<KeyListener>();
-
+    private MovementPhasePreview movementPhasePreview;
     private Game game;
 
-    public ControlHandler(Controller controller, Game game){
+    public ControlHandler(Controller controller, Game game, MovementPhasePreview movementPhasePreview){
 
         this.controller = controller;
         this.game = game;
         addCommonActions();
+        this.movementPhasePreview = movementPhasePreview;
 
     }
 
@@ -82,7 +85,7 @@ public abstract class  ControlHandler {
     public Controller getController(){
         return controller;
     }
-
+    public MovementPhasePreview getMovementPhasePreview(){ return movementPhasePreview;}
 
     public Game getGame(){
         return game;

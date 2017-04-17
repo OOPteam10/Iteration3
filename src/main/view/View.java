@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import model.Game;
+import model.phases.MovementPhase;
 import view.assets.AssetManager;
 
 import java.awt.*;
@@ -26,6 +27,7 @@ public class View{
     private Scene scene;
     private Camera camera;
     private MapMakerPreview mapMakerPreview;
+    private MovementPhasePreview movementPhasePreview;
 
     public View(Game game, Scene scene, Group root){
         assets = new AssetManager();
@@ -44,6 +46,8 @@ public class View{
     private void initializeView(){
         root.getChildren().add(canvas);
         mapMakerPreview = new MapMakerPreview(panelManager);
+        movementPhasePreview = new MovementPhasePreview();
+
 
         File buttonStyle = new File("Assets/ButtonStyle.css");
         scene.getStylesheets().clear();
@@ -67,4 +71,5 @@ public class View{
     }
 
     public MapMakerPreview getMapMakerPreview(){return mapMakerPreview;}
+    public MovementPhasePreview getMovementPhasePreview(){return movementPhasePreview;}
 }

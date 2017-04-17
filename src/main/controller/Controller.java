@@ -4,25 +4,19 @@ package controller;
 
 
 
-import controller.Actions.CycleLeft;
-
 import controller.Actions.*;
 
 import controller.BuildPhaseControlSubsystem.BuildPhaseControl;
-import controller.MovePhaseControlSubsystem.MovePhaseControl;
 
 import controller.WonderPhaseControlSubsystem.WonderPhaseControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.Game;
-import model.phases.WonderPhase;
 import view.Camera;
 import view.View;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
 
 import java.util.Vector;
 
@@ -50,13 +44,13 @@ public class Controller {
         this.game = game;
         //init with the MapMakerControl state
         MapMakerControl.getInstance().init(this,game,view.getMapMakerPreview());
+
         controlHandler = MapMakerControl.getInstance();
         addCameraActions(camera);
         //camera actions
 
         setCurrentKLSet(controlHandler);
 
-        controlHandlers.add(new MovePhaseControl(this,game));
         controlHandlers.add(new BuildPhaseControl(this,game));
         controlHandlers.add(new WonderPhaseControl(this,game));
     }

@@ -18,6 +18,7 @@ import model.Managers.*;
 import model.TileSubsystem.Sector;
 import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
+import view.MovementPhasePreview;
 
 import java.util.ArrayList;
 
@@ -42,8 +43,8 @@ public class BuildPhaseControl extends ControlHandler {
     private BPCTransporterStrategy buildPhaseControlStrategy;
 
 
-    public BuildPhaseControl(Controller controller, Game ms){
-        super(controller, ms);
+    public BuildPhaseControl(Controller controller, Game ms, MovementPhasePreview preview){
+        super(controller, ms, preview);
         landTransporterManager = ms.getLandTransporterManager();
         seaTransporterShoreManager = ms.getSeaTransporterShoreManager();
         resourceManager = ms.getResourceManager();

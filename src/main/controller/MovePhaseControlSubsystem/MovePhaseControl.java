@@ -24,6 +24,7 @@ import model.Transporters.RoadTransporter;
 import model.Transporters.SeaTransporter;
 import view.Camera;
 import view.MapMakerPreview;
+import view.MovementPhasePreview;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -61,8 +62,8 @@ public class MovePhaseControl extends ControlHandler {
    
 
 
-    public MovePhaseControl(Controller controller, Game game,Vector<MovePhaseControlObserver> observers){
-        super(controller,game);
+    public MovePhaseControl(Controller controller, Game game, MovementPhasePreview preview){
+        super(controller,game,preview);
 
         this.landTransporterManager = game.getLandTransporterManager();
         this.seaTransporterManager = game.getSeaTransporterManager();
