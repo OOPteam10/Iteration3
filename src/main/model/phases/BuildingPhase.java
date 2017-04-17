@@ -54,4 +54,9 @@ public class BuildingPhase implements Phase {
     public void execute(PlayerID playerID) {
 
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

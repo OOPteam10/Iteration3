@@ -1,5 +1,6 @@
 package model.phases;
 
+import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
 import model.Game;
 import model.Managers.*;
 import model.PlayerID;
@@ -17,6 +18,7 @@ public class MovementPhase implements Phase {
     private SectorAdjacencyManager sectorAdjacencyManager;
     private SectorAdjacencyManager roadAdjacencyManager;
     private WaterwayAdjacencyManager waterwayAdjacencyManager;
+    private MovePhaseControlMode movePhaseControlMode;
 
     public MovementPhase(LandTransporterManager landTransporterManager,
                          SeaTransporterManager seaTransporterManager,
@@ -44,6 +46,11 @@ public class MovementPhase implements Phase {
 
     @Override
     public void execute(PlayerID playerID) {
+
+    }
+
+    @Override
+    public void execute() {
 
     }
 }
