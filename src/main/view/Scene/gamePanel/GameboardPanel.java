@@ -150,6 +150,7 @@ public class GameboardPanel extends Panel {
         WagonFactory sp10 = new WagonFactory(resourceManager, landTransporterManager);
         PaperMill sp11 = new PaperMill(resourceManager);
 
+
         landSecondaryProducerManager.add(gameMap.getTile(new Location(-1,0,1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp1);
         landSecondaryProducerManager.add(gameMap.getTile(new Location(1,-1,0)).getSectorAtCardinalDirection(CardinalDirection.NE), sp2);
         landSecondaryProducerManager.add(gameMap.getTile(new Location(2,-1,-1)).getSectorAtCardinalDirection(CardinalDirection.NE), sp3);
