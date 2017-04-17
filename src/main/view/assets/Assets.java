@@ -81,7 +81,7 @@ public class Assets {
         loadItem("MINE", "Assets/Producers/PrimaryProducers/Mine.png");
         loadItem("OIL_RIG", "Assets/Producers/PrimaryProducers/OilRig.png");
         loadItem("QUARRY", "Assets/Producers/PrimaryProducers/Quarry.png");
-        loadItem("WOOD_CUTTER", "Assets/Producers/PrimaryProducers/WoodCutter.png");
+        loadItem("WOOD_CUTTER", "Assets/Producers/PrimaryProducers/Woodcutter.png");
         //Load Secondary Producers
         loadItem("COAL_BURNER", "Assets/Producers/SecondaryProducers/Coalburner.png");
         loadItem("MINT", "Assets/Producers/SecondaryProducers/Mint.png");

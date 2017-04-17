@@ -1,8 +1,12 @@
 package controller.BuildPhaseControlSubsystem;
 
+import controller.Actions.NextMode;
+import controller.Actions.PrevMode;
 import controller.ControlHandler;
 import controller.Controller;
+import controller.KeyListener;
 import controller.MovePhaseControlSubsystem.MovePhaseControl;
+import javafx.scene.input.KeyCode;
 import model.Abilities.buildAbilities.BuildRoadAbility;
 import model.Abilities.buildAbilities.LandBuildAbility;
 import model.Game;
@@ -47,16 +51,28 @@ public class BuildPhaseControl extends ControlHandler {
         buildPhaseControlStrategy = new LandTransporterBPCStrategy();
         nextTransporter();
         resetAbilities();
+
+        addAction(new NextMode(this), new KeyListener(KeyCode.M));
+        addAction(new PrevMode(this), new KeyListener(KeyCode.N));
     }
 
     public void nextTransporter(){
         buildPhaseControlStrategy.nextTransporter(this);
         resetAbilities();
     }
+    private void nextTransporter(int i){
+        buildPhaseControlStrategy.nextTransporter(this);
+        resetRecursion(i);
+    }
 
     public void prevTransporter(){
         buildPhaseControlStrategy.prevTransporter(this);
         resetAbilities();
+
+    }
+    private void prevTransporter(int i){
+        buildPhaseControlStrategy.prevTransporter(this);
+        resetRecursion(i);
 
     }
 
@@ -71,6 +87,13 @@ public class BuildPhaseControl extends ControlHandler {
     }
 
     public void resetAbilities(){
+        resetRecursion(0);
+    }
+    private void resetRecursion(int i){
+        if (i > 10){
+            endTurn();
+            return;
+        }
         landBuildAbilities.clear();
         // TODO: pass in PlayerAbilityAvailabilityObject to get the actual shit
         landBuildAbilities.addAll(resourceManager.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this), null));
@@ -80,10 +103,16 @@ public class BuildPhaseControl extends ControlHandler {
         ArrayList<Sector> toRemove = managerSupplier.getRoadAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
         for(Sector s: toRemove){
             adjacentSectors.remove(s);
+            adjacentSectors.remove(s);
         }
         for(Sector s: adjacentSectors){
             landBuildAbilities.add(new BuildRoadAbility(s));
         }
+        if(landBuildAbilities.size() == 0){
+            System.out.print("before: " + i);
+            i++;
+            nextTransporter(i);
+        }else
         currentAbility = landBuildAbilities.get(0);
     }
 
