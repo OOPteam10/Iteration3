@@ -2,6 +2,8 @@ package model.Managers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by hankerins on 4/8/17.
@@ -40,7 +42,15 @@ public class ListManager<Loc, GoodsType> {
     }
 
     public void remove(Loc l, GoodsType g){
-            managerMap.get(l).remove(g);
+        managerMap.get(l).remove(g);
+    }
+
+    public void remove(GoodsType g){
+
+        for(Map.Entry<Loc, ArrayList<GoodsType>> e: managerMap.entrySet()){
+            managerMap.get(e.getKey()).remove(g);
+        }
+
     }
 
     public ArrayList<GoodsType> get(Loc l){

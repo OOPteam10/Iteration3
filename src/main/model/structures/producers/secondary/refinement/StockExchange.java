@@ -30,4 +30,14 @@ public class StockExchange extends SecondaryProducerTypeB<Coin, Paper> {
 
     }
 
+    @Override
+    public void visitCoin(Coin coin){
+        giveResourceA(coin);
+    }
+
+    @Override
+    public void visitPaper(Paper paper){
+        giveResourceB(paper);
+    }
+
 }
