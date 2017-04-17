@@ -1,6 +1,6 @@
 package model.resources.Visitor;
 
-import model.Abilities.buildAbilities.BuildSpecialtyMineBuildAbility;
+import model.Abilities.buildAbilities.BuildNormalMineAbility;
 import model.Abilities.buildAbilities.LandProducerBuildAbility;
 import model.resources.Board;
 import model.resources.Stone;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 /**
  * Created by allisonaguirre on 4/16/17.
  */
-public class BuildSpecialtyMineAbilityVisitor extends LandProducerBuildAbilityVisitor {
+public class BuildNormalMineAbilityVisitor extends LandProducerBuildAbilityVisitor {
     private ArrayList<Board> boardArrayList = new ArrayList<>();
     private ArrayList<Stone> stoneArrayList = new ArrayList<>();
-    private BuildSpecialtyMineBuildAbility buildSpecialtyMineBuildAbility;
+    private BuildNormalMineAbility buildMineAbility;
 
     @Override
     public void visitBoard(Board board) {
@@ -28,7 +28,7 @@ public class BuildSpecialtyMineAbilityVisitor extends LandProducerBuildAbilityVi
     @Override
     public void consume() {
         if (boardArrayList.size() >= 3 && stoneArrayList.size() >= 1) {
-            buildSpecialtyMineBuildAbility = new BuildSpecialtyMineBuildAbility(
+            buildMineAbility = new BuildNormalMineAbility(
                     boardArrayList.get(0),
                     boardArrayList.get(1),
                     boardArrayList.get(2),
@@ -40,6 +40,6 @@ public class BuildSpecialtyMineAbilityVisitor extends LandProducerBuildAbilityVi
     @Override
     public LandProducerBuildAbility makeAbility() {
         consume();
-        return buildSpecialtyMineBuildAbility;
+        return buildMineAbility;
     }
 }

@@ -1,5 +1,7 @@
 package model.Abilities.buildAbilities;
 
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
+
 /**
  * Created by allisonaguirre on 4/11/17.
  */

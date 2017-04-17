@@ -1,7 +1,6 @@
 package model.Abilities.buildAbilities;
 
-import model.Managers.Adjacency;
-import model.Managers.SectorAdjacency;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;

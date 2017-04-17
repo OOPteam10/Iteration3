@@ -1,6 +1,6 @@
 package model.Abilities.buildAbilities;
 
-import model.Managers.ResourceManager;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.Managers.SeaProducerManager;
 import model.TileSubsystem.Tiles.SeaTile;
 import model.resources.Board;

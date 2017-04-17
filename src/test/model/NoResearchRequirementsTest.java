@@ -42,8 +42,8 @@ public class NoResearchRequirementsTest {
         System.out.println("Structures: " + game.getLandPrimaryProducerManager().getProducer(lt1.getSectors().get(0)));
         System.out.println("Structures: " + game.getLandSecondaryProducerManager().getProducer(lt1.getSectors().get(0)));
 
-        System.out.println("Abilities: " + rm.getLandProducerBuildAbilities(lt1.getSectors().get(0)));
-        rm.getLandProducerBuildAbilities(lt1.getSectors().get(0)).get(0).execute(lt1.getSectors().get(0), game);
+        System.out.println("Abilities: " + rm.getLandProducerBuildAbilities(lt1.getSectors().get(0), null));
+        rm.getLandProducerBuildAbilities(lt1.getSectors().get(0), null).get(0).execute(lt1.getSectors().get(0), game);
 
         System.out.println("Resources: " + rm.get(lt1.getSectors().get(0)));
         System.out.println("Structures: " + game.getLandPrimaryProducerManager().getProducer(lt1.getSectors().get(0)));

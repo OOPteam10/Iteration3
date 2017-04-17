@@ -1,5 +1,6 @@
 package model.Abilities.buildAbilities;
 
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.Managers.SectorAdjacencyManager;
 import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
