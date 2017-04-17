@@ -1,8 +1,6 @@
 package model;
 
-import model.Managers.LandPrimaryProducerManager;
-import model.Managers.LandSecondaryProducerManager;
-import model.Managers.ResourceManager;
+import model.Managers.*;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.phases.ProductionPhase;
@@ -12,6 +10,8 @@ import model.structures.producers.primary.OilRig;
 import model.structures.producers.primary.StoneQuarry;
 import model.structures.producers.primary.WoodCutter;
 import model.structures.producers.secondary.refinement.CoalBurner;
+import model.structures.producers.secondary.transportation.RaftFactory;
+import model.structures.producers.secondary.transportation.TruckFactory;
 import org.junit.Test;
 
 import static junit.framework.TestCase.fail;
@@ -65,6 +65,42 @@ public class ProductionPhaseTest {
         r.add(s1, new Board());
         r.add(s1, new Trunk());
         landSecondaryProducerManager.add(s1, new CoalBurner(r));
+        p.execute(null, null);
+    }
+
+    @Test
+    public void shouldProduceSeaTransportersFromTransporterProducers(){
+        LandSecondaryProducerManager landSecondaryProducerManager = new LandSecondaryProducerManager();
+        ResourceManager r = new ResourceManager();
+        SeaTransporterShoreManager t = new SeaTransporterShoreManager();
+
+        ProductionPhase p = new ProductionPhase(new LandPrimaryProducerManager(), landSecondaryProducerManager, null,
+                null, null, t, null,
+                r);
+
+        Sector s1 = new Sector(CardinalDirection.NE, CardinalDirection.ESE);
+
+        r.add(s1, new Trunk());
+        r.add(s1, new Trunk());
+        landSecondaryProducerManager.add(s1, new RaftFactory(r, t));
+        p.execute(null, null);
+    }
+
+    @Test
+    public void shouldProduceLandTransportersFromTransporterProducers(){
+        LandSecondaryProducerManager landSecondaryProducerManager = new LandSecondaryProducerManager();
+        ResourceManager r = new ResourceManager();
+        LandTransporterManager t = new LandTransporterManager();
+
+        ProductionPhase p = new ProductionPhase(new LandPrimaryProducerManager(), landSecondaryProducerManager, t,
+                null, null, null, null,
+                r);
+
+        Sector s1 = new Sector(CardinalDirection.NE, CardinalDirection.ESE);
+
+        r.add(s1, new Iron());
+        r.add(s1, new Fuel());
+        landSecondaryProducerManager.add(s1, new TruckFactory(r, t));
         p.execute(null, null);
     }
 
