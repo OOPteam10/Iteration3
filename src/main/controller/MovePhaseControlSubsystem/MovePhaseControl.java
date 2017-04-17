@@ -75,8 +75,8 @@ public class MovePhaseControl extends ControlHandler {
         this.waterwayToSectorManager = game.getWaterwayToSectorManager();
         movePhaseControlModes = new ArrayList<MovePhaseControlMode>();
 
-        //addAction(new NextMode(this), new KeyListener(KeyCode.M));
-        //addAction(new PrevMode(this), new KeyListener(KeyCode.N));
+        addAction(new NextMode(this), new KeyListener(KeyCode.M));
+        addAction(new PrevMode(this), new KeyListener(KeyCode.N));
         addAction(new Up(this), new KeyListener(KeyCode.UP));
         addAction(new Down(this), new KeyListener(KeyCode.DOWN));
 
