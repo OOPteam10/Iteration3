@@ -5,6 +5,9 @@ import model.Managers.*;
 import model.PlayerID;
 import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
+import model.structures.producers.secondary.SecondaryProducer;
+
+import java.util.Map;
 
 /**
  * Created by cduica on 4/14/17.
@@ -49,7 +52,11 @@ public class ProductionPhase implements Phase {
     private void iterateLandProducers(){
         //TODO some logic with placing the product
         landPrimaryProducerManager.produceAll();
-        //landSecondaryProducerManager.produceAll();
+
+        for(Map.Entry<Sector, SecondaryProducer> v : landSecondaryProducerManager.getManagerMap().entrySet()){
+            resourceManager.addProducerResourceVisitor(v.getValue(), v.getKey());
+        }
+        landSecondaryProducerManager.produceAll();
     }
 
     private void iterateSeaProducers(){
