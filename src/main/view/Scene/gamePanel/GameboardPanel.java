@@ -101,7 +101,7 @@ public class GameboardPanel extends Panel {
         landTransporterManager.add(dq2, gameMap.getTile(new Location(0, 0, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE));
         landTransporterManager.add(dq3, gameMap.getTile(new Location(-1, 0, 1)).getSectorAtCardinalDirection(CardinalDirection.NNE));
         landTransporterManager.add(dq4, gameMap.getTile(new Location(-1, 1, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE));
-        landTransporterManager.add(dq5, gameMap.getTile(new Location(-1, 3, -2)).getSectorAtCardinalDirection(CardinalDirection.SSE));
+        landTransporterManager.add(dq5, gameMap.getTile(new Location(-1, 2, -1)).getSectorAtCardinalDirection(CardinalDirection.SSE));
         landTransporterManager.add(dq6, gameMap.getTile(new Location(1, 1, -2)).getSectorAtCardinalDirection(CardinalDirection.NW));
         landTransporterManager.add(dq7, gameMap.getTile(new Location(2, 1, -3)).getSectorAtCardinalDirection(CardinalDirection.SSW));
         landTransporterManager.add(dq8, gameMap.getTile(new Location(2, 1, -3)).getSectorAtCardinalDirection(CardinalDirection.ENE));
@@ -129,6 +129,9 @@ public class GameboardPanel extends Panel {
         resourceManager.add(gameMap.getTile(new Location(-1, 0, 1)).getSectorAtCardinalDirection(CardinalDirection.NNE),r3);
         resourceManager.add(gameMap.getTile(new Location(-1, 1, 0)).getSectorAtCardinalDirection(CardinalDirection.SSE),r4);
         resourceManager.add(gameMap.getTile(new Location(-1, 3, -2)).getSectorAtCardinalDirection(CardinalDirection.SSE),r5);
+        resourceManager.add(gameMap.getTile(new Location(-1,2,-1)).getSectorAtCardinalDirection(CardinalDirection.SSE), new Board());
+        resourceManager.add(gameMap.getTile(new Location(-1,2,-1)).getSectorAtCardinalDirection(CardinalDirection.SSE), new Board());
+
 
         ClayPit pp1 = new ClayPit(resourceManager);
         OilRig pp2 = new OilRig(resourceManager);
