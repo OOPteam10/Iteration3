@@ -52,11 +52,11 @@ public class View{
 
     public void renderGame(){
         double width = scene.getWidth();
-        double height = scene.getHeight();
+        double height = scene.getWidth()/(1.777777777777777778);
         canvas.setWidth(width);
         canvas.setHeight(height);
         screenDimension.x = (int)width;
-        screenDimension.y = (int)height;
+        screenDimension.y = (int)(height);
 
         gc.clearRect(0,0,width,height);
         panelManager.drawPanels(screenDimension);
