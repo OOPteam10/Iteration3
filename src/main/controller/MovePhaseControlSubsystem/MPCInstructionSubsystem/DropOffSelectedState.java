@@ -1,14 +1,16 @@
 package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import model.structures.producers.Product;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/13/17.
  */
-public class DropOffSelectedState implements MPCInstructionState {
+public class DropOffSelectedState implements MPCInstructionState<MovePhaseControlMode> {
 
     public ArrayList<Product> products;
     Product currentProduct;
@@ -34,6 +36,13 @@ public class DropOffSelectedState implements MPCInstructionState {
     public void select(MovePhaseControlMode context) {
         context.dropOff(currentProduct);
         context.resetCurrentMPCInstructionState();
+    }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> observers) {
+        for(MovePhaseControlObserver observer : observers ){
+            observer.highlightCurrentProduct(currentProduct);
+        }
     }
 
     //testing only

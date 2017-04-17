@@ -2,6 +2,7 @@ package controller.MovePhaseControlSubsystem.MPCInstructionSubsystem;
 
 import controller.MovePhaseControlSubsystem.DonkeyMPCMode;
 import controller.MovePhaseControlSubsystem.MovePhaseControlMode;
+import controller.MovePhaseControlSubsystem.MovePhaseControlObserver;
 import model.Managers.Adjacency;
 import model.Managers.LandTransporterManager;
 import model.Managers.SectorAdjacency;
@@ -11,11 +12,12 @@ import model.TileSubsystem.Sector;
 import model.Transporters.Donkey;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by hankerins on 4/11/17.
  */
-public class DonkeyMoveSelectedState implements MPCInstructionState {
+public class DonkeyMoveSelectedState implements MPCInstructionState<MovePhaseControlMode> {
 
     private ArrayList<Sector> adjacentSectors;
     private Sector currentSector;
@@ -37,6 +39,7 @@ public class DonkeyMoveSelectedState implements MPCInstructionState {
 
     }
 
+
     @Override
     public void cycleLeft(MovePhaseControlMode context) {
         int previous = (adjacentSectors.indexOf(targetSector)-1 + adjacentSectors.size()) % adjacentSectors.size();
@@ -54,6 +57,14 @@ public class DonkeyMoveSelectedState implements MPCInstructionState {
         landTransporterManager.move(currentDonkey, targetSector);
         context.resetCurrentMPCInstructionState();
     }
+
+    @Override
+    public void notifyObservers(Vector<MovePhaseControlObserver> observers) {
+        for(MovePhaseControlObserver observer : observers ){
+            observer.highlightCurrentSector(targetSector);
+        }
+    }
+
 
     //testing only
     public String toString(){
