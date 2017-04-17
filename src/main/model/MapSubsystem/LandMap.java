@@ -4,6 +4,7 @@ import model.Managers.SectorAdjacency;
 import model.Managers.SectorAdjacencyManager;
 import model.Managers.SectorToWaterwayManager;
 import model.TileSubsystem.CardinalDirection;
+import model.TileSubsystem.HexSide;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.LandTile;
 import model.TileSubsystem.Tiles.Tile;
@@ -32,9 +33,12 @@ public class LandMap extends SurfaceMap<LandTile> {
 
     private ArrayList<Waterway> createWaterwayList(Location loc, Sector s, WaterwayMap waterwayMap){
         ArrayList<Waterway> waterways = new ArrayList<Waterway>();
+        if(waterwayMap.getTile(loc) != null){
+            waterways.add(waterwayMap.getTile(loc));
+        }
         for(CardinalDirection cd: s.getHalfEdges()){
             Waterway adj = waterwayMap.getTile(loc.getAdjacentLocation(cd.toHexSide()));
-            if(adj != null && adj.contains(cd.toHexSide().getOppositeSide())){
+            if(adj != null && adj.getWaterwaySides().size() == 6){
                 waterways.add(adj);
             }
         }

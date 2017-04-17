@@ -9,6 +9,8 @@ import controller.MovePhaseControlSubsystem.MovePhaseControl;
 import javafx.scene.input.KeyCode;
 import model.Abilities.buildAbilities.BuildRoadAbility;
 import model.Abilities.buildAbilities.LandBuildAbility;
+import model.Abilities.playerAbilityAvailability.BuildBigMineAbilityAvailability;
+import model.Abilities.playerAbilityAvailability.PlayerAbilityAvailability;
 import model.Game;
 import model.ManagerSupplier;
 import model.Managers.*;
@@ -95,8 +97,8 @@ public class BuildPhaseControl extends ControlHandler {
             return;
         }
         landBuildAbilities.clear();
-        // TODO: pass in PlayerAbilityAvailabilityObject to get the actual shit
-        landBuildAbilities.addAll(resourceManager.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this), null));
+        // TODO: pass in PlayerAbilityAvailabilityObject to get the actual shit: new BuildBigMineAbilityAvailability(new PlayerAbilityAvailability())
+        landBuildAbilities.addAll(resourceManager.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this), new PlayerAbilityAvailability()));
 
         //ugly logic to get road directions
         ArrayList<Sector> adjacentSectors = managerSupplier.getSectorAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));

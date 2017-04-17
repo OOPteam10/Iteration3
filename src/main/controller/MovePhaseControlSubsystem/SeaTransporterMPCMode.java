@@ -66,7 +66,10 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
             mpcInstructionStates.add(new PickUpResourceMPCIState());
         }
         if(cargoManager.getQuantityInArea(currentSeaTransporter) > 0){
-            mpcInstructionStates.add(new DropOffMPCIState());
+            if(seaTransporterManager.containsKey(currentSeaTransporter)){
+                mpcInstructionStates.add(new WaterwayDropOffMPCIState());
+            }
+            else mpcInstructionStates.add(new DropOffMPCIState());
         }
         ArrayList<SeaTransporter> others = seaTransporterManager.getNeighbors(currentSeaTransporter);
         if(others.size() > 0){
@@ -98,6 +101,12 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
         cargoManager.remove(currentSeaTransporter, product);
         product.dropOff(seaTransporterShoreManager.getLocation(currentSeaTransporter));
     }
+
+    public void waterwayDropOff(Product product){
+        cargoManager.remove(currentSeaTransporter, product);
+        product.dropOff(seaTransporterManager.getLocation(currentSeaTransporter));
+    }
+
     public void pickUpResource(Resource r){
         resourceManager.remove(seaTransporterShoreManager.getLocation(currentSeaTransporter), r);
         cargoManager.add(currentSeaTransporter, r);
@@ -145,6 +154,8 @@ public class SeaTransporterMPCMode implements MovePhaseControlMode {
     public void setStateToDockSelected() {currentMPCInstructionState = new DockSelectedMPCIState(this);}
 
     public void setStateToDepartSelected() {currentMPCInstructionState = new DepartSelectedMPCIState(this);}
+
+    public void setStateToWaterwayDropOffSelected() {currentMPCInstructionState = new WaterwayDropOffSelectedState(this);}
 
     public SeaTransporter getCurrentSeaTransporter() {
         return currentSeaTransporter;
