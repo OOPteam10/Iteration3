@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
-public class RoadDrawingVisitor{
+public class RoadDrawingVisitor implements RoadVisitor {
     private AssetManager assets;
     private GraphicsContext gc;
     private Camera camera;
@@ -25,6 +25,7 @@ public class RoadDrawingVisitor{
         this.camera = camera;
     }
 
+    @Override
     public void visitRoad(){
         Image roadImage = assets.getImage("ROAD");
         drawRotatedImage(roadImage, angle, camera.offset(p).x, camera.offset(p).y);

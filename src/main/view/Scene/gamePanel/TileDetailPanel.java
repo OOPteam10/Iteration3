@@ -5,10 +5,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import model.Game;
 import model.Managers.*;
+import model.Managers.Visitor.RoadDetailDrawingVisitor;
+import model.Managers.Visitor.RoadDrawingVisitor;
 import model.MapSubsystem.LandMap;
 import model.MapSubsystem.Location;
 import model.MapSubsystem.Map;
 import model.MapSubsystem.WaterwayMap;
+import model.TileSubsystem.CardinalDirection;
 import model.TileSubsystem.Sector;
 import model.TileSubsystem.Tiles.Tile;
 import model.TileSubsystem.Visitor.TileDetailDrawingVisitor;
@@ -51,6 +54,7 @@ public class TileDetailPanel extends Panel {
     private LandSecondaryProducerManager landSecondaryProducerManager;
     private SeaTransporterManager seaTransporterManager;
     private SeaTransporterShoreManager seaTransporterShoreManager;
+    private SectorAdjacencyManager roadAdjacencyManager;
     private ResourceManager resourceManager;
     private WaterwayMap waterwayMap;
 
@@ -67,6 +71,7 @@ public class TileDetailPanel extends Panel {
         this.landPrimaryProducerManager = game.getLandPrimaryProducerManager();
         this.landSecondaryProducerManager = game.getLandSecondaryProducerManager();
         this.seaTransporterShoreManager = game.getSeaTransporterShoreManager();
+        this.roadAdjacencyManager = game.getRoadAdjacencyManager();
         this.waterwayMap = gameMap.getWaterwayMap();
         updateGameMap();
     }
@@ -93,6 +98,7 @@ public class TileDetailPanel extends Panel {
             Location loc = TileEditor.getInstance().getLocation();
             TileDetailDrawingVisitor tileDrawingVisitor = new TileDetailDrawingVisitor(assets, gc, drawPoint, camera);
             gameBoard.get(loc).accept(tileDrawingVisitor);
+            drawRoadDetail(gc);
             drawLandTransporterDetail(gc);
             drawSeaTransporterDetail(gc);
             drawSeaTransporterOnShoreDetail(gc);
@@ -104,6 +110,19 @@ public class TileDetailPanel extends Panel {
             gc.drawImage(img, drawPoint.x,
                     drawPoint.y,camera.getBackgroundScaleY() * img.getWidth(),
                     camera.getBackgroundScaleY() * img.getHeight());
+        }
+    }
+
+    private  void drawRoadDetail(GraphicsContext gc){
+        Location loc = TileEditor.getInstance().getLocation();
+        for (Sector sector : landMap.getTile(loc).getSectors()) {
+            Adjacency<CardinalDirection, Sector> adj = roadAdjacencyManager.getAdjacency(sector);
+            if(adj != null){
+                for(CardinalDirection cd: adj.getDirections()){
+                    RoadDetailDrawingVisitor v = new RoadDetailDrawingVisitor(assets, gc, drawPoint, camera, cd.getDegree());
+                    adj.accept(v);
+                }
+            }
         }
     }
 

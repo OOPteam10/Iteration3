@@ -1,6 +1,7 @@
 package model.Managers;
 
 import model.Managers.Visitor.RoadDrawingVisitor;
+import model.Managers.Visitor.RoadVisitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public abstract class Adjacency<Dir, AdjLoc> {
         managerMap.put(dir, loc);
     }
 
-    public void accept(RoadDrawingVisitor v){
+    public void accept(RoadVisitor v){
         v.visitRoad();
     }
 
