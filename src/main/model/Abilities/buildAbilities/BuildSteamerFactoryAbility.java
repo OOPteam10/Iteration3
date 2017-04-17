@@ -19,4 +19,7 @@ public class BuildSteamerFactoryAbility extends WaterwayAdjacentSectorBuildAbili
     public void execute(Sector s, ManagerSupplier ms) {
 
     }
+    public String toString(){
+        return "Build Steamer Factory";
+    }
 }

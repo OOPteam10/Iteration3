@@ -25,4 +25,7 @@ public class BuildSpecialtyMineBuildAbility extends LandProducerBuildAbility {
     public void execute(Sector s, ManagerSupplier ms) {
 
     }
+    public String toString(){
+        return "Build Specialty Mine";
+    }
 }

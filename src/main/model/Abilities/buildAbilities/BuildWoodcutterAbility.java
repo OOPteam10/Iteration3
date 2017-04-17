@@ -32,4 +32,8 @@ public class BuildWoodcutterAbility extends LandProducerBuildAbility {
         }
         ms.getLandPrimaryProducerManager().add(s, new WoodCutter(ms.getResourceManager()));
     }
+
+    public String toString(){
+        return "Build Woodcutter";
+    }
 }

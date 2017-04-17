@@ -39,4 +39,8 @@ public class BuildSawmillAbility extends LandProducerBuildAbility {
         }
         ms.getLandSecondaryProducerManager().add(s, new SawMill(ms.getResourceManager()));
     }
+
+    public String toString(){
+        return "Build Sawmill";
+    }
 }

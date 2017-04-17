@@ -1,11 +1,14 @@
 package controller.BuildPhaseControlSubsystem;
 
 import controller.ControlHandler;
-import model.Abilities.buildAbilities.BuildAbility;
-import model.Abilities.buildAbilities.LandProducerBuildAbility;
-import model.Abilities.buildAbilities.LogisticalStructureBuildAbility;
+import controller.Controller;
+import controller.MovePhaseControlSubsystem.MovePhaseControl;
+import model.Abilities.buildAbilities.BuildRoadAbility;
+import model.Abilities.buildAbilities.LandBuildAbility;
+import model.Game;
 import model.ManagerSupplier;
 import model.Managers.*;
+import model.TileSubsystem.Sector;
 import model.Transporters.LandTransporter;
 import model.Transporters.SeaTransporter;
 
@@ -16,9 +19,8 @@ import java.util.ArrayList;
  */
 public class BuildPhaseControl extends ControlHandler {
 
-    private ArrayList<LandProducerBuildAbility> producerBuildAbilities;
-    LandProducerBuildAbility currentProducerBuildAbility;
-
+    private ArrayList<LandBuildAbility> landBuildAbilities = new ArrayList<LandBuildAbility>();
+    private LandBuildAbility currentAbility;
 
     private ArrayList<LandTransporter> landTransporters = new ArrayList<LandTransporter>();
     private ArrayList<SeaTransporter> seaTransporters = new ArrayList<SeaTransporter>();
@@ -29,46 +31,78 @@ public class BuildPhaseControl extends ControlHandler {
     private ManagerSupplier managerSupplier;
 
 
-    private int currentTransporterIndex;
-    private int currentBuildAbilityIndex;
-    private BuildPhaseControlStrategy buildPhaseControlStrategy;
+    private int currentTransporterIndex = 0;
+    private BPCTransporterStrategy buildPhaseControlStrategy;
 
-    public BuildPhaseControl(LandTransporterManager ltm, SeaTransporterShoreManager stsm, ResourceManager rm, ManagerSupplier ms){
-        landTransporterManager = ltm;
-        seaTransporterShoreManager = stsm;
-        resourceManager = rm;
+
+    public BuildPhaseControl(Controller controller, Game ms){
+        super(controller, ms);
+        landTransporterManager = ms.getLandTransporterManager();
+        seaTransporterShoreManager = ms.getSeaTransporterShoreManager();
+        resourceManager = ms.getResourceManager();
         managerSupplier = ms;
 
-        landTransporters.addAll(ltm.getAll());
-        seaTransporters.addAll(stsm.getAll());
-        currentTransporterIndex = 0;
+        landTransporters.addAll(landTransporterManager.getAll());
+        seaTransporters.addAll(seaTransporterShoreManager.getAll());
         buildPhaseControlStrategy = new LandTransporterBPCStrategy();
         nextTransporter();
-        producerBuildAbilities = rm.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this));
-        currentProducerBuildAbility = producerBuildAbilities.get(0);
+        resetAbilities();
     }
 
     public void nextTransporter(){
         buildPhaseControlStrategy.nextTransporter(this);
+        resetAbilities();
     }
 
     public void prevTransporter(){
         buildPhaseControlStrategy.prevTransporter(this);
+        resetAbilities();
+
+    }
+
+    public void nextAbility(){
+        int next = (landBuildAbilities.indexOf(currentAbility)+1) % landBuildAbilities.size();
+        currentAbility = landBuildAbilities.get(next);
+    }
+
+    public void prevAbility(){
+        int previous = (landBuildAbilities.indexOf(currentAbility)-1 + landBuildAbilities.size()) % landBuildAbilities.size();
+        currentAbility = landBuildAbilities.get(previous);
+    }
+
+    public void resetAbilities(){
+        landBuildAbilities.clear();
+        landBuildAbilities.addAll(resourceManager.getLandProducerBuildAbilities(buildPhaseControlStrategy.getCurrentSector(this)));
+
+        //ugly logic to get road directions
+        ArrayList<Sector> adjacentSectors = managerSupplier.getSectorAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
+        ArrayList<Sector> toRemove = managerSupplier.getRoadAdjacencyManager().getAdjacencyList(buildPhaseControlStrategy.getCurrentSector(this));
+        for(Sector s: toRemove){
+            adjacentSectors.remove(s);
+        }
+        for(Sector s: adjacentSectors){
+            landBuildAbilities.add(new BuildRoadAbility(s));
+        }
+        currentAbility = landBuildAbilities.get(0);
     }
 
     @Override
     public void left() {
-        prevTransporter();
+        prevAbility();
+        System.out.println(toString());
     }
 
     @Override
     public void right() {
-        nextTransporter();
+        nextAbility();
+        System.out.println(toString());
     }
 
     @Override
     public void select() {
-        //currentProducerBuildAbility.execute(buildPhaseControlStrategy.getCurrentSector(this), sec//HOW TO KNOW WHICH MANAGER?);
+        currentAbility.execute(buildPhaseControlStrategy.getCurrentSector(this), managerSupplier);
+        resetAbilities();
+        System.out.println(toString());
     }
 
     @Override
@@ -103,12 +137,14 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void nextMode() {
-
+        nextTransporter();
+        System.out.println(toString());
     }
 
     @Override
     public void prevMode() {
-
+        prevTransporter();
+        System.out.println(toString());
     }
 
     @Override
@@ -138,7 +174,7 @@ public class BuildPhaseControl extends ControlHandler {
 
     @Override
     public void endTurn() {
-
+        getController().changeState(new MovePhaseControl( getController(),getGame()));
     }
 
 
@@ -170,7 +206,15 @@ public class BuildPhaseControl extends ControlHandler {
         this.currentTransporterIndex = currentTransporterIndex;
     }
 
-    public void setBuildPhaseControlStrategy(BuildPhaseControlStrategy buildPhaseControlStrategy) {
+    public void setBuildPhaseControlStrategy(BPCTransporterStrategy buildPhaseControlStrategy) {
         this.buildPhaseControlStrategy = buildPhaseControlStrategy;
+    }
+
+    //testing only
+    public String toString(){
+        String s = "";
+        s += ("Transporter: " + buildPhaseControlStrategy.getCurrentTransporter(this).toString() +
+                " Ability: " + currentAbility.toString());
+        return s;
     }
 }

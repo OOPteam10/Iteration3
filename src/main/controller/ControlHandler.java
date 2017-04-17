@@ -57,6 +57,12 @@ public abstract class  ControlHandler {
         addAction(new CycleRight(this), new KeyListener(KeyCode.RIGHT));
         addAction(new EndTurn(this), new KeyListener(KeyCode.P));
 
+        //my attempt to add actions
+        //addAction(new Up(this), new KeyListener(KeyCode.UP));
+        //addAction(new Down(this), new KeyListener(KeyCode.DOWN));
+        addAction(new NextMode(this), new KeyListener(KeyCode.M));
+        addAction(new PrevMode(this), new KeyListener(KeyCode.N));
+
 
 
     }

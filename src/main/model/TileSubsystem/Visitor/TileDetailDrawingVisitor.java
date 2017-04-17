@@ -130,9 +130,6 @@ public class TileDetailDrawingVisitor implements TileVisitor {
                 camera.getBackgroundScaleY() * img.getHeight());
     }
 
-
-    //TODO integrate these function into a ImagePlacementTranslator class
-
     private void drawRotatedImage(javafx.scene.image.Image image, double angle, double tlpx, double tlpy) {
         gc.save(); // saves the current state on stack, including the current transform
         camera.rotate(gc, angle, tlpx + image.getWidth()*camera.getBackgroundScaleY() / 2,

@@ -15,8 +15,16 @@ public class BuildWallAbility extends LogisticalStructureBuildAbility {
 
     }
 
-    @Override
-    public void execute(Sector startingSector, Sector destinationSector, SectorAdjacencyManager sam, SectorAdjacencyManager bridgeManager) {
+    public BuildWallAbility(Sector s){
+        super(s);
+    }
 
+    @Override
+    public void execute(Sector startingSector, SectorAdjacencyManager sam, SectorAdjacencyManager bridgeManager) {
+
+    }
+
+    public String toString(){
+        return "Build Wall";
     }
 }

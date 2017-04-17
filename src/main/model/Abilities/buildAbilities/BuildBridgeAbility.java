@@ -15,9 +15,15 @@ public class BuildBridgeAbility extends LogisticalStructureBuildAbility {
     public void addToPlayerAbilityAvailabilityList(PlayerAbilityAvailability list) {
 
     }
+    public BuildBridgeAbility(Sector s){
+        super(s);
+    }
 
     @Override
-    public void execute(Sector sector1, Sector sector2, SectorAdjacencyManager sam, SectorAdjacencyManager bam) {
+    public void execute(Sector sector1, SectorAdjacencyManager sam, SectorAdjacencyManager bam) {
 
+    }
+    public String toString(){
+        return "Build Bridge";
     }
 }

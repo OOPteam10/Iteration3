@@ -120,7 +120,7 @@ public class Camera {
     }
 
     public double getProducerScale(){
-        return getScale()*0.15;
+        return getScale()*0.08;
     }
     public double getResourceScale(){return getScale()*0.08;}
 

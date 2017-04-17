@@ -24,4 +24,8 @@ public class BuildTruckFactoryAbility extends LandProducerBuildAbility {
     public void execute(Sector s, ManagerSupplier ms) {
 
     }
+
+    public String toString(){
+        return "Build Truck Factory";
+    }
 }

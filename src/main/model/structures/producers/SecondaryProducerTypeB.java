@@ -1,6 +1,7 @@
 package model.structures.producers;
 
 import model.Managers.ResourceManager;
+import model.resources.Resource;
 import model.structures.producers.secondary.SecondaryProducer;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by cduica on 4/10/17.
  */
-public abstract class SecondaryProducerTypeB<T1, T2> extends SecondaryProducer {
+public abstract class SecondaryProducerTypeB<T1 extends Resource, T2 extends Resource> extends SecondaryProducer {
 
     private List<T1> rawResourceA = new ArrayList<>();
     private List<T2> rawResourceB = new ArrayList<>();
@@ -31,8 +32,13 @@ public abstract class SecondaryProducerTypeB<T1, T2> extends SecondaryProducer {
         if(rawResourceA.isEmpty() || rawResourceB.isEmpty()){
             return false;
         }
-        rawResourceA.remove(rawResourceA.size() - 1);
-        rawResourceB.remove(rawResourceB.size() - 1);
+        T1 toRemoveA = rawResourceA.get(rawResourceA.size() - 1);
+        T2 toRemoveB = rawResourceB.get(rawResourceB.size() - 1);
+
+        rawResourceA.remove(toRemoveA);
+        rawResourceB.remove(toRemoveB);
+        removeFromResourceManager(toRemoveA);
+        removeFromResourceManager(toRemoveB);
         return true;
     }
 }

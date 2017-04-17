@@ -15,14 +15,12 @@ import java.util.HashMap;
  */
 public class ResourceManager extends ListManager<Sector, Resource>{
     ArrayList<LandProducerBuildAbility> landProducerBuildAbilities = new ArrayList<>();
-    HashMap<Resource, Sector> resources = new HashMap<Resource, Sector>();
 
     @Override
     public void add(Sector l, Resource r) {
         r.setRdoAbility(new ResourceDropOffAbility(r, this));
         r.setWaterwayDiscardAbility(new WaterwayDiscardAbility());
         super.add(l, r);
-        resources.put(r, l);
     }
 
     private void determineLandProducerBuildAbilities(Sector s) {
@@ -35,7 +33,7 @@ public class ResourceManager extends ListManager<Sector, Resource>{
     }
 
     private void addVisitorBuildAbility(LandProducerBuildAbilityVisitor v, Sector s) {
-        for (Resource r : super.getManagerMap().get(s)) {
+        for (Resource r : get(s)) {
             r.accept(v);
         }
         LandProducerBuildAbility landProducerBuildAbility = v.makeAbility();
@@ -45,6 +43,7 @@ public class ResourceManager extends ListManager<Sector, Resource>{
     }
 
     public ArrayList<LandProducerBuildAbility> getLandProducerBuildAbilities(Sector s) {
+        landProducerBuildAbilities.clear();
         determineLandProducerBuildAbilities(s);
         return landProducerBuildAbilities;
     }

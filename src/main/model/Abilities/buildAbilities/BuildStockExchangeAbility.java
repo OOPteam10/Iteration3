@@ -33,4 +33,7 @@ public class BuildStockExchangeAbility extends LandProducerBuildAbility {
         }
         ms.getLandSecondaryProducerManager().add(s, new StockExchange(ms.getResourceManager()));
     }
+    public String toString(){
+        return "Build Stock Exchange";
+    }
 }

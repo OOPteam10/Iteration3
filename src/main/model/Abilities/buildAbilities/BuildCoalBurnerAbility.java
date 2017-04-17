@@ -34,4 +34,7 @@ public class BuildCoalBurnerAbility extends LandProducerBuildAbility {
         }
         ms.getLandSecondaryProducerManager().add(s, new CoalBurner(ms.getResourceManager()));
     }
+    public String toString(){
+        return "Build Coal Burner";
+    }
 }
