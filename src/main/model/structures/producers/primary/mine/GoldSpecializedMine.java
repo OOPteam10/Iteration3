@@ -12,8 +12,8 @@ public class GoldSpecializedMine extends Mine{
     public GoldSpecializedMine(ResourceManager resourceManager){
         super(resourceManager);
 
-        ironCount = 0;
-        goldCount = 4;
+        setIronCount(0);
+        setGoldCount(4);
     }
 
     @Override

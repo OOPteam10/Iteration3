@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public abstract class Mine extends PrimaryProducer{
 
-    protected int ironCount, goldCount;
+    private int ironCount, goldCount;
 
     public Mine(ResourceManager resourceManager) {
         super(resourceManager);
@@ -27,30 +27,46 @@ public abstract class Mine extends PrimaryProducer{
             if(rand > 5){
 
                 addToResourceManager(l, new Iron());
-                ironCount--;
+                decrementIron();
             }else{
 
                 addToResourceManager(l, new Gold());
-                goldCount--;
+                decrementGold();
             }
         }else if(goldLeft()){
 
             addToResourceManager(l, new Gold());
-            goldCount--;
+            decrementGold();
         }else if(ironLeft()){
 
             addToResourceManager(l, new Iron());
-            ironCount--;
+            decrementIron();
         }else{
 
             // does nothing, no more to produce
         }
     }
 
+    protected void setIronCount(int count){
+        this.ironCount = count;
+    }
+
+    protected void setGoldCount(int count){
+        this.goldCount = count;
+    }
+
     public void buildShaft(Mine shaft){
 
         addIron( shaft.getIronCount() );
         addGold( shaft.getGoldCount() );
+    }
+
+    private void decrementIron(){
+        ironCount--;
+    }
+
+    private void decrementGold(){
+        goldCount--;
     }
 
     private boolean goldLeft(){

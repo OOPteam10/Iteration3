@@ -12,8 +12,8 @@ public class BigMine extends Mine{
     public BigMine(ResourceManager resourceManager){
         super(resourceManager);
 
-        ironCount = 5;
-        goldCount = 5;
+        setIronCount(5);
+        setGoldCount(5);
 
     }
 

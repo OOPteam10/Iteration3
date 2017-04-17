@@ -12,8 +12,8 @@ public class NormalMine extends Mine{
     public NormalMine(ResourceManager resourceManager){
         super(resourceManager);
 
-        ironCount = 3;
-        goldCount = 3;
+        setIronCount(3);
+        setGoldCount(3);
     }
 
     @Override
